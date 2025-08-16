@@ -59,7 +59,7 @@ const Header = () => {
               Bác sĩ
             </button>
             <button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => scrollToSection("booking")}
               className="btn-primary"
             >
               Đặt lịch khám
@@ -129,7 +129,7 @@ const Header = () => {
                   <span>123 Nguyễn Văn A, Q1, HCM</span>
                 </div>
                 <button
-                  onClick={() => scrollToSection("contact")}
+                  onClick={() => scrollToSection("booking")}
                   className="btn-primary w-full"
                 >
                   Đặt lịch khám

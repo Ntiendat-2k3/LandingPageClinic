@@ -62,7 +62,7 @@ const StickyCTA = () => {
               </div>
               <button
                 onClick={() => setIsExpanded(false)}
-                className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+                className="w-6 h-6 flex items-center justify-center text-gray-400 md:hover:text-gray-600 transition-colors md:cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -75,7 +75,7 @@ const StickyCTA = () => {
             <div className="space-y-2">
               <button
                 onClick={handleCall}
-                className="w-full flex items-center space-x-3 p-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-white rounded-xl hover:from-cyan-600 hover:to-emerald-600 transition-all"
+                className="w-full flex items-center space-x-3 p-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-white rounded-xl md:hover:from-cyan-600 md:hover:to-emerald-600 transition-all md:cursor-pointer"
               >
                 <Phone className="w-5 h-5" />
                 <div className="text-left">
@@ -86,7 +86,7 @@ const StickyCTA = () => {
 
               <button
                 onClick={scrollToBooking}
-                className="w-full flex items-center space-x-3 p-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all"
+                className="w-full flex items-center space-x-3 p-3 bg-blue-500 text-white rounded-xl md:hover:bg-blue-600 transition-all md:cursor-pointer"
               >
                 <Calendar className="w-5 h-5" />
                 <div className="text-left">
@@ -99,7 +99,7 @@ const StickyCTA = () => {
 
               <button
                 onClick={handleChat}
-                className="w-full flex items-center space-x-3 p-3 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-all"
+                className="w-full flex items-center space-x-3 p-3 bg-purple-500 text-white rounded-xl md:hover:bg-purple-600 transition-all md:cursor-pointer"
               >
                 <MessageCircle className="w-5 h-5" />
                 <div className="text-left">
@@ -113,7 +113,7 @@ const StickyCTA = () => {
           // Collapsed Button
           <button
             onClick={() => setIsExpanded(true)}
-            className="w-14 h-14 bg-gradient-to-r from-cyan-500 to-emerald-500 text-white rounded-full shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-300 flex items-center justify-center animate-pulse"
+            className="w-14 h-14 bg-gradient-to-r from-cyan-500 to-emerald-500 text-white rounded-full shadow-2xl md:hover:shadow-3xl md:hover:scale-110 transition-all duration-300 flex items-center justify-center animate-pulse md:cursor-pointer"
           >
             <Phone className="w-6 h-6" />
           </button>
@@ -125,7 +125,7 @@ const StickyCTA = () => {
         <div className="fixed bottom-6 left-6 z-50">
           <button
             onClick={scrollToTop}
-            className="w-12 h-12 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 hover:scale-110 transition-all duration-300 flex items-center justify-center"
+            className="w-12 h-12 bg-gray-800 text-white rounded-full shadow-lg md:hover:bg-gray-700 md:hover:scale-110 transition-all duration-300 flex items-center justify-center md:cursor-pointer"
           >
             <ChevronUp className="w-5 h-5" />
           </button>

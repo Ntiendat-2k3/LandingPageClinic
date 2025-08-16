@@ -201,18 +201,18 @@ html {
   background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%);
 }
 
-/* Added button styles */
+/* Updated button styles to only apply hover effects on desktop */
 .btn-primary {
-  @apply bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105;
+  @apply bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 md:hover:shadow-lg md:hover:scale-105 md:cursor-pointer;
 }
 
 .btn-secondary {
-  @apply border-2 border-cyan-500 text-cyan-600 font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:bg-cyan-50 hover:shadow-md;
+  @apply border-2 border-cyan-500 text-cyan-600 font-semibold py-3 px-6 rounded-lg transition-all duration-300 md:hover:bg-cyan-50 md:hover:shadow-md md:cursor-pointer;
 }
 
-/* Added utility classes */
+/* Updated utility classes to only apply hover effects on desktop */
 .card-hover {
-  @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+  @apply transition-all duration-300 md:hover:shadow-xl md:hover:-translate-y-2;
 }
 
 .section-padding {

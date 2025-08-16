@@ -176,9 +176,6 @@ const DoctorsSection = () => {
                 </div>
 
                 {/* CTA Button */}
-                <button className="w-full btn-primary">
-                  Đặt lịch với bác sĩ
-                </button>
               </div>
             </div>
           ))}
