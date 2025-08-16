@@ -1,4 +1,6 @@
 import type React from "react";
+import type { LucideIcon } from "lucide-react";
+
 export interface Doctor {
   name: string;
   specialty: string;
@@ -15,7 +17,7 @@ export interface Service {
 export interface Goal {
   title: string;
   desc: string;
-  icon: any;
+  icon: LucideIcon;
 }
 
 export interface ProcessStep {
@@ -32,7 +34,7 @@ export interface PricingItem {
 export interface Equipment {
   name: string;
   desc: string;
-  icon: any;
+  icon: LucideIcon;
 }
 
 export interface Testimonial {
