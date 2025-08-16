@@ -70,11 +70,11 @@ const Header = () => {
           <div className="hidden lg:flex items-center space-x-4 text-sm text-gray-600">
             <div className="flex items-center space-x-1">
               <Phone className="w-4 h-4" />
-              <span>0123 456 789</span>
+              <span>0387 812 321</span>
             </div>
             <div className="flex items-center space-x-1">
               <MapPin className="w-4 h-4" />
-              <span>123 Nguyễn Văn A, Q1, HCM</span>
+              <span>122 Bà Triệu – Q.Hai Bà Trưng – Hà Nội.</span>
             </div>
           </div>
 
@@ -122,11 +122,11 @@ const Header = () => {
               <div className="pt-2 border-t border-gray-100">
                 <div className="flex items-center space-x-1 text-sm text-gray-600 mb-2">
                   <Phone className="w-4 h-4" />
-                  <span>0123 456 789</span>
+                  <span>0387 812 321</span>
                 </div>
                 <div className="flex items-center space-x-1 text-sm text-gray-600 mb-4">
                   <MapPin className="w-4 h-4" />
-                  <span>123 Nguyễn Văn A, Q1, HCM</span>
+                  <span>122 Bà Triệu – Q.Hai Bà Trưng – Hà Nội.</span>
                 </div>
                 <button
                   onClick={() => scrollToSection("booking")}

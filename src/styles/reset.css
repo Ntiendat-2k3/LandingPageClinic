@@ -1,0 +1,11 @@
+input, textarea {
+	outline: none;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	flex-shrink: 0;
+	object-fit: cover;
+}

@@ -364,7 +364,7 @@ const BookingSection = () => {
                         <Phone className="w-5 h-5 text-cyan-600" />
                         <div>
                           <p className="font-semibold text-gray-900">
-                            0123 456 789
+                            0387 812 321
                           </p>
                           <p className="text-sm text-gray-600">Hotline 24/7</p>
                         </div>
