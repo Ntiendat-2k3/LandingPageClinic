@@ -1,160 +1,211 @@
-import { Eye, Glasses, Zap, Baby, Stethoscope, Shield } from "lucide-react";
-import { useScrollToSection } from "../../hooks/useScrollToSection";
-import type { ServiceItem } from "../../types";
-import SectionHeader from "../ui/SectionHeader";
-import ServiceCard from "../ui/ServiceCard";
-import StatCard from "../ui/StatCard";
+"use client"
+
+import { Eye, Glasses, Zap, Baby, Stethoscope, Shield, Activity, Target } from "lucide-react"
+import { useScrollToSection } from "../../hooks/useScrollToSection"
 
 const ServicesSection = () => {
-  const scrollToSection = useScrollToSection();
+  const scrollToSection = useScrollToSection()
 
-  const services: ServiceItem[] = [
+  const servicePackages = [
     {
       icon: Eye,
-      title: "Khám tổng quát mắt",
-      description:
-        "Kiểm tra toàn diện tình trạng mắt, phát hiện sớm các vấn đề về thị lực",
-      features: [
-        "Đo thị lực",
-        "Kiểm tra đáy mắt",
-        "Đo nhãn áp",
-        "Tư vấn chuyên sâu",
-      ],
-      price: "200.000đ",
-      duration: "45 phút",
-      color: "cyan",
+      title: "Gói khám tổng quan",
+      position: "top-left",
+      delay: "0s",
+    },
+    {
+      icon: Target,
+      title: "Atropine nồng độ thấp 0.01%, 0.025% và 0.05%",
+      position: "top-right",
+      delay: "0.5s",
+    },
+    {
+      icon: Activity,
+      title: "Gói khám kiểm soát tật khúc xạ",
+      position: "middle-left",
+      delay: "1s",
     },
     {
       icon: Glasses,
-      title: "Điều trị cận thị",
-      description:
-        "Phương pháp điều trị hiện đại giúp kiểm soát và cải thiện tình trạng cận thị",
-      features: [
-        "Ortho-K",
-        "Kính đặc biệt",
-        "Liệu pháp thị giác",
-        "Theo dõi định kỳ",
-      ],
-      price: "500.000đ",
-      duration: "60 phút",
-      color: "emerald",
-    },
-    {
-      icon: Zap,
-      title: "Phẫu thuật Lasik",
-      description:
-        "Công nghệ laser tiên tiến giúp loại bỏ kính mắt, phục hồi thị lực tự nhiên",
-      features: [
-        "Femto Lasik",
-        "Smile Pro",
-        "Tư vấn chi tiết",
-        "Bảo hành 10 năm",
-      ],
-      price: "25.000.000đ",
-      duration: "2 giờ",
-      color: "blue",
+      title: "Trong kính kiểm soát cận thị Myopcare, Stellest",
+      position: "middle-right",
+      delay: "1.5s",
     },
     {
       icon: Shield,
-      title: "Điều trị đục thủy tinh thể",
-      description:
-        "Phẫu thuật thay thủy tinh thể hiện đại, phục hồi thị lực cho người cao tuổi",
-      features: [
-        "IOL cao cấp",
-        "Phẫu thuật không đau",
-        "Hồi phục nhanh",
-        "Theo dõi lâu dài",
-      ],
-      price: "15.000.000đ",
-      duration: "90 phút",
-      color: "purple",
+      title: "Gói khám kính áp tròng ban đêm Ortho-K",
+      position: "bottom-left",
+      delay: "2s",
     },
     {
-      icon: Baby,
-      title: "Khám mắt trẻ em",
-      description:
-        "Chương trình khám chuyên biệt cho trẻ em, phát hiện sớm các vấn đề thị lực",
-      features: [
-        "Khám không đau",
-        "Phát hiện sớm",
-        "Tư vấn phụ huynh",
-        "Theo dõi phát triển",
-      ],
-      price: "300.000đ",
-      duration: "30 phút",
-      color: "pink",
+      icon: Zap,
+      title: "Kính áp tròng ban đêm Ortho-K",
+      position: "bottom-right",
+      delay: "2.5s",
     },
     {
       icon: Stethoscope,
-      title: "Tư vấn kính áp tròng",
-      description:
-        "Hướng dẫn lựa chọn và sử dụng kính áp tròng phù hợp, an toàn",
-      features: [
-        "Đo độ chính xác",
-        "Hướng dẫn sử dụng",
-        "Theo dõi thích ứng",
-        "Chăm sóc mắt",
-      ],
-      price: "150.000đ",
-      duration: "30 phút",
-      color: "orange",
+      title: "Đo trục nhãn cầu",
+      position: "top-center-left",
+      delay: "3s",
     },
-  ];
+    {
+      icon: Baby,
+      title: "Lăng kính và tập luyện điều chỉnh lác/phục hồi thị lực",
+      position: "top-center-right",
+      delay: "3.5s",
+    },
+  ]
+
+  const myahSteps = [
+    {
+      number: "1",
+      title: "Khám, tầm soát cận thị trên máy MYAH, bác sĩ chỉ định điều trị",
+      color: "from-cyan-300 to-blue-400",
+    },
+    {
+      number: "2",
+      title: "Lựa chọn phương pháp điều trị, với mục tiêu trẻ của máy MYAH",
+      color: "from-blue-300 to-indigo-400",
+    },
+    {
+      number: "3",
+      title: "Theo dõi hiệu quả điều trị và tiến triển cận thị mỗi 3 tháng",
+      color: "from-indigo-300 to-purple-400",
+    },
+    {
+      number: "4",
+      title: "Tiếp tục theo dõi định kỳ tối ưu ổn định hoặc điều chỉnh phương pháp khác",
+      color: "from-purple-300 to-pink-400",
+    },
+  ]
 
   return (
-    <section id="services" className="section-padding bg-gradient-secondary">
-      <div className="container mx-auto container-padding">
-        <SectionHeader
-          title="CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI"
-          description="ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ
-XOÁ TAN NỖI LO TĂNG ĐỘ CẬN"
-        />
+    <section
+      id="services"
+      className="section-padding relative overflow-hidden"
+      style={{ backgroundColor: "rgb(236, 252, 247)" }}
+    >
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        .float-animation {
+          animation: float 4s ease-in-out infinite;
+        }
+      `}</style>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <ServiceCard
-              key={index}
-              service={service}
-              showPrice={true}
-              onButtonClick={() => scrollToSection("booking")}
-            />
-          ))}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-10 left-10 w-32 h-32 rounded-full border-2 border-emerald-300"></div>
+        <div className="absolute top-20 right-20 w-24 h-24 rounded-full border-2 border-emerald-300"></div>
+        <div className="absolute bottom-20 left-20 w-28 h-28 rounded-full border-2 border-emerald-300"></div>
+        <div className="absolute bottom-10 right-10 w-20 h-20 rounded-full border-2 border-emerald-300"></div>
+      </div>
+
+      <div className="container mx-auto container-padding relative z-10">
+        <div className="text-center mb-16">
+          <div className="mb-8">
+            <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-black mb-4">
+              CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI
+            </h2>
+            <p className="text-xl md:text-2xl text-black font-semibold">"ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ"</p>
+            <p className="text-lg md:text-xl text-black mt-2">XOÁ TAN NỖI LO TĂNG ĐỘ CẬN</p>
+          </div>
         </div>
 
-        {/* Additional Info */}
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 mb-4">
-              Cam kết chất lượng dịch vụ
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <StatCard
-                icon={Shield}
-                value="Bảo hành"
-                label="dịch vụ"
-                description="Cam kết chất lượng"
-                color="green"
-              />
-              <StatCard
-                icon={Stethoscope}
-                value="10+ năm"
-                label="Kinh nghiệm"
-                description="Bác sĩ chuyên khoa"
-                color="blue"
-              />
-              <StatCard
-                icon={Zap}
-                value="Hiện đại"
-                label="Công nghệ"
-                description="Thiết bị nhập khẩu"
-                color="purple"
-              />
+        <div className="relative max-w-6xl mx-auto">
+          {/* Service packages positioned around the edges */}
+          <div className="absolute inset-0 z-20">
+            {servicePackages.map((pkg, index) => {
+              const Icon = pkg.icon
+              let positionClasses = ""
+
+              switch (pkg.position) {
+                case "top-left":
+                  positionClasses = "top-0 left-0 -translate-x-1/2 -translate-y-1/2"
+                  break
+                case "top-right":
+                  positionClasses = "top-0 right-0 translate-x-1/2 -translate-y-1/2"
+                  break
+                case "top-center-left":
+                  positionClasses = "top-0 left-1/3 -translate-x-1/2 -translate-y-1/2"
+                  break
+                case "top-center-right":
+                  positionClasses = "top-0 right-1/3 translate-x-1/2 -translate-y-1/2"
+                  break
+                case "middle-left":
+                  positionClasses = "top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"
+                  break
+                case "middle-right":
+                  positionClasses = "top-1/2 right-0 translate-x-1/2 -translate-y-1/2"
+                  break
+                case "bottom-left":
+                  positionClasses = "bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
+                  break
+                case "bottom-right":
+                  positionClasses = "bottom-0 right-0 translate-x-1/2 translate-y-1/2"
+                  break
+              }
+
+              return (
+                <div
+                  key={index}
+                  className={`absolute ${positionClasses} w-48 h-48 bg-white rounded-full shadow-lg border-3 border-emerald-100 flex flex-col items-center justify-center p-4 hover:scale-105 transition-transform duration-300 cursor-pointer float-animation`}
+                  style={{ animationDelay: pkg.delay }}
+                  onClick={() => scrollToSection("booking")}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-emerald-300 to-emerald-400 rounded-full flex items-center justify-center mb-3">
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
+                  <p className="text-sm font-semibold text-black text-center leading-tight">{pkg.title}</p>
+                </div>
+              )
+            })}
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-lg p-8 mx-auto max-w-2xl relative z-10 mt-24 mb-24">
+            {/* Medical equipment image placeholder */}
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl p-8 mb-8 text-center">
+              <div className="w-32 h-32 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                <Eye className="w-16 h-16 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-black mb-2">Phòng khám chuyên khoa Mắt & Khúc xạ</h3>
+              <p className="text-black">Dr Trần Tuấn</p>
+            </div>
+
+            {/* MYAH Process Steps */}
+            <div className="mb-6">
+              <h4 className="text-lg font-bold text-center text-black mb-6">
+                Quy trình khám và kiểm soát cận thị bằng máy MYAH
+              </h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {myahSteps.map((step, index) => (
+                  <div key={index} className="text-center">
+                    <div
+                      className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-md`}
+                    >
+                      <span className="text-2xl font-bold text-white">{step.number}</span>
+                    </div>
+                    <p className="text-xs text-black leading-tight">{step.title}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
+
+        <div className="text-center mt-16">
+          <button
+            onClick={() => scrollToSection("booking")}
+            className="bg-emerald-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition-all duration-300"
+          >
+            Đặt lịch khám ngay
+          </button>
+        </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ServicesSection;
+export default ServicesSection
