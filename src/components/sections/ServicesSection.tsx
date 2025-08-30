@@ -105,8 +105,9 @@ const ServicesSection = () => {
     <section id="services" className="section-padding bg-gradient-secondary">
       <div className="container mx-auto container-padding">
         <SectionHeader
-          title="Dịch vụ chăm sóc mắt toàn diện"
-          description="Từ khám tổng quát đến các phẫu thuật phức tạp, chúng tôi cung cấp đầy đủ các dịch vụ chăm sóc mắt với công nghệ hiện đại nhất."
+          title="CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI"
+          description="ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ
+XOÁ TAN NỖI LO TĂNG ĐỘ CẬN"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

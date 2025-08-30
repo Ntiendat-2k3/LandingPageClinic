@@ -26,21 +26,23 @@ const HeroSection = () => {
             <div className="space-y-4">
               <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium text-cyan-700">
                 <Award className="w-4 h-4" />
-                <span>Phòng khám mắt hàng đầu Việt Nam</span>
+                <span>PHÒNG KHÁM CHUYÊN KHOA MẮT & KHÚC XẠ DR TRẦN TUẤN</span>
               </div>
 
               <h1 className="font-space-grotesk text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Chăm sóc đôi mắt
+                Chăm sóc đôi mắt một cách
                 <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
                   {" "}
-                  chuyên nghiệp
+                  toàn diện
                 </span>
               </h1>
 
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl">
-                Với đội ngũ bác sĩ giàu kinh nghiệm và công nghệ hiện đại nhất,
-                chúng tôi cam kết mang đến dịch vụ chăm sóc mắt tốt nhất cho bạn
-                và gia đình.
+                KIỂM SOÁT CẬN THỊ - ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT Áp dụng các
+                phương pháp tiên tiến và hiệu quả cao nhất trên thế giới Đội ngũ
+                bác sĩ và nhân viên y tế giàu kinh nghiệm, được đào tạo chuyên
+                sâu Chính sách bảo đảm kiểm soát hiệu quả cận thị độc quyền tại
+                Hà Nội
               </p>
             </div>
 
@@ -53,23 +55,25 @@ const HeroSection = () => {
                 <div className="font-space-grotesk text-2xl font-bold text-gray-900">
                   10K+
                 </div>
-                <div className="text-sm text-gray-600">Bệnh nhân tin tưởng</div>
+                <div className="text-sm text-gray-600">
+                  Bệnh nhân đã được điều trị
+                </div>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center w-12 h-12 bg-emerald-100 rounded-lg mb-2 mx-auto">
                   <Star className="w-6 h-6 text-emerald-600" />
                 </div>
                 <div className="font-space-grotesk text-2xl font-bold text-gray-900">
-                  4.9/5
+                  97.8%
                 </div>
-                <div className="text-sm text-gray-600">Đánh giá trung bình</div>
+                <div className="text-sm text-gray-600">Bệnh nhân hài lòng</div>
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-2 mx-auto">
                   <Clock className="w-6 h-6 text-blue-600" />
                 </div>
                 <div className="font-space-grotesk text-2xl font-bold text-gray-900">
-                  15+
+                  10+
                 </div>
                 <div className="text-sm text-gray-600">Năm kinh nghiệm</div>
               </div>
@@ -81,10 +85,10 @@ const HeroSection = () => {
                 onClick={scrollToContact}
                 className="btn-primary flex items-center justify-center space-x-2"
               >
-                <span>Đặt lịch khám ngay</span>
+                <span>Đăng kí miễn phí ưu đãi 50%</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <button className="btn-secondary">Tư vấn miễn phí</button>
+              {/* <button className="btn-secondary">Tư vấn miễn phí</button> */}
             </div>
 
             {/* Trust Indicators */}
@@ -107,12 +111,12 @@ const HeroSection = () => {
                     className="w-8 h-8 rounded-full border-2 border-white"
                   />
                 </div>
-                <div className="text-sm text-gray-600">
+                {/* <div className="text-sm text-gray-600">
                   <div className="font-medium">
                     Đội ngũ bác sĩ chuyên nghiệp
                   </div>
                   <div className="text-xs">Kinh nghiệm 10+ năm</div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -121,13 +125,13 @@ const HeroSection = () => {
           <div className="relative">
             <div className="relative z-10">
               <img
-                src="/placeholder.svg?height=600&width=500"
+                src="../../images/section1.jpg"
                 alt="Phòng khám mắt hiện đại"
                 className="w-full h-auto rounded-2xl shadow-2xl"
               />
 
               {/* Floating Cards */}
-              <div className="absolute -top-6 -left-6 bg-white rounded-xl shadow-lg p-4 animate-bounce">
+              {/* <div className="absolute -top-6 -left-6 bg-white rounded-xl shadow-lg p-4 animate-bounce">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                     <Star className="w-5 h-5 text-green-600" />
@@ -137,9 +141,9 @@ const HeroSection = () => {
                     <div className="text-xs text-gray-600">1,200+ đánh giá</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-4">
+              {/* <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-lg p-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center">
                     <Award className="w-5 h-5 text-cyan-600" />
@@ -151,11 +155,11 @@ const HeroSection = () => {
                     <div className="text-xs text-gray-600">ISO 9001:2015</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Background Decoration */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-emerald-400/20 rounded-2xl transform rotate-3 scale-105 -z-10"></div>
+            {/* <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-emerald-400/20 rounded-2xl transform rotate-3 scale-105 -z-10"></div> */}
           </div>
         </div>
       </div>

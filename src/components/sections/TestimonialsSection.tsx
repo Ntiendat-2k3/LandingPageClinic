@@ -187,7 +187,7 @@ const TestimonialsSection = () => {
                 </div>
               </div>
 
-              <div className="text-center">
+              {/* <div className="text-center">
                 <div className="font-space-grotesk text-4xl font-bold text-purple-600 mb-2">
                   1,200+
                 </div>
@@ -195,7 +195,7 @@ const TestimonialsSection = () => {
                 <div className="text-sm text-gray-500 mt-1">
                   Trong 6 tháng qua
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -211,8 +211,10 @@ const TestimonialsSection = () => {
               nghiệp như những khách hàng trước đây.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary">Đặt lịch khám ngay</button>
-              <button className="btn-secondary">Đọc thêm đánh giá</button>
+              <button className="btn-primary">
+                Đăng ký miễn phí ưu đại 50%
+              </button>
+              {/* <button className="btn-secondary">Đọc thêm đánh giá</button> */}
             </div>
           </div>
         </div>
