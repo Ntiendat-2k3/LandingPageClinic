@@ -15,7 +15,6 @@ const BookingSection = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    service: "",
     date: "",
     time: "",
     message: "",
@@ -23,31 +22,16 @@ const BookingSection = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Dịch vụ theo danh sách bạn yêu cầu
-  const services = [
-    "Gói khám tổng quan",
-    "Atropine nồng độ thấp 0.01%, 0.025% và 0.05%",
-    "Gói khám kiểm soát tật khúc xạ",
-    "Trong kính kiểm soát cận thị Myopcare, Stellest",
-    "Gói khám kính áp tròng ban đêm Ortho-K",
-    "Kính áp tròng ban đêm Ortho-K",
-    "Đo trục nhãn cầu",
-    "Lăng kính và tập luyện điều chỉnh lác/phục hồi thị lực",
-  ];
-
+  // Khung giờ 1 tiếng
   const timeSlots = [
-    "08:00 - 08:30",
-    "08:30 - 09:00",
-    "09:00 - 09:30",
-    "09:30 - 10:00",
-    "10:00 - 10:30",
-    "10:30 - 11:00",
-    "14:00 - 14:30",
-    "14:30 - 15:00",
-    "15:00 - 15:30",
-    "15:30 - 16:00",
-    "16:00 - 16:30",
-    "16:30 - 17:00",
+    "08:00 - 09:00",
+    "09:00 - 10:00",
+    "10:00 - 11:00",
+    "14:00 - 15:00",
+    "15:00 - 16:00",
+    "16:00 - 17:00",
+    "17:00 - 18:00",
+    "18:00 - 19:00",
   ];
 
   const handleInputChange = (
@@ -64,17 +48,9 @@ const BookingSection = () => {
     console.log("Form submitted:", formData);
     setIsSubmitted(true);
 
-    // Reset form sau 3s
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({
-        name: "",
-        phone: "",
-        service: "",
-        date: "",
-        time: "",
-        message: "",
-      });
+      setFormData({ name: "", phone: "", date: "", time: "", message: "" });
     }, 3000);
   };
 
@@ -91,8 +67,8 @@ const BookingSection = () => {
                 Đặt lịch thành công!
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Cảm ơn bạn đã tin tưởng dịch vụ của chúng tôi. Chúng tôi sẽ liên
-                hệ với bạn trong vòng 30 phút để xác nhận lịch hẹn.
+                Cảm ơn bạn đã tin tưởng. Chúng tôi sẽ liên hệ trong 30 phút để
+                xác nhận lịch hẹn.
               </p>
               <div className="bg-cyan-50 rounded-2xl p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">
@@ -120,14 +96,13 @@ const BookingSection = () => {
             Đăng kí miễn phí nhận ưu đãi 50%
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Điền thông tin bên dưới để đặt lịch khám. Chúng tôi sẽ liên hệ xác
-            nhận trong vòng 30 phút và tư vấn chi tiết về dịch vụ phù hợp.
+            Điền thông tin bên dưới để đặt lịch. Chúng tôi sẽ liên hệ xác nhận
+            trong 30 phút.
           </p>
         </div>
 
         <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            {/* Chỉ còn 1 cột: Form */}
             <div className="p-8 md:p-12">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Thông tin cá nhân */}
@@ -169,31 +144,11 @@ const BookingSection = () => {
                   </div>
                 </div>
 
-                {/* Thông tin đặt lịch */}
+                {/* Thông tin đặt lịch (đã bỏ Chọn dịch vụ) */}
                 <div className="space-y-4">
                   <h3 className="font-space-grotesk text-xl font-semibold text-gray-900 mb-4">
                     Thông tin đặt lịch
                   </h3>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Dịch vụ cần khám *
-                    </label>
-                    <select
-                      name="service"
-                      value={formData.service}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
-                    >
-                      <option value="">Chọn dịch vụ</option>
-                      {services.map((service, index) => (
-                        <option key={index} value={service}>
-                          {service}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -225,9 +180,9 @@ const BookingSection = () => {
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
                       >
                         <option value="">Chọn giờ</option>
-                        {timeSlots.map((time, index) => (
-                          <option key={index} value={time}>
-                            {time}
+                        {timeSlots.map((t) => (
+                          <option key={t} value={t}>
+                            {t}
                           </option>
                         ))}
                       </select>

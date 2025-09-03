@@ -1,12 +1,8 @@
 "use client";
 
 import { AlertTriangle, Eye, AlertCircle, Zap, Droplets } from "lucide-react";
-import { useScrollToSection } from "../../hooks/useScrollToSection";
-import CTASection from "../ui/CTASection";
 
 const GoalsSection = () => {
-  const scrollToSection = useScrollToSection();
-
   const myopiaStats = [
     {
       text: "Tăng 4.06 lần nguy cơ bị thoái hóa vòng mạc cận thị",
@@ -39,7 +35,7 @@ const GoalsSection = () => {
           "linear-gradient(180deg, rgba(236,252,247,0.55) 0%, rgba(240,249,255,0.55) 100%)",
       }}
     >
-      {/* décor blobs */}
+      {/* décor */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-emerald-300/30 blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-64 h-64 rounded-full bg-blue-300/20 blur-3xl" />
@@ -48,16 +44,16 @@ const GoalsSection = () => {
       <div className="container mx-auto container-padding relative">
         {/* Header */}
         <div className="text-center mb-8 md:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600 text-white font-semibold shadow">
-            <AlertTriangle className="w-4 h-4" />
-            Cận thị & biến chứng
-          </div>
-
-          <h2 className="mt-4 text-[28px] leading-tight md:text-4xl font-extrabold text-gray-900">
+          {/* tiêu đề có icon cảnh báo */}
+          <h2 className="mt-2 block items-center gap-3 text-[28px] leading-tight md:text-4xl font-extrabold text-gray-900">
+            <span className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-red-100">
+              <AlertTriangle className="w-6 h-6 text-red-600" />
+            </span>
             CẬN THỊ VÀ BIẾN CHỨNG CỦA CẬN THỊ
           </h2>
 
-          <div className="mt-3 inline-block rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-semibold shadow">
+          {/* dòng nhấn mạnh – tăng size */}
+          <div className="mt-4 inline-block rounded-xl px-5 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-[15px] lg:text-lg md:text-2xl shadow">
             ĐANG ĐƯỢC COI LÀ VẤN NẠN TOÀN CẦU
           </div>
         </div>
@@ -68,7 +64,7 @@ const GoalsSection = () => {
             {/* Year card */}
             <div className="rounded-2xl p-5 bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 shadow">
               <p className="text-2xl font-extrabold text-gray-900">2050</p>
-              <p className="mt-1 text-[15px] md:text-lg font-medium text-gray-800">
+              <p className="mt-1 text-base md:text-lg font-medium text-gray-800">
                 Ước tính có tới{" "}
                 <span className="text-red-600 font-bold">
                   50% dân số thế giới
@@ -77,58 +73,51 @@ const GoalsSection = () => {
               </p>
             </div>
 
-            <p className="text-sm md:text-base font-semibold text-gray-800 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 bg-red-500 rounded-full" />
+            <p className="text-sm md:text-base font-semibold text-gray-800">
               Cận thị cao sẽ tăng nguy cơ:
             </p>
 
-            {/* === Vertical Process: icon trái – text phải, cân đối desktop === */}
-            <div className="relative lg:min-h-[600px]">
-              {/* LINE: chạy dưới icon, full chiều cao của block; desktop dài hơn nhờ min-h */}
-              <div
-                className="
-      pointer-events-none absolute left-[28px] top-0 bottom-0
-      w-[3px] rounded-full
-      bg-gradient-to-b from-emerald-400 via-cyan-400 to-blue-400
-      z-0
-    "
-              />
-
-              {/* ITEMS: mobile xếp bình thường; desktop giãn đều theo chiều cao */}
-              <div className="flex flex-col gap-4 lg:gap-12 lg:h-full lg:justify-between">
-                {myopiaStats.map((s, i) => {
-                  const Icon = s.icon;
-                  return (
-                    <div
-                      key={i}
-                      className="grid grid-cols-[56px_1fr] gap-3 items-center"
-                    >
-                      {/* ICON: canh giữa đúng tâm line, nằm trên line */}
-                      <div className="relative z-10 flex justify-center">
-                        <div
-                          className={`w-12 h-12 rounded-full bg-gradient-to-br ${s.color} shadow-md flex items-center justify-center text-white ring-4 ring-white`}
-                        >
-                          <Icon className="w-6 h-6" />
-                        </div>
+            {/* Vertical process — line chỉ nối giữa các icon */}
+            <div className="flex flex-col gap-4 lg:gap-8">
+              {myopiaStats.map((s, i) => {
+                const Icon = s.icon;
+                const last = i === myopiaStats.length - 1;
+                return (
+                  <div
+                    key={i}
+                    className="grid grid-cols-[60px_1fr] items-center gap-3"
+                  >
+                    {/* ICON + đoạn line nối xuống (ẩn ở item cuối) */}
+                    <div className="relative flex justify-center">
+                      <div
+                        className={`z-10 w-12 h-12 rounded-full bg-gradient-to-br ${s.color} shadow-md flex items-center justify-center text-white ring-4 ring-white`}
+                      >
+                        <Icon className="w-6 h-6" />
                       </div>
-
-                      {/* CARD: nội dung bên phải */}
-                      <div className="bg-white/90 backdrop-blur rounded-xl ring-1 ring-black/5 shadow px-4 py-3">
-                        <p className="text-gray-700 leading-relaxed">
-                          {s.text}
-                        </p>
-                      </div>
+                      {/* đoạn line nối tới icon tiếp theo */}
+                      <span
+                        className={`absolute left-1/2 -translate-x-1/2 top-12 w-[3px] ${
+                          last ? "hidden" : "block"
+                        } bg-gradient-to-b from-emerald-400 via-cyan-400 to-blue-400`}
+                        style={{ height: "2.25rem" }} // ~36px, đủ thoáng
+                      />
                     </div>
-                  );
-                })}
-              </div>
+
+                    {/* CARD */}
+                    <div className="bg-white/90 backdrop-blur rounded-xl ring-1 ring-black/5 shadow px-4 py-3">
+                      <p className="text-[16px] md:text-lg text-gray-700 leading-relaxed">
+                        {s.text}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Right – Images */}
+          {/* Right – Images (phóng to ảnh trên) */}
           <div className="space-y-6">
-            {/* Top image card with gradient ring */}
-            <div className="relative max-w-md mx-auto lg:mx-0">
+            <div className="relative max-w-xl md:max-w-2xl mx-auto lg:mx-0">
               <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-br from-emerald-400/40 via-cyan-400/40 to-blue-400/30 blur-md" />
               <div className="relative rounded-2xl overflow-hidden bg-white shadow-2xl rotate-1 md:rotate-0">
                 <img
@@ -139,16 +128,16 @@ const GoalsSection = () => {
               </div>
             </div>
 
-            {/* Retinal gallery */}
+            {/* (giữ gallery dưới nếu cần) */}
             <div className="rounded-2xl p-5 bg-gradient-to-br from-gray-900 to-black shadow-xl">
               <div className="rounded-xl p-3 bg-black">
                 <div className="grid grid-cols-3 gap-2">
                   {["A", "B", "C", "D", "E", "F"].map((label, index) => (
-                    <div key={label} className="relative group">
+                    <div key={label} className="relative">
                       <img
                         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1121.4.RetinalInsider.jpg-sdccLFe63ffXUgcDaZJbVrfCIjPjjv.jpeg"
                         alt={`Retinal scan ${label}`}
-                        className="w-full h-20 object-cover rounded-lg transition-transform duration-300 md:group-hover:scale-105"
+                        className="w-full h-20 object-cover rounded-lg"
                         style={{
                           objectPosition: `${(index % 3) * 33.33}% ${
                             Math.floor(index / 3) * 50
@@ -167,19 +156,6 @@ const GoalsSection = () => {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* CTA */}
-        <div className="mt-12 md:mt-16">
-          <CTASection
-            title="Bảo vệ thị lực của bạn ngay hôm nay"
-            description="Đừng để cận thị phát triển thành những biến chứng nghiêm trọng. Hãy đến khám và tư vấn với các chuyên gia của chúng tôi."
-            primaryButtonText="Đăng kí miễn phí nhận ưu đãi 50%"
-            secondaryButtonText="Tìm hiểu thêm"
-            variant="gradient"
-            onPrimaryClick={() => scrollToSection("booking")}
-            onSecondaryClick={() => scrollToSection("services")}
-          />
         </div>
       </div>
     </section>

@@ -36,7 +36,7 @@ const ServicesSection = () => {
     },
     {
       icon: Glasses,
-      title: "Trong kính kiểm soát cận thị Myopcare, Stellest",
+      title: "Tròng kính kiểm soát cận thị Myopcare, Stellest",
       position: "middle-right",
       delay: "1.5s",
     },
@@ -60,7 +60,7 @@ const ServicesSection = () => {
     },
     {
       icon: Baby,
-      title: "Lăng kính & tập luyện điều chỉnh lác/phục hồi thị lực",
+      title: "Lăng kính & tập luyện điều chỉnh lác/phục hồi TL",
       position: "top-center-right",
       delay: "3.5s",
     },
@@ -88,8 +88,8 @@ const ServicesSection = () => {
       </div>
 
       <div className="container mx-auto container-padding relative z-10">
-        {/* Header */}
-        <div className="text-center mb-8 md:mb-16">
+        {/* Header — nâng z-index để không bị che */}
+        <div className="text-center mb-8 md:mb-16 relative z-30">
           <div className="mb-6 md:mb-8">
             <h2 className="font-space-grotesk text-2xl md:text-4xl font-bold text-black mb-2 md:mb-4">
               CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI
@@ -103,7 +103,7 @@ const ServicesSection = () => {
           </div>
         </div>
 
-        {/* ================= MOBILE (cute chủ đề mắt) ================= */}
+        {/* ============== MOBILE ============== */}
         <div className="md:hidden relative">
           <div className="pointer-events-none absolute -top-10 -left-12 w-40 h-40 bg-emerald-200/50 blur-3xl rounded-full" />
           <div className="pointer-events-none absolute -bottom-10 -right-10 w-44 h-44 bg-sky-200/50 blur-3xl rounded-full" />
@@ -122,7 +122,6 @@ const ServicesSection = () => {
             {servicePackages.map((pkg, i) => {
               const Icon = pkg.icon;
               const iris = irisPalette[i % irisPalette.length];
-
               return (
                 <button
                   key={i}
@@ -130,37 +129,28 @@ const ServicesSection = () => {
                   aria-label={pkg.title}
                   className="group relative active:scale-[0.98] transition"
                 >
-                  <div className="rounded-3xl p-[2.2px] bg-gradient-to-br from-emerald-200 via-sky-200 to-teal-200 shadow-[0_10px_24px_rgba(16,185,129,0.08)]">
+                  <div className="rounded-3xl p-[2px] bg-gradient-to-br from-emerald-200 via-sky-200 to-teal-200 shadow-[0_10px_24px_rgba(16,185,129,0.08)]">
                     <div className="relative rounded-3xl bg-white/95 backdrop-blur-xl ring-1 ring-white/70 p-3 overflow-hidden">
-                      <span className="absolute -top-2 right-3 rotate-6 text-[11px] font-extrabold tracking-tight text-slate-600/70 bg-slate-100/80 px-2 py-[2px] rounded">
-                        E
-                      </span>
-
+                      {/* icon nhỏ hơn */}
                       <div className="mb-2">
-                        <div className="relative w-14 h-14 mx-auto">
+                        <div className="relative w-12 h-12 mx-auto">
                           <div
                             className={`absolute inset-0 rounded-full bg-gradient-to-br ${iris}`}
                           />
-                          <div className="absolute inset-1 rounded-full border border-emerald-300/50 border-dashed" />
-                          <div className="absolute inset-2 rounded-full bg-white/70" />
                           <div className="absolute inset-2 grid place-items-center">
-                            <div className="w-11 h-11 rounded-full bg-white shadow-inner grid place-items-center">
-                              <Icon className="w-5 h-5 text-emerald-700" />
+                            <div className="w-9 h-9 rounded-full bg-white shadow-inner grid place-items-center">
+                              <Icon className="w-4 h-4 text-emerald-700" />
                             </div>
                           </div>
-                          <span className="absolute top-3 left-3 w-2 h-2 rounded-full bg-white/90" />
-                          <span className="absolute -bottom-1 left-1 w-2 h-2 rounded-full bg-emerald-200/70" />
-                          <span className="absolute -bottom-1 left-4 w-1.5 h-1.5 rounded-full bg-cyan-200/70" />
-                          <span className="absolute -bottom-1 left-6 w-1.5 h-1.5 rounded-full bg-sky-200/70" />
                         </div>
                       </div>
 
-                      <p className="text-[12px] font-semibold text-gray-900 leading-snug tracking-tight text-center line-clamp-3">
+                      {/* tiêu đề nổi bật hơn */}
+                      <p className="text-[13px] font-bold text-gray-900 leading-snug tracking-tight text-center line-clamp-3">
                         {pkg.title}
                       </p>
 
                       <div className="mx-auto mt-2 h-1.5 w-16 rounded-full bg-gradient-to-r from-emerald-200 via-teal-200 to-sky-200" />
-                      <div className="absolute -bottom-1 left-6 right-6 h-2 rounded-full bg-emerald-200/50 blur-[6px]" />
                     </div>
                   </div>
                 </button>
@@ -179,11 +169,12 @@ const ServicesSection = () => {
           </div>
         </div>
 
-        {/* ================= DESKTOP: phá cách + ảnh giữa ================= */}
+        {/* ============== DESKTOP ============== */}
         <div className="hidden md:block">
-          <div className="relative max-w-6xl mx-auto pt-28 pb-24">
-            {/* Packages quanh viền */}
-            <div className="absolute inset-0 z-20">
+          {/* thêm margin-top nhỏ để tránh chạm header */}
+          <div className="relative max-w-6xl mx-auto pt-32 pb-24 mt-2">
+            {/* Packages quanh viền — hạ z-index để không đè tiêu đề */}
+            <div className="absolute inset-0 z-10">
               {servicePackages.map((pkg, index) => {
                 const Icon = pkg.icon;
                 let positionClasses = "";
@@ -225,14 +216,16 @@ const ServicesSection = () => {
                 return (
                   <div
                     key={index}
-                    className={`absolute ${positionClasses} w-48 h-48 bg-white rounded-full shadow-lg border-3 border-emerald-100 flex flex-col items-center justify-center p-4 hover:scale-105 transition-transform duration-300 cursor-pointer float-animation`}
+                    className={`absolute ${positionClasses} w-56 h-56 bg-white/95 backdrop-blur rounded-full shadow-xl ring-1 ring-black/5 border-3 border-emerald-100 flex flex-col items-center justify-center px-5 text-center hover:scale-[1.04] transition-transform duration-300 cursor-pointer`}
                     style={{ animationDelay: pkg.delay }}
                     onClick={() => scrollToSection("booking")}
                   >
-                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-300 to-emerald-400 rounded-full flex items-center justify-center mb-3">
-                      <Icon className="w-6 h-6 text-white" />
+                    {/* icon nhỏ hơn */}
+                    <div className="w-9 h-9 bg-gradient-to-br from-emerald-300 to-emerald-400 rounded-full flex items-center justify-center mb-2">
+                      <Icon className="w-4 h-4 text-white" />
                     </div>
-                    <p className="text-sm font-semibold text-black text-center leading-tight">
+                    {/* tiêu đề nổi bật hơn */}
+                    <p className="text-base font-bold text-gray-900 leading-snug max-w-[180px]">
                       {pkg.title}
                     </p>
                   </div>
@@ -241,27 +234,22 @@ const ServicesSection = () => {
             </div>
 
             {/* Ảnh trung tâm kiểu “lens” */}
-            <div className="relative z-10 flex items-center justify-center">
+            <div className="relative z-20 flex items-center justify-center">
               <button
                 onClick={() => scrollToSection("booking")}
                 className="group relative"
                 aria-label="Đặt lịch ngay"
               >
-                {/* glow iris */}
                 <div className="absolute -inset-6 rounded-full bg-gradient-to-tr from-emerald-300/40 via-cyan-300/40 to-sky-300/40 blur-2xl opacity-70 group-hover:opacity-90 transition" />
-                {/* dashed ring */}
                 <div className="absolute -inset-3 rounded-full border-2 border-dashed border-emerald-300/60" />
-                {/* lens frame */}
-                <div className="relative w-[300px] lg:w-[380px] xl:w-[440px] aspect-square rounded-full overflow-hidden ring-8 ring-white shadow-[0_30px_80px_rgba(16,185,129,0.25)] rotate-2 group-hover:rotate-0 transition duration-500">
+                <div className="relative w-[360px] lg:w-[420px] xl:w-[480px] aspect-square rounded-full overflow-hidden ring-8 ring-white shadow-[0_30px_80px_rgba(16,185,129,0.25)] rotate-2 group-hover:rotate-0 transition duration-500">
                   <img
-                    src="/images/eye-examination.png" /* đổi sang ảnh bạn muốn */
+                    src="/images/eye-examination.png"
                     alt="Eye clinic lens"
                     className="w-full h-full object-cover"
                   />
-                  {/* glass glare */}
                   <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/10 mix-blend-overlay" />
                 </div>
-                {/* caption nhỏ */}
                 <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-sm font-semibold text-emerald-700 bg-white/90 px-3 py-1 rounded-full shadow">
                   Nhấn để đặt lịch
                 </span>
@@ -269,13 +257,18 @@ const ServicesSection = () => {
             </div>
           </div>
 
-          <div className="text-center mt-4">
-            <button
-              onClick={() => scrollToSection("booking")}
-              className="bg-emerald-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition-all duration-300"
-            >
-              Đăng kí miễn phí nhận ưu đãi 50%
-            </button>
+          <div className="text-center mt-2">
+            <div className="text-center mt-10">
+              <a
+                href="#booking"
+                className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
+              >
+                Đăng kí miễn phí nhận ưu đãi{" "}
+                <span className="px-3 py-1 rounded-full bg-white text-emerald-600 font-black">
+                  50%
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

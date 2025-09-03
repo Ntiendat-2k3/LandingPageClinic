@@ -21,64 +21,38 @@ const Footer = () => {
     { src: "/images/partners/santen.jpg", alt: "Santen" },
   ];
 
+  // Fanpage & Messenger
   const fanpageUrl = "https://www.facebook.com/pkmatdrtrantuan";
+  const messengerUrl = "https://m.me/pkmatdrtrantuan"; // nút Chat hoạt động
 
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* 3 columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Col 1: Branding / Intro */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                <Eye className="w-6 h-6 text-white" />
+        {/* ---- 2 columns: Info (left) + Facebook (right) ---- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
+          {/* LEFT: Thông tin + Hỗ trợ + Đối tác */}
+          <div className="space-y-6">
+            {/* Logo + tên phòng khám */}
+            <div className="flex items-center gap-3">
+              {/* nếu có logo file: /images/logo.png thì dùng <img> thay cho block dưới */}
+              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl grid place-items-center">
+                <Eye className="w-7 h-7 text-white" />
               </div>
-              <div className="font-space-grotesk font-bold text-xl">
-                EyeCare Pro
+              <div>
+                <h3 className="font-space-grotesk text-xl font-bold">
+                  PHÒNG KHÁM CHUYÊN KHOA MẮT &amp; KHÚC XẠ
+                </h3>
+                <p className="text-emerald-300 font-semibold">Dr Trần Tuấn</p>
               </div>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Phòng khám mắt với đội ngũ chuyên gia khúc xạ & Ortho-K, trang
-              thiết bị hiện đại, cam kết dịch vụ an toàn và hiệu quả.
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href={fanpageUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-cyan-600 transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-cyan-600 transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-cyan-600 transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
 
-          {/* Col 2: Thông tin như ảnh (địa chỉ, hotline, giờ + đối tác) */}
-          <div className="space-y-5">
-            <h3 className="font-space-grotesk font-bold text-lg">
-              PHÒNG KHÁM CHUYÊN KHOA MẮT &amp; KHÚC XẠ DR TRẦN TUẤN
-            </h3>
-
+            {/* Thông tin phòng khám */}
             <div className="space-y-3 text-sm text-gray-300">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
-                <span>122 Bà Triệu, phường Hai Bà Trưng, Hà Nội</span>
+                <span>
+                  122 Bà Triệu, phường Nguyễn Du, quận Hai Bà Trưng, Hà Nội
+                </span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
@@ -88,11 +62,23 @@ const Footer = () => {
                 <Clock className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
                 <span>08:00 – 19:00 (tất cả các ngày trong tuần)</span>
               </div>
+            </div>
 
-              <div className="pt-2">
+            {/* HỖ TRỢ: luôn hiện, to & nổi bật */}
+            <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="text-lg font-bold">CẦN HỖ TRỢ?</div>
+                  <p className="text-gray-300 text-sm">
+                    Nhấn “Chat me now” để tư vấn nhanh qua Messenger hoặc gọi
+                    Hotline.
+                  </p>
+                </div>
                 <a
-                  href="#chat"
-                  className="inline-flex items-center gap-2 bg-amber-300/90 text-gray-900 font-semibold px-4 py-2 rounded-xl hover:bg-amber-300 transition"
+                  href={messengerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-emerald-500 text-white font-semibold px-4 py-2 rounded-xl hover:bg-emerald-600 active:scale-[.99] transition"
                 >
                   <MessageSquare className="w-4 h-4" />
                   Chat me now
@@ -100,7 +86,35 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="pt-2">
+            {/* Socials */}
+            <div className="flex items-center gap-4">
+              <a
+                href={fanpageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4.5 h-4.5" />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4.5 h-4.5" />
+              </a>
+              <a
+                href="#"
+                className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
+                aria-label="YouTube"
+              >
+                <Youtube className="w-4.5 h-4.5" />
+              </a>
+            </div>
+
+            {/* Đối tác */}
+            <div>
               <div className="text-sm text-gray-300 mb-3 font-semibold">
                 ĐỐI TÁC CHIẾN LƯỢC
               </div>
@@ -108,12 +122,12 @@ const Footer = () => {
                 {partners.map((p, i) => (
                   <div
                     key={i}
-                    className="h-10 sm:h-12 bg-white/5 rounded-md flex items-center justify-center"
+                    className="h-12 bg-white/5 rounded-md flex items-center justify-center"
                   >
                     <img
                       src={p.src}
                       alt={p.alt}
-                      className="max-h-8 sm:max-h-10 object-contain"
+                      className="max-h-9 object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -122,37 +136,34 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Col 3: Facebook Page Plugin (giống ảnh mẫu) */}
+          {/* RIGHT: Facebook Page plugin (phóng to) */}
           <div>
-            <iframe
-              title="Facebook Page"
-              src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
-                fanpageUrl
-              )}&tabs=&width=380&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false`}
-              width="380"
-              height="120"
-              style={{
-                border: "none",
-                overflow: "hidden",
-                width: "100%",
-                display: "block",
-              }}
-              scrolling="no"
-              frameBorder="0"
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            <div className="rounded-2xl w-[495px] overflow-hidden">
+              <iframe
+                title="Facebook Page"
+                src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
+                  fanpageUrl
+                )}&tabs=timeline&width=500&height=360&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
+                width="100%"
+                height="360"
+                style={{ border: "none", overflow: "hidden", display: "block" }}
+                scrolling="no"
+                frameBorder={0}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
             <p className="mt-3 text-sm text-gray-300">
-              Nhấn để theo dõi fanpage và nhận ưu đãi mới nhất.
+              Theo dõi fanpage để nhận ưu đãi & cập nhật mới nhất.
             </p>
           </div>
         </div>
 
-        {/* bottom bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
+        {/* Bottom bar */}
+        <div className="border-top border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
-              © 2024 EyeCare Pro. Tất cả quyền được bảo lưu.
+              © 2024 Dr Trần Tuấn. Tất cả quyền được bảo lưu.
             </p>
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-cyan-400 transition-colors">

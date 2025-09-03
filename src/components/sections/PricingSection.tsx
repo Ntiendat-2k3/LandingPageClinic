@@ -89,36 +89,35 @@ const PricingSection: React.FC = () => {
       <div className="container mx-auto px-4 relative">
         {/* Title + TAG */}
         <div className="text-center mb-8 md:mb-12">
-          {/* tag “KIỂM SOÁT CẬN THỊ” */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600/90 text-white text-sm font-semibold tracking-wide shadow-md">
-            <span className="inline-block h-2 w-2 rounded-full bg-white/90" />
+          {/* tag “KIỂM SOÁT CẬN THỊ” – to hơn, cân đối */}
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 text-white text-base md:text-lg font-semibold tracking-wide shadow-md">
+            <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/90" />
             KIỂM SOÁT CẬN THỊ
           </div>
 
-          <h2 className="mt-4 text-2xl md:text-4xl xl:text-5xl font-extrabold leading-tight text-gray-900 drop-shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+          <h2 className="mt-4 text-2xl md:text-4xl xl:text-5xl font-extrabold leading-tight text-gray-900">
             CÁC PHƯƠNG PHÁP TIÊN TIẾN HIỆU QUẢ CAO
             <br className="hidden sm:block" />
             HÀNG ĐẦU THẾ GIỚI
           </h2>
 
-          <p className="mt-3 text-sm md:text-base text-gray-100/90 max-w-3xl mx-auto">
+          <p className="mt-3 text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
             Tùy hồ sơ khúc xạ và nhịp tiến triển, bác sĩ sẽ cá nhân hóa phác đồ
             để tối ưu kết quả cho trẻ.
           </p>
         </div>
 
         {/* Grid responsive */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-7 max-w-7xl mx-auto">
           {treatments.map((t, i) => {
             const theme = tone[t.tone || "emerald"];
             return (
               <div
                 key={i}
                 className={
-                  // KHÔNG hiệu ứng trên mobile: hover/transition chỉ áp dụng từ md:
-                  "group relative rounded-3xl border border-white/70 bg-white/70 backdrop-blur-xl " +
-                  "shadow-[0_8px_24px_rgba(16,185,129,0.08)] " +
-                  "md:hover:shadow-[0_16px_36px_rgba(16,185,129,0.14)] md:transition-all md:duration-500 " +
+                  "group relative rounded-3xl border border-white/70 bg-white/80 backdrop-blur-xl " +
+                  "shadow-[0_10px_28px_rgba(16,185,129,0.10)] " +
+                  "md:hover:shadow-[0_18px_40px_rgba(16,185,129,0.16)] md:transition-all md:duration-500 " +
                   (i % 2 !== 0 ? "md:translate-y-1.5" : "")
                 }
               >
@@ -131,79 +130,62 @@ const PricingSection: React.FC = () => {
                   </div>
                 )}
 
-                <div className="p-4 md:p-6">
-                  {/* Ảnh: hiển thị hết, không khuyết */}
+                <div className="p-5 md:p-6">
+                  {/* Ảnh – to hơn (giảm padding) */}
                   <div className="relative w-full rounded-2xl overflow-hidden border border-white/70 bg-gradient-to-br from-white to-emerald-50">
                     <div className="aspect-[4/3] md:aspect-[5/3] w-full flex items-center justify-center">
                       <img
                         src={t.image || "/placeholder.svg"}
                         alt={t.name}
-                        className="max-h-full max-w-full object-contain p-3 md:p-4 md:transition-transform md:duration-500 md:group-hover:scale-[1.03]"
+                        className="max-h-full max-w-full object-contain p-2 md:p-3 md:transition-transform md:duration-500 md:group-hover:scale-[1.04]"
                         loading="lazy"
                       />
                     </div>
-                    {/* Dot: đứng yên trên mobile, pulse trên md+ */}
                     <span
                       className={`absolute bottom-3 right-3 h-2 w-2 rounded-full ${theme.dot} md:animate-pulse`}
                     />
                   </div>
 
-                  {/* Tên */}
-                  <h3 className="mt-4 text-base md:text-lg font-bold text-gray-900 leading-snug">
+                  {/* Tên – to hơn */}
+                  <h3 className="mt-4 text-lg md:text-xl font-bold text-gray-900 leading-snug">
                     {t.name}
                   </h3>
 
-                  {/* Nội dung */}
-                  <div className="mt-2 md:mt-3 space-y-1.5 md:space-y-2">
+                  {/* Nội dung – to hơn */}
+                  <div className="mt-2 md:mt-3 space-y-2">
                     {t.effectiveness ? (
                       t.effectiveness.map((line, idx) => (
                         <div
                           key={idx}
-                          className="flex items-start gap-2 text-[13px] md:text-sm text-gray-700"
+                          className="flex items-start gap-2 text-[14px] md:text-base text-gray-700"
                         >
                           <span className="mt-0.5 text-emerald-500">
-                            <Check className="h-3.5 w-3.5" />
+                            <Check className="h-4 w-4" />
                           </span>
                           <span className="leading-6">{line}</span>
                         </div>
                       ))
                     ) : (
-                      <p className="text-[13px] md:text-sm text-gray-700">
+                      <p className="text-[14px] md:text-base text-gray-700">
                         {t.description}
                       </p>
                     )}
                   </div>
 
-                  {/* Chips phần trăm */}
-                  {t.effectiveness && (
-                    <div className="mt-3 md:mt-4 flex flex-wrap gap-2">
-                      {t.effectiveness.map((e, idx) => {
-                        const percent = e.match(/\~?\d+%/g)?.[0];
-                        if (!percent) return null;
-                        return (
-                          <span
-                            key={idx}
-                            className={`px-2 py-1 rounded-full text-[11px] md:text-xs font-semibold ${theme.chip} border border-white/70`}
-                          >
-                            {percent}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  )}
+                  {/* BỎ dải phần trăm/ % dưới cùng */}
                 </div>
 
-                {/* Viền ring gradient khi hover: chỉ md+ */}
+                {/* ring hover */}
                 <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-300 to-purple-400 opacity-0 md:group-hover:opacity-20 md:transition-opacity md:duration-500" />
               </div>
             );
           })}
         </div>
 
-        {/* footnote */}
-        <p className="mt-6 md:mt-8 text-center text-[11px] md:text-xs text-gray-500">
-          * Hiệu quả tham khảo từ các nghiên cứu điển hình; kết quả thực tế phụ
-          thuộc từng hồ sơ.
+        {/* footnote – câu mới */}
+        <p className="mt-8 text-center text-[11px] md:text-xs text-gray-500">
+          * Hiệu quả tham khảo từ các nghiên cứu dài hạn trên thế giới; kết quả
+          thực tế phụ thuộc từng cá nhân.
         </p>
       </div>
     </section>
