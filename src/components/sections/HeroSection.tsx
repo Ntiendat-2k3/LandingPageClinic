@@ -33,7 +33,8 @@ const HeroSection = () => {
         <div className="absolute bottom-0 left-1/3 w-64 h-64 rounded-full bg-blue-300/20 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-14 lg:py-20 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-14 lg:py-20 relative overflow-x-clip">
+        {/* overflow-x-clip để chặn mọi tràn ngang ngoài ý muốn */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left: Content */}
           <div className="order-2 lg:order-1">
@@ -61,27 +62,24 @@ const HeroSection = () => {
             <p className="mt-3 text-[15px] md:text-lg text-gray-600">
               KIỂM SOÁT CẬN THỊ – ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT. Ứng dụng các
               phương pháp tiên tiến hàng đầu, đội ngũ chuyên gia giàu kinh
-              nghiệm, chính sách đảm bảo hiệu quả độc quyền tại Hà Nội.
+              nghiệm, chính sách bảo đảm hiệu quả độc quyền tại Hà Nội.
             </p>
 
-            {/* pills (mobile: trượt) */}
-            <div
-              className="mt-5 flex gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] no-scrollbar"
-              style={{ scrollbarWidth: "none" }}
-            >
+            {/* pills — KHÔNG cuộn, cho xuống dòng */}
+            <div className="mt-5 flex flex-wrap gap-2">
               {pills.map((p) => (
                 <span
                   key={p}
-                  className="shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-emerald-700 ring-1 ring-black/5 shadow-sm"
+                  className="px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-emerald-700 ring-1 ring-black/5 shadow-sm"
                 >
                   {p}
                 </span>
               ))}
             </div>
 
-            {/* stats: horizontal cards on mobile */}
+            {/* stats — KHÔNG cuộn, dùng grid trên mobile */}
             <div className="mt-6 lg:mt-8">
-              <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 lg:gap-6">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-6">
                 {[
                   {
                     icon: <Users className="w-5 h-5 text-cyan-600" />,
@@ -101,7 +99,7 @@ const HeroSection = () => {
                 ].map((s, i) => (
                   <div
                     key={i}
-                    className="snap-start min-w-[56%] xxs:min-w-[220px] lg:min-w-0 bg-white/80 backdrop-blur rounded-2xl px-4 py-3 lg:p-5 ring-1 ring-black/5 shadow"
+                    className="bg-white/80 backdrop-blur rounded-2xl px-4 py-3 lg:p-5 ring-1 ring-black/5 shadow"
                   >
                     <div className="flex items-center gap-2">
                       <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
@@ -134,9 +132,7 @@ const HeroSection = () => {
           {/* Right: Image */}
           <div className="order-1 lg:order-2">
             <div className="relative mx-auto max-w-sm sm:max-w-md">
-              {/* gradient ring */}
               <div className="absolute -inset-1 rounded-[28px] bg-gradient-to-br from-emerald-400/50 via-cyan-400/50 to-blue-400/40 blur-md" />
-              {/* card */}
               <div className="relative rounded-[24px] overflow-hidden bg-white shadow-2xl rotate-2 lg:rotate-0">
                 <img
                   src="/images/section1.jpg"
@@ -145,7 +141,6 @@ const HeroSection = () => {
                 />
               </div>
 
-              {/* stickers */}
               <div className="absolute -left-3 -top-3 bg-white rounded-xl shadow p-2 flex items-center gap-2">
                 <Shield className="w-4 h-4 text-emerald-600" />
                 <span className="text-xs font-semibold text-gray-800">
