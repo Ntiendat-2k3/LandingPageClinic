@@ -38,7 +38,7 @@ const StickyCTA = () => {
   const handleChat = () => {
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    if (isMobile && MESSENGER_PAGE_ID !== "000000000000000") {
+    if (isMobile && MESSENGER_PAGE_ID !== "61575903518251") {
       // thử mở app Messenger
       window.location.href = `fb-messenger://user-thread/${MESSENGER_PAGE_ID}`;
       // fallback sang web nếu app không mở
