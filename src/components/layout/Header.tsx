@@ -50,7 +50,7 @@ const Header = () => {
               onClick={() => scrollToSection("pricing")}
               className="text-gray-600 hover:text-cyan-600 transition-colors font-medium"
             >
-              Bảng giá
+              Kiểm soát cận thị
             </button>
             <button
               onClick={() => scrollToSection("doctors")}
@@ -62,7 +62,7 @@ const Header = () => {
               onClick={() => scrollToSection("booking")}
               className="btn-primary"
             >
-              Đặt lịch khám
+              Đăng ký miễn phí nhận ưu đãi 50%
             </button>
           </nav>
 
@@ -111,7 +111,7 @@ const Header = () => {
                 onClick={() => scrollToSection("pricing")}
                 className="text-left text-gray-600 hover:text-cyan-600 transition-colors font-medium"
               >
-                Bảng giá
+                Kiểm soát cận thị
               </button>
               <button
                 onClick={() => scrollToSection("doctors")}

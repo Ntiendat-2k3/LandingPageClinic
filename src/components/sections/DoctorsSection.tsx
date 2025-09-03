@@ -1,237 +1,191 @@
-import { Star, Award, GraduationCap, Users } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { Award, GraduationCap, Shield, Check } from "lucide-react";
 
 const DoctorsSection = () => {
-  const doctors = [
-    {
-      name: "PGS.TS Nguyễn Văn A",
-      title: "Phó Giáo sư, Tiến sĩ",
-      specialty: "Chuyên khoa Mắt",
-      experience: "25 năm kinh nghiệm",
-      education: "Đại học Y Hà Nội",
-      achievements: [
-        "Phó Giáo sư chuyên ngành Nhãn khoa",
-        "Hơn 10,000 ca phẫu thuật thành công",
-        "Chuyên gia hàng đầu về phẫu thuật Lasik",
-      ],
-      specialties: ["Phẫu thuật Lasik", "Đục thủy tinh thể", "Bệnh võng mạc"],
-      rating: 4.9,
-      patients: "5000+",
-      image: "/placeholder.svg?height=300&width=300",
-    },
-    {
-      name: "BS.CKI Trần Thị B",
-      title: "Bác sĩ Chuyên khoa I",
-      specialty: "Nhãn khoa Trẻ em",
-      experience: "15 năm kinh nghiệm",
-      education: "Đại học Y Dược TP.HCM",
-      achievements: [
-        "Chuyên gia điều trị cận thị trẻ em",
-        "Hơn 8,000 trẻ em được điều trị",
-        "Giải thưởng Bác sĩ xuất sắc 2023",
-      ],
-      specialties: ["Cận thị trẻ em", "Khám mắt trẻ em", "Ortho-K"],
-      rating: 4.8,
-      patients: "3500+",
-      image: "/placeholder.svg?height=300&width=300",
-    },
-    {
-      name: "BS.CKI Lê Văn C",
-      title: "Bác sĩ Chuyên khoa I",
-      specialty: "Phẫu thuật Mắt",
-      experience: "18 năm kinh nghiệm",
-      education: "Đại học Y Huế",
-      achievements: [
-        "Chuyên gia phẫu thuật đục thủy tinh thể",
-        "Hơn 6,000 ca phẫu thuật",
-        "Đào tạo tại Nhật Bản 2 năm",
-      ],
-      specialties: ["Đục thủy tinh thể", "Glaucoma", "Phẫu thuật võng mạc"],
-      rating: 4.9,
-      patients: "4200+",
-      image: "/placeholder.svg?height=300&width=300",
-    },
-  ];
+  const baseProfile = {
+    name: "Ths. Bs Trần Anh Tuấn",
+    title: "Chuyên gia Mắt – Tật khúc xạ, Ortho-K & Kiểm soát cận thị",
+    education:
+      "Tốt nghiệp Thạc sĩ loại xuất sắc chuyên ngành Mắt – Tật khúc xạ tại Fudan University, Shanghai.",
+    highlights: [
+      "Nhiều năm làm việc tại các BV lớn trong và ngoài nước: Shanghai Eye & ENT Hospital, BV Trung ương Huế, BV Mắt quốc tế DND.",
+      "Từng đảm nhiệm chức vụ Phụ trách Trung tâm Kính – Khúc xạ, BV Mắt quốc tế DND.",
+      "Đầy đủ chứng chỉ đào tạo chuyên sâu về khúc xạ, kính Ortho-K, kiểm soát cận thị…",
+    ],
+    image: "/images/doctor1.jpg", // thay bằng ảnh thật nếu có
+  };
+
+  // 2 & 3 giống 1
+  const doctors = [baseProfile, baseProfile, baseProfile];
+
+  // mở rộng bullet ở mobile cho card nào
+  const [expanded, setExpanded] = useState<number | null>(null);
+  const toggle = (i: number) => setExpanded((cur) => (cur === i ? null : i));
+
+  const scrollToBooking = () =>
+    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section id="doctors" className="section-padding bg-white">
       <div className="container mx-auto container-padding">
-        <div className="text-center mb-16">
-          <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Đội ngũ bác sĩ chuyên nghiệp
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="font-space-grotesk text-2xl md:text-4xl font-bold text-gray-900">
+            Giới thiệu chuyên gia
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Đội ngũ bác sĩ giàu kinh nghiệm, được đào tạo bài bản và có chuyên
-            môn cao, cam kết mang đến dịch vụ chăm sóc mắt tốt nhất.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {doctors.map((doctor, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100"
-            >
-              {/* Doctor Image */}
-              <div className="relative mb-6">
-                <img
-                  src={doctor.image || "/placeholder.svg"}
-                  alt={doctor.name}
-                  className="w-full h-64 object-cover rounded-xl"
-                />
-                <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-lg">
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm font-semibold text-gray-900">
-                      {doctor.rating}
-                    </span>
+        {/* ===== MOBILE: carousel ngang, thẻ gọn gàng ===== */}
+        <div className="md:hidden -mx-4 px-4">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {doctors.map((d, idx) => {
+              const open = expanded === idx;
+              const bullets = open ? d.highlights : d.highlights.slice(0, 2);
+              return (
+                <article
+                  key={idx}
+                  className="snap-start basis-[86%] shrink-0 rounded-2xl border border-gray-100 bg-white shadow-sm"
+                >
+                  {/* Ảnh: 4:3, ưu tiên object-top để không khuyết mặt */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl bg-gray-50">
+                    <img
+                      src={d.image || "/placeholder.svg"}
+                      alt={d.name}
+                      className="absolute inset-0 w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                    {/* dải gradient nhẹ phía dưới để chữ rõ hơn nếu đặt caption trong ảnh */}
+                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/10 to-transparent" />
                   </div>
-                </div>
+
+                  {/* Nội dung gọn */}
+                  <div className="p-4 space-y-3">
+                    <header>
+                      <h3 className="font-space-grotesk text-lg font-bold text-gray-900">
+                        {d.name}
+                      </h3>
+                      <p className="text-emerald-700 text-sm font-medium mt-0.5">
+                        {d.title}
+                      </p>
+                    </header>
+
+                    {/* Học vấn */}
+                    <div className="flex items-start gap-2">
+                      <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5" />
+                      <p className="text-[13px] text-gray-700 leading-relaxed">
+                        {d.education}
+                      </p>
+                    </div>
+
+                    {/* Highlights: rút gọn + mở rộng */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <Award className="w-4 h-4 text-gray-500" />
+                        <span className="text-sm font-semibold text-gray-900">
+                          Kinh nghiệm & thành tựu
+                        </span>
+                      </div>
+                      <ul className="space-y-2 ml-6">
+                        {bullets.map((h, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <Check className="w-4 h-4 text-emerald-600 mt-0.5" />
+                            <span className="text-[13px] text-gray-700 leading-relaxed">
+                              {h}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {d.highlights.length > 2 && (
+                        <button
+                          onClick={() => toggle(idx)}
+                          className="mt-2 text-[13px] font-semibold text-emerald-700"
+                        >
+                          {open ? "Thu gọn ▲" : "Xem thêm ▼"}
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Bảo chứng + CTA nhỏ gọn */}
+                    <div className="flex items-center justify-between pt-1">
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-4 h-4 text-gray-500" />
+                        <span className="text-[12px] text-gray-600">
+                          Cam kết chuyên môn
+                        </span>
+                      </div>
+                      <button
+                        onClick={scrollToBooking}
+                        className="px-3 py-1.5 rounded-full text-[12px] font-semibold text-white bg-gradient-to-r from-emerald-500 to-cyan-500"
+                      >
+                        Đặt lịch
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ===== DESKTOP: lưới 2–3 cột, giữ chi tiết ===== */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {doctors.map((d, idx) => (
+            <article
+              key={idx}
+              className="relative rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg transition-all duration-300"
+            >
+              <div className="h-80 lg:h-[420px] w-full overflow-hidden rounded-t-2xl bg-gray-50">
+                <img
+                  src={d.image || "/placeholder.svg"}
+                  alt={d.name}
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
               </div>
 
-              {/* Doctor Info */}
-              <div className="space-y-4">
-                <div>
+              <div className="p-6 space-y-4">
+                <header>
                   <h3 className="font-space-grotesk text-xl font-bold text-gray-900">
-                    {doctor.name}
+                    {d.name}
                   </h3>
-                  <p className="text-cyan-600 font-medium">{doctor.title}</p>
-                  <p className="text-gray-600 text-sm">{doctor.specialty}</p>
+                  <p className="text-emerald-700 font-medium mt-1">{d.title}</p>
+                </header>
+
+                <div className="flex items-start gap-2">
+                  <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5" />
+                  <p className="text-sm text-gray-700">{d.education}</p>
                 </div>
 
-                {/* Stats */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-center justify-center w-8 h-8 bg-cyan-100 rounded-full mx-auto mb-1">
-                      <Users className="w-4 h-4 text-cyan-600" />
-                    </div>
-                    <div className="font-semibold text-gray-900">
-                      {doctor.patients}
-                    </div>
-                    <div className="text-xs text-gray-600">Bệnh nhân</div>
-                  </div>
-                  <div className="text-center p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-center justify-center w-8 h-8 bg-emerald-100 rounded-full mx-auto mb-1">
-                      <GraduationCap className="w-4 h-4 text-emerald-600" />
-                    </div>
-                    <div className="font-semibold text-gray-900">
-                      {doctor.experience.split(" ")[0]}
-                    </div>
-                    <div className="text-xs text-gray-600">Năm KN</div>
-                  </div>
-                </div>
-
-                {/* Education */}
                 <div>
-                  <div className="flex items-center space-x-2 mb-2">
-                    <GraduationCap className="w-4 h-4 text-gray-600" />
-                    <span className="text-sm font-medium text-gray-900">
-                      Học vấn
+                  <div className="flex items-center gap-2 mb-2">
+                    <Award className="w-4 h-4 text-gray-500" />
+                    <span className="text-sm font-semibold text-gray-900">
+                      Kinh nghiệm & thành tựu
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 ml-6">
-                    {doctor.education}
-                  </p>
-                </div>
-
-                {/* Specialties */}
-                <div>
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Award className="w-4 h-4 text-gray-600" />
-                    <span className="text-sm font-medium text-gray-900">
-                      Chuyên môn
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2 ml-6">
-                    {doctor.specialties.map((specialty, specialtyIndex) => (
-                      <span
-                        key={specialtyIndex}
-                        className="px-2 py-1 bg-cyan-100 text-cyan-700 text-xs rounded-full"
-                      >
-                        {specialty}
-                      </span>
+                  <ul className="space-y-2 ml-6">
+                    {d.highlights.map((h, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <Check className="w-4 h-4 text-emerald-600 mt-0.5" />
+                        <span className="text-sm text-gray-700 leading-relaxed">
+                          {h}
+                        </span>
+                      </li>
                     ))}
-                  </div>
-                </div>
-
-                {/* Achievements */}
-                <div>
-                  <div className="text-sm font-medium text-gray-900 mb-2">
-                    Thành tựu nổi bật
-                  </div>
-                  <ul className="space-y-1">
-                    {doctor.achievements.map(
-                      (achievement, achievementIndex) => (
-                        <li
-                          key={achievementIndex}
-                          className="flex items-start space-x-2"
-                        >
-                          <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-xs text-gray-600 leading-relaxed">
-                            {achievement}
-                          </span>
-                        </li>
-                      )
-                    )}
                   </ul>
                 </div>
 
-                {/* CTA Button */}
+                <div className="flex items-center gap-2 pt-1">
+                  <Shield className="w-4 h-4 text-gray-500" />
+                  <span className="text-xs text-gray-600">
+                    Cam kết chuyên môn & đạo đức nghề nghiệp
+                  </span>
+                </div>
               </div>
-            </div>
+            </article>
           ))}
-        </div>
-
-        {/* Team Stats */}
-        <div className="mt-16">
-          <div className="bg-gradient-secondary rounded-2xl p-8 md:p-12">
-            <div className="text-center mb-8">
-              <h3 className="font-space-grotesk text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                Tại sao chọn đội ngũ của chúng tôi?
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-8 h-8 text-cyan-600" />
-                </div>
-                <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
-                  15+
-                </div>
-                <div className="text-gray-600">Bác sĩ chuyên khoa</div>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-emerald-600" />
-                </div>
-                <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
-                  50K+
-                </div>
-                <div className="text-gray-600">Bệnh nhân đã điều trị</div>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <GraduationCap className="w-8 h-8 text-blue-600" />
-                </div>
-                <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
-                  20+
-                </div>
-                <div className="text-gray-600">Năm kinh nghiệm trung bình</div>
-              </div>
-
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Star className="w-8 h-8 text-purple-600" />
-                </div>
-                <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
-                  4.9/5
-                </div>
-                <div className="text-gray-600">Đánh giá trung bình</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

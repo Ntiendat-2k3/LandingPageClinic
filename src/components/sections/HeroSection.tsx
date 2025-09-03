@@ -1,113 +1,160 @@
 "use client";
 
-import { ArrowRight, Star, Users, Award, Clock } from "lucide-react";
+import {
+  ArrowRight,
+  Star,
+  Users,
+  Award,
+  Clock,
+  Shield,
+  Eye,
+} from "lucide-react";
 
 const HeroSection = () => {
   const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const el = document.getElementById("contact");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  const pills = [
+    "Kiểm soát cận thị",
+    "Ortho-K ban đêm",
+    "Atropine liều thấp",
+    "Tròng kiểm soát cận",
+    "Điều chỉnh lác",
+  ];
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-secondary overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-cyan-500 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-emerald-500 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-blue-400 rounded-full blur-3xl"></div>
+    <section className="relative min-h-[100svh] flex items-center bg-gradient-to-b from-emerald-50 to-cyan-50 overflow-hidden">
+      {/* BG blobs */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-20 -left-24 w-72 h-72 rounded-full bg-emerald-300/30 blur-3xl" />
+        <div className="absolute top-1/3 -right-24 w-80 h-80 rounded-full bg-cyan-300/30 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 w-64 h-64 rounded-full bg-blue-300/20 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <div className="space-y-8 animate-fade-in-up">
-            <div className="space-y-4">
-              <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 text-md font-medium text-cyan-700">
-                <Award className="w-4 h-4" />
-                Chăm sóc đôi mắt một cách toàn diện
-              </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-14 lg:py-20 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+          {/* Left: Content */}
+          <div className="order-2 lg:order-1">
+            {/* chip */}
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-white/80 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md shadow ring-1 ring-black/5 text-emerald-700 text-sm font-semibold">
+              <Award className="w-4 h-4" />
+              Chăm sóc đôi mắt toàn diện
+            </div>
 
-              <h1 className="font-space-grotesk text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                PHÒNG KHÁM CHUYÊN
-                <br></br>
-                <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
-                  {" "}
-                  KHOA MẮT
-                </span>{" "}
-                &
-                <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
-                  {" "}
-                  KHÚC XẠ
+            {/* headline */}
+            <h1 className="mt-4 font-space-grotesk text-[34px] leading-tight md:text-5xl font-extrabold text-gray-900">
+              PHÒNG KHÁM CHUYÊN{" "}
+              <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
+                KHOA MẮT
+              </span>{" "}
+              &{" "}
+              <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
+                KHÚC XẠ
+              </span>
+              <br />
+              DR TRẦN TUẤN
+            </h1>
+
+            {/* sub */}
+            <p className="mt-3 text-[15px] md:text-lg text-gray-600">
+              KIỂM SOÁT CẬN THỊ – ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT. Ứng dụng các
+              phương pháp tiên tiến hàng đầu, đội ngũ chuyên gia giàu kinh
+              nghiệm, chính sách đảm bảo hiệu quả độc quyền tại Hà Nội.
+            </p>
+
+            {/* pills (mobile: trượt) */}
+            <div
+              className="mt-5 flex gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] no-scrollbar"
+              style={{ scrollbarWidth: "none" }}
+            >
+              {pills.map((p) => (
+                <span
+                  key={p}
+                  className="shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-emerald-700 ring-1 ring-black/5 shadow-sm"
+                >
+                  {p}
                 </span>
-                {" "}
-                <br></br>
-                DR TRẦN TUẤN
-              </h1>
-
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl">
-                <span className="mb-2">KIỂM SOÁT CẬN THỊ - ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT</span> <br></br> Áp dụng các
-                phương pháp tiên tiến và hiệu quả cao nhất trên thế giới Đội ngũ
-                bác sĩ và nhân viên y tế giàu kinh nghiệm, được đào tạo chuyên
-                sâu Chính sách bảo đảm kiểm soát hiệu quả cận thị độc quyền tại
-                Hà Nội
-              </p>
+              ))}
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="flex items-center justify-center w-12 h-12 bg-cyan-100 rounded-lg mb-2 mx-auto">
-                  <Users className="w-6 h-6 text-cyan-600" />
-                </div>
-                <div className="font-space-grotesk text-2xl font-bold text-gray-900">
-                  10K+
-                </div>
-                <div className="text-sm text-gray-600">
-                  Bệnh nhân đã được điều trị
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center w-12 h-12 bg-emerald-100 rounded-lg mb-2 mx-auto">
-                  <Star className="w-6 h-6 text-emerald-600" />
-                </div>
-                <div className="font-space-grotesk text-2xl font-bold text-gray-900">
-                  97.8%
-                </div>
-                <div className="text-sm text-gray-600">Bệnh nhân hài lòng</div>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-2 mx-auto">
-                  <Clock className="w-6 h-6 text-blue-600" />
-                </div>
-                <div className="font-space-grotesk text-2xl font-bold text-gray-900">
-                  10+
-                </div>
-                <div className="text-sm text-gray-600">Năm kinh nghiệm</div>
+            {/* stats: horizontal cards on mobile */}
+            <div className="mt-6 lg:mt-8">
+              <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory lg:grid lg:grid-cols-3 lg:gap-6">
+                {[
+                  {
+                    icon: <Users className="w-5 h-5 text-cyan-600" />,
+                    val: "10K+",
+                    txt: "Bệnh nhân điều trị",
+                  },
+                  {
+                    icon: <Star className="w-5 h-5 text-emerald-600" />,
+                    val: "97.8%",
+                    txt: "Hài lòng",
+                  },
+                  {
+                    icon: <Clock className="w-5 h-5 text-blue-600" />,
+                    val: "10+",
+                    txt: "Năm kinh nghiệm",
+                  },
+                ].map((s, i) => (
+                  <div
+                    key={i}
+                    className="snap-start min-w-[56%] xxs:min-w-[220px] lg:min-w-0 bg-white/80 backdrop-blur rounded-2xl px-4 py-3 lg:p-5 ring-1 ring-black/5 shadow"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
+                        {s.icon}
+                      </div>
+                      <div>
+                        <div className="font-space-grotesk text-2xl font-bold text-gray-900">
+                          {s.val}
+                        </div>
+                        <div className="text-sm text-gray-600">{s.txt}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div>
+            {/* CTA */}
+            <div className="mt-6 lg:mt-8">
               <button
                 onClick={scrollToContact}
-                className="btn-primary flex items-center justify-center space-x-2"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99]"
               >
-                <span>Đăng kí miễn phí ưu đãi 50%</span>
+                Đăng kí miễn phí nhận ưu đãi 50%
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           </div>
 
-          {/* Hero Image */}
-          <div className="relative">
-            <div className="relative z-10">
-              <img
-                src="/images/section1.jpg"
-                alt="Phòng khám mắt hiện đại"
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
+          {/* Right: Image */}
+          <div className="order-1 lg:order-2">
+            <div className="relative mx-auto max-w-sm sm:max-w-md">
+              {/* gradient ring */}
+              <div className="absolute -inset-1 rounded-[28px] bg-gradient-to-br from-emerald-400/50 via-cyan-400/50 to-blue-400/40 blur-md" />
+              {/* card */}
+              <div className="relative rounded-[24px] overflow-hidden bg-white shadow-2xl rotate-2 lg:rotate-0">
+                <img
+                  src="/images/section1.jpg"
+                  alt="Phòng khám mắt hiện đại"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+
+              {/* stickers */}
+              <div className="absolute -left-3 -top-3 bg-white rounded-xl shadow p-2 flex items-center gap-2">
+                <Shield className="w-4 h-4 text-emerald-600" />
+                <span className="text-xs font-semibold text-gray-800">
+                  Bảo đảm hiệu quả
+                </span>
+              </div>
+              <div className="absolute -right-3 bottom-10 bg-white rounded-full shadow p-2">
+                <Eye className="w-5 h-5 text-cyan-600" />
+              </div>
             </div>
           </div>
         </div>

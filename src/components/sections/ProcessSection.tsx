@@ -1,228 +1,280 @@
-import {
-  Calendar,
-  UserCheck,
-  Stethoscope,
-  FileText,
-  Heart,
-  Phone,
-} from "lucide-react";
+"use client";
 
-const ProcessSection = () => {
-  const steps = [
-    {
-      icon: Calendar,
-      title: "Đặt lịch hẹn",
-      description:
-        "Gọi điện hoặc đặt lịch online, chọn thời gian phù hợp với lịch trình của bạn",
-      details: ["Đặt lịch 24/7", "Xác nhận nhanh chóng", "Nhắc lịch tự động"],
-      color: "cyan",
-    },
-    {
-      icon: UserCheck,
-      title: "Tiếp đón & đăng ký",
-      description:
-        "Đội ngũ lễ tân thân thiện sẽ hướng dẫn bạn hoàn tất thủ tục khám",
-      details: [
-        "Thủ tục nhanh gọn",
-        "Hướng dẫn chi tiết",
-        "Không gian thoải mái",
-      ],
-      color: "emerald",
-    },
-    {
-      icon: Stethoscope,
-      title: "Khám & chẩn đoán",
-      description:
-        "Bác sĩ chuyên khoa thực hiện khám chi tiết với thiết bị hiện đại",
-      details: [
-        "Khám toàn diện",
-        "Thiết bị hiện đại",
-        "Bác sĩ giàu kinh nghiệm",
-      ],
-      color: "blue",
-    },
-    {
-      icon: FileText,
-      title: "Tư vấn & kế hoạch",
-      description:
-        "Nhận kết quả chi tiết và kế hoạch điều trị phù hợp với tình trạng của bạn",
-      details: [
-        "Giải thích rõ ràng",
-        "Kế hoạch cá nhân hóa",
-        "Tư vấn chi tiết",
-      ],
-      color: "purple",
-    },
-    {
-      icon: Heart,
-      title: "Điều trị & chăm sóc",
-      description:
-        "Thực hiện điều trị theo kế hoạch với sự theo dõi sát sao của đội ngũ y tế",
-      details: ["Điều trị an toàn", "Theo dõi sát sao", "Hỗ trợ 24/7"],
-      color: "pink",
-    },
-    {
-      icon: Phone,
-      title: "Theo dõi sau điều trị",
-      description:
-        "Chăm sóc và theo dõi tình trạng sức khỏe mắt định kỳ sau điều trị",
-      details: ["Tái khám định kỳ", "Tư vấn từ xa", "Hỗ trợ lâu dài"],
-      color: "orange",
-    },
-  ];
+import React, { useEffect, useMemo, useState } from "react";
 
-  const getColorClasses = (color: string) => {
-    const colorMap = {
-      cyan: "bg-cyan-100 text-cyan-600 border-cyan-200",
-      emerald: "bg-emerald-100 text-emerald-600 border-emerald-200",
-      blue: "bg-blue-100 text-blue-600 border-blue-200",
-      purple: "bg-purple-100 text-purple-600 border-purple-200",
-      pink: "bg-pink-100 text-pink-600 border-pink-200",
-      orange: "bg-orange-100 text-orange-600 border-orange-200",
-    };
-    return colorMap[color as keyof typeof colorMap] || colorMap.cyan;
+type Step = { number: string; title: string; details: string[] };
+
+const steps: Step[] = [
+  {
+    number: "1",
+    title: "BƯỚC 1: đánh giá sơ bộ",
+    details: ["Thử thị lực và đo khoảng cách đồng tử", "Đo khúc xạ máy"],
+  },
+  {
+    number: "2",
+    title: "BƯỚC 2: kiểm soát điều tiết",
+    details: ["Làm nghiệm pháp nhà điều tiết", "Soi bóng đồng tử"],
+  },
+  {
+    number: "3",
+    title: "BƯỚC 3: đo khúc xạ sơ bộ",
+    details: ["Thử kính cầu/kính trụ sơ bộ"],
+  },
+  {
+    number: "4",
+    title: "BƯỚC 4: đo khúc xạ tối ưu",
+    details: ["Thử kính cầu/kính trụ tối ưu"],
+  },
+  {
+    number: "5",
+    title: "BƯỚC 5: cấp đơn kính",
+    details: [
+      "Test cân bằng hai mắt, test lại kiểm soát điều tiết",
+      "Đeo kính đi lại, tinh chỉnh lại thông số kính",
+    ],
+  },
+];
+
+/* ---------- geometry helpers ---------- */
+const deg2rad = (deg: number) => (deg * Math.PI) / 180;
+const polar = (cx: number, cy: number, r: number, angleDeg: number) => {
+  const a = deg2rad(angleDeg);
+  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+};
+
+/* ---------- responsive circle sizes (desktop only) ---------- */
+function useCircleLayout() {
+  const [vw, setVw] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 1440
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // presets theo breakpoint để lấp đầy màn hình rộng
+  const layout = useMemo(() => {
+    if (vw >= 1536) {
+      return { size: 1100, arc: 360, card: 420, center: 240 };
+    }
+    if (vw >= 1280) {
+      return { size: 960, arc: 320, card: 380, center: 220 };
+    }
+    if (vw >= 1024) {
+      return { size: 880, arc: 290, card: 340, center: 200 };
+    }
+    // < md không dùng vòng tròn
+    return { size: 820, arc: 270, card: 320, center: 180 };
+  }, [vw]);
+
+  // card width co giãn theo size (không vượt quá 320)
+  const cardWidth = Math.max(
+    240,
+    Math.min(320, Math.round(layout.size * 0.27))
+  );
+
+  return {
+    size: layout.size,
+    radiusArc: layout.arc,
+    radiusCard: layout.card,
+    centerSize: layout.center,
+    cardWidth,
   };
+}
 
-  // const getLineColor = (color: string) => {
-  //   const colorMap = {
-  //     cyan: "bg-cyan-300",
-  //     emerald: "bg-emerald-300",
-  //     blue: "bg-blue-300",
-  //     purple: "bg-purple-300",
-  //     pink: "bg-pink-300",
-  //     orange: "bg-orange-300",
-  //   };
-  //   return colorMap[color as keyof typeof colorMap] || colorMap.cyan;
-  // };
+const ProcessSection: React.FC = () => {
+  const { size, radiusArc, radiusCard, centerSize, cardWidth } =
+    useCircleLayout();
+
+  // thông số vòng
+  const cx = size / 2;
+  const cy = size / 2;
+  const baseAngle = -90; // Bước 1 trên đỉnh
+  const stepAngle = 360 / steps.length;
+  const anglePad = 10; // tránh cung đè lên card
+
+  // tính vị trí card & path cung mũi tên
+  const positioned = steps.map((s, i) => {
+    const angle = baseAngle + i * stepAngle;
+    const nextAngle = baseAngle + ((i + 1) % steps.length) * stepAngle;
+
+    const { x, y } = polar(cx, cy, radiusCard, angle);
+    const start = polar(cx, cy, radiusArc, angle + anglePad);
+    const end = polar(cx, cy, radiusArc, nextAngle - anglePad);
+
+    const delta = ((nextAngle - angle + 360) % 360) - 2 * anglePad;
+    const largeArc = delta > 180 ? 1 : 0;
+
+    const path = `M ${start.x} ${start.y} A ${radiusArc} ${radiusArc} 0 ${largeArc} 1 ${end.x} ${end.y}`;
+
+    return { ...s, angle, x, y, path };
+  });
 
   return (
-    <section id="process" className="section-padding bg-white">
+    <section
+      id="process"
+      className="section-padding relative overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, #e8f5e8 0%, #f0f9f0 100%)",
+        backgroundImage: `
+          radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+          radial-gradient(circle at 40% 60%, rgba(34, 197, 94, 0.05) 0%, transparent 50%)
+        `,
+      }}
+    >
       <div className="container mx-auto container-padding">
-        <div className="text-center mb-16">
-          <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Quy trình khám chữa bệnh
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="font-space-grotesk text-3xl md:text-5xl font-bold text-emerald-500 mb-2 tracking-wider">
+            QUY TRÌNH
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Quy trình khám chữa bệnh được thiết kế khoa học, đảm bảo chất lượng
-            dịch vụ và sự hài lòng tối đa cho bệnh nhân.
-          </p>
+          <h3 className="font-space-grotesk text-lg md:text-2xl font-bold text-gray-800">
+            ĐO TẬT KHÚC XẠ VÀ KIỂM TRA MẮT
+          </h3>
         </div>
 
-        {/* Desktop Timeline */}
-        <div className="hidden lg:block">
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute top-24 left-0 right-0 h-1 bg-gray-200 rounded-full"></div>
-
-            <div className="grid grid-cols-6 gap-8">
-              {steps.map((step, index) => (
-                <div key={index} className="relative">
-                  {/* Timeline Dot */}
-                  <div
-                    className={`absolute top-20 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full border-4 border-white shadow-lg ${getColorClasses(
-                      step.color
-                    )}`}
-                  ></div>
-
-                  {/* Content Card */}
-                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 mt-32">
-                    <div
-                      className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 mx-auto ${getColorClasses(
-                        step.color
-                      )}`}
-                    >
-                      <step.icon className="w-8 h-8" />
-                    </div>
-
-                    <h3 className="font-space-grotesk text-lg font-semibold text-gray-900 mb-3 text-center">
-                      {step.title}
-                    </h3>
-
-                    <p className="text-gray-600 text-sm mb-4 text-center leading-relaxed">
-                      {step.description}
-                    </p>
-
-                    <ul className="space-y-1">
-                      {step.details.map((detail, detailIndex) => (
-                        <li
-                          key={detailIndex}
-                          className="flex items-center space-x-2 text-xs text-gray-500"
-                        >
-                          <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Timeline */}
-        <div className="lg:hidden">
-          <div className="relative">
-            {/* Vertical Timeline Line */}
-            <div className="absolute left-8 top-0 bottom-0 w-1 bg-gray-200 rounded-full"></div>
-
-            <div className="space-y-8">
-              {steps.map((step, index) => (
+        {/* ===== Mobile: hiển thị danh sách dọc ===== */}
+        <div className="md:hidden space-y-4">
+          {steps.map((step, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-2xl p-4 shadow-sm border border-emerald-100"
+            >
+              <div className="flex items-start gap-3">
                 <div
-                  key={index}
-                  className="relative flex items-start space-x-6"
+                  className="text-4xl font-extrabold text-emerald-500 leading-none"
+                  style={{
+                    WebkitTextStroke: "2px #10b981",
+                    WebkitTextFillColor: "transparent",
+                  }}
                 >
-                  {/* Timeline Dot */}
-                  <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${getColorClasses(
-                      step.color
-                    )} border-4 border-white shadow-lg`}
-                  >
-                    <step.icon className="w-8 h-8" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex-1">
-                    <h3 className="font-space-grotesk text-xl font-semibold text-gray-900 mb-3">
-                      {step.title}
-                    </h3>
-
-                    <p className="text-gray-600 mb-4 leading-relaxed">
-                      {step.description}
-                    </p>
-
-                    <ul className="space-y-2">
-                      {step.details.map((detail, detailIndex) => (
-                        <li
-                          key={detailIndex}
-                          className="flex items-center space-x-2 text-sm text-gray-500"
-                        >
-                          <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {step.number}
                 </div>
-              ))}
+                <div>
+                  <h4 className="font-semibold text-emerald-600 mb-1">
+                    {step.title}
+                  </h4>
+                  <ul className="text-gray-700 text-sm space-y-1">
+                    {step.details.map((d, i) => (
+                      <li key={i}>- {d}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
 
-        {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <div className="bg-gradient-secondary rounded-2xl p-8 md:p-12">
-            <h3 className="font-space-grotesk text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Sẵn sàng bắt đầu hành trình chăm sóc mắt?
-            </h3>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Quy trình khám chữa bệnh chuyên nghiệp, an toàn và hiệu quả. Hãy
-              đặt lịch ngay để trải nghiệm dịch vụ tốt nhất.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary">Đặt lịch khám ngay</button>
-              <button className="btn-secondary">Tư vấn qua điện thoại</button>
+        {/* ===== Desktop: vòng tròn lớn lấp màn ===== */}
+        <div className="hidden md:block">
+          {/* Wrapper chung hệ toạ độ cho SVG + Cards + Ảnh */}
+          <div
+            className="relative mx-auto"
+            style={{ width: size, height: size }}
+          >
+            {/* SVG vòng & mũi tên (khớp kích thước wrapper) */}
+            <svg
+              className="absolute inset-0"
+              width={size}
+              height={size}
+              viewBox={`0 0 ${size} ${size}`}
+            >
+              <defs>
+                <marker
+                  id="arrowhead"
+                  markerWidth="12"
+                  markerHeight="8"
+                  refX="10"
+                  refY="4"
+                  orient="auto"
+                >
+                  <polygon points="0 0, 12 4, 0 8" fill="#10b981" />
+                </marker>
+              </defs>
+
+              {/* vòng tròn nền nhạt giúp canh thị giác */}
+              <circle
+                cx={cx}
+                cy={cy}
+                r={radiusArc}
+                fill="none"
+                stroke="#10b981"
+                strokeOpacity="0.22"
+                strokeDasharray="6 8"
+                strokeWidth="2"
+              />
+
+              {/* các cung mũi tên nối giữa các bước */}
+              {positioned.map((p, i) => (
+                <path
+                  key={`arc-${i}`}
+                  d={p.path}
+                  fill="none"
+                  stroke="#10b981"
+                  strokeWidth="3"
+                  markerEnd="url(#arrowhead)"
+                  opacity="0.95"
+                />
+              ))}
+            </svg>
+
+            {/* Ảnh trung tâm */}
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+              style={{ width: centerSize, height: centerSize }}
+            >
+              <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl bg-white">
+                <img
+                  src="/images/section4.jpg"
+                  alt="Eye examination"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
+
+            {/* Cards đặt theo điểm cực trên vòng */}
+            {positioned.map((p, i) => (
+              <div
+                key={`card-${i}`}
+                className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
+                style={{ left: p.x, top: p.y, width: cardWidth }}
+              >
+                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-5 border border-emerald-100 shadow-lg">
+                  <div className="flex items-start gap-3 mb-2">
+                    <div
+                      className="text-6xl font-bold text-emerald-500 leading-none opacity-90"
+                      style={{
+                        WebkitTextStroke: "2px #10b981",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      {p.number}
+                    </div>
+                    <h4 className="font-space-grotesk text-emerald-600 font-bold pt-2">
+                      {p.title}
+                    </h4>
+                  </div>
+                  <ul className="text-gray-700 text-sm space-y-1">
+                    {p.details.map((d, idx) => (
+                      <li key={idx}>- {d}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-10">
+            <a
+              href="#booking"
+              className="inline-block bg-emerald-500 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
+            >
+              Đăng kí miễn phí nhận ưu đãi 50%
+            </a>
           </div>
         </div>
       </div>

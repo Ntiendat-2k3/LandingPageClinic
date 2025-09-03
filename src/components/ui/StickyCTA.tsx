@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import { Phone, X, Calendar, MessageCircle, ChevronUp } from "lucide-react";
 
+const MESSENGER_USERNAME = "pkmatdrtrantuan";
+const MESSENGER_PAGE_ID = "61575903518251";
+
 const StickyCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -12,36 +15,46 @@ const StickyCTA = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-
-      // Show CTA after scrolling 50vh
       setIsVisible(scrollPosition > windowHeight * 0.5);
-      // Show scroll to top after scrolling 100vh
       setShowScrollTop(scrollPosition > windowHeight);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToBooking = () => {
-    const element = document.getElementById("booking");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const el = document.getElementById("booking");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
     setIsExpanded(false);
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const handleCall = () => {
-    window.location.href = "tel:0123456789";
+    window.location.href = "tel:0387812321";
   };
 
+  // NEW: mở Messenger
   const handleChat = () => {
-    // Implement chat functionality
-    console.log("Opening chat...");
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile && MESSENGER_PAGE_ID !== "000000000000000") {
+      // thử mở app Messenger
+      window.location.href = `fb-messenger://user-thread/${MESSENGER_PAGE_ID}`;
+      // fallback sang web nếu app không mở
+      setTimeout(() => {
+        window.location.href = `https://m.me/${MESSENGER_USERNAME}`;
+      }, 800);
+    } else {
+      // desktop hoặc chưa có PAGE_ID: mở m.me
+      window.open(
+        `https://m.me/${MESSENGER_USERNAME}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+
+    setIsExpanded(false);
   };
 
   if (!isVisible) return null;
@@ -80,7 +93,7 @@ const StickyCTA = () => {
                 <Phone className="w-5 h-5" />
                 <div className="text-left">
                   <div className="font-medium">Gọi ngay</div>
-                  <div className="text-xs opacity-90">0123 456 789</div>
+                  <div className="text-xs opacity-90">0387 812 321</div>
                 </div>
               </button>
 
@@ -104,7 +117,9 @@ const StickyCTA = () => {
                 <MessageCircle className="w-5 h-5" />
                 <div className="text-left">
                   <div className="font-medium">Chat trực tuyến</div>
-                  <div className="text-xs opacity-90">Tư vấn miễn phí</div>
+                  <div className="text-xs opacity-90">
+                    Redirect sang Messenger
+                  </div>
                 </div>
               </button>
             </div>

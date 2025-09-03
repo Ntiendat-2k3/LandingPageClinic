@@ -1,253 +1,210 @@
-import { Check, Star, Crown, Shield } from "lucide-react";
+"use client";
 
-const PricingSection = () => {
-  const packages = [
-    {
-      name: "Gói Cơ Bản",
-      price: "200.000",
-      originalPrice: "300.000",
-      duration: "45 phút",
-      description: "Phù hợp cho khám sức khỏe mắt định kỳ",
-      features: [
-        "Đo thị lực cơ bản",
-        "Kiểm tra khúc xạ",
-        "Đo nhãn áp",
-        "Tư vấn cơ bản",
-        "Hồ sơ bệnh án điện tử",
-      ],
-      popular: false,
-      color: "gray",
-      icon: Shield,
-    },
-    {
-      name: "Gói Toàn Diện",
-      price: "500.000",
-      originalPrice: "700.000",
-      duration: "90 phút",
-      description: "Khám chi tiết, phát hiện sớm bệnh lý",
-      features: [
-        "Tất cả dịch vụ gói cơ bản",
-        "Chụp đáy mắt OCT",
-        "Đo độ dày giác mạc",
-        "Kiểm tra thị trường",
-        "Tư vấn chuyên sâu",
-        "Theo dõi 6 tháng miễn phí",
-      ],
-      popular: true,
-      color: "cyan",
-      icon: Star,
-    },
-    {
-      name: "Gói VIP",
-      price: "1.000.000",
-      originalPrice: "1.500.000",
-      duration: "120 phút",
-      description: "Dịch vụ cao cấp với bác sĩ chuyên khoa I",
-      features: [
-        "Tất cả dịch vụ gói toàn diện",
-        "Khám với Giáo sư/PGS",
-        "Chụp OCT-A mạch máu",
-        "Phân tích AI chuyên sâu",
-        "Tư vấn điều trị cá nhân hóa",
-        "Theo dõi 1 năm miễn phí",
-        "Ưu tiên đặt lịch",
-        "Hỗ trợ 24/7",
-      ],
-      popular: false,
-      color: "emerald",
-      icon: Crown,
-    },
-  ];
+import React from "react";
 
-  const getColorClasses = (color: string, popular: boolean) => {
-    if (popular) {
-      return {
-        card: "bg-gradient-to-br from-cyan-50 to-emerald-50 border-2 border-cyan-200 shadow-xl",
-        badge: "bg-gradient-to-r from-cyan-500 to-emerald-500 text-white",
-        icon: "bg-gradient-to-r from-cyan-500 to-emerald-500 text-white",
-        button: "btn-primary w-full",
-        price: "text-cyan-600",
-      };
-    }
+type Treatment = {
+  name: string;
+  image: string;
+  effectiveness?: string[];
+  description?: string;
+  tag?: string;
+  tone?: "emerald" | "teal" | "purple" | "lime";
+};
 
-    const colorMap = {
-      gray: {
-        card: "bg-white border border-gray-200 shadow-lg hover:shadow-xl",
-        badge: "bg-gray-100 text-gray-600",
-        icon: "bg-gray-100 text-gray-600",
-        button: "btn-secondary w-full",
-        price: "text-gray-900",
-      },
-      emerald: {
-        card: "bg-white border border-emerald-200 shadow-lg hover:shadow-xl",
-        badge: "bg-emerald-100 text-emerald-600",
-        icon: "bg-emerald-100 text-emerald-600",
-        button:
-          "bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 w-full",
-        price: "text-emerald-600",
-      },
-    };
+const treatments: Treatment[] = [
+  {
+    name: "Atropine nồng độ thấp",
+    image: "/images/ksct1.jpg",
+    effectiveness: [
+      "Hiệu quả kiểm soát độ cận thị: ~67%",
+      "Hiệu quả kiểm soát trục nhãn cầu: ~51%",
+    ],
+    tag: "Thuốc nhỏ mắt",
+    tone: "emerald",
+  },
+  {
+    name: "Tròng kính kiểm soát cận thị",
+    image: "/images/ksct2.jpg",
+    effectiveness: [
+      "Hiệu quả kiểm soát độ cận thị: ~70%",
+      "Hiệu quả kiểm soát trục nhãn cầu: ~55%",
+    ],
+    tag: "Tròng chuyên dụng",
+    tone: "teal",
+  },
+  {
+    name: "Kính áp tròng Ortho-K",
+    image: "/images/ksct3.jpg",
+    effectiveness: [
+      "Hiệu quả kiểm soát độ cận thị: ~80%",
+      "Hiệu quả kiểm soát trục nhãn cầu: ~70%",
+    ],
+    tag: "Đeo ban đêm",
+    tone: "purple",
+  },
+  {
+    name: "Phương án kết hợp",
+    image: "/images/ksct4.jpg",
+    description: "Phối hợp 2–3 phương pháp để tối ưu hiệu quả theo từng hồ sơ.",
+    tag: "Tư vấn cá nhân hóa",
+    tone: "lime",
+  },
+];
 
-    return colorMap[color as keyof typeof colorMap] || colorMap.gray;
-  };
+const tone = {
+  emerald: { chip: "text-emerald-700 bg-emerald-50", dot: "bg-emerald-400" },
+  teal: { chip: "text-teal-700 bg-teal-50", dot: "bg-teal-400" },
+  purple: { chip: "text-purple-700 bg-purple-50", dot: "bg-purple-400" },
+  lime: { chip: "text-lime-700 bg-lime-50", dot: "bg-lime-400" },
+};
 
+const Check = ({ className = "" }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+    <path
+      d="M20 7L10 17l-6-6"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const PricingSection: React.FC = () => {
   return (
-    <section id="pricing" className="section-padding bg-gradient-secondary">
-      <div className="container mx-auto container-padding">
-        <div className="text-center mb-16">
-          <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Bảng giá dịch vụ minh bạch
+    <section
+      id="pricing"
+      className="relative py-12 md:py-16 xl:py-20 overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(135deg, rgba(236,253,245,1) 0%, rgba(240,249,255,1) 100%)",
+      }}
+    >
+      {/* décor */}
+      <div className="pointer-events-none absolute inset-0 opacity-50">
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl bg-emerald-200/40" />
+        <div className="absolute bottom-0 left-1/3 w-72 h-72 rounded-full blur-3xl bg-purple-200/30" />
+      </div>
+
+      <div className="container mx-auto px-4 relative">
+        {/* Title + TAG */}
+        <div className="text-center mb-8 md:mb-12">
+          {/* tag “KIỂM SOÁT CẬN THỊ” */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600/90 text-white text-sm font-semibold tracking-wide shadow-md">
+            <span className="inline-block h-2 w-2 rounded-full bg-white/90" />
+            KIỂM SOÁT CẬN THỊ
+          </div>
+
+          <h2 className="mt-4 text-2xl md:text-4xl xl:text-5xl font-extrabold leading-tight text-gray-900 drop-shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+            CÁC PHƯƠNG PHÁP TIÊN TIẾN HIỆU QUẢ CAO
+            <br className="hidden sm:block" />
+            HÀNG ĐẦU THẾ GIỚI
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Chúng tôi cam kết giá cả minh bạch, không phát sinh chi phí ẩn. Chọn
-            gói dịch vụ phù hợp với nhu cầu và ngân sách của bạn.
+
+          <p className="mt-3 text-sm md:text-base text-gray-100/90 max-w-3xl mx-auto">
+            Tùy hồ sơ khúc xạ và nhịp tiến triển, bác sĩ sẽ cá nhân hóa phác đồ
+            để tối ưu kết quả cho trẻ.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {packages.map((pkg, index) => {
-            const colors = getColorClasses(pkg.color, pkg.popular);
-
+        {/* Grid responsive */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 max-w-7xl mx-auto">
+          {treatments.map((t, i) => {
+            const theme = tone[t.tone || "emerald"];
             return (
               <div
-                key={index}
-                className={`relative rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 ${colors.card}`}
+                key={i}
+                className={
+                  // KHÔNG hiệu ứng trên mobile: hover/transition chỉ áp dụng từ md:
+                  "group relative rounded-3xl border border-white/70 bg-white/70 backdrop-blur-xl " +
+                  "shadow-[0_8px_24px_rgba(16,185,129,0.08)] " +
+                  "md:hover:shadow-[0_16px_36px_rgba(16,185,129,0.14)] md:transition-all md:duration-500 " +
+                  (i % 2 !== 0 ? "md:translate-y-1.5" : "")
+                }
               >
-                {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div
-                      className={`px-6 py-2 rounded-full text-sm font-semibold ${colors.badge}`}
-                    >
-                      Phổ biến nhất
-                    </div>
+                {/* Tag nhỏ trên từng card (nếu có) */}
+                {t.tag && (
+                  <div
+                    className={`absolute -top-3 left-4 px-3 py-1 rounded-full text-[11px] md:text-xs font-semibold ${theme.chip} shadow-sm border border-white/70`}
+                  >
+                    {t.tag}
                   </div>
                 )}
 
-                <div className="text-center mb-8">
-                  <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 ${colors.icon}`}
-                  >
-                    <pkg.icon className="w-8 h-8" />
+                <div className="p-4 md:p-6">
+                  {/* Ảnh: hiển thị hết, không khuyết */}
+                  <div className="relative w-full rounded-2xl overflow-hidden border border-white/70 bg-gradient-to-br from-white to-emerald-50">
+                    <div className="aspect-[4/3] md:aspect-[5/3] w-full flex items-center justify-center">
+                      <img
+                        src={t.image || "/placeholder.svg"}
+                        alt={t.name}
+                        className="max-h-full max-w-full object-contain p-3 md:p-4 md:transition-transform md:duration-500 md:group-hover:scale-[1.03]"
+                        loading="lazy"
+                      />
+                    </div>
+                    {/* Dot: đứng yên trên mobile, pulse trên md+ */}
+                    <span
+                      className={`absolute bottom-3 right-3 h-2 w-2 rounded-full ${theme.dot} md:animate-pulse`}
+                    />
                   </div>
 
-                  <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 mb-2">
-                    {pkg.name}
+                  {/* Tên */}
+                  <h3 className="mt-4 text-base md:text-lg font-bold text-gray-900 leading-snug">
+                    {t.name}
                   </h3>
 
-                  <p className="text-gray-600 mb-4">{pkg.description}</p>
-
-                  <div className="mb-2">
-                    <span className={`text-4xl font-bold ${colors.price}`}>
-                      {pkg.price}
-                    </span>
-                    <span className="text-gray-900">đ</span>
+                  {/* Nội dung */}
+                  <div className="mt-2 md:mt-3 space-y-1.5 md:space-y-2">
+                    {t.effectiveness ? (
+                      t.effectiveness.map((line, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-2 text-[13px] md:text-sm text-gray-700"
+                        >
+                          <span className="mt-0.5 text-emerald-500">
+                            <Check className="h-3.5 w-3.5" />
+                          </span>
+                          <span className="leading-6">{line}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-[13px] md:text-sm text-gray-700">
+                        {t.description}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
-                    <span className="line-through">{pkg.originalPrice}đ</span>
-                    <span className="text-red-500 font-medium">
-                      Tiết kiệm{" "}
-                      {Number.parseInt(pkg.originalPrice) -
-                        Number.parseInt(pkg.price)}
-                      k
-                    </span>
-                  </div>
-
-                  <div className="text-sm text-gray-500 mt-2">
-                    Thời gian: {pkg.duration}
-                  </div>
+                  {/* Chips phần trăm */}
+                  {t.effectiveness && (
+                    <div className="mt-3 md:mt-4 flex flex-wrap gap-2">
+                      {t.effectiveness.map((e, idx) => {
+                        const percent = e.match(/\~?\d+%/g)?.[0];
+                        if (!percent) return null;
+                        return (
+                          <span
+                            key={idx}
+                            className={`px-2 py-1 rounded-full text-[11px] md:text-xs font-semibold ${theme.chip} border border-white/70`}
+                          >
+                            {percent}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
 
-                <ul className="space-y-4 mb-8">
-                  {pkg.features.map((feature, featureIndex) => (
-                    <li
-                      key={featureIndex}
-                      className="flex items-start space-x-3"
-                    >
-                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-green-600" />
-                      </div>
-                      <span className="text-gray-600 text-sm leading-relaxed">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button className={colors.button}>Chọn gói này</button>
-
-                {pkg.popular && (
-                  <div className="mt-4 text-center">
-                    <div className="text-xs text-gray-500">
-                      ⭐ Được 85% khách hàng lựa chọn
-                    </div>
-                  </div>
-                )}
+                {/* Viền ring gradient khi hover: chỉ md+ */}
+                <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-300 to-purple-400 opacity-0 md:group-hover:opacity-20 md:transition-opacity md:duration-500" />
               </div>
             );
           })}
         </div>
 
-        {/* Additional Services */}
-        <div className="mt-16">
-          <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 text-center mb-8">
-            Dịch vụ bổ sung
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                name: "Phẫu thuật Lasik",
-                price: "25.000.000đ",
-                note: "Bảo hành 10 năm",
-              },
-              {
-                name: "Điều trị đục thủy tinh thể",
-                price: "15.000.000đ",
-                note: "IOL cao cấp",
-              },
-              {
-                name: "Điều trị cận thị trẻ em",
-                price: "500.000đ/tháng",
-                note: "Theo dõi định kỳ",
-              },
-              {
-                name: "Tư vấn kính áp tròng",
-                price: "150.000đ",
-                note: "Hướng dẫn chi tiết",
-              },
-            ].map((service, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl p-6 shadow-lg text-center"
-              >
-                <h4 className="font-space-grotesk font-semibold text-gray-900 mb-2">
-                  {service.name}
-                </h4>
-                <div className="text-2xl font-bold text-cyan-600 mb-1">
-                  {service.price}
-                </div>
-                <div className="text-xs text-gray-500">{service.note}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Guarantee */}
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <Shield className="w-8 h-8 text-green-600" />
-              <h3 className="font-space-grotesk text-2xl font-bold text-gray-900">
-                Cam kết hoàn tiền 100%
-              </h3>
-            </div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Nếu bạn không hài lòng với dịch vụ của chúng tôi trong vòng 7
-              ngày, chúng tôi sẽ hoàn lại 100% chi phí khám.
-            </p>
-          </div>
-        </div>
+        {/* footnote */}
+        <p className="mt-6 md:mt-8 text-center text-[11px] md:text-xs text-gray-500">
+          * Hiệu quả tham khảo từ các nghiên cứu điển hình; kết quả thực tế phụ
+          thuộc từng hồ sơ.
+        </p>
       </div>
     </section>
   );

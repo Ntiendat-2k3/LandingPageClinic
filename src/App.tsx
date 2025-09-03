@@ -2,8 +2,8 @@ import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import BookingSection from "./components/sections/BookingSection";
 import DoctorsSection from "./components/sections/DoctorsSection";
-import EquipmentSection from "./components/sections/EquipmentSection";
-import FAQSection from "./components/sections/FaqSection";
+// import EquipmentSection from "./components/sections/EquipmentSection";
+// import FAQSection from "./components/sections/FaqSection";
 import GoalsSection from "./components/sections/GoalsSection";
 import HeroSection from "./components/sections/HeroSection";
 import PricingSection from "./components/sections/PricingSection";
@@ -23,9 +23,9 @@ function App() {
         <ProcessSection />
         <PricingSection />
         <DoctorsSection />
-        <EquipmentSection />
+        {/* <EquipmentSection /> */}
         <TestimonialsSection />
-        <FAQSection />
+        {/* <FAQSection /> */}
         <BookingSection />
       </main>
       <Footer />

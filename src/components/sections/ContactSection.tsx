@@ -74,7 +74,7 @@ const ContactSection = () => {
       <div className="container mx-auto container-padding">
         <div className="text-center mb-16">
           <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Đặt lịch khám ngay
+            Đăng kí miễn phí nhận ưu đãi 50%
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Liên hệ với chúng tôi để đặt lịch khám hoặc tư vấn miễn phí. Đội ngũ

@@ -250,10 +250,7 @@ const EquipmentSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-cyan-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
-                Đặt lịch khám ngay
-              </button>
-              <button className="border-2 border-white text-white font-semibold py-3 px-8 rounded-lg hover:bg-white hover:text-cyan-600 transition-colors">
-                Tham quan phòng khám
+                Đăng kí miễn phí nhận ưu đãi 50%
               </button>
             </div>
           </div>
