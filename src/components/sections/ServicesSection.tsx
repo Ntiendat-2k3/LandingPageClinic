@@ -88,16 +88,16 @@ const ServicesSection = () => {
       </div>
 
       <div className="container mx-auto container-padding relative z-10">
-        {/* Header — nâng z-index để không bị che */}
-        <div className="text-center mb-8 md:mb-16 relative z-30">
-          <div className="mb-6 md:mb-8">
-            <h2 className="font-space-grotesk text-2xl md:text-4xl font-bold text-black mb-2 md:mb-4">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-20 relative z-30">
+          <div className="mb-8 md:mb-10">
+            <h2 className="font-space-grotesk text-2xl md:text-4xl font-bold text-black mb-3 md:mb-5">
               CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI
             </h2>
-            <p className="text-lg md:text-2xl text-black font-semibold">
+            <p className="text-md lg:text-lg md:text-2xl text-black font-semibold">
               “ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ”
             </p>
-            <p className="text-base md:text-xl text-black mt-1 md:mt-2">
+            <p className="text-md lg:text-base md:text-xl text-black mt-2 md:mt-3">
               XOÁ TAN NỖI LO TĂNG ĐỘ CẬN
             </p>
           </div>
@@ -131,7 +131,7 @@ const ServicesSection = () => {
                 >
                   <div className="rounded-3xl p-[2px] bg-gradient-to-br from-emerald-200 via-sky-200 to-teal-200 shadow-[0_10px_24px_rgba(16,185,129,0.08)]">
                     <div className="relative rounded-3xl bg-white/95 backdrop-blur-xl ring-1 ring-white/70 p-3 overflow-hidden">
-                      {/* icon nhỏ hơn */}
+                      {/* icon */}
                       <div className="mb-2">
                         <div className="relative w-12 h-12 mx-auto">
                           <div
@@ -145,7 +145,7 @@ const ServicesSection = () => {
                         </div>
                       </div>
 
-                      {/* tiêu đề nổi bật hơn */}
+                      {/* title */}
                       <p className="text-[13px] font-bold text-gray-900 leading-snug tracking-tight text-center line-clamp-3">
                         {pkg.title}
                       </p>
@@ -171,9 +171,9 @@ const ServicesSection = () => {
 
         {/* ============== DESKTOP ============== */}
         <div className="hidden md:block">
-          {/* thêm margin-top nhỏ để tránh chạm header */}
-          <div className="relative max-w-6xl mx-auto pt-32 pb-24 mt-2">
-            {/* Packages quanh viền — hạ z-index để không đè tiêu đề */}
+          {/* Tăng padding-top để tạo khoảng cách an toàn với tiêu đề */}
+          <div className="relative max-w-6xl mx-auto pt-64 lg:pt-72 pb-24 mt-4">
+            {/* Packages quanh viền */}
             <div className="absolute inset-0 z-10">
               {servicePackages.map((pkg, index) => {
                 const Icon = pkg.icon;
@@ -181,19 +181,19 @@ const ServicesSection = () => {
                 switch (pkg.position) {
                   case "top-left":
                     positionClasses =
-                      "top-0 left-0 -translate-x-1/2 -translate-y-1/2";
+                      "top-16 left-0 -translate-x-1/2 -translate-y-1/2";
                     break;
                   case "top-right":
                     positionClasses =
-                      "top-0 right-0 translate-x-1/2 -translate-y-1/2";
+                      "top-16 right-0 translate-x-1/2 -translate-y-1/2";
                     break;
                   case "top-center-left":
                     positionClasses =
-                      "top-0 left-1/3 -translate-x-1/2 -translate-y-1/2";
+                      "top-16 left-1/3 -translate-x-1/2 -translate-y-1/2";
                     break;
                   case "top-center-right":
                     positionClasses =
-                      "top-0 right-1/3 translate-x-1/2 -translate-y-1/2";
+                      "top-16 right-1/3 translate-x-1/2 -translate-y-1/2";
                     break;
                   case "middle-left":
                     positionClasses =
@@ -220,11 +220,9 @@ const ServicesSection = () => {
                     style={{ animationDelay: pkg.delay }}
                     onClick={() => scrollToSection("booking")}
                   >
-                    {/* icon nhỏ hơn */}
                     <div className="w-9 h-9 bg-gradient-to-br from-emerald-300 to-emerald-400 rounded-full flex items-center justify-center mb-2">
                       <Icon className="w-4 h-4 text-white" />
                     </div>
-                    {/* tiêu đề nổi bật hơn */}
                     <p className="text-base font-bold text-gray-900 leading-snug max-w-[180px]">
                       {pkg.title}
                     </p>
@@ -233,7 +231,7 @@ const ServicesSection = () => {
               })}
             </div>
 
-            {/* Ảnh trung tâm kiểu “lens” */}
+            {/* Ảnh trung tâm */}
             <div className="relative z-20 flex items-center justify-center">
               <button
                 onClick={() => scrollToSection("booking")}

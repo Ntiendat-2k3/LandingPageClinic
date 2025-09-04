@@ -10,6 +10,7 @@ import PricingSection from "./components/sections/PricingSection";
 import ProcessSection from "./components/sections/ProcessSection";
 import ServicesSection from "./components/sections/ServicesSection";
 import TestimonialsSection from "./components/sections/TestimonialsSection";
+import VideoSection from "./components/sections/VideoSection";
 import StickyCTA from "./components/ui/StickyCTA";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <main>
         <HeroSection />
         <GoalsSection />
+        <VideoSection />
         <ServicesSection />
         <ProcessSection />
         <PricingSection />

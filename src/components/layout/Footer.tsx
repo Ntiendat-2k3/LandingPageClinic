@@ -10,6 +10,7 @@ import {
   Youtube,
   MessageSquare,
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const Footer = () => {
   const partners = [
@@ -21,20 +22,38 @@ const Footer = () => {
     { src: "/images/partners/santen.jpg", alt: "Santen" },
   ];
 
-  // Fanpage & Messenger
   const fanpageUrl = "https://www.facebook.com/pkmatdrtrantuan";
-  const messengerUrl = "https://m.me/pkmatdrtrantuan"; // nút Chat hoạt động
+  const messengerUrl = "https://m.me/pkmatdrtrantuan";
+
+  // === Responsive width cho Page Plugin (1 iframe duy nhất) ===
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [fbWidth, setFbWidth] = useState(340); // mặc định mobile
+
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+
+    // Giới hạn tối đa 495 trên desktop, fit 100% trên mobile
+    const update = () => {
+      const w = Math.round(el.clientWidth);
+      setFbWidth(Math.min(w, 495));
+    };
+
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* ---- 2 columns: Info (left) + Facebook (right) ---- */}
+        {/* Info (left) + Facebook (right) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
-          {/* LEFT: Thông tin + Hỗ trợ + Đối tác */}
+          {/* LEFT */}
           <div className="space-y-6">
-            {/* Logo + tên phòng khám */}
+            {/* Logo + tên */}
             <div className="flex items-center gap-3">
-              {/* nếu có logo file: /images/logo.png thì dùng <img> thay cho block dưới */}
               <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl grid place-items-center">
                 <Eye className="w-7 h-7 text-white" />
               </div>
@@ -46,7 +65,7 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Thông tin phòng khám */}
+            {/* Thông tin */}
             <div className="space-y-3 text-sm text-gray-300">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
@@ -64,10 +83,10 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* HỖ TRỢ: luôn hiện, to & nổi bật */}
+            {/* CẦN HỖ TRỢ? (đẹp mobile/desktop) */}
             <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
-              <div className="flex items-center justify-between gap-4">
-                <div>
+              <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+                <div className="flex-1">
                   <div className="text-lg font-bold">CẦN HỖ TRỢ?</div>
                   <p className="text-gray-300 text-sm">
                     Nhấn “Chat me now” để tư vấn nhanh qua Messenger hoặc gọi
@@ -78,7 +97,7 @@ const Footer = () => {
                   href={messengerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-emerald-500 text-white font-semibold px-4 py-2 rounded-xl hover:bg-emerald-600 active:scale-[.99] transition"
+                  className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-3 rounded-xl bg-emerald-500 text-white font-semibold whitespace-nowrap shrink-0 hover:bg-emerald-600 active:scale-[.99] transition"
                 >
                   <MessageSquare className="w-4 h-4" />
                   Chat me now
@@ -95,21 +114,21 @@ const Footer = () => {
                 className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
                 aria-label="Facebook"
               >
-                <Facebook className="w-4.5 h-4.5" />
+                <Facebook className="w-4 h-4" />
               </a>
               <a
                 href="#"
                 className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram className="w-4.5 h-4.5" />
+                <Instagram className="w-4 h-4" />
               </a>
               <a
                 href="#"
                 className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
                 aria-label="YouTube"
               >
-                <Youtube className="w-4.5 h-4.5" />
+                <Youtube className="w-4 h-4" />
               </a>
             </div>
 
@@ -136,14 +155,18 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* RIGHT: Facebook Page plugin (phóng to) */}
+          {/* RIGHT: Fanpage — 1 iframe, responsive theo wrapper */}
           <div>
-            <div className="rounded-2xl w-[495px] overflow-hidden">
+            <div
+              ref={wrapperRef}
+              className="rounded-2xl overflow-hidden w-full md:w-[495px]" // desktop cố định 495px, mobile = 100%
+            >
               <iframe
+                key={fbWidth} // buộc reload khi width thay đổi
                 title="Facebook Page"
                 src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
                   fanpageUrl
-                )}&tabs=timeline&width=500&height=360&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
+                )}&tabs=timeline&width=${fbWidth}&height=360&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
                 width="100%"
                 height="360"
                 style={{ border: "none", overflow: "hidden", display: "block" }}
@@ -160,7 +183,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-top border-gray-800 mt-12 pt-8">
+        <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
               © 2024 Dr Trần Tuấn. Tất cả quyền được bảo lưu.
