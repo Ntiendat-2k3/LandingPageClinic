@@ -10,6 +10,41 @@ type Testimonial = {
   image: string;
 };
 
+const Avatar = ({
+  src,
+  alt,
+  size = "w-20 h-20",
+}: {
+  src: string;
+  alt: string;
+  size?: string;
+}) => (
+  <div
+    className={`${size} rounded-full overflow-hidden ring-4 ring-white shadow-md shrink-0`}
+  >
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      className="w-full h-full object-cover"
+    />
+  </div>
+);
+
+const Stars = ({ n = 5 }: { n?: number }) => (
+  <div className="flex items-center justify-center gap-1">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <Star
+        key={i}
+        className={`w-4 h-4 ${
+          i < n ? "text-yellow-400 fill-current" : "text-gray-300"
+        }`}
+      />
+    ))}
+  </div>
+);
+
 const TestimonialsSection = () => {
   const testimonials: Testimonial[] = [
     {
@@ -62,19 +97,6 @@ const TestimonialsSection = () => {
     },
   ];
 
-  const Stars = ({ n = 5 }: { n?: number }) => (
-    <div className="flex items-center justify-center gap-1">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          className={`w-4 h-4 ${
-            i < n ? "text-yellow-400 fill-current" : "text-gray-300"
-          }`}
-        />
-      ))}
-    </div>
-  );
-
   return (
     <section id="testimonials" className="section-padding bg-white">
       <div className="container mx-auto container-padding">
@@ -91,27 +113,17 @@ const TestimonialsSection = () => {
 
         {/* ===== Mobile: list kéo trượt ===== */}
         <div className="md:hidden -mx-4 px-4">
-          {/* Quan trọng: cho phép tràn theo trục dọc để avatar không bị cắt */}
           <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {testimonials.map((t, idx) => (
               <article
                 key={idx}
-                className="
-                  snap-center basis-[88%] shrink-0
-                  bg-white rounded-2xl border border-gray-100 shadow-sm
-                  relative pt-14 overflow-visible
-                "
+                className="snap-center basis-[88%] shrink-0 bg-white rounded-2xl border border-gray-100 shadow-sm relative pt-16"
               >
-                {/* Avatar nổi (không bị cắt) */}
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-20">
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    className="w-16 h-16 rounded-full object-cover ring-4 ring-white shadow-md"
-                  />
+                {/* Avatar: mobile ở trong card; md+ nổi nửa ra ngoài */}
+                <div className="absolute top-0 md:-top-8 left-1/2 -translate-x-1/2 z-20">
+                  <Avatar src={t.image} alt={t.name} size="w-16 h-16" />
                 </div>
 
-                {/* Nội dung */}
                 <div className="px-4 pb-4 pt-2 text-center">
                   <div className="font-semibold text-gray-900 text-[14.5px]">
                     {t.name} — {t.age}
@@ -120,7 +132,6 @@ const TestimonialsSection = () => {
                     <Stars n={t.rating} />
                   </div>
 
-                  {/* Luôn clamp + fade đáy */}
                   <div className="mt-3 relative">
                     <p className="text-[13.5px] text-gray-700 leading-relaxed italic line-clamp-5">
                       “{t.content}”
@@ -134,18 +145,14 @@ const TestimonialsSection = () => {
         </div>
 
         {/* ===== Desktop: lưới 3 cột ===== */}
-        <div className="hidden md:grid grid-cols-3 gap-8">
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8">
           {testimonials.map((t, idx) => (
             <article
               key={idx}
               className="relative bg-white rounded-2xl p-6 pt-12 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 text-center"
             >
               <div className="absolute -top-8 left-1/2 -translate-x-1/2">
-                <img
-                  src={t.image}
-                  alt={t.name}
-                  className="w-20 h-20 rounded-full object-cover ring-4 ring-white shadow-md"
-                />
+                <Avatar src={t.image} alt={t.name} size="w-20 h-20" />
               </div>
 
               <h3 className="font-semibold text-gray-900">
@@ -162,7 +169,7 @@ const TestimonialsSection = () => {
           ))}
         </div>
 
-        {/* ===== CTA MOBILE: gộp text + 50% vào cùng 1 nút ===== */}
+        {/* ===== CTA MOBILE ===== */}
         <div className="mt-12 md:hidden">
           <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100">
             <h3
@@ -178,11 +185,7 @@ const TestimonialsSection = () => {
 
             <a
               href="#booking"
-              className="
-                w-full grid grid-cols-[1fr_auto] items-center gap-3
-                px-5 py-3 rounded-full text-white font-extrabold text-sm
-                bg-emerald-500 shadow-lg active:scale-[0.98] hover:bg-emerald-600 transition
-              "
+              className="w-full grid grid-cols-[1fr_auto] items-center gap-3 px-5 py-3 rounded-full text-white font-extrabold text-sm bg-emerald-500 shadow-lg active:scale-[0.98] hover:bg-emerald-600 transition"
             >
               <span className="leading-tight text-left">
                 Đăng kí miễn phí nhận ưu đãi
