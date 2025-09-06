@@ -31,8 +31,9 @@ const Header = () => {
             >
               <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
             </div>
-            <div className="font-space-grotesk font-bold text-xl text-gray-900">
-              Phòng khám CK Mắt & Khúc xạ Dr Trần Tuấn
+            <div className="font-space-grotesk font-bold text-[15px] lg:text-xl text-gray-900">
+              Phòng khám CK Mắt & Khúc xạ <br className="lg:hidden block"></br>{" "}
+              Dr Trần Tuấn
             </div>
           </div>
 

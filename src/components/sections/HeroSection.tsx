@@ -23,21 +23,21 @@ const HeroSection = () => {
           <div className="order-2 lg:order-1">
             {/* 3 dòng tiêu đề */}
             <div className="space-y-1">
-              <h1 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight text-gray-900 uppercase text-center">
+              <h1 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight text-gray-900 uppercase lg:text-center">
                 Phòng khám
               </h1>
-              <h2 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight uppercase text-center">
+              <h2 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight uppercase lg:text-center">
                 <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
                   Chuyên khoa Mắt & Khúc xạ
                 </span>
               </h2>
-              <div className="text-xl md:text-2xl font-bold text-gray-800 text-center">
+              <div className="text-xl md:text-2xl font-bold text-gray-800 lg:text-center">
                 Dr Trần Tuấn
               </div>
             </div>
 
             {/* Tagline (bỏ khung) */}
-            <p className="mt-3 text-base md:text-lg text-gray-700 text-center">
+            <p className="mt-3 text-base md:text-lg text-gray-700 lg:text-center">
               Chăm sóc đôi mắt một cách toàn diện
             </p>
 
@@ -127,7 +127,7 @@ const HeroSection = () => {
                 className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99] lg:hover:cursor-pointer"
               >
                 Đăng ký miễn phí ưu đãi
-                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
+                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1 py-0.5 text-2xl text-emerald-700 font-extrabold">
                   50%
                 </span>
                 <ArrowRight className="w-5 h-5" />

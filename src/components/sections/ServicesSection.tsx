@@ -163,7 +163,7 @@ const ServicesSection = () => {
               onClick={() => scrollToSection("booking")}
               className="relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-base text-white bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-lg active:scale-[0.98]"
             >
-              Đăng kí miễn phí nhận ưu đãi
+              Đăng kí miễn phí ưu đãi
               <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
                 50%
               </span>
@@ -264,8 +264,8 @@ const ServicesSection = () => {
                 href="#booking"
                 className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
               >
-                Đăng kí miễn phí nhận ưu đãi{" "}
-                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
+                Đăng kí miễn phí ưu đãi{" "}
+                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1 py-0.5 text-2xl text-emerald-700 font-extrabold">
                   50%
                 </span>
               </a>

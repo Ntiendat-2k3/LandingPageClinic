@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Star } from "lucide-react";
 
 type Testimonial = {
@@ -44,6 +45,45 @@ const Stars = ({ n = 5 }: { n?: number }) => (
     ))}
   </div>
 );
+
+/** ReadMore chỉ dùng cho mobile */
+const ReadMore = ({ text, lines = 5 }: { text: string; lines?: 3 | 4 | 5 }) => {
+  const [open, setOpen] = useState(false);
+  const clampClass =
+    lines === 3
+      ? "line-clamp-3"
+      : lines === 4
+      ? "line-clamp-4"
+      : "line-clamp-5";
+
+  return (
+    <div className="mt-3 relative text-center">
+      <p
+        className={`text-[13.5px] text-gray-700 leading-relaxed italic ${
+          open ? "" : clampClass
+        }`}
+      >
+        “{text}”
+      </p>
+
+      {/* Fade đáy khi chưa mở */}
+      {!open && (
+        <div className="pointer-events-none absolute -bottom-1 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent" />
+      )}
+
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className="mt-2 inline-flex items-center justify-center px-3 py-1.5 rounded-full
+                   text-emerald-700 font-semibold text-xs bg-emerald-50 hover:bg-emerald-100
+                   ring-1 ring-emerald-200 active:scale-[0.98] transition"
+      >
+        {open ? "Thu gọn" : "Xem thêm"}
+      </button>
+    </div>
+  );
+};
 
 const TestimonialsSection = () => {
   const testimonials: Testimonial[] = [
@@ -111,7 +151,7 @@ const TestimonialsSection = () => {
           </p>
         </div>
 
-        {/* ===== Mobile: list kéo trượt ===== */}
+        {/* ===== Mobile: list kéo trượt + ReadMore ===== */}
         <div className="md:hidden -mx-4 px-4">
           <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {testimonials.map((t, idx) => (
@@ -132,19 +172,14 @@ const TestimonialsSection = () => {
                     <Stars n={t.rating} />
                   </div>
 
-                  <div className="mt-3 relative">
-                    <p className="text-[13.5px] text-gray-700 leading-relaxed italic line-clamp-5">
-                      “{t.content}”
-                    </p>
-                    <div className="pointer-events-none absolute -bottom-1 left-0 right-0 h-10 bg-gradient-to-t from-white to-transparent" />
-                  </div>
+                  <ReadMore text={t.content} lines={5} />
                 </div>
               </article>
             ))}
           </div>
         </div>
 
-        {/* ===== Desktop: lưới 3 cột ===== */}
+        {/* ===== Desktop: lưới 3 cột (hiển thị đầy đủ) ===== */}
         <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8">
           {testimonials.map((t, idx) => (
             <article
@@ -185,12 +220,12 @@ const TestimonialsSection = () => {
 
             <a
               href="#booking"
-              className="w-full grid grid-cols-[1fr_auto] items-center gap-3 px-5 py-3 rounded-full text-white font-extrabold text-sm bg-emerald-500 shadow-lg active:scale-[0.98] hover:bg-emerald-600 transition"
+              className="w-full flex items-center justify-center gap-3 px-5 py-3 rounded-full text-white font-extrabold text-sm bg-emerald-500 shadow-lg active:scale-[0.98] hover:bg-emerald-600 transition"
             >
               <span className="leading-tight text-left">
-                Đăng kí miễn phí nhận ưu đãi
+                Đăng kí miễn phí ưu đãi
               </span>
-              <span className="px-3 py-1 rounded-full bg-white/95 text-emerald-600 font-black ring-1 ring-emerald-200">
+              <span className="px-2 py-1 rounded-full bg-white/95 text-emerald-600 font-black ring-1 ring-emerald-200">
                 50%
               </span>
             </a>
@@ -211,7 +246,7 @@ const TestimonialsSection = () => {
               href="#booking"
               className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
             >
-              Đăng kí miễn phí nhận ưu đãi{" "}
+              Đăng kí miễn phí ưu đãi{" "}
               <span className="px-3 py-1 rounded-full bg-white text-emerald-600 font-black">
                 50%
               </span>

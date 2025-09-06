@@ -5,7 +5,7 @@ import { AlertTriangle, Eye, AlertCircle, Zap, Droplets } from "lucide-react";
 const GoalsSection = () => {
   const myopiaStats = [
     {
-      text: "Tăng 4.06 lần nguy cơ bị thoái hóa vòng mạc cận thị",
+      text: "Tăng 4.06 lần nguy cơ bị thoái hóa võng mạc cận thị",
       icon: Eye,
       color: "from-blue-500 to-blue-600",
     },
@@ -44,7 +44,6 @@ const GoalsSection = () => {
       <div className="container mx-auto container-padding relative">
         {/* Header */}
         <div className="text-center mb-8 md:mb-14">
-          {/* tiêu đề có icon cảnh báo */}
           <h2 className="mt-2 block items-center gap-3 text-[28px] leading-tight md:text-4xl font-extrabold text-gray-900">
             <span className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-red-100">
               <AlertTriangle className="w-6 h-6 text-red-600" />
@@ -52,16 +51,14 @@ const GoalsSection = () => {
             CẬN THỊ VÀ BIẾN CHỨNG CỦA CẬN THỊ
           </h2>
 
-          {/* dòng nhấn mạnh – tăng size */}
           <div className="mt-4 inline-block rounded-xl px-5 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-[15px] lg:text-lg md:text-2xl shadow">
             ĐANG ĐƯỢC COI LÀ VẤN NẠN TOÀN CẦU
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          {/* Left – Stats & Timeline */}
+          {/* Left – Stats */}
           <div className="space-y-6">
-            {/* Year card */}
             <div className="rounded-2xl p-5 bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 shadow">
               <p className="text-2xl font-extrabold text-gray-900">2050</p>
               <p className="mt-1 text-base md:text-lg font-medium text-gray-800">
@@ -77,7 +74,6 @@ const GoalsSection = () => {
               Cận thị cao sẽ tăng nguy cơ:
             </p>
 
-            {/* Vertical process — line chỉ nối giữa các icon */}
             <div className="flex flex-col gap-4 lg:gap-8">
               {myopiaStats.map((s, i) => {
                 const Icon = s.icon;
@@ -87,19 +83,18 @@ const GoalsSection = () => {
                     key={i}
                     className="grid grid-cols-[60px_1fr] items-center gap-3"
                   >
-                    {/* ICON + đoạn line nối xuống (ẩn ở item cuối) */}
+                    {/* ICON + line */}
                     <div className="relative flex justify-center">
                       <div
                         className={`z-10 w-12 h-12 rounded-full bg-gradient-to-br ${s.color} shadow-md flex items-center justify-center text-white ring-4 ring-white`}
                       >
                         <Icon className="w-6 h-6" />
                       </div>
-                      {/* đoạn line nối tới icon tiếp theo */}
                       <span
                         className={`absolute left-1/2 -translate-x-1/2 top-12 w-[3px] ${
                           last ? "hidden" : "block"
                         } bg-gradient-to-b from-emerald-400 via-cyan-400 to-blue-400`}
-                        style={{ height: "2.25rem" }} // ~36px, đủ thoáng
+                        style={{ height: "2.25rem" }}
                       />
                     </div>
 
@@ -115,8 +110,9 @@ const GoalsSection = () => {
             </div>
           </div>
 
-          {/* Right – Images (phóng to ảnh trên) */}
+          {/* Right – Images */}
           <div className="space-y-6">
+            {/* Ảnh thông điệp Essilor */}
             <div className="relative max-w-xl md:max-w-2xl mx-auto lg:mx-0">
               <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-br from-emerald-400/40 via-cyan-400/40 to-blue-400/30 blur-md" />
               <div className="relative rounded-2xl overflow-hidden bg-white shadow-2xl rotate-1 md:rotate-0">
@@ -128,28 +124,14 @@ const GoalsSection = () => {
               </div>
             </div>
 
-            {/* (giữ gallery dưới nếu cần) */}
+            {/* Ảnh võng mạc: CHỈ 1 ẢNH */}
             <div className="rounded-2xl p-5 bg-gradient-to-br from-gray-900 to-black shadow-xl">
-              <div className="rounded-xl p-3 bg-black">
-                <div className="grid grid-cols-3 gap-2">
-                  {["A", "B", "C", "D", "E", "F"].map((label, index) => (
-                    <div key={label} className="relative">
-                      <img
-                        src="/images/retinalInsider.jpg"
-                        alt={`Retinal scan ${label}`}
-                        className="w-full h-20 object-cover rounded-lg"
-                        style={{
-                          objectPosition: `${(index % 3) * 33.33}% ${
-                            Math.floor(index / 3) * 50
-                          }%`,
-                        }}
-                      />
-                      <div className="absolute -top-1 -left-1 bg-white text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md">
-                        {label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <div className="rounded-xl overflow-hidden bg-black">
+                <img
+                  src="/images/retinalInsider.jpg"
+                  alt="Hình ảnh võng mạc bị tổn thương"
+                  className="w-full h-auto object-contain md:object-cover"
+                />
               </div>
               <p className="text-white/90 text-sm text-center mt-3 font-medium">
                 Hình ảnh võng mạc bị tổn thương

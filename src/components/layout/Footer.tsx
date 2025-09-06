@@ -62,7 +62,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="font-space-grotesk text-xl font-bold">
+                <h3 className="font-space-grotesk text-[15px] lg:text-xl font-bold">
                   PHÒNG KHÁM CHUYÊN KHOA MẮT &amp; KHÚC XẠ
                 </h3>
                 <p className="text-emerald-300 font-semibold">Dr Trần Tuấn</p>
