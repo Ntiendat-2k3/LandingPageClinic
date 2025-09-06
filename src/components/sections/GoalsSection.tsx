@@ -121,7 +121,7 @@ const GoalsSection = () => {
               <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-br from-emerald-400/40 via-cyan-400/40 to-blue-400/30 blur-md" />
               <div className="relative rounded-2xl overflow-hidden bg-white shadow-2xl rotate-1 md:rotate-0">
                 <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/essilor-lead-632x445-UM9ZNhOw9He7giugufxmaMwyq3jscB.webp"
+                  src="/images/essilor.jpg"
                   alt="Control Myopia Today or Risk Poor Vision Tomorrow"
                   className="w-full h-auto object-cover"
                 />
@@ -135,7 +135,7 @@ const GoalsSection = () => {
                   {["A", "B", "C", "D", "E", "F"].map((label, index) => (
                     <div key={label} className="relative">
                       <img
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1121.4.RetinalInsider.jpg-sdccLFe63ffXUgcDaZJbVrfCIjPjjv.jpeg"
+                        src="/images/retinalInsider.jpg"
                         alt={`Retinal scan ${label}`}
                         className="w-full h-20 object-cover rounded-lg"
                         style={{

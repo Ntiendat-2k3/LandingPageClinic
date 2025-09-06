@@ -45,11 +45,11 @@ const TestimonialsSection = () => {
       image: "/images/customer/cus4.jpg",
     },
     {
-      name: "Bà Võ Thị Mai",
-      age: "58 tuổi",
+      name: "Anh Trần Minh Tiến",
+      age: "42 tuổi",
       rating: 5,
       content:
-        "Được phát hiện sớm và điều trị đúng. Sau 1 năm, tình trạng đã ổn định. Gia đình rất biết ơn đội ngũ tận tâm.",
+        "Gắn bó với chiếc kính cận 25 độ dày cộm hàng chục năm nay, được bạn bè giới thiệu đến khám tại phòng khám của BS Trần Tuấn và được tư vấn đổi sang loại tròng siêu mỏng dành riêng cho cận cao. Giờ tôi đeo kính cảm thấy rất thoải mái dễ chịu, không còn cảnh suốt ngày phải đẩy kính lên nữa, cải thiện thẩm mỹ và tự tin hơn rất nhiều trong công việc cũng như cuộc sống hàng ngày.",
       image: "/images/customer/cus5.jpg",
     },
     {

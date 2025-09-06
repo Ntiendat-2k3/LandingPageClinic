@@ -366,7 +366,7 @@ const ProcessSection: React.FC = () => {
               className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
             >
               Đăng kí miễn phí nhận ưu đãi{" "}
-              <span className="px-3 py-1 rounded-full bg-white text-emerald-600 font-black">
+              <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
                 50%
               </span>
             </a>

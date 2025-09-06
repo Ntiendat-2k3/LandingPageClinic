@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, Eye, Phone, MapPin } from "lucide-react";
+import { Menu, X, Phone, MapPin } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,11 +24,15 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-lg flex items-center justify-center">
-              <Eye className="w-6 h-6 text-white" />
+            <div
+              className="w-12 h-12 rounded-xl grid place-items-center
+                bg-gradient-to-r from-cyan-200 to-emerald-200
+                ring-1 ring-black/10 shadow-sm"
+            >
+              <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
             </div>
             <div className="font-space-grotesk font-bold text-xl text-gray-900">
-              EyeCare Pro
+              Phòng khám CK Mắt & Khúc xạ Dr Trần Tuấn
             </div>
           </div>
 
@@ -56,25 +60,25 @@ const Header = () => {
               onClick={() => scrollToSection("doctors")}
               className="text-gray-600 hover:text-cyan-600 transition-colors font-medium"
             >
-              Bác sĩ
+              Đội ngũ chuyên môn
             </button>
-            <button
+            {/* <button
               onClick={() => scrollToSection("booking")}
               className="btn-primary"
             >
               Đăng ký miễn phí nhận ưu đãi 50%
-            </button>
+            </button> */}
           </nav>
 
           {/* Contact Info */}
           <div className="hidden lg:flex items-center space-x-4 text-sm text-gray-600">
             <div className="flex items-center space-x-1">
               <Phone className="w-4 h-4" />
-              <span>0387 812 321</span>
+              <span>03.878.12321</span>
             </div>
             <div className="flex items-center space-x-1">
               <MapPin className="w-4 h-4" />
-              <span>122 Bà Triệu – Q.Hai Bà Trưng – Hà Nội.</span>
+              <span>122 Bà Triệu – phường Hai Bà Trưng– Hà Nội.</span>
             </div>
           </div>
 
@@ -117,16 +121,16 @@ const Header = () => {
                 onClick={() => scrollToSection("doctors")}
                 className="text-left text-gray-600 hover:text-cyan-600 transition-colors font-medium"
               >
-                Bác sĩ
+                Đội ngũ chuyên môn
               </button>
               <div className="pt-2 border-t border-gray-100">
                 <div className="flex items-center space-x-1 text-sm text-gray-600 mb-2">
                   <Phone className="w-4 h-4" />
-                  <span>0387 812 321</span>
+                  <span>03.878.12321</span>
                 </div>
                 <div className="flex items-center space-x-1 text-sm text-gray-600 mb-4">
                   <MapPin className="w-4 h-4" />
-                  <span>122 Bà Triệu – Q.Hai Bà Trưng – Hà Nội.</span>
+                  <span>122 Bà Triệu – phường Hai Bà Trưng – Hà Nội.</span>
                 </div>
                 <button
                   onClick={() => scrollToSection("booking")}

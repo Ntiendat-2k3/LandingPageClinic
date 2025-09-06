@@ -4,7 +4,7 @@ import { ArrowRight, Star, Users, Clock, Shield } from "lucide-react";
 
 const HeroSection = () => {
   const scrollToContact = () => {
-    const el = document.getElementById("contact");
+    const el = document.getElementById("booking");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -23,23 +23,25 @@ const HeroSection = () => {
           <div className="order-2 lg:order-1">
             {/* 3 dòng tiêu đề */}
             <div className="space-y-1">
-              <h1 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight text-gray-900">
+              <h1 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight text-gray-900 uppercase text-center">
                 Phòng khám
               </h1>
-              <h2 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight">
+              <h2 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight uppercase text-center">
                 <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
                   Chuyên khoa Mắt & Khúc xạ
                 </span>
               </h2>
-              <div className="text-xl md:text-2xl font-semibold text-gray-800">
+              <div className="text-xl md:text-2xl font-bold text-gray-800 text-center">
                 Dr Trần Tuấn
               </div>
             </div>
 
             {/* Tagline (bỏ khung) */}
-            <p className="mt-3 text-base md:text-lg text-gray-700">
-              Chăm sóc đôi mắt toàn diện
+            <p className="mt-3 text-base md:text-lg text-gray-700 text-center">
+              Chăm sóc đôi mắt một cách toàn diện
             </p>
+
+            <div className="w-full h-0.5 bg-gray-200 mt-4"></div>
 
             {/* Khẩu hiệu + mô tả dạng danh sách có icon */}
             <div className="mt-4">
@@ -122,10 +124,10 @@ const HeroSection = () => {
             <div className="mt-6 lg:mt-8 text-center">
               <button
                 onClick={scrollToContact}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99]"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99] lg:hover:cursor-pointer"
               >
                 Đăng ký miễn phí ưu đãi
-                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-emerald-700 font-extrabold">
+                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
                   50%
                 </span>
                 <ArrowRight className="w-5 h-5" />

@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Eye,
   Phone,
   MapPin,
   Clock,
@@ -54,9 +53,14 @@ const Footer = () => {
           <div className="space-y-6">
             {/* Logo + tên */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl grid place-items-center">
-                <Eye className="w-7 h-7 text-white" />
+              <div
+                className="w-12 h-12 rounded-xl grid place-items-center
+                bg-gradient-to-r from-cyan-200 to-emerald-200
+                ring-1 ring-black/10 shadow-sm"
+              >
+                <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
               </div>
+
               <div>
                 <h3 className="font-space-grotesk text-xl font-bold">
                   PHÒNG KHÁM CHUYÊN KHOA MẮT &amp; KHÚC XẠ
@@ -69,9 +73,7 @@ const Footer = () => {
             <div className="space-y-3 text-sm text-gray-300">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
-                <span>
-                  122 Bà Triệu, phường Nguyễn Du, quận Hai Bà Trưng, Hà Nội
-                </span>
+                <span>122 Bà Triệu, phường Hai Bà Trưng, Hà Nội</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
@@ -79,7 +81,9 @@ const Footer = () => {
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
-                <span>08:00 – 19:00 (tất cả các ngày trong tuần)</span>
+                <span>
+                  Thời gian làm việc: 08:00 – 19:00 (tất cả các ngày trong tuần)
+                </span>
               </div>
             </div>
 

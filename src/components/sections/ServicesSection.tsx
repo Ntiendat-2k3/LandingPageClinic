@@ -163,7 +163,10 @@ const ServicesSection = () => {
               onClick={() => scrollToSection("booking")}
               className="relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-base text-white bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-lg active:scale-[0.98]"
             >
-              Đăng kí miễn phí nhận ưu đãi 50%
+              Đăng kí miễn phí nhận ưu đãi
+              <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
+                50%
+              </span>
               <span className="absolute inset-0 rounded-full ring-4 ring-white/20 pointer-events-none" />
             </button>
           </div>
@@ -242,9 +245,9 @@ const ServicesSection = () => {
                 <div className="absolute -inset-3 rounded-full border-2 border-dashed border-emerald-300/60" />
                 <div className="relative w-[360px] lg:w-[420px] xl:w-[480px] aspect-square rounded-full overflow-hidden ring-8 ring-white shadow-[0_30px_80px_rgba(16,185,129,0.25)] rotate-2 group-hover:rotate-0 transition duration-500">
                   <img
-                    src="/images/eye-examination.png"
+                    src="/images/section3.jpg"
                     alt="Eye clinic lens"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/10 mix-blend-overlay" />
                 </div>
@@ -262,7 +265,7 @@ const ServicesSection = () => {
                 className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
               >
                 Đăng kí miễn phí nhận ưu đãi{" "}
-                <span className="px-3 py-1 rounded-full bg-white text-emerald-600 font-black">
+                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
                   50%
                 </span>
               </a>
