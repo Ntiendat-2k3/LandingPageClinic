@@ -14,16 +14,13 @@ const DoctorsSection = () => {
       "Từng đảm nhiệm chức vụ Phụ trách Trung tâm Kính – Khúc xạ, BV Mắt quốc tế DND.",
       "Đầy đủ chứng chỉ đào tạo chuyên sâu về khúc xạ, kính Ortho-K, kiểm soát cận thị…",
     ],
-    image: "/images/doctor1.jpg", // thay bằng ảnh thật nếu có
+    image: "/images/doctor1.jpg",
   };
 
-  // 2 & 3 giống 1
   const doctors = [baseProfile, baseProfile, baseProfile];
 
-  // mở rộng bullet ở mobile cho card nào
   const [expanded, setExpanded] = useState<number | null>(null);
   const toggle = (i: number) => setExpanded((cur) => (cur === i ? null : i));
-
   const scrollToBooking = () =>
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
 
@@ -36,7 +33,7 @@ const DoctorsSection = () => {
           </h2>
         </div>
 
-        {/* ===== MOBILE: carousel ngang, thẻ gọn gàng ===== */}
+        {/* ===== MOBILE ===== */}
         <div className="md:hidden -mx-4 px-4">
           <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {doctors.map((d, idx) => {
@@ -47,19 +44,18 @@ const DoctorsSection = () => {
                   key={idx}
                   className="snap-start basis-[86%] shrink-0 rounded-2xl border border-gray-100 bg-white shadow-sm"
                 >
-                  {/* Ảnh: 4:3, ưu tiên object-top để không khuyết mặt */}
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl bg-gray-50">
+                  {/* Ảnh: khung cao + ưu tiên vùng tay→mặt */}
+                  <div className="relative aspect-[5/6] w-full overflow-hidden rounded-t-2xl bg-gray-50">
                     <img
                       src={d.image || "/placeholder.svg"}
                       alt={d.name}
-                      className="absolute inset-0 w-full h-full object-cover object-top"
+                      className="absolute inset-0 w-full h-full object-cover
+                                 object-[50%_85%]" // <-- tiêu điểm thấp để lấy từ tay đổ lên
                       loading="lazy"
                     />
-                    {/* dải gradient nhẹ phía dưới để chữ rõ hơn nếu đặt caption trong ảnh */}
                     <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/10 to-transparent" />
                   </div>
 
-                  {/* Nội dung gọn */}
                   <div className="p-4 space-y-3">
                     <header>
                       <h3 className="font-space-grotesk text-lg font-bold text-gray-900">
@@ -70,7 +66,6 @@ const DoctorsSection = () => {
                       </p>
                     </header>
 
-                    {/* Học vấn */}
                     <div className="flex items-start gap-2">
                       <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5" />
                       <p className="text-[13px] text-gray-700 leading-relaxed">
@@ -78,7 +73,6 @@ const DoctorsSection = () => {
                       </p>
                     </div>
 
-                    {/* Highlights: rút gọn + mở rộng */}
                     <div>
                       <div className="flex items-center gap-2 mb-2">
                         <Award className="w-4 h-4 text-gray-500" />
@@ -107,7 +101,6 @@ const DoctorsSection = () => {
                       )}
                     </div>
 
-                    {/* Bảo chứng + CTA nhỏ gọn */}
                     <div className="flex items-center justify-between pt-1">
                       <div className="flex items-center gap-2">
                         <Shield className="w-4 h-4 text-gray-500" />
@@ -129,18 +122,19 @@ const DoctorsSection = () => {
           </div>
         </div>
 
-        {/* ===== DESKTOP: lưới 2–3 cột, giữ chi tiết ===== */}
+        {/* ===== DESKTOP ===== */}
         <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {doctors.map((d, idx) => (
             <article
               key={idx}
               className="relative rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg transition-all duration-300"
             >
-              <div className="h-80 lg:h-[420px] w-full overflow-hidden rounded-t-2xl bg-gray-50">
+              {/* Dùng cùng tỉ lệ & object-position như mobile */}
+              <div className="w-full overflow-hidden rounded-t-2xl bg-gray-50 aspect-[5/6]">
                 <img
                   src={d.image || "/placeholder.svg"}
                   alt={d.name}
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-[50%_85%] lg:object-[50%_88%]"
                   loading="lazy"
                 />
               </div>

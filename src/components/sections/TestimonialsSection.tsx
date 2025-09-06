@@ -93,7 +93,7 @@ const TestimonialsSection = () => {
       rating: 5,
       content:
         "Mẹ thấy mắt bạn ấy có dấu hiệu bị lệch, đi khám mấy nơi đều bảo không sao. Nghe nói bác sĩ Tuấn chuyên khám lác nên qua thử. Sau một thời gian điều trị cùng bác sĩ Tuấn, đến nay đã không còn thấy mắt con bị lệch nữa rồi. Con cũng tự tin hơn ở trường lớp.",
-      image: "/images/customer/cus_hailinh.jpg",
+      image: "/images/customer/cus2.jpg",
     },
     {
       name: "Bạn Trúc Anh",
@@ -101,7 +101,7 @@ const TestimonialsSection = () => {
       rating: 5,
       content:
         "Lần đầu bố mẹ cho bạn ấy đi khám cũng chỉ để kiểm tra xem có vấn đề gì không. Nào ngờ bé bị cận loạn cao bẩm sinh kèm nhược thị. May được bác sĩ Tuấn tư vấn tận tình, hướng tập luyện như bác sĩ dặn; đến nay mắt con đã hết nhược thị hoàn toàn rồi.",
-      image: "/images/customer/cus_trucanh.jpg",
+      image: "/images/customer/cus3.jpg",
     },
     {
       name: "Bạn Gia Bảo",
@@ -109,7 +109,7 @@ const TestimonialsSection = () => {
       rating: 5,
       content:
         "Cháu theo khám bác sĩ Tuấn cũng được 5 năm rồi. Hiện độ cận loạn rất ổn định, 2 năm nay không tăng độ. Sắp tới bác sĩ Tuấn sẽ cho cháu đeo Ortho-K để không phải dùng kính gọng nữa.",
-      image: "/images/customer/cus_giabao.jpg",
+      image: "/images/customer/cus1.jpg",
     },
     {
       name: "Anh Phạm Đức Thành",
