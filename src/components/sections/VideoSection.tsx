@@ -42,11 +42,13 @@ const VideoSection = () => {
             "
             style={{ textWrap: "balance" }}
           >
-            PHÒNG KHÁM CHUYÊN KHOA MẮT & KHÚC XẠ DR TRẦN TUẤN
+            <span className="text-gray-900 font-extrabold">
+              ĐO CHIỀU DÀI TRỤC NHÃN CẦU
+            </span>
             <br />
-            ĐO TRỤC NHÃN CẦU - TIÊU CHUẨN VÀNG
-            <br />
-            TRONG KIỂM SOÁT CẬN THỊ
+            <span className="mt-1 inline-block rounded-xl px-5 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-[15px] lg:text-[28px] md:text-2xl shadow">
+              TIÊU CHUẨN VÀNG TRONG KIỂM SOÁT CẬN THỊ
+            </span>
           </h2>
         </div>
 

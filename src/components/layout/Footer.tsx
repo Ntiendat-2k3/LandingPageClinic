@@ -55,8 +55,8 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               <div
                 className="w-12 h-12 rounded-xl grid place-items-center
-                bg-gradient-to-r from-cyan-200 to-emerald-200
-                ring-1 ring-black/10 shadow-sm"
+bg-white
+            shadow-sm"
               >
                 <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
               </div>
@@ -65,7 +65,9 @@ const Footer = () => {
                 <h3 className="font-space-grotesk text-[15px] lg:text-xl font-bold">
                   PHÒNG KHÁM CHUYÊN KHOA MẮT &amp; KHÚC XẠ
                 </h3>
-                <p className="text-emerald-300 font-semibold">Dr Trần Tuấn</p>
+                <p className="lg:text-xl text-emerald-300 font-bold uppercase">
+                  Dr Trần Tuấn
+                </p>
               </div>
             </div>
 

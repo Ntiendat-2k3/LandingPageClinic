@@ -31,7 +31,7 @@ const HeroSection = () => {
                   Chuyên khoa Mắt & Khúc xạ
                 </span>
               </h2>
-              <div className="text-xl md:text-2xl font-bold text-gray-800 lg:text-center">
+              <div className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight text-gray-900 uppercase lg:text-center">
                 Dr Trần Tuấn
               </div>
             </div>

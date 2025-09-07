@@ -9,68 +9,49 @@ import {
   Shield,
   Activity,
   Target,
+  type LucideIcon,
 } from "lucide-react";
 import { useScrollToSection } from "../../hooks/useScrollToSection";
+
+/* ==== Badge icon luôn tròn, không bị méo ==== */
+const IconBadge = ({
+  Icon,
+  gradient,
+}: {
+  Icon: LucideIcon;
+  gradient: string;
+}) => (
+  <div
+    className={`relative flex-none shrink-0 aspect-square w-12 h-12 min-w-12 min-h-12
+                rounded-full p-[2px] bg-gradient-to-br ${gradient}`}
+  >
+    <div className="w-full h-full rounded-full bg-white grid place-items-center ring-1 ring-black/5">
+      <div className="w-8 h-8 min-w-8 min-h-8 rounded-full bg-white shadow-inner grid place-items-center">
+        <Icon className="w-4 h-4 text-emerald-700" strokeWidth={2.25} />
+      </div>
+    </div>
+  </div>
+);
+
+const irisPalette = [
+  "from-emerald-200 via-teal-200 to-sky-200",
+  "from-cyan-200 via-sky-200 to-indigo-200",
+  "from-teal-200 via-emerald-200 to-lime-200",
+  "from-sky-200 via-cyan-200 to-emerald-200",
+];
 
 const ServicesSection = () => {
   const scrollToSection = useScrollToSection();
 
   const servicePackages = [
-    {
-      icon: Eye,
-      title: "Gói khám tổng quan",
-      position: "top-left",
-      delay: "0s",
-    },
-    {
-      icon: Target,
-      title: "Atropine nồng độ thấp 0.01%, 0.025% và 0.05%",
-      position: "top-right",
-      delay: "0.5s",
-    },
-    {
-      icon: Activity,
-      title: "Gói khám kiểm soát tật khúc xạ",
-      position: "middle-left",
-      delay: "1s",
-    },
-    {
-      icon: Glasses,
-      title: "Tròng kính kiểm soát cận thị Myopcare, Stellest",
-      position: "middle-right",
-      delay: "1.5s",
-    },
-    {
-      icon: Shield,
-      title: "Gói khám kính áp tròng ban đêm Ortho-K",
-      position: "bottom-left",
-      delay: "2s",
-    },
-    {
-      icon: Zap,
-      title: "Kính áp tròng ban đêm Ortho-K",
-      position: "bottom-right",
-      delay: "2.5s",
-    },
-    {
-      icon: Stethoscope,
-      title: "Đo trục nhãn cầu",
-      position: "top-center-left",
-      delay: "3s",
-    },
-    {
-      icon: Baby,
-      title: "Lăng kính & tập luyện điều chỉnh lác/phục hồi TL",
-      position: "top-center-right",
-      delay: "3.5s",
-    },
-  ];
-
-  const irisPalette = [
-    "from-emerald-200 via-teal-200 to-sky-200",
-    "from-cyan-200 via-sky-200 to-indigo-200",
-    "from-teal-200 via-emerald-200 to-lime-200",
-    "from-sky-200 via-cyan-200 to-emerald-200",
+    { icon: Eye, title: "Gói khám tổng quan" },
+    { icon: Target, title: "Atropine nồng độ thấp 0.01%, 0.025% và 0.05%" },
+    { icon: Activity, title: "Gói khám kiểm soát tật khúc xạ" },
+    { icon: Glasses, title: "Tròng kính kiểm soát cận thị Myopcare, Stellest" },
+    { icon: Shield, title: "Gói khám kính áp tròng ban đêm Ortho-K" },
+    { icon: Zap, title: "Kính áp tròng ban đêm Ortho-K" },
+    { icon: Stethoscope, title: "Đo trục nhãn cầu" },
+    { icon: Baby, title: "Lăng kính & tập luyện điều chỉnh lác/phục hồi TL" },
   ];
 
   return (
@@ -79,7 +60,18 @@ const ServicesSection = () => {
       className="section-padding relative overflow-hidden"
       style={{ backgroundColor: "rgb(236, 252, 247)" }}
     >
-      {/* BG decor desktop */}
+      {/* ===== BG ẢNH MỜ SAU SECTION (desktop) ===== */}
+      <div className="absolute inset-0 -z-10 hidden md:block">
+        <img
+          src="/images/section3.jpg"
+          alt=""
+          aria-hidden
+          className="w-full h-full object-cover opacity-30 blur-xl scale-110"
+        />
+        <div className="absolute inset-0 bg-white/45" />
+      </div>
+
+      {/* decor nhẹ */}
       <div className="absolute inset-0 opacity-5 hidden md:block">
         <div className="absolute top-10 left-10 w-32 h-32 rounded-full border-2 border-emerald-300" />
         <div className="absolute top-20 right-20 w-24 h-24 rounded-full border-2 border-emerald-300" />
@@ -88,35 +80,23 @@ const ServicesSection = () => {
       </div>
 
       <div className="container mx-auto container-padding relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12 md:mb-20 relative z-30">
-          <div className="mb-8 md:mb-10">
-            <h2 className="font-space-grotesk text-2xl md:text-4xl font-bold text-black mb-3 md:mb-5">
-              CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI
-            </h2>
-            <p className="text-md lg:text-lg md:text-2xl text-black font-semibold">
-              “ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ”
-            </p>
-            <p className="text-md lg:text-base md:text-xl text-black mt-2 md:mt-3">
-              XOÁ TAN NỖI LO TĂNG ĐỘ CẬN
-            </p>
-          </div>
+        {/* Header gọn để vừa màn hình */}
+        <div className="text-center mb-8 md:mb-9">
+          <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-black mb-2">
+            CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI
+          </h2>
+          <p className="inline-block rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-[15px] md:text-xl shadow">
+            “ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ”
+          </p>
+          <p className="text-sm md:text-lg text-black mt-2 font-bold">
+            XOÁ TAN NỖI LO TĂNG ĐỘ CẬN
+          </p>
         </div>
 
-        {/* ============== MOBILE ============== */}
+        {/* ============== MOBILE (lưới 2 cột) ============== */}
         <div className="md:hidden relative">
           <div className="pointer-events-none absolute -top-10 -left-12 w-40 h-40 bg-emerald-200/50 blur-3xl rounded-full" />
           <div className="pointer-events-none absolute -bottom-10 -right-10 w-44 h-44 bg-sky-200/50 blur-3xl rounded-full" />
-
-          <div className="mb-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/85 backdrop-blur border border-white/70 shadow-sm">
-              <span className="text-[13px]">👁️</span>
-              <span className="text-[12px] font-semibold text-emerald-700">
-                Eye-care Services
-              </span>
-              <span className="text-[13px]">💧</span>
-            </div>
-          </div>
 
           <div className="grid grid-cols-2 gap-3">
             {servicePackages.map((pkg, i) => {
@@ -131,25 +111,12 @@ const ServicesSection = () => {
                 >
                   <div className="rounded-3xl p-[2px] bg-gradient-to-br from-emerald-200 via-sky-200 to-teal-200 shadow-[0_10px_24px_rgba(16,185,129,0.08)]">
                     <div className="relative rounded-3xl bg-white/95 backdrop-blur-xl ring-1 ring-white/70 p-3 overflow-hidden">
-                      {/* icon */}
-                      <div className="mb-2">
-                        <div className="relative w-12 h-12 mx-auto">
-                          <div
-                            className={`absolute inset-0 rounded-full bg-gradient-to-br ${iris}`}
-                          />
-                          <div className="absolute inset-2 grid place-items-center">
-                            <div className="w-9 h-9 rounded-full bg-white shadow-inner grid place-items-center">
-                              <Icon className="w-4 h-4 text-emerald-700" />
-                            </div>
-                          </div>
-                        </div>
+                      <div className="mb-2 flex justify-center">
+                        <IconBadge Icon={Icon} gradient={iris} />
                       </div>
-
-                      {/* title */}
-                      <p className="text-[13px] font-bold text-gray-900 leading-snug tracking-tight text-center line-clamp-3">
+                      <p className="text-[13px] font-bold text-gray-900 text-center leading-snug line-clamp-3">
                         {pkg.title}
                       </p>
-
                       <div className="mx-auto mt-2 h-1.5 w-16 rounded-full bg-gradient-to-r from-emerald-200 via-teal-200 to-sky-200" />
                     </div>
                   </div>
@@ -167,112 +134,77 @@ const ServicesSection = () => {
               <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
                 50%
               </span>
-              <span className="absolute inset-0 rounded-full ring-4 ring-white/20 pointer-events-none" />
             </button>
           </div>
         </div>
 
-        {/* ============== DESKTOP ============== */}
+        {/* ============== DESKTOP (4 cột × 2 hàng) ============== */}
         <div className="hidden md:block">
-          {/* Tăng padding-top để tạo khoảng cách an toàn với tiêu đề */}
-          <div className="relative max-w-6xl mx-auto pt-64 lg:pt-72 pb-24 mt-4">
-            {/* Packages quanh viền */}
-            <div className="absolute inset-0 z-10">
-              {servicePackages.map((pkg, index) => {
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-6 p-2">
+              {servicePackages.map((pkg, i) => {
                 const Icon = pkg.icon;
-                let positionClasses = "";
-                switch (pkg.position) {
-                  case "top-left":
-                    positionClasses =
-                      "top-16 left-0 -translate-x-1/2 -translate-y-1/2";
-                    break;
-                  case "top-right":
-                    positionClasses =
-                      "top-16 right-0 translate-x-1/2 -translate-y-1/2";
-                    break;
-                  case "top-center-left":
-                    positionClasses =
-                      "top-16 left-1/3 -translate-x-1/2 -translate-y-1/2";
-                    break;
-                  case "top-center-right":
-                    positionClasses =
-                      "top-16 right-1/3 translate-x-1/2 -translate-y-1/2";
-                    break;
-                  case "middle-left":
-                    positionClasses =
-                      "top-1/2 left-0 -translate-x-1/2 -translate-y-1/2";
-                    break;
-                  case "middle-right":
-                    positionClasses =
-                      "top-1/2 right-0 translate-x-1/2 -translate-y-1/2";
-                    break;
-                  case "bottom-left":
-                    positionClasses =
-                      "bottom-0 left-0 -translate-x-1/2 translate-y-1/2";
-                    break;
-                  case "bottom-right":
-                    positionClasses =
-                      "bottom-0 right-0 translate-x-1/2 translate-y-1/2";
-                    break;
-                }
+                const iris = irisPalette[i % irisPalette.length];
+
+                // tilt nhẹ + hover thẳng lại
+                const tilt =
+                  i % 2 === 0 ? "-rotate-[0.6deg]" : "rotate-[0.6deg]";
+                const bump = i % 4 === 1 ? "-mt-1" : i % 4 === 2 ? "mt-1" : "";
 
                 return (
-                  <div
-                    key={index}
-                    className={`absolute ${positionClasses} w-56 h-56 bg-white/95 backdrop-blur rounded-full shadow-xl ring-1 ring-black/5 border-3 border-emerald-100 flex flex-col items-center justify-center px-5 text-center hover:scale-[1.04] transition-transform duration-300 cursor-pointer`}
-                    style={{ animationDelay: pkg.delay }}
+                  <button
+                    key={i}
                     onClick={() => scrollToSection("booking")}
+                    className={`group relative transform-gpu ${tilt} ${bump} hover:rotate-0 transition duration-300`}
                   >
-                    <div className="w-9 h-9 bg-gradient-to-br from-emerald-300 to-emerald-400 rounded-full flex items-center justify-center mb-2">
-                      <Icon className="w-4 h-4 text-white" />
+                    {/* glow khi hover */}
+                    <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 blur-md transition bg-gradient-to-tr from-emerald-300/45 via-cyan-300/35 to-sky-300/45" />
+                    <div className="relative rounded-3xl bg-white/90 backdrop-blur-md ring-1 ring-emerald-200/60 hover:ring-emerald-400 shadow-lg hover:shadow-xl px-5 py-6 text-left">
+                      <div className="flex items-center gap-4">
+                        <IconBadge Icon={Icon} gradient={iris} />
+                        <h3 className="font-semibold text-gray-900 text-[15px] leading-snug">
+                          {pkg.title}
+                        </h3>
+                      </div>
+
+                      {/* progress shimmer */}
+                      <div className="mt-4 h-[6px] rounded-full bg-gradient-to-r from-emerald-200 via-teal-200 to-sky-200 overflow-hidden">
+                        <span className="block h-full w-1/3 bg-white/60 animate-[slide_2.8s_ease-in-out_infinite]" />
+                      </div>
+
+                      {/* chấm sáng decor */}
+                      <div className="pointer-events-none absolute left-5 top-5 w-8 h-8 rounded-full bg-emerald-400/10 blur" />
+                      <div className="pointer-events-none absolute right-6 -bottom-3 w-16 h-16 rounded-full bg-sky-400/10 blur" />
                     </div>
-                    <p className="text-base font-bold text-gray-900 leading-snug max-w-[180px]">
-                      {pkg.title}
-                    </p>
-                  </div>
+                  </button>
                 );
               })}
             </div>
-
-            {/* Ảnh trung tâm */}
-            <div className="relative z-20 flex items-center justify-center">
-              <button
-                onClick={() => scrollToSection("booking")}
-                className="group relative"
-                aria-label="Đặt lịch ngay"
-              >
-                <div className="absolute -inset-6 rounded-full bg-gradient-to-tr from-emerald-300/40 via-cyan-300/40 to-sky-300/40 blur-2xl opacity-70 group-hover:opacity-90 transition" />
-                <div className="absolute -inset-3 rounded-full border-2 border-dashed border-emerald-300/60" />
-                <div className="relative w-[360px] lg:w-[420px] xl:w-[480px] aspect-square rounded-full overflow-hidden ring-8 ring-white shadow-[0_30px_80px_rgba(16,185,129,0.25)] rotate-2 group-hover:rotate-0 transition duration-500">
-                  <img
-                    src="/images/section3.jpg"
-                    alt="Eye clinic lens"
-                    className="w-full h-full object-contain"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/10 mix-blend-overlay" />
-                </div>
-                <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-sm font-semibold text-emerald-700 bg-white/90 px-3 py-1 rounded-full shadow">
-                  Nhấn để đặt lịch
-                </span>
-              </button>
-            </div>
           </div>
 
-          <div className="text-center mt-2">
-            <div className="text-center mt-10">
-              <a
-                href="#booking"
-                className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
-              >
-                Đăng kí miễn phí ưu đãi{" "}
-                <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1 py-0.5 text-2xl text-emerald-700 font-extrabold">
-                  50%
-                </span>
-              </a>
-            </div>
+          {/* CTA */}
+          <div className="text-center mt-6">
+            <a
+              href="#booking"
+              className="inline-flex items-center gap-3 bg-emerald-500 text-white px-8 py-3 rounded-full font-extrabold text-base shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
+            >
+              Đăng kí miễn phí ưu đãi{" "}
+              <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1.5 py-0.5 text-xl text-emerald-700 font-extrabold">
+                50%
+              </span>
+            </a>
           </div>
         </div>
       </div>
+
+      {/* keyframes shimmer */}
+      <style>{`
+        @keyframes slide {
+          0% { transform: translateX(-40%); }
+          50% { transform: translateX(120%); }
+          100% { transform: translateX(-40%); }
+        }
+      `}</style>
     </section>
   );
 };

@@ -23,12 +23,8 @@ const Header = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div
-              className="w-12 h-12 rounded-xl grid place-items-center
-                bg-gradient-to-r from-cyan-200 to-emerald-200
-                ring-1 ring-black/10 shadow-sm"
-            >
+          <div className="flex items-center">
+            <div className="w-14 h-14">
               <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
             </div>
             <div className="font-space-grotesk font-bold text-[15px] lg:text-xl text-gray-900">
