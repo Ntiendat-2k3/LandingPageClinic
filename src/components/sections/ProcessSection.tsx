@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import {
   Eye,
   Activity,
@@ -13,8 +14,9 @@ import {
   ClipboardCheck,
   CheckCircle2,
 } from "lucide-react";
+import { useScrollToSection } from "../../hooks/useScrollToSection";
 
-/* ============= DATA ============= */
+/* ================= DATA ================= */
 type Step = { number: string; title: string; details: string[] };
 
 const steps: Step[] = [
@@ -63,15 +65,16 @@ const steps: Step[] = [
   },
 ];
 
-/* ============= ICON PICKER ============= */
-function pickIcon(detail: string) {
+/* ================= ICON PICKER ================= */
+function pickIcon(detail: string): LucideIcon {
   const t = detail.toLowerCase();
   if (t.includes("thị lực") || t.includes("mắt") || t.includes("đồng tử"))
     return Eye;
   if (t.includes("khúc xạ") || t.includes("đo")) return Ruler;
   if (t.includes("kiểm soát") || t.includes("điều tiết")) return Activity;
-  if (t.includes("soi đáy")) return Flashlight;
-  if (t.includes("lác") || t.includes("hai mắt")) return Crosshair;
+  if (t.includes("soi đáy") || t.includes("đèn")) return Flashlight;
+  if (t.includes("lác") || t.includes("hai mắt") || t.includes("2 mắt"))
+    return Crosshair;
   if (t.includes("tra thuốc") || t.includes("liệt")) return Syringe;
   if (t.includes("chụp") || t.includes("chiếu") || t.includes("cận"))
     return Camera;
@@ -80,67 +83,51 @@ function pickIcon(detail: string) {
   return CheckCircle2;
 }
 
-/* ============= HELPERS ============= */
-const clamp = (n: number, min: number, max: number) =>
-  Math.max(min, Math.min(max, n));
-const easeInOut = (x: number) =>
-  x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 1, 3) / 2;
-
 const MOBILE_MAX = 768;
 
 /* =========================================================================
-   EXPORT WRAPPER: Auto chọn mobile/desktop
+   EXPORT WRAPPER
    ========================================================================= */
-export default function ProcessClinicBeads() {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+export default function ProcessClinicSVG_NoFixedHeights() {
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const check = () =>
+    const update = () =>
       setIsMobile(
         typeof window !== "undefined" && window.innerWidth < MOBILE_MAX
       );
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
-  return isMobile ? <ProcessMobile /> : <ProcessDesktop />;
+  return isMobile ? <ProcessMobile /> : <ProcessDesktopDynamic />;
 }
 
 /* =========================================================================
-   MOBILE VERSION (stack dọc, KHÔNG có line)
+   MOBILE VERSION (bố cục dọc)
    ========================================================================= */
 function ProcessMobile() {
   return (
-    <section
-      className="relative w-full md:hidden"
-      style={{
-        background:
-          "linear-gradient(180deg,#f8fffb 0%, #ffffff 40%, #f1fdf7 100%)",
-      }}
-    >
-      {/* nền họa tiết nhẹ */}
-      <div
-        className="absolute inset-0 opacity-[.04] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at 8px 8px, #10b981 2px, transparent 2px) 0 0/26px 26px",
-        }}
-      />
-
+    <section id="process" className="relative w-full md:hidden bg-white">
       <div className="relative z-10 px-4 pt-6 pb-10 max-w-[520px] mx-auto">
         <header className="text-center mb-5">
-          <h2 className="text-2xl font-extrabold tracking-wide text-emerald-600">
-            Quy trình khám khúc xạ
-          </h2>
-          <p className="text-gray-700/80 text-xs">
-            Bố cục dọc • Không có đường line
-          </p>
+          <div className="text-center">
+            <h2 className="text-4xl md:text-4xl font-extrabold tracking-wide text-emerald-600">
+              Quy trình
+            </h2>
+            <h3 className="mt-1 font-bold text-lg md:text-2xl text-gray-800">
+              ĐO TẬT KHÚC XẠ VÀ KIỂM TRA MẮT
+            </h3>
+            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 ring-1 ring-emerald-100 shadow-sm">
+              <span className="text-emerald-600 text-lg font-semibold">
+                Hạn chế tối đa sai số
+              </span>
+            </div>
+          </div>
         </header>
 
-        {/* LIST STEPS */}
         <ul className="relative space-y-3">
           {steps.map((s) => (
             <li key={s.number} className="relative">
-              {/* CARD */}
               <div className="rounded-xl border border-emerald-200 bg-white shadow-[0_8px_22px_rgba(16,185,129,.08)] p-4">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 grid place-items-center rounded-full border-2 border-emerald-500 text-emerald-700 bg-white font-bold shrink-0">
@@ -177,360 +164,380 @@ function ProcessMobile() {
 }
 
 /* =========================================================================
-   DESKTOP VERSION (nguyên bản + tinh chỉnh nhẹ, chỉ hiển thị >= md)
+   DESKTOP VERSION — Tự đo layout để vẽ line, không fix height
    ========================================================================= */
-function ProcessDesktop() {
+function ProcessDesktopDynamic() {
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const pathRef = useRef<SVGPathElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
 
-  // responsive (desktop giữ min 1024)
-  const [cw, setCw] = useState(1280);
-  const [vh, setVh] = useState<number>(
-    typeof window !== "undefined" ? window.innerHeight : 900
-  );
+  // refs của 8 card để đo toạ độ
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  if (cardRefs.current.length !== 8) cardRefs.current = Array(8).fill(null);
+
+  // container + nodes
+  const [dims, setDims] = useState({ width: 0, height: 0 });
+  const [nodes, setNodes] = useState<{ x: number; y: number }[]>([]);
+  const [yBus, setYBus] = useState<number>(0);
+  const [imgCenter, setImgCenter] = useState({ x: 0, y: 0 });
+  const scrollToSection = useScrollToSection();
+
+  // đo thêm chiều cao mỗi hàng để gia tăng safety khi lệch hàng
+  const [rowHeights, setRowHeights] = useState({ top: 0, bot: 0 });
 
   useEffect(() => {
-    const ro = new ResizeObserver((entries) => {
-      const el = entries[0]?.contentRect;
-      if (el?.width) setCw(Math.max(1024, el.width));
-    });
-    if (stageRef.current) ro.observe(stageRef.current);
-    const onResize = () => setVh(window.innerHeight);
-    window.addEventListener("resize", onResize);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
-
-  /* ---- layout ---- */
-  const headerH = 88;
-  const stageH = Math.round(clamp(vh - headerH, 520, 820));
-  const cardW = Math.round(clamp(cw * 0.205, 260, 360));
-  const gutter = Math.round(clamp(cw * 0.02, 18, 56));
-  const gridW = 4 * cardW + 3 * gutter;
-  const startX = Math.round((cw - gridW) / 2);
-  const cardH = Math.round(clamp(stageH * 0.24, 130, 170));
-  const yTopCenter = Math.round(stageH * 0.34);
-  const yBotCenter = Math.round(stageH * 0.7);
-  const yTop = yTopCenter - Math.round(cardH / 2);
-  const yBot = yBotCenter - Math.round(cardH / 2);
-  const colLeft = (col: number) => startX + col * (cardW + gutter);
-  const colCenter = (col: number) => colLeft(col) + Math.round(cardW / 2);
-  const colByIndex = (i: number) => (i <= 3 ? i : 7 - i);
-
-  const cards = useMemo(
-    () =>
-      Array.from({ length: 8 }, (_, i) => {
-        const col = colByIndex(i);
-        const isTop = i <= 3;
-        return {
-          left: colLeft(col),
-          top: isTop ? yTop : yBot,
-          width: cardW,
-          height: cardH,
-        };
-      }),
-    [cw, stageH]
-  );
-
-  // PATH 1→…→8 (qua tâm card)
-  const nodes = useMemo(
-    () =>
-      Array.from({ length: 8 }, (_, i) => {
-        const col = colByIndex(i);
-        const y = i <= 3 ? yTopCenter : yBotCenter;
-        return { x: colCenter(col), y };
-      }),
-    [cw, stageH]
-  );
-
-  const pathD = useMemo(() => {
-    const segs: string[] = [`M ${nodes[0].x} ${nodes[0].y}`];
-    for (let i = 1; i < nodes.length; i++)
-      segs.push(`L ${nodes[i].x} ${nodes[i].y}`);
-    return segs.join(" ");
-  }, [nodes]);
-
-  const [totalLen, setTotalLen] = useState(1);
-  useEffect(() => {
-    if (!pathRef.current) return;
-    setTotalLen(pathRef.current.getTotalLength());
-  }, [pathD]);
-
-  // reveal once
-  const [progress, setProgress] = useState(0);
-  const [played, setPlayed] = useState(false);
-  useEffect(() => {
+    if (!stageRef.current) return;
     const el = stageRef.current;
-    if (!el || played) return;
+
+    const measure = () => {
+      const rect = el.getBoundingClientRect();
+      const width = rect.width;
+      const height = el.scrollHeight;
+
+      const newNodes = cardRefs.current.map((r) => {
+        const rr = r?.getBoundingClientRect();
+        if (!rr) return { x: 0, y: 0 };
+        return {
+          x: rr.left - rect.left + rr.width / 2,
+          y: rr.top - rect.top + rr.height / 2,
+        };
+      });
+
+      // chiều cao lớn nhất mỗi hàng
+      const heights = cardRefs.current.map(
+        (r) => r?.getBoundingClientRect()?.height ?? 0
+      );
+      const topH = Math.max(...heights.slice(0, 4), 0);
+      const botH = Math.max(...heights.slice(4, 8), 0);
+      setRowHeights({ top: topH, bot: botH });
+
+      // tâm 2 hàng
+      const topRow = newNodes.slice(0, 4);
+      const botRow = newNodes.slice(4, 8);
+      const avgY = (arr: { x: number; y: number }[]) =>
+        arr.reduce((s, p) => s + p.y, 0) / (arr.length || 1);
+      const yTopCenter = avgY(topRow);
+      const yBotCenter = avgY(botRow);
+      const yBetween = (yTopCenter + yBotCenter) / 2;
+
+      setDims({ width, height });
+      setNodes(newNodes);
+      setYBus(yBetween);
+      setImgCenter({ x: width / 2, y: yBetween });
+    };
+
+    const ro = new ResizeObserver(() => measure());
+    ro.observe(el);
+
+    const rAF = requestAnimationFrame(measure);
+
     const io = new IntersectionObserver(
-      (entries) => {
-        const e = entries[0];
-        if (e.isIntersecting && e.intersectionRatio > 0.35) {
-          const t0 = performance.now();
-          const dur = 4200;
-          const tick = (t: number) => {
-            const p = Math.min(1, (t - t0) / dur);
-            setProgress(easeInOut(p));
-            if (p < 1) requestAnimationFrame(tick);
-            else setPlayed(true);
-          };
-          requestAnimationFrame(tick);
+      (ents) => {
+        if (!revealed && ents[0]?.isIntersecting) {
+          setRevealed(true);
           io.disconnect();
         }
       },
-      { threshold: [0.35] }
+      { threshold: 0.35 }
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, [played]);
 
-  const revealLen = Math.max(0.001, progress * totalLen);
+    return () => {
+      ro.disconnect();
+      cancelAnimationFrame(rAF);
+      io.disconnect();
+    };
+  }, [revealed]);
 
-  const [beads, setBeads] = useState<{ x: number; y: number }[]>([]);
-  useEffect(() => {
-    if (!pathRef.current || totalLen < 2) return;
-    const P = pathRef.current;
-    const step = 90;
-    const arr: { x: number; y: number }[] = [];
-    for (let L = 16; L < totalLen - 16; L += step) {
-      const pt = P.getPointAtLength(L);
-      arr.push({ x: pt.x, y: pt.y });
-    }
-    setBeads(arr);
-  }, [totalLen, cw, stageH]);
+  // Kích thước ảnh trung tâm (match clamp(120px, 14vw, 220px))
+  const centerSize = useMemo(
+    () => Math.min(220, Math.max(120, (dims.width || 0) * 0.14)),
+    [dims.width]
+  );
+
+  // khoảng trống muốn chừa thêm hai bên ảnh
+  const CLEARANCE_PX = 48;
+
+  // base gap theo width (cảm giác tự nhiên theo màn hình)
+  const baseGap = useMemo(
+    () => Math.min(180, Math.max(72, (dims.width || 0) * 0.09 || 96)),
+    [dims.width]
+  );
+
+  // nếu 2 hàng lệch chiều cao, cộng thêm nửa độ lệch để an toàn
+  const deltaH = Math.abs(rowHeights.top - rowHeights.bot);
+
+  // rowGap tối thiểu
+  const rowGapPx = useMemo(() => {
+    const need = centerSize + CLEARANCE_PX * 2 + deltaH / 2;
+    return Math.max(baseGap, need);
+  }, [centerSize, CLEARANCE_PX, baseGap, deltaH]);
+
+  // Path: 1→2→3→4 → xuống yBus → ngang qua ảnh → tới 5 → xuống 5 → 6 → 7 → 8
+  const pathD = useMemo(() => {
+    if (nodes.length < 8 || !dims.width) return "";
+    const [n1, n2, n3, n4, n5, n6, n7, n8] = nodes;
+    const imgCx = imgCenter.x;
+    return [
+      `M ${n1.x} ${n1.y}`,
+      `L ${n2.x} ${n2.y}`,
+      `L ${n3.x} ${n3.y}`,
+      `L ${n4.x} ${n4.y}`,
+      `L ${n4.x} ${yBus}`,
+      `L ${imgCx} ${yBus}`,
+      `L ${n5.x} ${yBus}`,
+      `L ${n5.x} ${n5.y}`,
+      `L ${n6.x} ${n6.y}`,
+      `L ${n7.x} ${n7.y}`,
+      `L ${n8.x} ${n8.y}`,
+    ].join(" ");
+  }, [nodes, imgCenter, yBus, dims.width]);
 
   return (
-    <section
-      className="relative hidden md:block h-screen overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(180deg,#f8fffb 0%, #ffffff 40%, #f1fdf7 100%)",
-      }}
-    >
+    <section id="process" className="relative hidden md:block bg-transparent">
       <style>{`
-        @keyframes beadPulse {
-          0% { r: 4; opacity: .45; }
-          50% { r: 6.5; opacity: 1; }
-          100% { r: 4; opacity: .45; }
-        }
+        @keyframes pulse { 0%{opacity:.4; r:5} 50%{opacity:1; r:7.5} 100%{opacity:.4; r:5} }
       `}</style>
 
-      <div
-        className="absolute inset-0 opacity-[.035] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at 8px 8px, #10b981 2px, transparent 2px) 0 0/28px 28px",
-        }}
-      />
-
-      <div className="relative z-10 h-full max-w-[1680px] mx-auto px-6 md:px-10">
+      <div className="relative z-10 max-w-[1680px] mx-auto px-6 md:px-10 py-8">
         {/* Header */}
-        <div className="h-[88px] flex items-end justify-center">
+        <div className="relative z-20 flex items-center justify-center mb-6">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-wide text-emerald-600">
-              Quy trình khám khúc xạ
+            <h2 className="text-4xl md:text-4xl font-extrabold tracking-wide text-emerald-600">
+              Quy trình
             </h2>
-            <p className="text-gray-700/80 text-sm md:text-base">
-              Line “glass” dưới card • Beads nhịp nhẹ, rõ nét
-            </p>
+            <h3 className="mt-1 font-bold text-lg md:text-2xl text-gray-800">
+              ĐO TẬT KHÚC XẠ VÀ KIỂM TRA MẮT
+            </h3>
+            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 ring-1 ring-emerald-100 shadow-sm">
+              <span className="text-emerald-600 text-lg font-semibold">
+                Hạn chế tối đa sai số
+              </span>
+            </div>
           </div>
         </div>
 
         {/* STAGE */}
-        <div
-          ref={stageRef}
-          className="relative select-none isolate"
-          style={{ height: stageH }}
-        >
-          {/* LINE & BEADS */}
-          <svg
-            className="absolute inset-0 z-0 pointer-events-none"
-            width="100%"
-            height={stageH}
-            viewBox={`0 0 ${cw} ${stageH}`}
-            preserveAspectRatio="none"
+        <div ref={stageRef} className="relative isolate">
+          {/* GRID 2 hàng x 4 cột - rowGap tính động để né ảnh */}
+          <div
+            className="grid grid-cols-4 gap-x-6"
+            style={{ rowGap: `${rowGapPx}px` }}
           >
-            <defs>
-              <linearGradient id="glassTube" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#67e8f9" />
-                <stop offset="50%" stopColor="#34d399" />
-                <stop offset="100%" stopColor="#22c55e" />
-              </linearGradient>
-              <linearGradient id="glassHighlight" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#ffffff" stopOpacity=".85" />
-                <stop offset="100%" stopColor="#ffffff" stopOpacity=".2" />
-              </linearGradient>
-              <filter
-                id="tubeGlow"
-                x="-50%"
-                y="-50%"
-                width="200%"
-                height="200%"
+            {steps.map((s, i) => (
+              <div
+                key={s.number}
+                ref={(el) => (cardRefs.current[i] = el)}
+                className="relative z-10"
               >
-                <feGaussianBlur stdDeviation="4" result="g" />
-                <feMerge>
-                  <feMergeNode in="g" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <mask id="revealMask">
+                <CardAuto data={s} />
+              </div>
+            ))}
+          </div>
+
+          {/* ẢNH TRUNG TÂM */}
+          <div
+            className="absolute z-10 pointer-events-none rounded-full overflow-hidden ring-1 ring-emerald-100 shadow-2xl bg-white"
+            style={{
+              left: imgCenter.x ? imgCenter.x : 0,
+              top: yBus ? yBus : 0,
+              transform: "translate(-50%, -50%)",
+              width: `${centerSize}px`,
+              height: `${centerSize}px`,
+            }}
+          >
+            <img
+              src="/images/section4.jpg"
+              alt="Ảnh trung tâm"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* LINE (dưới card) + COMET */}
+          {dims.width > 0 && (
+            <svg
+              className={`absolute inset-0 z-[1] pointer-events-none ${
+                revealed ? "[--dash:0]" : "[--dash:1]"
+              }`}
+              width="100%"
+              height={dims.height}
+              viewBox={`0 0 ${dims.width} ${dims.height}`}
+              preserveAspectRatio="none"
+              aria-hidden
+              strokeLinejoin="round"
+              strokeMiterlimit={1}
+            >
+              <defs>
+                <linearGradient
+                  id="tubeRainbow"
+                  gradientUnits="userSpaceOnUse"
+                  x1={0}
+                  y1={0}
+                  x2={dims.width}
+                  y2={0}
+                >
+                  <stop offset="0%" stopColor="#ef4444" />
+                  <stop offset="20%" stopColor="#f59e0b" />
+                  <stop offset="40%" stopColor="#10b981" />
+                  <stop offset="60%" stopColor="#3b82f6" />
+                  <stop offset="80%" stopColor="#a855f7" />
+                  <stop offset="100%" stopColor="#ec4899" />
+                </linearGradient>
+                <linearGradient id="tubeHL" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#fff" stopOpacity=".9" />
+                  <stop offset="100%" stopColor="#fff" stopOpacity=".1" />
+                </linearGradient>
+
+                {/* Glow mạnh cho "vật thể sáng" */}
+                <filter
+                  id="cometGlow"
+                  x="-100%"
+                  y="-100%"
+                  width="300%"
+                  height="300%"
+                >
+                  <feGaussianBlur stdDeviation="6" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+
+                {/* Track vô hình để animateMotion bám theo */}
                 <path
+                  id="motionTrack"
                   d={pathD}
                   fill="none"
-                  stroke="white"
-                  strokeWidth={14}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeDasharray={`${revealLen} ${Math.max(
-                    totalLen - revealLen,
-                    0.1
-                  )}`}
+                  stroke="transparent"
                 />
-              </mask>
-            </defs>
+              </defs>
 
-            <path
-              d={pathD}
-              fill="none"
-              stroke="#ffffff"
-              strokeOpacity=".6"
-              strokeWidth={16}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              ref={pathRef}
-              d={pathD}
-              fill="none"
-              stroke="url(#glassTube)"
-              strokeWidth={10}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              filter="url(#tubeGlow)"
-              strokeDasharray={`${revealLen} ${Math.max(
-                totalLen - revealLen,
-                0.1
-              )}`}
-            />
-            <path
-              d={pathD}
-              fill="none"
-              stroke="url(#glassHighlight)"
-              strokeWidth={3}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity=".75"
-              mask="url(#revealMask)"
-            />
+              {/* base white underlay */}
+              <path
+                d={pathD}
+                pathLength={1}
+                fill="none"
+                stroke="#fff"
+                strokeOpacity=".7"
+                strokeWidth={16}
+                strokeLinecap="round"
+              />
 
-            {/* BEADS */}
-            <g mask="url(#revealMask)">
-              {beads.map((b, i) => (
-                <g key={i}>
-                  <circle
-                    cx={b.x}
-                    cy={b.y}
-                    r={4}
-                    fill="#fff"
-                    stroke="url(#glassTube)"
-                    strokeWidth="3"
-                    style={{
-                      animation: `beadPulse 1.2s ${
-                        i * 0.12
-                      }s infinite ease-in-out`,
-                    }}
-                  />
-                </g>
-              ))}
-            </g>
+              {/* main rainbow tube */}
+              <path
+                d={pathD}
+                pathLength={1}
+                fill="none"
+                stroke="url(#tubeRainbow)"
+                strokeWidth={10}
+                strokeLinecap="round"
+                style={{
+                  strokeDasharray: 1,
+                  strokeDashoffset: "var(--dash)",
+                  transition:
+                    "stroke-dashoffset 3.6s cubic-bezier(.22,.9,.28,1)",
+                }}
+              />
 
-            {/* NODES */}
-            {nodes.map((n, i) => {
-              const reached = revealLen >= (i / 7) * totalLen - 1;
-              return (
+              {/* shiny highlight */}
+              <path
+                d={pathD}
+                pathLength={1}
+                fill="none"
+                stroke="url(#tubeHL)"
+                strokeWidth={3}
+                strokeLinecap="round"
+                style={{
+                  strokeDasharray: 1,
+                  strokeDashoffset: "var(--dash)",
+                  transition:
+                    "stroke-dashoffset 3.6s cubic-bezier(.22,.9,.28,1) .1s",
+                }}
+              />
+
+              {/* VẬT THỂ SÁNG CHẠY LIÊN TỤC */}
+              <g key={pathD} filter="url(#cometGlow)">
+                {/* thân comet */}
+                <circle r="7" fill="#ffffff" />
+                {/* chuyển động dọc theo path; rotate theo tiếp tuyến */}
+                <animateMotion dur="10s" rotate="auto" repeatCount="indefinite">
+                  {/* React hỗ trợ xlinkHref trong SVG */}
+                  <mpath xlinkHref="#motionTrack" />
+                </animateMotion>
+              </g>
+
+              {/* nodes */}
+              {nodes.map((n, i) => (
                 <g key={i}>
                   <circle
                     cx={n.x}
                     cy={n.y}
-                    r="7"
+                    r={7}
                     fill="#fff"
-                    stroke="url(#glassTube)"
-                    strokeWidth="3"
+                    stroke="url(#tubeRainbow)"
+                    strokeWidth={3}
                   />
-                  {reached && (
+                  {revealed && (
                     <circle
                       cx={n.x}
                       cy={n.y}
-                      r="14"
+                      r={7.5}
                       fill="none"
-                      stroke="url(#glassTube)"
-                      strokeWidth="4"
-                      opacity=".35"
+                      stroke="url(#tubeRainbow)"
+                      strokeWidth={3}
+                      style={{
+                        animation: "pulse 1.6s ease-in-out infinite",
+                        animationDelay: `${i * 0.1}s`,
+                      }}
                     />
                   )}
                 </g>
-              );
-            })}
-          </svg>
+              ))}
+            </svg>
+          )}
+        </div>
 
-          {/* CARDS */}
-          {cards.map((c, i) => (
-            <CardEqual
-              key={i}
-              data={steps[i]}
-              left={c.left}
-              top={c.top}
-              width={c.width}
-              height={c.height}
-            />
-          ))}
+        {/* CTA căn GIỮA tuyệt đối */}
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={() => scrollToSection("booking")}
+            className="relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-base text-white bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-lg active:scale-[0.98] cursor-pointer"
+          >
+            Đăng kí miễn phí ưu đãi
+            <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
+              50%
+            </span>
+          </button>
         </div>
       </div>
     </section>
   );
 }
 
-/* ============= CARD – equal height (desktop) ============= */
-function CardEqual({
-  data,
-  left,
-  top,
-  width,
-  height,
-}: {
-  data: Step;
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-}) {
+/* ================= CARD – auto height (desktop) ================= */
+function CardAuto({ data }: { data: Step }) {
   return (
-    <div className="absolute z-10" style={{ left, top, width, height }}>
-      <div className="h-full w-full rounded-2xl border border-emerald-200 bg-white shadow-[0_10px_30px_rgba(16,185,129,.08)] flex flex-col">
-        <div className="px-5 pt-4 pb-2 flex items-center gap-3 shrink-0">
-          <div className="w-9 h-9 grid place-items-center rounded-full border-2 border-emerald-500 text-emerald-700 bg-white font-bold">
-            {data.number}
-          </div>
-          <div className="font-semibold text-gray-900 tracking-wide">
-            {data.title}
-          </div>
+    <div className="h-full w-full rounded-2xl border border-emerald-200/70 bg-white/95 backdrop-blur-sm shadow-[0_10px_30px_rgba(16,185,129,.08)] flex flex-col">
+      <div className="px-5 pt-4 pb-2 flex items-center gap-3">
+        <div className="w-9 h-9 grid place-items-center rounded-full border-2 border-emerald-500 text-emerald-700 bg-white font-bold">
+          {data.number}
         </div>
-        <ul className="px-5 pb-4 pt-1 grid gap-1.5 overflow-hidden">
-          {data.details.map((d, k) => {
-            const Icon = pickIcon(d);
-            return (
-              <li key={k} className="flex items-start gap-2">
-                <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600">
-                  <Icon size={14} strokeWidth={2.2} />
-                </span>
-                <span className="text-sm text-gray-700 leading-5">{d}</span>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="font-semibold text-gray-900 tracking-wide">
+          {data.title}
+        </div>
       </div>
+      <ul className="px-5 pb-4 pt-1 grid gap-1.5">
+        {data.details.map((d, k) => {
+          const Icon = pickIcon(d);
+          return (
+            <li key={k} className="flex items-start gap-2">
+              <span className="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600">
+                <Icon size={14} strokeWidth={2.2} />
+              </span>
+              <span className="text-sm text-gray-700 leading-5">{d}</span>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

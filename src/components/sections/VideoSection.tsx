@@ -36,7 +36,7 @@ const VideoSection = () => {
           <h2
             className="
               font-bold text-emerald-600
-              text-[18px] sm:text-xl md:text-3xl lg:text-4xl
+              text-[28px] sm:text-xl md:text-3xl lg:text-4xl
               leading-snug md:leading-tight
               [&>br]:hidden md:[&>br]:block
             "

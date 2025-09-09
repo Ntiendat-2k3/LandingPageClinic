@@ -36,14 +36,14 @@ const HeroSection = () => {
               </div>
             </div>
 
-            {/* Tagline (bỏ khung) */}
+            {/* Tagline */}
             <p className="mt-3 text-base md:text-lg text-gray-700 lg:text-center">
               Chăm sóc đôi mắt một cách toàn diện
             </p>
 
             <div className="w-full h-0.5 bg-gray-200 mt-4"></div>
 
-            {/* Khẩu hiệu + mô tả dạng danh sách có icon */}
+            {/* Khẩu hiệu + danh sách */}
             <div className="mt-4">
               <div className="text-[15px] md:text-lg font-extrabold tracking-wide text-emerald-700">
                 KIỂM SOÁT CẬN THỊ – ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT
@@ -80,39 +80,47 @@ const HeroSection = () => {
               </ul>
             </div>
 
-            {/* Stats — không cuộn ngang */}
+            {/* Stats — thu nhỏ trên mobile */}
             <div className="mt-6 lg:mt-8">
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-6">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:gap-6">
                 {[
                   {
-                    icon: <Users className="w-5 h-5 text-cyan-600" />,
+                    icon: (
+                      <Users className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600" />
+                    ),
                     val: "10K+",
                     txt: "Bệnh nhân điều trị",
                   },
                   {
-                    icon: <Star className="w-5 h-5 text-emerald-600" />,
+                    icon: (
+                      <Star className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                    ),
                     val: "97.8%",
                     txt: "Hài lòng",
                   },
                   {
-                    icon: <Clock className="w-5 h-5 text-blue-600" />,
+                    icon: (
+                      <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+                    ),
                     val: "10+",
                     txt: "Năm kinh nghiệm",
                   },
                 ].map((s, i) => (
                   <div
                     key={i}
-                    className="bg-white/85 backdrop-blur rounded-2xl px-4 py-3 lg:p-5 ring-1 ring-black/5 shadow"
+                    className="bg-white/85 backdrop-blur rounded-xl px-3 py-2 sm:px-4 sm:py-3 lg:p-5 ring-1 ring-black/5 shadow"
                   >
                     <div className="flex items-center gap-2">
-                      <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 rounded-lg bg-emerald-50 flex items-center justify-center">
                         {s.icon}
                       </div>
                       <div>
-                        <div className="font-space-grotesk text-2xl font-bold text-gray-900">
+                        <div className="font-space-grotesk text-xl sm:text-2xl font-bold text-gray-900">
                           {s.val}
                         </div>
-                        <div className="text-sm text-gray-600">{s.txt}</div>
+                        <div className="text-xs sm:text-sm text-gray-600">
+                          {s.txt}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -120,7 +128,7 @@ const HeroSection = () => {
               </div>
             </div>
 
-            {/* CTA — căn giữa, nổi bật 50% */}
+            {/* CTA — căn giữa */}
             <div className="mt-6 lg:mt-8 text-center">
               <button
                 onClick={scrollToContact}
@@ -135,11 +143,12 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right: Image (to & cân đối; chỉ giữ sticker Shield) */}
+          {/* Right: Image */}
           <div className="order-1 lg:order-2">
             <div className="relative mx-auto max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-[560px]">
               <div className="absolute -inset-1 rounded-[28px] bg-gradient-to-br from-emerald-400/50 via-cyan-400/50 to-blue-400/40 blur-md" />
-              <div className="relative rounded-[24px] overflow-hidden bg-white shadow-2xl rotate-2 lg:rotate-0">
+              {/* Mobile: thẳng (rotate-0). Chỉ nghiêng khi >= lg */}
+              <div className="relative rounded-[24px] overflow-hidden bg-white shadow-2xl rotate-0 lg:rotate-2">
                 <img
                   src="/images/section1.jpg"
                   alt="Phòng khám mắt hiện đại"
