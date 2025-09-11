@@ -142,7 +142,7 @@ const TestimonialsSection = () => {
       <div className="container mx-auto container-padding">
         {/* Heading */}
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="font-space-grotesk text-2xl md:text-4xl font-bold text-gray-900 mb-2">
+          <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-gray-900 mb-2 uppercase">
             Khách hàng nói gì về chúng tôi
           </h2>
           <p className="text-sm md:text-lg text-gray-600 max-w-3xl mx-auto">

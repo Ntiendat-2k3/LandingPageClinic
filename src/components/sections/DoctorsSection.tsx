@@ -180,8 +180,8 @@ const DoctorsSection = () => {
       {/* ===== CONTENT WRAPPER (thu nhỏ desktop) ===== */}
       <div className="relative z-10 mx-auto px-4 md:px-6 max-w-[1050px] lg:max-w-[1180px] py-10 md:py-12">
         <div className="text-center mb-7 md:mb-10">
-          <h2 className="font-space-grotesk text-2xl md:text-3xl lg:text-[32px] font-bold text-gray-900">
-            Giới thiệu chuyên gia
+          <h2 className="font-space-grotesk text-2xl md:text-3xl lg:text-[32px] font-extrabold text-gray-900 uppercase">
+            Đội ngũ chuyên môn
           </h2>
         </div>
 

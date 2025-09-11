@@ -147,8 +147,11 @@ const HeroSection = () => {
           <div className="order-1 lg:order-2">
             <div className="relative mx-auto max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-[560px]">
               <div className="absolute -inset-1 rounded-[28px] bg-gradient-to-br from-emerald-400/50 via-cyan-400/50 to-blue-400/40 blur-md" />
-              {/* Mobile: thẳng (rotate-0). Chỉ nghiêng khi >= lg */}
-              <div className="relative rounded-[24px] overflow-hidden bg-white shadow-2xl rotate-0 lg:rotate-2">
+              {/* Mobile & Desktop: luôn thẳng */}
+              <div className="relative rounded-[24px] overflow-hidden bg-white shadow-2xl rotate-0 lg:rotate-0">
+                {/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    CHANGED: bỏ lg:rotate-2 -> lg:rotate-0 để ảnh không nghiêng
+                */}
                 <img
                   src="/images/section1.jpg"
                   alt="Phòng khám mắt hiện đại"

@@ -54,13 +54,52 @@ const ServicesSection = () => {
     { icon: Baby, title: "Lăng kính & tập luyện điều chỉnh lác/phục hồi TL" },
   ];
 
+  // Hàng trên: 3 item có "Gói khám", Hàng dưới: 5 item còn lại
+  const isGoiKham = (t: string) => /gói khám/i.test(t);
+  const topPackages = servicePackages.filter((p) => isGoiKham(p.title));
+  const bottomPackages = servicePackages.filter((p) => !isGoiKham(p.title));
+
+  // Card UI dùng chung — ĐÃ BỎ NGHIÊNG
+  const Card = ({
+    Icon,
+    title,
+    iris,
+  }: {
+    Icon: LucideIcon;
+    title: string;
+    iris: string;
+    i: number;
+  }) => {
+    return (
+      <button
+        onClick={() => scrollToSection("booking")}
+        className={`group relative transform-gpu transition duration-300`}
+      >
+        <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 blur-md transition bg-gradient-to-tr from-emerald-300/45 via-cyan-300/35 to-sky-300/45" />
+        <div className="relative rounded-3xl bg-white/90 backdrop-blur-md ring-1 ring-emerald-200/60 hover:ring-emerald-400 shadow-lg hover:shadow-xl px-5 py-6 text-left">
+          <div className="flex items-center gap-4">
+            <IconBadge Icon={Icon} gradient={iris} />
+            <h3 className="font-semibold text-gray-900 text-[15px] leading-snug">
+              {title}
+            </h3>
+          </div>
+          <div className="mt-4 h-[6px] rounded-full bg-gradient-to-r from-emerald-200 via-teal-200 to-sky-200 overflow-hidden">
+            <span className="block h-full w-1/3 bg-white/60 animate-[slide_2.8s_ease-in-out_infinite]" />
+          </div>
+          <div className="pointer-events-none absolute left-5 top-5 w-8 h-8 rounded-full bg-emerald-400/10 blur" />
+          <div className="pointer-events-none absolute right-6 -bottom-3 w-16 h-16 rounded-full bg-sky-400/10 blur" />
+        </div>
+      </button>
+    );
+  };
+
   return (
     <section
       id="services"
       className="section-padding relative overflow-hidden"
       style={{ backgroundColor: "rgb(236, 252, 247)" }}
     >
-      {/* ===== BG ẢNH MỜ SAU SECTION (desktop) ===== */}
+      {/* BG ảnh mờ (desktop) */}
       <div className="absolute inset-0 -z-10 hidden md:block">
         <img
           src="/images/section3.jpg"
@@ -80,7 +119,7 @@ const ServicesSection = () => {
       </div>
 
       <div className="container mx-auto container-padding relative z-10">
-        {/* Header gọn để vừa màn hình */}
+        {/* Header */}
         <div className="text-center mb-8 md:mb-9">
           <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-black mb-2">
             CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI
@@ -93,7 +132,7 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        {/* ============== MOBILE (lưới 2 cột) ============== */}
+        {/* MOBILE (2 cột) */}
         <div className="md:hidden relative">
           <div className="pointer-events-none absolute -top-10 -left-12 w-40 h-40 bg-emerald-200/50 blur-3xl rounded-full" />
           <div className="pointer-events-none absolute -bottom-10 -right-10 w-44 h-44 bg-sky-200/50 blur-3xl rounded-full" />
@@ -104,7 +143,7 @@ const ServicesSection = () => {
               const iris = irisPalette[i % irisPalette.length];
               return (
                 <button
-                  key={i}
+                  key={pkg.title}
                   onClick={() => scrollToSection("booking")}
                   aria-label={pkg.title}
                   className="group relative active:scale-[0.98] transition"
@@ -138,45 +177,37 @@ const ServicesSection = () => {
           </div>
         </div>
 
-        {/* ============== DESKTOP (4 cột × 2 hàng) ============== */}
+        {/* DESKTOP: Hàng trên 3 ô "Gói khám", Hàng dưới 5 ô còn lại (ĐỨNG THẲNG) */}
         <div className="hidden md:block">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-6 p-2">
-              {servicePackages.map((pkg, i) => {
+          <div className="max-w-7xl mx-auto p-2">
+            <div className="grid md:grid-cols-3 gap-6 mb-6">
+              {topPackages.map((pkg, i) => {
                 const Icon = pkg.icon;
                 const iris = irisPalette[i % irisPalette.length];
-
-                // tilt nhẹ + hover thẳng lại
-                const tilt =
-                  i % 2 === 0 ? "-rotate-[0.6deg]" : "rotate-[0.6deg]";
-                const bump = i % 4 === 1 ? "-mt-1" : i % 4 === 2 ? "mt-1" : "";
-
                 return (
-                  <button
-                    key={i}
-                    onClick={() => scrollToSection("booking")}
-                    className={`group relative transform-gpu ${tilt} ${bump} hover:rotate-0 transition duration-300`}
-                  >
-                    {/* glow khi hover */}
-                    <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 blur-md transition bg-gradient-to-tr from-emerald-300/45 via-cyan-300/35 to-sky-300/45" />
-                    <div className="relative rounded-3xl bg-white/90 backdrop-blur-md ring-1 ring-emerald-200/60 hover:ring-emerald-400 shadow-lg hover:shadow-xl px-5 py-6 text-left">
-                      <div className="flex items-center gap-4">
-                        <IconBadge Icon={Icon} gradient={iris} />
-                        <h3 className="font-semibold text-gray-900 text-[15px] leading-snug">
-                          {pkg.title}
-                        </h3>
-                      </div>
+                  <Card
+                    key={pkg.title}
+                    Icon={Icon}
+                    title={pkg.title}
+                    iris={iris}
+                    i={i}
+                  />
+                );
+              })}
+            </div>
 
-                      {/* progress shimmer */}
-                      <div className="mt-4 h-[6px] rounded-full bg-gradient-to-r from-emerald-200 via-teal-200 to-sky-200 overflow-hidden">
-                        <span className="block h-full w-1/3 bg-white/60 animate-[slide_2.8s_ease-in-out_infinite]" />
-                      </div>
-
-                      {/* chấm sáng decor */}
-                      <div className="pointer-events-none absolute left-5 top-5 w-8 h-8 rounded-full bg-emerald-400/10 blur" />
-                      <div className="pointer-events-none absolute right-6 -bottom-3 w-16 h-16 rounded-full bg-sky-400/10 blur" />
-                    </div>
-                  </button>
+            <div className="grid md:grid-cols-5 gap-6">
+              {bottomPackages.map((pkg, i) => {
+                const Icon = pkg.icon;
+                const iris = irisPalette[i % irisPalette.length];
+                return (
+                  <Card
+                    key={pkg.title}
+                    Icon={Icon}
+                    title={pkg.title}
+                    iris={iris}
+                    i={i}
+                  />
                 );
               })}
             </div>

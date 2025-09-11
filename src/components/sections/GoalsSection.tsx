@@ -47,30 +47,30 @@ const GoalsSection = () => {
 
       {/* Container full-height ở LG+ */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative flex flex-col lg:h-full">
-        {/* Header (thu gọn trên desktop) */}
+        {/* Header (tăng size chữ) */}
         <div className="text-center mb-4 lg:mb-4 shrink-0">
-          <h2 className="mt-2 inline-flex items-center gap-3 text-[26px] leading-tight md:text-4xl lg:text-[32px] font-extrabold text-gray-900">
-            <span className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-red-100">
-              <AlertTriangle className="w-6 h-6 text-red-600" />
+          <h2 className="mt-2 inline-flex items-center gap-3 text-[30px] leading-tight md:text-[42px] lg:text-[48px] font-extrabold text-gray-900">
+            <span className="inline-flex w-10 h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 items-center justify-center rounded-full bg-red-100">
+              <AlertTriangle className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-red-600" />
             </span>
             CẬN THỊ VÀ BIẾN CHỨNG CỦA CẬN THỊ
           </h2>
 
           <div className="block"></div>
-          <div className="my-2 inline-block rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-[15px] md:text-xl lg:text-[16px] shadow">
+          <div className="my-2 inline-block rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-base md:text-2xl lg:text-[22px] shadow">
             ĐANG ĐƯỢC COI LÀ VẤN NẠN TOÀN CẦU
           </div>
         </div>
 
-        {/* Grid chiếm phần còn lại, không tràn chiều cao */}
+        {/* Grid chiếm phần còn lại */}
         <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-6 items-stretch flex-1 min-h-0">
           {/* LEFT 50% */}
           <div className="space-y-4 lg:space-y-4 overflow-visible min-h-0">
             <div className="rounded-2xl p-4 lg:p-4 bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 shadow">
-              <p className="text-2xl lg:text-[22px] font-extrabold text-gray-900">
+              <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900">
                 2050
               </p>
-              <p className="mt-1 text-base md:text-lg lg:text-[15.5px] font-medium text-gray-800">
+              <p className="mt-1 text-base md:text-xl lg:text-[20px] font-medium text-gray-800">
                 Ước tính có tới{" "}
                 <span className="text-red-600 font-bold">
                   50% dân số thế giới
@@ -79,7 +79,7 @@ const GoalsSection = () => {
               </p>
             </div>
 
-            <p className="text-sm md:text-base lg:text-[14.5px] font-semibold text-gray-800">
+            <p className="text-base md:text-lg lg:text-[20px] font-semibold text-gray-800">
               Cận thị cao sẽ tăng nguy cơ:
             </p>
 
@@ -107,8 +107,8 @@ const GoalsSection = () => {
                       />
                     </div>
 
-                    <div className="bg-white/90 backdrop-blur rounded-xl ring-1 ring-black/5 shadow px-3.5 py-2.5 lg:px-3.5 lg:py-2.5">
-                      <p className="text-[15px] md:text-[16px] lg:text-[14.5px] text-gray-700 leading-relaxed">
+                    <div className="bg-white/90 backdrop-blur rounded-xl ring-1 ring-black/5 shadow px-4 py-3 lg:px-5 lg:py-3.5">
+                      <p className="text-base md:text-lg lg:text-[19px] text-gray-700 leading-relaxed">
                         {s.text}
                       </p>
                     </div>
@@ -118,7 +118,7 @@ const GoalsSection = () => {
             </div>
           </div>
 
-          {/* RIGHT 50% – 2 ảnh xếp dọc, CHỈ GIẢM WIDTH ảnh để luôn thấy full ảnh */}
+          {/* RIGHT 50% – 2 ảnh xếp dọc */}
           <div className="grid lg:grid-rows-2 gap-4 lg:gap-4 h-full min-h-0">
             {/* Ảnh trên */}
             <div className="relative rounded-2xl overflow-hidden bg-white shadow-2xl ring-1 ring-black/5 min-h-[220px] sm:min-h-[260px] lg:min-h-0 h-full flex items-center justify-center">
@@ -132,9 +132,8 @@ const GoalsSection = () => {
               <div className="pointer-events-none absolute inset-0 rounded-[22px] bg-emerald-400/10 blur-md" />
             </div>
 
-            {/* Ảnh dưới + CAPTION BÊN DƯỚI (không overlay) */}
+            {/* Ảnh dưới + caption bên dưới */}
             <div className="relative h-full min-h-[220px] sm:min-h-[260px] lg:min-h-0 flex flex-col">
-              {/* khung ảnh */}
               <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl ring-1 ring-black/5 flex-1 flex items-center justify-center">
                 <img
                   src="/images/retinalInsider.jpg"
@@ -144,9 +143,8 @@ const GoalsSection = () => {
                              object-contain"
                 />
               </div>
-              {/* caption bên dưới */}
               <div className="mt-2 text-center">
-                <span className="inline-block px-3 py-1 rounded-full bg-white/90 text-gray-900 text-xs sm:text-sm lg:text-[12px] font-medium shadow">
+                <span className="inline-block px-3 py-1 rounded-full bg-white/90 text-gray-900 text-sm sm:text-base lg:text-[16px] font-medium shadow">
                   Hình ảnh võng mạc bị tổn thương
                 </span>
               </div>

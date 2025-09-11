@@ -111,7 +111,7 @@ function ProcessMobile() {
       <div className="relative z-10 px-4 pt-6 pb-10 max-w-[520px] mx-auto">
         <header className="text-center mb-5">
           <div className="text-center">
-            <h2 className="text-4xl md:text-4xl font-extrabold tracking-wide text-emerald-600">
+            <h2 className="text-4xl md:text-4xl font-extrabold tracking-wide text-emerald-600 uppercase">
               Quy trình
             </h2>
             <h3 className="mt-1 font-bold text-lg md:text-2xl text-gray-800">
@@ -302,7 +302,7 @@ function ProcessDesktopDynamic() {
         {/* Header */}
         <div className="relative z-20 flex items-center justify-center mb-6">
           <div className="text-center">
-            <h2 className="text-4xl md:text-4xl font-extrabold tracking-wide text-emerald-600">
+            <h2 className="text-4xl md:text-4xl font-extrabold tracking-wide text-emerald-600 uppercase">
               Quy trình
             </h2>
             <h3 className="mt-1 font-bold text-lg md:text-2xl text-gray-800">
