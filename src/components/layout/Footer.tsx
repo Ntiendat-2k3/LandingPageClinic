@@ -24,6 +24,17 @@ const Footer = () => {
   const fanpageUrl = "https://www.facebook.com/pkmatdrtrantuan";
   const messengerUrl = "https://m.me/pkmatdrtrantuan";
 
+  // ====== Config cho địa chỉ / Zalo ======
+  const ADDRESS_TEXT = "122 Bà Triệu, phường Hai Bà Trưng, Hà Nội";
+  const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    ADDRESS_TEXT
+  )}`;
+
+  // Hiển thị vẫn như cũ, nhưng dùng số thuần để link Zalo
+  const PHONE_DISPLAY = "03.878.12321";
+  const PHONE_PLAIN = "0387812321";
+  const ZALO_URL = `https://zalo.me/${PHONE_PLAIN}`;
+
   // === Responsive width cho Page Plugin (1 iframe duy nhất) ===
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [fbWidth, setFbWidth] = useState(340); // mặc định mobile
@@ -53,11 +64,7 @@ const Footer = () => {
           <div className="space-y-6">
             {/* Logo + tên */}
             <div className="flex items-center gap-3">
-              <div
-                className="w-12 h-12 rounded-xl grid place-items-center
-bg-white
-            shadow-sm"
-              >
+              <div className="w-12 h-12 rounded-xl grid place-items-center bg-white shadow-sm">
                 <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
               </div>
 
@@ -73,14 +80,36 @@ bg-white
 
             {/* Thông tin */}
             <div className="space-y-3 text-sm text-gray-300">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
-                <span>122 Bà Triệu, phường Hai Bà Trưng, Hà Nội</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
-                <span>03.878.12321</span>
-              </div>
+              {/* Địa chỉ -> Google Maps */}
+              <a
+                href={MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-3 group"
+                aria-label="Mở Google Maps"
+                title="Mở Google Maps"
+              >
+                <MapPin className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0 group-hover:text-cyan-300 transition-colors" />
+                <span className="underline decoration-dotted underline-offset-2 group-hover:text-white">
+                  {ADDRESS_TEXT}
+                </span>
+              </a>
+
+              {/* SĐT -> Zalo */}
+              <a
+                href={ZALO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group"
+                aria-label="Chat Zalo"
+                title="Mở Zalo chat"
+              >
+                <Phone className="w-4 h-4 text-cyan-400 shrink-0 group-hover:text-cyan-300 transition-colors" />
+                <span className="underline decoration-dotted underline-offset-2 group-hover:text-white">
+                  {PHONE_DISPLAY}
+                </span>
+              </a>
+
               <div className="flex items-start gap-3">
                 <Clock className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
                 <span>
@@ -89,7 +118,7 @@ bg-white
               </div>
             </div>
 
-            {/* CẦN HỖ TRỢ? (đẹp mobile/desktop) */}
+            {/* CẦN HỖ TRỢ? */}
             <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
                 <div className="flex-1">
@@ -165,10 +194,10 @@ bg-white
           <div>
             <div
               ref={wrapperRef}
-              className="rounded-2xl overflow-hidden w-full md:w-[495px]" // desktop cố định 495px, mobile = 100%
+              className="rounded-2xl overflow-hidden w-full md:w-[495px]"
             >
               <iframe
-                key={fbWidth} // buộc reload khi width thay đổi
+                key={fbWidth}
                 title="Facebook Page"
                 src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
                   fanpageUrl
