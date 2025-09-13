@@ -65,7 +65,7 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
 
     const templateParams = {
       to_name: "Bác sĩ phòng khám mắt",
-      to_email: "dr.trantuan243@gmail.com",
+      to_email: "khách hàng",
       from_name: "Hệ thống đặt lịch phòng khám",
 
       // Thông tin khách hàng đặt lịch
