@@ -9,7 +9,10 @@ import {
   Phone,
   MessageSquare,
   CheckCircle,
+  Mail,
+  Loader2,
 } from "lucide-react";
+import { sendBookingNotification, type BookingData } from "../../lib/emailjs";
 
 const BookingSection = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +24,10 @@ const BookingSection = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<"success" | "error" | null>(
+    null
+  );
 
   // Khung giờ 1 tiếng
   const timeSlots = [
@@ -43,15 +50,37 @@ const BookingSection = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
+    setIsLoading(true);
+    setEmailStatus(null);
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", phone: "", date: "", time: "", message: "" });
-    }, 3000);
+    console.log("Form submitted:", formData);
+
+    try {
+      // Send email notification
+      const emailResult = await sendBookingNotification(
+        formData as BookingData
+      );
+
+      if (emailResult.success) {
+        setEmailStatus("success");
+        setIsSubmitted(true);
+
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: "", phone: "", date: "", time: "", message: "" });
+          setEmailStatus(null);
+        }, 5000);
+      } else {
+        setEmailStatus("error");
+      }
+    } catch (error) {
+      console.error("Error sending booking notification:", error);
+      setEmailStatus("error");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSubmitted) {
@@ -70,6 +99,16 @@ const BookingSection = () => {
                 Cảm ơn bạn đã tin tưởng. Chúng tôi sẽ liên hệ trong 30 phút để
                 xác nhận lịch hẹn.
               </p>
+              {emailStatus === "success" && (
+                <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-6">
+                  <div className="flex items-center justify-center text-green-700">
+                    <Mail className="w-5 h-5 mr-2" />
+                    <span className="font-medium">
+                      Thông báo đã được gửi đến phòng khám
+                    </span>
+                  </div>
+                </div>
+              )}
               <div className="bg-cyan-50 rounded-2xl p-6">
                 <h3 className="font-semibold text-gray-900 mb-2">
                   Thông tin liên hệ khẩn cấp:
@@ -104,6 +143,18 @@ const BookingSection = () => {
         <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
             <div className="p-8 md:p-12">
+              {emailStatus === "error" && (
+                <div className="bg-red-50 border border-red-200 rounded-2xl p-4 mb-6">
+                  <div className="flex items-center text-red-700">
+                    <MessageSquare className="w-5 h-5 mr-2" />
+                    <span className="font-medium">
+                      Có lỗi xảy ra khi gửi thông báo. Vui lòng gọi trực tiếp:
+                      0387 812 321
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Thông tin cá nhân */}
                 <div className="space-y-4">
@@ -122,7 +173,8 @@ const BookingSection = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                      disabled={isLoading}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all disabled:opacity-50"
                       placeholder="Nhập họ và tên của bạn"
                     />
                   </div>
@@ -138,7 +190,8 @@ const BookingSection = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                      disabled={isLoading}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all disabled:opacity-50"
                       placeholder="0387 812 321"
                     />
                   </div>
@@ -162,8 +215,9 @@ const BookingSection = () => {
                         value={formData.date}
                         onChange={handleInputChange}
                         required
+                        disabled={isLoading}
                         min={new Date().toISOString().split("T")[0]}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all disabled:opacity-50"
                       />
                     </div>
 
@@ -177,7 +231,8 @@ const BookingSection = () => {
                         value={formData.time}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                        disabled={isLoading}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all disabled:opacity-50"
                       >
                         <option value="">Chọn giờ</option>
                         {timeSlots.map((t) => (
@@ -199,7 +254,8 @@ const BookingSection = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all resize-none"
+                      disabled={isLoading}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all resize-none disabled:opacity-50"
                       placeholder="Mô tả triệu chứng hoặc yêu cầu đặc biệt..."
                     />
                   </div>
@@ -207,9 +263,17 @@ const BookingSection = () => {
 
                 <button
                   type="submit"
-                  className="w-full btn-primary text-lg py-4"
+                  disabled={isLoading}
+                  className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  Đặt lịch ngay
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Đang gửi thông báo...
+                    </>
+                  ) : (
+                    "Đặt lịch ngay"
+                  )}
                 </button>
               </form>
             </div>

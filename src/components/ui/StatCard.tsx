@@ -1,4 +1,5 @@
 import type React from "react";
+
 interface StatCardProps {
   icon: React.ComponentType<{ className?: string }>;
   value: string;
@@ -44,3 +45,4 @@ const StatCard = ({
 };
 
 export default StatCard;
+export { StatCard };

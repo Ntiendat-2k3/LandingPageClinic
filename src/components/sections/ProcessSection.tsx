@@ -28,7 +28,7 @@ const steps: Step[] = [
   {
     number: "2",
     title: "BƯỚC 2: kiểm soát điều tiết",
-    details: ["Nghiệm pháp nhà điều tiết", "Soi bóng đồng tử"],
+    details: ["Nghiệm pháp nhả điều tiết", "Soi bóng đồng tử"],
   },
   {
     number: "3",

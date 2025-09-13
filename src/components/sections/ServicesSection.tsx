@@ -47,7 +47,7 @@ const ServicesSection = () => {
     { icon: Eye, title: "Gói khám tổng quan" },
     { icon: Target, title: "Atropine nồng độ thấp 0.01%, 0.025% và 0.05%" },
     { icon: Activity, title: "Gói khám kiểm soát tật khúc xạ" },
-    { icon: Glasses, title: "Tròng kính kiểm soát cận thị Myopcare, Stellest" },
+    { icon: Glasses, title: "Tròng kính kiểm soát cận thị Myocare, Stellest" },
     { icon: Shield, title: "Gói khám kính áp tròng ban đêm Ortho-K" },
     { icon: Zap, title: "Kính áp tròng ban đêm Ortho-K" },
     { icon: Stethoscope, title: "Đo trục nhãn cầu" },

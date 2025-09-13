@@ -47,7 +47,6 @@ const DoctorsSection = () => {
         "Được đào tạo chính quy về Chuyên khoa Mắt và Khúc xạ nhãn khoa.",
       highlights: [
         "Gần 15 năm kinh nghiệm trong chuyên ngành Mắt – Tật khúc xạ.",
-        "Nguyên Điều dưỡng trưởng Trung tâm Khúc xạ – BV Mắt quốc tế DND.",
         "Sở hữu chứng chỉ khúc xạ nhãn khoa, kiểm soát cận thị.",
         "Chứng chỉ kính áp tròng ban đêm Ortho-K.",
       ],

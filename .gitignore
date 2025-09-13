@@ -1,5 +1,6 @@
 # Logs
 .history
+.env
 /node_modules
 logs
 *.log
