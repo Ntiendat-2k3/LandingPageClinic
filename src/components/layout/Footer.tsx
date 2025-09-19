@@ -11,6 +11,35 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * Helper tạo link Google Maps theo ưu tiên:
+ * 1) placeId  -> chuẩn nhất
+ * 2) cid      -> thực tế, dễ lấy từ nút Share
+ * 3) lat/lng  -> fallback vị trí
+ * 4) query    -> cuối cùng (ít “chính danh”)
+ */
+function buildMapsLink(opts: {
+  placeId?: string;
+  cid?: string;
+  lat?: number;
+  lng?: number;
+  query?: string;
+}) {
+  const { placeId, cid, lat, lng, query } = opts || {};
+  if (placeId)
+    return `https://www.google.com/maps/search/?api=1&query_place_id=${encodeURIComponent(
+      placeId
+    )}`;
+  if (cid) return `https://www.google.com/maps?cid=${encodeURIComponent(cid)}`;
+  if (typeof lat === "number" && typeof lng === "number")
+    return `https://www.google.com/maps?q=${lat},${lng}`;
+  if (query)
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      query
+    )}`;
+  return "https://maps.google.com";
+}
+
 const Footer = () => {
   const partners = [
     { src: "/images/partners/zeiss.jpg", alt: "ZEISS" },
@@ -25,10 +54,25 @@ const Footer = () => {
   const messengerUrl = "https://m.me/pkmatdrtrantuan";
 
   // ====== Config cho địa chỉ / Zalo ======
+  // HIỂN THỊ: vẫn là text như bạn muốn
   const ADDRESS_TEXT = "122 Bà Triệu, phường Hai Bà Trưng, Hà Nội";
-  const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    ADDRESS_TEXT
-  )}`;
+
+  // >>> THAY THẾ Ở ĐÂY: placeId/cid/toạ độ của PHÒNG KHÁM B <<<
+  // - Nếu bạn có placeId của B (lấy từ Autocomplete hoặc Place ID Finder) → điền vào đây
+  const PLACE_ID_B = "PASTE_PLACE_ID_OF_CLINIC_B";
+  // - (Tuỳ chọn) Nếu bạn có CID thay vì placeId:
+  const CID_B = ""; // ví dụ: "12345678901234567890"
+  // - (Tuỳ chọn) Nếu bạn muốn fallback toạ độ:
+  const COORD_B = { lat: 21.027763, lng: 105.83416 }; // ví dụ Hà Nội
+
+  // Link Maps ưu tiên: placeId -> cid -> lat/lng -> query theo ADDRESS_TEXT
+  const MAPS_URL = buildMapsLink({
+    placeId: PLACE_ID_B || undefined,
+    cid: CID_B || undefined,
+    lat: PLACE_ID_B || CID_B ? undefined : COORD_B.lat,
+    lng: PLACE_ID_B || CID_B ? undefined : COORD_B.lng,
+    query: PLACE_ID_B || CID_B ? undefined : ADDRESS_TEXT,
+  });
 
   // Hiển thị vẫn như cũ, nhưng dùng số thuần để link Zalo
   const PHONE_DISPLAY = "03.878.12321";
@@ -42,13 +86,10 @@ const Footer = () => {
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el) return;
-
-    // Giới hạn tối đa 495 trên desktop, fit 100% trên mobile
     const update = () => {
       const w = Math.round(el.clientWidth);
-      setFbWidth(Math.min(w, 495));
+      setFbWidth(Math.min(w, 495)); // giới hạn tối đa 495
     };
-
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
@@ -80,7 +121,7 @@ const Footer = () => {
 
             {/* Thông tin */}
             <div className="space-y-3 text-sm text-gray-300">
-              {/* Địa chỉ -> Google Maps */}
+              {/* Địa chỉ -> Google Maps của PHÒNG KHÁM B theo placeId/cid/toạ độ */}
               <a
                 href={MAPS_URL}
                 target="_blank"
