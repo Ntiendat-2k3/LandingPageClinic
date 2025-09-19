@@ -16,9 +16,9 @@ const Header = () => {
 
   // ====== Config cho địa chỉ / Zalo (giống Footer) ======
   const ADDRESS_TEXT = "122 Bà Triệu, phường Hai Bà Trưng, Hà Nội";
-  const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    ADDRESS_TEXT
-  )}`;
+
+  // Link cố định của phòng khám (có thể đưa vào ENV nếu muốn)
+  const MAPS_URL = "https://maps.app.goo.gl/8Ab7ZyQyaadiZZD46";
 
   const PHONE_DISPLAY = "03.878.12321";
   const PHONE_PLAIN = "0387812321";
@@ -82,7 +82,7 @@ const Header = () => {
               <span>{PHONE_DISPLAY}</span>
             </a>
 
-            {/* Địa chỉ -> Google Maps */}
+            {/* Địa chỉ -> Google Maps (link cố định) */}
             <a
               href={MAPS_URL}
               target="_blank"
@@ -92,7 +92,7 @@ const Header = () => {
               title="Mở Google Maps"
             >
               <MapPin className="w-4 h-4" />
-              <span>122 Bà Triệu – phường Hai Bà Trưng – Hà Nội.</span>
+              <span>{ADDRESS_TEXT}</span>
             </a>
           </div>
 
@@ -152,7 +152,7 @@ const Header = () => {
                   <span>{PHONE_DISPLAY}</span>
                 </a>
 
-                {/* Địa chỉ -> Google Maps (Mobile) */}
+                {/* Địa chỉ -> Google Maps (Mobile, link cố định) */}
                 <a
                   href={MAPS_URL}
                   target="_blank"
@@ -162,7 +162,7 @@ const Header = () => {
                   title="Mở Google Maps"
                 >
                   <MapPin className="w-4 h-4" />
-                  <span>122 Bà Triệu – phường Hai Bà Trưng – Hà Nội.</span>
+                  <span>{ADDRESS_TEXT}</span>
                 </a>
 
                 <button
