@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import BookingSection from "./components/sections/BookingSection";
@@ -12,23 +13,35 @@ import ServicesSection from "./components/sections/ServicesSection";
 import TestimonialsSection from "./components/sections/TestimonialsSection";
 import VideoSection from "./components/sections/VideoSection";
 import StickyCTA from "./components/ui/StickyCTA";
+import BookingSuccess from "./pages/BookingSuccess";
+
+function HomePage() {
+  return (
+    <>
+      <HeroSection />
+      <GoalsSection />
+      <VideoSection />
+      <ServicesSection />
+      <ProcessSection />
+      <PricingSection />
+      <DoctorsSection />
+      {/* <EquipmentSection /> */}
+      <TestimonialsSection />
+      {/* <FAQSection /> */}
+      <BookingSection />
+    </>
+  );
+}
 
 function App() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
       <main>
-        <HeroSection />
-        <GoalsSection />
-        <VideoSection />
-        <ServicesSection />
-        <ProcessSection />
-        <PricingSection />
-        <DoctorsSection />
-        {/* <EquipmentSection /> */}
-        <TestimonialsSection />
-        {/* <FAQSection /> */}
-        <BookingSection />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/booking-success" element={<BookingSuccess />} />
+        </Routes>
       </main>
       <Footer />
       <StickyCTA />
