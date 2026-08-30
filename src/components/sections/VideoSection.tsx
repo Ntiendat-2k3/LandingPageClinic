@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { messages } from "@/i18n";
 
 const VideoSection = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -43,11 +44,11 @@ const VideoSection = () => {
             style={{ textWrap: "balance" }}
           >
             <span className="text-gray-900 font-extrabold">
-              ĐO CHIỀU DÀI TRỤC NHÃN CẦU
+              {messages.video.title}
             </span>
             <br />
             <span className="mt-1 inline-block rounded-xl px-5 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-[15px] lg:text-[28px] md:text-2xl shadow">
-              TIÊU CHUẨN VÀNG TRONG KIỂM SOÁT CẬN THỊ
+              {messages.video.badge}
             </span>
           </h2>
         </div>
@@ -66,7 +67,7 @@ const VideoSection = () => {
           >
             <source src="/video/myah.mp4" type="video/mp4" />
             <source src="/video/myah.webm" type="video/webm" />
-            Trình duyệt của bạn không hỗ trợ phát video.
+            {messages.video.unsupported}
           </video>
         </div>
       </div>

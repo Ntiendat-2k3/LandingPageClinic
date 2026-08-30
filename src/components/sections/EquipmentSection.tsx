@@ -1,77 +1,46 @@
 import { Zap, Eye, Monitor, Microscope, Camera, Shield } from "lucide-react";
+import { messages } from "@/i18n";
 
 const EquipmentSection = () => {
   const equipment = [
     {
       icon: Eye,
-      name: "Máy OCT Zeiss Cirrus",
-      description:
-        "Chụp cắt lớp quang học độ phân giải cao, phát hiện sớm bệnh lý võng mạc và thần kinh thị giác",
-      features: [
-        "Độ phân giải 5μm",
-        "Chụp 3D chi tiết",
-        "Phân tích AI tự động",
-      ],
-      origin: "Đức",
+      ...messages.equipment.items[0],
       year: "2023",
       image: "/placeholder.svg?height=200&width=300",
       color: "cyan",
     },
     {
       icon: Zap,
-      name: "Laser Femtosecond",
-      description:
-        "Công nghệ laser tiên tiến cho phẫu thuật Lasik không dao, chính xác tuyệt đối",
-      features: ["Laser femtosecond", "Không dao phẫu thuật", "Thời gian ngắn"],
-      origin: "Mỹ",
+      ...messages.equipment.items[1],
       year: "2023",
       image: "/placeholder.svg?height=200&width=300",
       color: "emerald",
     },
     {
       icon: Monitor,
-      name: "Máy đo thị trường Humphrey",
-      description:
-        "Thiết bị đo thị trường tiêu chuẩn vàng, phát hiện sớm glaucoma và các bệnh lý thần kinh",
-      features: [
-        "Đo thị trường tự động",
-        "Phân tích thống kê",
-        "Theo dõi tiến triển",
-      ],
-      origin: "Mỹ",
+      ...messages.equipment.items[2],
       year: "2022",
       image: "/placeholder.svg?height=200&width=300",
       color: "blue",
     },
     {
       icon: Microscope,
-      name: "Kính hiển vi phẫu thuật Leica",
-      description:
-        "Kính hiển vi phẫu thuật cao cấp với hệ thống chiếu sáng LED và zoom quang học",
-      features: ["Zoom quang học 6x", "Chiếu sáng LED", "Hệ thống ghi hình"],
-      origin: "Đức",
+      ...messages.equipment.items[3],
       year: "2023",
       image: "/placeholder.svg?height=200&width=300",
       color: "purple",
     },
     {
       icon: Camera,
-      name: "Máy chụp đáy mắt Canon",
-      description:
-        "Máy chụp đáy mắt không cần giãn đồng tử, chất lượng hình ảnh siêu nét",
-      features: ["Không cần giãn đồng tử", "Chụp góc rộng", "Chất lượng 4K"],
-      origin: "Nhật Bản",
+      ...messages.equipment.items[4],
       year: "2023",
       image: "/placeholder.svg?height=200&width=300",
       color: "orange",
     },
     {
       icon: Shield,
-      name: "Hệ thống khử trùng UV-C",
-      description:
-        "Hệ thống khử trùng hiện đại đảm bảo an toàn tuyệt đối cho bệnh nhân",
-      features: ["Khử trùng UV-C", "Tự động hóa", "An toàn 99.9%"],
-      origin: "Hàn Quốc",
+      ...messages.equipment.items[5],
       year: "2023",
       image: "/placeholder.svg?height=200&width=300",
       color: "green",
@@ -99,11 +68,10 @@ const EquipmentSection = () => {
       <div className="container mx-auto container-padding">
         <div className="text-center mb-16">
           <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Trang thiết bị hiện đại
+            {messages.equipment.title}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Đầu tư hệ thống thiết bị y tế hiện đại nhất từ các thương hiệu hàng
-            đầu thế giới, đảm bảo chẩn đoán chính xác và điều trị hiệu quả.
+            {messages.equipment.description}
           </p>
         </div>
 
@@ -165,7 +133,7 @@ const EquipmentSection = () => {
 
                 {/* CTA */}
                 <button className="w-full text-cyan-600 font-medium hover:text-cyan-700 transition-colors flex items-center justify-center space-x-2 py-2 border border-cyan-200 rounded-lg hover:bg-cyan-50">
-                  <span>Tìm hiểu thêm</span>
+                  <span>{messages.equipment.learnMore}</span>
                   <svg
                     className="w-4 h-4"
                     fill="none"
@@ -190,7 +158,7 @@ const EquipmentSection = () => {
           <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
             <div className="text-center mb-8">
               <h3 className="font-space-grotesk text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                Cam kết công nghệ hàng đầu
+                {messages.equipment.commitment}
               </h3>
             </div>
 
@@ -202,7 +170,7 @@ const EquipmentSection = () => {
                 <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
                   100%
                 </div>
-                <div className="text-gray-600">Thiết bị nhập khẩu</div>
+                <div className="text-gray-600">{messages.equipment.stats[0]}</div>
               </div>
 
               <div className="text-center">
@@ -210,9 +178,9 @@ const EquipmentSection = () => {
                   <Shield className="w-8 h-8 text-emerald-600" />
                 </div>
                 <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
-                  ISO
+                  {messages.equipment.iso}
                 </div>
-                <div className="text-gray-600">Chứng nhận chất lượng</div>
+                <div className="text-gray-600">{messages.equipment.stats[1]}</div>
               </div>
 
               <div className="text-center">
@@ -222,7 +190,7 @@ const EquipmentSection = () => {
                 <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
                   24/7
                 </div>
-                <div className="text-gray-600">Bảo trì thiết bị</div>
+                <div className="text-gray-600">{messages.equipment.stats[2]}</div>
               </div>
 
               <div className="text-center">
@@ -232,7 +200,7 @@ const EquipmentSection = () => {
                 <div className="font-space-grotesk text-3xl font-bold text-gray-900 mb-2">
                   99.9%
                 </div>
-                <div className="text-gray-600">Độ chính xác</div>
+                <div className="text-gray-600">{messages.equipment.stats[3]}</div>
               </div>
             </div>
           </div>
@@ -242,15 +210,14 @@ const EquipmentSection = () => {
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-2xl p-8 md:p-12 text-white">
             <h3 className="font-space-grotesk text-2xl md:text-3xl font-bold mb-4">
-              Trải nghiệm công nghệ tiên tiến
+              {messages.equipment.ctaTitle}
             </h3>
             <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
-              Đặt lịch ngay để được khám và điều trị với hệ thống thiết bị hiện
-              đại nhất, mang đến kết quả chính xác và an toàn tuyệt đối.
+              {messages.equipment.ctaDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-cyan-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
-                Đăng kí miễn phí nhận ưu đãi 50%
+                {messages.equipment.cta}
               </button>
             </div>
           </div>

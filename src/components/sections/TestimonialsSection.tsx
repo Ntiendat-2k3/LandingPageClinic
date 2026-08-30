@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Star } from "lucide-react";
+import { messages } from "@/i18n";
 
 type Testimonial = {
   name: string;
@@ -79,63 +80,21 @@ const ReadMore = ({ text, lines = 5 }: { text: string; lines?: 3 | 4 | 5 }) => {
                    text-emerald-700 font-semibold text-xs bg-emerald-50 hover:bg-emerald-100
                    ring-1 ring-emerald-200 active:scale-[0.98] transition"
       >
-        {open ? "Thu gọn" : "Xem thêm"}
+        {open ? messages.common.collapse : messages.common.expand}
       </button>
     </div>
   );
 };
 
 const TestimonialsSection = () => {
-  const testimonials: Testimonial[] = [
-    {
-      name: "Bạn Hải Linh",
-      age: "10 tuổi",
+  const customerImages = ["cus2.jpg", "cus3.jpg", "cus1.jpg", "cus4.jpg", "cus5.jpg", "cus6.jpg"];
+  const testimonials: Testimonial[] = messages.testimonials.items.map(
+    (testimonial, index) => ({
+      ...testimonial,
       rating: 5,
-      content:
-        "Mẹ thấy mắt bạn ấy có dấu hiệu bị lệch, đi khám mấy nơi đều bảo không sao. Nghe nói bác sĩ Tuấn chuyên khám lác nên qua thử. Sau một thời gian điều trị cùng bác sĩ Tuấn, đến nay đã không còn thấy mắt con bị lệch nữa rồi. Con cũng tự tin hơn ở trường lớp.",
-      image: "/images/customer/cus2.jpg",
-    },
-    {
-      name: "Bạn Trúc Anh",
-      age: "9 tuổi",
-      rating: 5,
-      content:
-        "Lần đầu bố mẹ cho bạn ấy đi khám cũng chỉ để kiểm tra xem có vấn đề gì không. Nào ngờ bé bị cận loạn cao bẩm sinh kèm nhược thị. May được bác sĩ Tuấn tư vấn tận tình, hướng tập luyện như bác sĩ dặn; đến nay mắt con đã hết nhược thị hoàn toàn rồi.",
-      image: "/images/customer/cus3.jpg",
-    },
-    {
-      name: "Bạn Gia Bảo",
-      age: "14 tuổi",
-      rating: 5,
-      content:
-        "Cháu theo khám bác sĩ Tuấn cũng được 5 năm rồi. Hiện độ cận loạn rất ổn định, 2 năm nay không tăng độ. Sắp tới bác sĩ Tuấn sẽ cho cháu đeo Ortho-K để không phải dùng kính gọng nữa.",
-      image: "/images/customer/cus1.jpg",
-    },
-    {
-      name: "Anh Phạm Đức Thành",
-      age: "45 tuổi",
-      rating: 5,
-      content:
-        "Con tôi 12 tuổi cận 4 độ. Sau 6 tháng theo phác đồ tại đây, độ tăng chậm rõ rệt. Bác sĩ theo dõi sát và hướng dẫn chăm sóc rất kỹ.",
-      image: "/images/customer/cus4.jpg",
-    },
-    {
-      name: "Anh Trần Minh Tiến",
-      age: "42 tuổi",
-      rating: 5,
-      content:
-        "Gắn bó với chiếc kính cận 25 độ dày cộm hàng chục năm nay, được bạn bè giới thiệu đến khám tại phòng khám của BS Trần Tuấn và được tư vấn đổi sang loại tròng siêu mỏng dành riêng cho cận cao. Giờ tôi đeo kính cảm thấy rất thoải mái dễ chịu, không còn cảnh suốt ngày phải đẩy kính lên nữa, cải thiện thẩm mỹ và tự tin hơn rất nhiều trong công việc cũng như cuộc sống hàng ngày.",
-      image: "/images/customer/cus5.jpg",
-    },
-    {
-      name: "Chị Đặng Thị Linh",
-      age: "31 tuổi",
-      rating: 5,
-      content:
-        "Con và gia đình được bác sĩ hướng dẫn đeo – tháo – vệ sinh kính áp tròng rất cẩn thận và tỉ mỉ. Giờ bé có thể tự đeo và tháo kính một mình, hằng ngày học tập và sinh hoạt rất tự tin.",
-      image: "/images/customer/cus6.jpg",
-    },
-  ];
+      image: `/images/customer/${customerImages[index] ?? ""}`,
+    })
+  );
 
   return (
     <section id="testimonials" className="section-padding bg-white">
@@ -143,11 +102,10 @@ const TestimonialsSection = () => {
         {/* Heading */}
         <div className="text-center mb-8 md:mb-12">
           <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-gray-900 mb-2 uppercase">
-            Khách hàng nói gì về chúng tôi
+            {messages.testimonials.title}
           </h2>
           <p className="text-sm md:text-lg text-gray-600 max-w-3xl mx-auto">
-            Hơn 10.000 khách hàng đã tin tưởng và hài lòng với dịch vụ của chúng
-            tôi.
+            {messages.testimonials.description}
           </p>
         </div>
 
@@ -211,11 +169,10 @@ const TestimonialsSection = () => {
               className="text-base font-bold text-gray-900 mb-2"
               style={{ textWrap: "balance" }}
             >
-              Bạn cũng muốn có trải nghiệm tương tự?
+              {messages.testimonials.ctaTitle}
             </h3>
             <p className="text-[13px] text-gray-600 mb-4">
-              Hãy để chúng tôi chăm sóc đôi mắt của bạn với sự tận tâm và chuyên
-              nghiệp.
+              {messages.testimonials.ctaDescription}
             </p>
 
             <a
@@ -223,10 +180,10 @@ const TestimonialsSection = () => {
               className="w-full flex items-center justify-center gap-3 px-5 py-3 rounded-full text-white font-extrabold text-sm bg-emerald-500 shadow-lg active:scale-[0.98] hover:bg-emerald-600 transition"
             >
               <span className="leading-tight text-left">
-                Đăng kí miễn phí ưu đãi
+                {messages.testimonials.cta}
               </span>
               <span className="px-2 py-1 rounded-full bg-white/95 text-emerald-600 font-black ring-1 ring-emerald-200">
-                50%
+                {messages.common.offer}
               </span>
             </a>
           </div>
@@ -236,19 +193,18 @@ const TestimonialsSection = () => {
         <div className="hidden md:block mt-16 text-center">
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
             <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 mb-3">
-              Bạn cũng muốn có trải nghiệm tương tự?
+              {messages.testimonials.ctaTitle}
             </h3>
             <p className="text-gray-600 mb-5 max-w-2xl mx-auto">
-              Hãy để chúng tôi chăm sóc đôi mắt của bạn với sự tận tâm và chuyên
-              nghiệp.
+              {messages.testimonials.ctaDescription}
             </p>
             <a
               href="#booking"
               className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
             >
-              Đăng kí miễn phí ưu đãi{" "}
+              {messages.testimonials.cta}{" "}
               <span className="px-3 py-1 rounded-full bg-white text-emerald-600 font-black">
-                50%
+                {messages.common.offer}
               </span>
             </a>
           </div>

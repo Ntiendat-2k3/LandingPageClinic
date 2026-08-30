@@ -1,0 +1,405 @@
+{
+  "app": {
+    "skipToContent": "Chuyển đến nội dung chính",
+    "riskAssessment": {
+      "ariaLabel": "Đánh giá nguy cơ tiến triển cận thị",
+      "title": "Kiểm tra nguy cơ tiến triển cận thị cho bé",
+      "description": "Hoàn thành bài đánh giá trực tuyến trong khoảng 2 phút để nhận kết quả tham khảo và đề xuất phù hợp.",
+      "button": "Làm bài đánh giá nguy cơ"
+    }
+  },
+  "common": {
+    "bookNow": "Đặt lịch ngay",
+    "bookAppointment": "Đặt lịch khám",
+    "collapse": "Thu gọn",
+    "expand": "Xem thêm",
+    "offer": "50%"
+  },
+  "header": {
+    "navigation": {
+      "services": "Dịch vụ",
+      "process": "Quy trình",
+      "myopiaControl": "Kiểm soát cận thị",
+      "team": "Đội ngũ chuyên môn"
+    },
+    "logoAlt": "Logo Phòng khám Mắt Dr Trần Tuấn",
+    "brandLineOne": "Phòng khám CK Mắt & Khúc xạ",
+    "brandLineTwo": "Dr Trần Tuấn",
+    "mainNavigationLabel": "Điều hướng chính",
+    "zaloLabel": "Chat Zalo qua số {phone}",
+    "mapsLabel": "Mở Google Maps đến {address}",
+    "openMenuLabel": "Mở menu điều hướng",
+    "mobileTitle": "Phòng khám Mắt Dr Trần Tuấn",
+    "mobileDescription": "Chọn nội dung cần xem hoặc liên hệ với phòng khám.",
+    "mobileNavigationLabel": "Điều hướng trên thiết bị di động"
+  },
+  "footer": {
+    "partnerAlts": ["ZEISS", "SEED", "TG Vision", "101 Trading Co.", "GoMed", "Santen"],
+    "logoAlt": "logo",
+    "brandLineOne": "PHÒNG KHÁM CHUYÊN KHOA MẮT & KHÚC XẠ",
+    "brandLineTwo": "Dr Trần Tuấn",
+    "openMaps": "Mở Google Maps",
+    "chatZalo": "Chat Zalo",
+    "openZalo": "Mở Zalo chat",
+    "workingHours": "Thời gian làm việc: 08:00 – 19:00 (tất cả các ngày trong tuần)",
+    "supportTitle": "CẦN HỖ TRỢ?",
+    "supportDescription": "Nhấn “Chat me now” để tư vấn nhanh qua Messenger hoặc gọi Hotline.",
+    "chatNow": "Chat me now",
+    "facebookLabel": "Facebook",
+    "instagramLabel": "Instagram",
+    "youtubeLabel": "YouTube",
+    "partnersTitle": "ĐỐI TÁC CHIẾN LƯỢC",
+    "facebookPageTitle": "Facebook Page",
+    "followPage": "Theo dõi fanpage để nhận ưu đãi & cập nhật mới nhất.",
+    "copyright": "© 2024 Dr Trần Tuấn. Tất cả quyền được bảo lưu.",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản sử dụng",
+    "sitemap": "Sitemap"
+  },
+  "stickyCta": {
+    "title": "Cần hỗ trợ?",
+    "closeLabel": "Đóng nhóm liên hệ nhanh",
+    "description": "Chọn cách thức liên hệ phù hợp với bạn.",
+    "callNow": "Gọi ngay",
+    "book": "Đặt lịch khám",
+    "bookDescription": "Nhanh chóng, tiện lợi",
+    "chat": "Chat trực tuyến",
+    "messenger": "Mở Messenger",
+    "openLabel": "Mở nhóm liên hệ nhanh",
+    "scrollTopLabel": "Cuộn lên đầu trang"
+  },
+  "hero": {
+    "clinic": "Phòng khám",
+    "specialty": "Chuyên khoa Mắt & Khúc xạ",
+    "doctor": "Dr Trần Tuấn",
+    "tagline": "Chăm sóc đôi mắt một cách toàn diện",
+    "headline": "KIỂM SOÁT CẬN THỊ – ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT",
+    "benefits": [
+      "Áp dụng các phương pháp tiên tiến và hiệu quả cao nhất trên thế giới",
+      "Đội ngũ bác sĩ và nhân viên y tế giàu kinh nghiệm, được đào tạo chuyên sâu",
+      "Chính sách bảo đảm kiểm soát hiệu quả cận thị độc quyền tại Hà Nội"
+    ],
+    "stats": [
+      { "value": "10K+", "label": "Bệnh nhân điều trị" },
+      { "value": "97.8%", "label": "Hài lòng" },
+      { "value": "10+", "label": "Năm kinh nghiệm" }
+    ],
+    "cta": "Đăng ký miễn phí ưu đãi",
+    "imageAlt": "Phòng khám mắt hiện đại",
+    "assurance": "Bảo đảm hiệu quả"
+  },
+  "goals": {
+    "stats": [
+      "Tăng 4.06 lần nguy cơ bị thoái hóa võng mạc cận thị",
+      "Tăng 21.5 lần nguy cơ bị bong võng mạc",
+      "Tăng 5.4 lần nguy cơ bị đục thủy tinh thể",
+      "Tăng 2.5 lần nguy cơ bị Glaucoma (cườm nước - glocom)"
+    ],
+    "title": "CẬN THỊ VÀ BIẾN CHỨNG CỦA CẬN THỊ",
+    "globalIssue": "ĐANG ĐƯỢC COI LÀ VẤN NẠN TOÀN CẦU",
+    "year": "2050",
+    "estimatePrefix": "Ước tính có tới",
+    "population": "50% dân số thế giới",
+    "estimateSuffix": "mắc cận thị",
+    "riskLead": "Cận thị cao sẽ tăng nguy cơ:",
+    "campaignImageAlt": "Control Myopia Today or Risk Poor Vision Tomorrow",
+    "retinaImageAlt": "Hình ảnh võng mạc bị tổn thương",
+    "retinaCaption": "Hình ảnh võng mạc bị tổn thương"
+  },
+  "video": {
+    "title": "ĐO CHIỀU DÀI TRỤC NHÃN CẦU",
+    "badge": "TIÊU CHUẨN VÀNG TRONG KIỂM SOÁT CẬN THỊ",
+    "unsupported": "Trình duyệt của bạn không hỗ trợ phát video."
+  },
+  "services": {
+    "packages": [
+      "Gói khám tổng quan",
+      "Atropine nồng độ thấp 0.01%, 0.025% và 0.05%",
+      "Gói khám kiểm soát tật khúc xạ",
+      "Tròng kính kiểm soát cận thị Myocare, Stellest",
+      "Gói khám kính áp tròng ban đêm Ortho-K",
+      "Kính áp tròng ban đêm Ortho-K",
+      "Đo trục nhãn cầu",
+      "Lăng kính & tập luyện điều chỉnh lác/phục hồi TL"
+    ],
+    "title": "CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI",
+    "guarantee": "“ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ”",
+    "subtitle": "XOÁ TAN NỖI LO TĂNG ĐỘ CẬN",
+    "cta": "Đăng kí miễn phí ưu đãi"
+  },
+  "process": {
+    "title": "Quy trình đo tật khúc xạ & kiểm tra mắt",
+    "description": "8 bước được sắp xếp liên tục, giúp theo dõi rõ từng giai đoạn và hạn chế tối đa sai số.",
+    "steps": [
+      { "title": "Đánh giá sơ bộ", "details": ["Thử thị lực & đo khoảng cách đồng tử", "Đo khúc xạ máy"] },
+      { "title": "Kiểm soát điều tiết", "details": ["Nghiệm pháp nhả điều tiết", "Soi bóng đồng tử"] },
+      { "title": "Đo khúc xạ sơ bộ", "details": ["Thử kính cầu/kính trụ sơ bộ"] },
+      { "title": "Đo khúc xạ tối ưu", "details": ["Thử kính cầu/kính trụ tối ưu"] },
+      { "title": "Cấp đơn kính", "details": ["Test cân bằng 2 mắt", "Đeo thử & tinh chỉnh thông số"] },
+      { "title": "Khám sàng lọc", "details": ["Test lác, đánh giá 2 mắt", "Soi đáy mắt & giải thích sơ bộ"] },
+      { "title": "Thực hiện chỉ định", "details": ["Cận lâm sàng theo bác sĩ", "Chụp chiếu, tra thuốc liệt điều tiết…"] },
+      { "title": "Tư vấn hướng xử trí", "details": ["Giải thích chi tiết tình trạng", "Tư vấn phác đồ phù hợp"] }
+    ],
+    "cta": "Đăng ký miễn phí — ưu đãi 50%"
+  },
+  "pricing": {
+    "treatments": [
+      {
+        "name": "Atropine nồng độ thấp",
+        "effectiveness": ["Hiệu quả kiểm soát độ cận thị: ~67%", "Hiệu quả kiểm soát trục nhãn cầu: ~51%"],
+        "tag": "Thuốc nhỏ mắt"
+      },
+      {
+        "name": "Tròng kính kiểm soát cận thị",
+        "effectiveness": ["Hiệu quả kiểm soát độ cận thị: ~70%", "Hiệu quả kiểm soát trục nhãn cầu: ~55%"],
+        "tag": "Tròng chuyên dụng"
+      },
+      {
+        "name": "Kính áp tròng Ortho-K",
+        "effectiveness": ["Hiệu quả kiểm soát độ cận thị: ~80%", "Hiệu quả kiểm soát trục nhãn cầu: ~70%"],
+        "tag": "Đeo ban đêm"
+      },
+      {
+        "name": "Phương án kết hợp",
+        "description": "Phối hợp 2–3 phương pháp để tối ưu hiệu quả theo từng hồ sơ.",
+        "tag": "Tư vấn cá nhân hóa"
+      }
+    ],
+    "badge": "KIỂM SOÁT CẬN THỊ",
+    "titleLineOne": "CÁC PHƯƠNG PHÁP TIÊN TIẾN HIỆU QUẢ CAO",
+    "titleLineTwo": "HÀNG ĐẦU THẾ GIỚI",
+    "description": "Tùy hồ sơ khúc xạ và nhịp tiến triển, bác sĩ sẽ cá nhân hóa phác đồ để tối ưu kết quả cho trẻ.",
+    "footnote": "* Hiệu quả tham khảo từ các nghiên cứu dài hạn trên thế giới; kết quả thực tế phụ thuộc từng cá nhân."
+  },
+  "doctors": {
+    "sectionTitle": "Đội ngũ chuyên môn",
+    "experienceTitle": "Kinh nghiệm & thành tựu",
+    "commitmentShort": "Cam kết chuyên môn",
+    "commitmentFull": "Cam kết chuyên môn & đạo đức nghề nghiệp",
+    "book": "Đặt lịch",
+    "expand": "Xem thêm ▼",
+    "collapse": "Thu gọn ▲",
+    "profiles": [
+      {
+        "name": "Ths. Bs Trần Anh Tuấn",
+        "title": "Chuyên gia Mắt – Tật khúc xạ, Ortho-K & Kiểm soát cận thị",
+        "education": "Tốt nghiệp Thạc sĩ loại xuất sắc chuyên ngành Mắt – Tật khúc xạ tại Fudan University, Shanghai.",
+        "highlights": [
+          "Có nhiều nghiên cứu/báo cáo đăng trên các tạp chí quốc tế.",
+          "10 năm kinh nghiệm tại Shanghai Eye & ENT Hospital, BV Trung ương Huế, BV Mắt quốc tế DND.",
+          "Điều trị & kiểm soát hiệu quả cho hàng nghìn ca cận thị tiến triển, cận thị bệnh lý.",
+          "Nguyên Phụ trách Trung tâm Khúc xạ – BV Mắt quốc tế DND.",
+          "Đầy đủ chứng chỉ chuyên sâu: khúc xạ, kính Ortho-K, kiểm soát cận thị…"
+        ]
+      },
+      {
+        "name": "ĐD/KTV Đào Thị Thúy",
+        "title": "Điều dưỡng/Kỹ thuật viên khúc xạ – Ortho-K & Kiểm soát cận thị",
+        "education": "Được đào tạo chính quy về Chuyên khoa Mắt và Khúc xạ nhãn khoa.",
+        "highlights": [
+          "Gần 15 năm kinh nghiệm trong chuyên ngành Mắt – Tật khúc xạ.",
+          "Nguyên Điều dưỡng trưởng Trung tâm Khúc xạ – BV Mắt quốc tế DND.",
+          "Sở hữu chứng chỉ khúc xạ nhãn khoa, kiểm soát cận thị.",
+          "Chứng chỉ kính áp tròng ban đêm Ortho-K."
+        ]
+      },
+      {
+        "name": "ĐD/KTV Phạm Thị Hương",
+        "title": "Điều dưỡng/Kỹ thuật viên khúc xạ – Ortho-K & Kiểm soát cận thị",
+        "education": "Được đào tạo chính quy về Chuyên khoa Mắt và Khúc xạ nhãn khoa.",
+        "highlights": [
+          "Gần 15 năm kinh nghiệm trong chuyên ngành Mắt – Tật khúc xạ.",
+          "Sở hữu chứng chỉ khúc xạ nhãn khoa, kiểm soát cận thị.",
+          "Chứng chỉ kính áp tròng ban đêm Ortho-K."
+        ]
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Khách hàng nói gì về chúng tôi",
+    "description": "Hơn 10.000 khách hàng đã tin tưởng và hài lòng với dịch vụ của chúng tôi.",
+    "ctaTitle": "Bạn cũng muốn có trải nghiệm tương tự?",
+    "ctaDescription": "Hãy để chúng tôi chăm sóc đôi mắt của bạn với sự tận tâm và chuyên nghiệp.",
+    "cta": "Đăng kí miễn phí ưu đãi",
+    "items": [
+      { "name": "Bạn Hải Linh", "age": "10 tuổi", "content": "Mẹ thấy mắt bạn ấy có dấu hiệu bị lệch, đi khám mấy nơi đều bảo không sao. Nghe nói bác sĩ Tuấn chuyên khám lác nên qua thử. Sau một thời gian điều trị cùng bác sĩ Tuấn, đến nay đã không còn thấy mắt con bị lệch nữa rồi. Con cũng tự tin hơn ở trường lớp." },
+      { "name": "Bạn Trúc Anh", "age": "9 tuổi", "content": "Lần đầu bố mẹ cho bạn ấy đi khám cũng chỉ để kiểm tra xem có vấn đề gì không. Nào ngờ bé bị cận loạn cao bẩm sinh kèm nhược thị. May được bác sĩ Tuấn tư vấn tận tình, hướng tập luyện như bác sĩ dặn; đến nay mắt con đã hết nhược thị hoàn toàn rồi." },
+      { "name": "Bạn Gia Bảo", "age": "14 tuổi", "content": "Cháu theo khám bác sĩ Tuấn cũng được 5 năm rồi. Hiện độ cận loạn rất ổn định, 2 năm nay không tăng độ. Sắp tới bác sĩ Tuấn sẽ cho cháu đeo Ortho-K để không phải dùng kính gọng nữa." },
+      { "name": "Anh Phạm Đức Thành", "age": "45 tuổi", "content": "Con tôi 12 tuổi cận 4 độ. Sau 6 tháng theo phác đồ tại đây, độ tăng chậm rõ rệt. Bác sĩ theo dõi sát và hướng dẫn chăm sóc rất kỹ." },
+      { "name": "Anh Trần Minh Tiến", "age": "42 tuổi", "content": "Gắn bó với chiếc kính cận 25 độ dày cộm hàng chục năm nay, được bạn bè giới thiệu đến khám tại phòng khám của BS Trần Tuấn và được tư vấn đổi sang loại tròng siêu mỏng dành riêng cho cận cao. Giờ tôi đeo kính cảm thấy rất thoải mái dễ chịu, không còn cảnh suốt ngày phải đẩy kính lên nữa, cải thiện thẩm mỹ và tự tin hơn rất nhiều trong công việc cũng như cuộc sống hàng ngày." },
+      { "name": "Chị Đặng Thị Linh", "age": "31 tuổi", "content": "Con và gia đình được bác sĩ hướng dẫn đeo – tháo – vệ sinh kính áp tròng rất cẩn thận và tỉ mỉ. Giờ bé có thể tự đeo và tháo kính một mình, hằng ngày học tập và sinh hoạt rất tự tin." }
+    ]
+  },
+  "booking": {
+    "title": "Đăng ký miễn phí nhận ưu đãi 50%",
+    "description": "Điền thông tin bên dưới để đặt lịch. Chúng tôi sẽ liên hệ xác nhận trong 30 phút.",
+    "cardTitle": "Thông tin đặt lịch khám",
+    "requiredNote": "Các trường có dấu * là thông tin bắt buộc.",
+    "personalInfo": "Thông tin cá nhân",
+    "nameLabel": "Họ và tên *",
+    "namePlaceholder": "Nhập họ và tên của bạn",
+    "phoneLabel": "Số điện thoại *",
+    "phonePlaceholder": "0387 812 321",
+    "appointmentInfo": "Thông tin lịch hẹn",
+    "dateLabel": "Ngày khám *",
+    "timeLabel": "Giờ khám *",
+    "selectTime": "Chọn giờ",
+    "messageLabel": "Ghi chú thêm",
+    "messagePlaceholder": "Mô tả triệu chứng hoặc yêu cầu đặc biệt...",
+    "submitting": "Đang gửi thông báo...",
+    "submit": "Đặt lịch ngay"
+  },
+  "bookingSuccess": {
+    "title": "Đặt lịch thành công!",
+    "thankYou": "Cảm ơn {name} đã tin tưởng. Chúng tôi sẽ liên hệ trong 30 phút để xác nhận lịch hẹn.",
+    "detailsTitle": "Thông tin đặt lịch",
+    "name": "Họ tên",
+    "phone": "Số điện thoại",
+    "date": "Ngày khám",
+    "time": "Giờ khám",
+    "message": "Ghi chú",
+    "notificationSent": "Đã gửi thông báo",
+    "notificationSentDescription": "Thông tin đặt lịch đã được chuyển đến phòng khám.",
+    "notificationFailed": "Chưa gửi được thông báo",
+    "notificationFailedDescription": "Vui lòng gọi trực tiếp để phòng khám xác nhận lịch hẹn.",
+    "directContact": "Liên hệ trực tiếp",
+    "backHome": "Quay về trang chủ"
+  },
+  "serviceCard": {
+    "durationPrefix": "Thời gian:"
+  },
+  "ui": {
+    "close": "Close",
+    "loading": "Loading"
+  },
+  "validation": {
+    "nameRequired": "Họ và tên không được để trống",
+    "nameTooShort": "Họ và tên phải có ít nhất 2 ký tự",
+    "nameTooLong": "Họ và tên không được quá 50 ký tự",
+    "nameInvalidCharacters": "Họ và tên chỉ được chứa chữ cái và khoảng trắng",
+    "nameRepeatedSpaces": "Họ và tên không được chứa nhiều khoảng trắng liên tiếp",
+    "phoneRequired": "Số điện thoại không được để trống",
+    "phoneInvalid": "Số điện thoại không đúng định dạng Việt Nam",
+    "dateRequired": "Ngày khám không được để trống",
+    "dateInvalid": "Ngày khám không hợp lệ",
+    "datePast": "Ngày khám không được là ngày trong quá khứ",
+    "dateTooFar": "Chỉ có thể đặt lịch trong vòng 6 tháng tới",
+    "dateSunday": "Phòng khám không làm việc vào Chủ nhật",
+    "timeRequired": "Giờ khám không được để trống",
+    "timeInvalid": "Giờ khám không hợp lệ",
+    "messageTooLong": "Ghi chú không được quá 500 ký tự",
+    "messageInappropriate": "Ghi chú chứa nội dung không phù hợp"
+  },
+  "email": {
+    "recipientName": "Bác sĩ phòng khám mắt",
+    "recipientEmail": "khách hàng",
+    "senderName": "Hệ thống đặt lịch phòng khám",
+    "noNote": "Không có ghi chú",
+    "none": "Không có",
+    "subject": "🔔 Lịch hẹn mới từ {name}",
+    "customerLabel": "Khách hàng",
+    "phoneLabel": "Số điện thoại",
+    "dateLabel": "Ngày khám",
+    "timeLabel": "Giờ khám",
+    "noteLabel": "Ghi chú",
+    "createdAtLabel": "Thời gian đặt"
+  },
+  "contact": {
+    "title": "Đăng kí miễn phí nhận ưu đãi 50%",
+    "description": "Liên hệ với chúng tôi để đặt lịch khám hoặc tư vấn miễn phí. Đội ngũ chăm sóc khách hàng sẵn sàng hỗ trợ bạn 24/7.",
+    "contactInfo": "Thông tin liên hệ",
+    "addressTitle": "Địa chỉ",
+    "address": "123 Nguyễn Văn A, Phường 1, Quận 1, TP.HCM",
+    "addressHint": "Gần ngã tư Bến Thành, dễ dàng di chuyển",
+    "phoneTitle": "Điện thoại",
+    "phone": "0123 456 789",
+    "phoneHint": "Hotline 24/7 - Tư vấn miễn phí",
+    "emailTitle": "Email",
+    "email": "info@eyecarepro.vn",
+    "emailHint": "Phản hồi trong vòng 2 giờ",
+    "hoursTitle": "Giờ làm việc",
+    "hours": ["Thứ 2 - Thứ 6: 8:00 - 18:00", "Thứ 7: 8:00 - 16:00", "Chủ nhật: 8:00 - 12:00"],
+    "mapTitle": "Vị trí phòng khám",
+    "mapAlt": "Bản đồ vị trí phòng khám",
+    "mapDescription": "Phòng khám nằm tại vị trí thuận tiện, gần các tuyến xe bus và metro",
+    "formTitle": "Đặt lịch khám",
+    "nameLabel": "Họ và tên *",
+    "namePlaceholder": "Nhập họ và tên",
+    "phoneLabel": "Số điện thoại *",
+    "phonePlaceholder": "Nhập số điện thoại",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Nhập địa chỉ email",
+    "serviceLabel": "Dịch vụ cần khám *",
+    "selectService": "Chọn dịch vụ",
+    "services": ["Khám tổng quát mắt", "Phẫu thuật Lasik", "Điều trị cận thị", "Điều trị đục thủy tinh thể", "Khám mắt trẻ em", "Tư vấn kính áp tròng", "Khác"],
+    "dateLabel": "Ngày khám *",
+    "timeLabel": "Giờ khám *",
+    "selectTime": "Chọn giờ",
+    "messageLabel": "Ghi chú thêm",
+    "messagePlaceholder": "Mô tả triệu chứng hoặc yêu cầu đặc biệt...",
+    "submit": "Đặt lịch ngay",
+    "agreementPrefix": "Bằng cách đặt lịch, bạn đồng ý với",
+    "terms": "điều khoản sử dụng",
+    "agreementJoin": "và",
+    "privacy": "chính sách bảo mật",
+    "agreementSuffix": "của chúng tôi.",
+    "successTitle": "Đặt lịch thành công!",
+    "successDescription": "Cảm ơn bạn đã đặt lịch. Chúng tôi sẽ liên hệ xác nhận trong vòng 30 phút.",
+    "bookingCode": "Mã đặt lịch:",
+    "bookingCodePrefix": "#ECP"
+  },
+  "equipment": {
+    "title": "Trang thiết bị hiện đại",
+    "description": "Đầu tư hệ thống thiết bị y tế hiện đại nhất từ các thương hiệu hàng đầu thế giới, đảm bảo chẩn đoán chính xác và điều trị hiệu quả.",
+    "learnMore": "Tìm hiểu thêm",
+    "commitment": "Cam kết công nghệ hàng đầu",
+    "stats": ["Thiết bị nhập khẩu", "Chứng nhận chất lượng", "Bảo trì thiết bị", "Độ chính xác"],
+    "iso": "ISO",
+    "ctaTitle": "Trải nghiệm công nghệ tiên tiến",
+    "ctaDescription": "Đặt lịch ngay để được khám và điều trị với hệ thống thiết bị hiện đại nhất, mang đến kết quả chính xác và an toàn tuyệt đối.",
+    "cta": "Đăng kí miễn phí nhận ưu đãi 50%",
+    "items": [
+      { "name": "Máy OCT Zeiss Cirrus", "description": "Chụp cắt lớp quang học độ phân giải cao, phát hiện sớm bệnh lý võng mạc và thần kinh thị giác", "features": ["Độ phân giải 5μm", "Chụp 3D chi tiết", "Phân tích AI tự động"], "origin": "Đức" },
+      { "name": "Laser Femtosecond", "description": "Công nghệ laser tiên tiến cho phẫu thuật Lasik không dao, chính xác tuyệt đối", "features": ["Laser femtosecond", "Không dao phẫu thuật", "Thời gian ngắn"], "origin": "Mỹ" },
+      { "name": "Máy đo thị trường Humphrey", "description": "Thiết bị đo thị trường tiêu chuẩn vàng, phát hiện sớm glaucoma và các bệnh lý thần kinh", "features": ["Đo thị trường tự động", "Phân tích thống kê", "Theo dõi tiến triển"], "origin": "Mỹ" },
+      { "name": "Kính hiển vi phẫu thuật Leica", "description": "Kính hiển vi phẫu thuật cao cấp với hệ thống chiếu sáng LED và zoom quang học", "features": ["Zoom quang học 6x", "Chiếu sáng LED", "Hệ thống ghi hình"], "origin": "Đức" },
+      { "name": "Máy chụp đáy mắt Canon", "description": "Máy chụp đáy mắt không cần giãn đồng tử, chất lượng hình ảnh siêu nét", "features": ["Không cần giãn đồng tử", "Chụp góc rộng", "Chất lượng 4K"], "origin": "Nhật Bản" },
+      { "name": "Hệ thống khử trùng UV-C", "description": "Hệ thống khử trùng hiện đại đảm bảo an toàn tuyệt đối cho bệnh nhân", "features": ["Khử trùng UV-C", "Tự động hóa", "An toàn 99.9%"], "origin": "Hàn Quốc" }
+    ]
+  },
+  "faq": {
+    "title": "Câu hỏi thường gặp",
+    "description": "Tìm câu trả lời cho những thắc mắc phổ biến về dịch vụ chăm sóc mắt của chúng tôi. Nếu bạn có câu hỏi khác, đừng ngần ngại liên hệ với chúng tôi.",
+    "helpTitle": "Vẫn còn thắc mắc?",
+    "helpDescription": "Đội ngũ tư vấn viên chuyên nghiệp của chúng tôi sẵn sàng giải đáp mọi thắc mắc của bạn. Liên hệ ngay để được hỗ trợ tốt nhất.",
+    "call": "Gọi ngay: 0123 456 789",
+    "chat": "Chat trực tuyến",
+    "items": [
+      { "question": "Phẫu thuật Lasik có đau không?", "answer": "Phẫu thuật Lasik hoàn toàn không đau. Chúng tôi sử dụng thuốc tê nhỏ mắt trước khi thực hiện. Bạn chỉ cảm thấy hơi khó chịu nhẹ trong vài giờ đầu sau phẫu thuật. Hầu hết bệnh nhân đều cảm thấy thoải mái và có thể sinh hoạt bình thường ngay từ ngày hôm sau." },
+      { "question": "Thời gian hồi phục sau phẫu thuật Lasik là bao lâu?", "answer": "Thời gian hồi phục rất nhanh. Thị lực sẽ cải thiện ngay trong ngày đầu tiên, và ổn định hoàn toàn sau 1-2 tuần. Bạn có thể trở lại làm việc sau 2-3 ngày. Tuy nhiên, cần tránh các hoạt động thể thao mạnh và bơi lội trong 2 tuần đầu." },
+      { "question": "Chi phí khám mắt tổng quát là bao nhiêu?", "answer": "Chi phí khám mắt tổng quát cơ bản là 200.000đ, bao gồm đo thị lực, kiểm tra khúc xạ, đo nhãn áp và tư vấn. Gói khám toàn diện với OCT và các xét nghiệm chuyên sâu là 500.000đ. Chúng tôi cam kết giá cả minh bạch, không phát sinh chi phí ẩn." },
+      { "question": "Trẻ em bao nhiêu tuổi có thể khám mắt?", "answer": "Trẻ em có thể khám mắt từ 6 tháng tuổi. Chúng tôi khuyến nghị khám mắt định kỳ cho trẻ từ 3 tuổi để phát hiện sớm các vấn đề về thị lực như cận thị, viễn thị, loạn thị. Đội ngũ bác sĩ có kinh nghiệm khám cho trẻ em với phương pháp thân thiện, không gây sợ hãi." },
+      { "question": "Có cần đặt lịch trước khi đến khám không?", "answer": "Chúng tôi khuyến nghị đặt lịch trước để đảm bảo được phục vụ đúng giờ và tránh chờ đợi. Bạn có thể đặt lịch qua điện thoại, website hoặc trực tiếp tại phòng khám. Trong trường hợp cấp cứu, chúng tôi sẽ ưu tiên tiếp nhận ngay lập tức." },
+      { "question": "Phòng khám có bảo hành cho các dịch vụ không?", "answer": "Có, chúng tôi cam kết bảo hành cho tất cả dịch vụ. Phẫu thuật Lasik được bảo hành 10 năm, phẫu thuật đục thủy tinh thể bảo hành 5 năm. Các dịch vụ khám và điều trị khác được theo dõi miễn phí trong thời gian quy định. Nếu không hài lòng, chúng tôi hoàn tiền 100%." },
+      { "question": "Tôi có thể thanh toán bằng thẻ không?", "answer": "Chúng tôi chấp nhận nhiều hình thức thanh toán: tiền mặt, thẻ ATM, thẻ tín dụng (Visa, Mastercard), chuyển khoản ngân hàng và ví điện tử (Momo, ZaloPay). Đối với các dịch vụ có giá trị cao, chúng tôi hỗ trợ trả góp 0% lãi suất qua thẻ tín dụng." },
+      { "question": "Làm thế nào để chuẩn bị trước khi khám mắt?", "answer": "Trước khi khám, bạn nên: ngừng đeo kính áp tròng ít nhất 24h (kính mềm) hoặc 1 tuần (kính cứng), mang theo kính mắt hiện tại, danh sách thuốc đang sử dụng, và hồ sơ bệnh án cũ (nếu có). Không cần nhịn ăn hay chuẩn bị gì đặc biệt khác." }
+    ]
+  },
+  "processProgress": {
+    "title": "QUY TRÌNH",
+    "subtitle": "ĐO TẬT KHÚC XẠ & KIỂM TRA MẮT",
+    "tagline": "Hạn chế tối đa sai số",
+    "stepLabel": "Bước {number}",
+    "cta": "Đăng kí miễn phí nhận ưu đãi",
+    "steps": [
+      { "title": "BƯỚC 1: đánh giá sơ bộ", "details": ["Thử thị lực & đo khoảng cách đồng tử", "Đo khúc xạ máy"] },
+      { "title": "BƯỚC 2: kiểm soát điều tiết", "details": ["Nghiệm pháp nhả điều tiết", "Soi bóng đồng tử"] },
+      { "title": "BƯỚC 3: đo khúc xạ sơ bộ", "details": ["Thử kính cầu/kính trụ sơ bộ"] },
+      { "title": "BƯỚC 4: đo khúc xạ tối ưu", "details": ["Thử kính cầu/kính trụ tối ưu"] },
+      { "title": "BƯỚC 5: cấp đơn kính", "details": ["Cân bằng hai mắt, test lại điều tiết", "Tinh chỉnh thông số kính"] },
+      { "title": "BƯỚC 6: khám sàng lọc", "details": ["Test lác, đánh giá thị giác hai mắt", "Soi đáy mắt"] },
+      { "title": "BƯỚC 7: thực hiện chỉ định", "details": ["Thăm dò lâm sàng & cận lâm sàng", "VD: chụp chiếu, liệt điều tiết…"] },
+      { "title": "BƯỚC 8: tư vấn hướng xử trí", "details": ["Giải thích chi tiết tình trạng", "Tư vấn phác đồ phù hợp"] }
+    ]
+  }
+}

@@ -28,11 +28,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
+import { messages } from "@/i18n";
 
 type ProcessStep = {
   number: number;
   title: string;
   details: string[];
+  icons: LucideIcon[];
 };
 
 type ProcessPoint = {
@@ -40,107 +42,27 @@ type ProcessPoint = {
   y: number;
 };
 
-const PROCESS_STEPS: ProcessStep[] = [
-  {
-    number: 1,
-    title: "Đánh giá sơ bộ",
-    details: ["Thử thị lực & đo khoảng cách đồng tử", "Đo khúc xạ máy"],
-  },
-  {
-    number: 2,
-    title: "Kiểm soát điều tiết",
-    details: ["Nghiệm pháp nhả điều tiết", "Soi bóng đồng tử"],
-  },
-  {
-    number: 3,
-    title: "Đo khúc xạ sơ bộ",
-    details: ["Thử kính cầu/kính trụ sơ bộ"],
-  },
-  {
-    number: 4,
-    title: "Đo khúc xạ tối ưu",
-    details: ["Thử kính cầu/kính trụ tối ưu"],
-  },
-  {
-    number: 5,
-    title: "Cấp đơn kính",
-    details: ["Test cân bằng 2 mắt", "Đeo thử & tinh chỉnh thông số"],
-  },
-  {
-    number: 6,
-    title: "Khám sàng lọc",
-    details: ["Test lác, đánh giá 2 mắt", "Soi đáy mắt & giải thích sơ bộ"],
-  },
-  {
-    number: 7,
-    title: "Thực hiện chỉ định",
-    details: [
-      "Cận lâm sàng theo bác sĩ",
-      "Chụp chiếu, tra thuốc liệt điều tiết…",
-    ],
-  },
-  {
-    number: 8,
-    title: "Tư vấn hướng xử trí",
-    details: ["Giải thích chi tiết tình trạng", "Tư vấn phác đồ phù hợp"],
-  },
+const PROCESS_DETAIL_ICONS: LucideIcon[][] = [
+  [Eye, Activity],
+  [Activity, Ruler],
+  [Activity],
+  [Activity],
+  [Crosshair, ClipboardCheck],
+  [Crosshair, Flashlight],
+  [Camera, Syringe],
+  [MessageSquare, MessageSquare],
 ];
+
+const PROCESS_STEPS: ProcessStep[] = messages.process.steps.map(
+  (step, index) => ({
+    ...step,
+    number: index + 1,
+    icons: PROCESS_DETAIL_ICONS[index] ?? [],
+  })
+);
 
 // Hàng dưới đảo chiều để đường đi liên tục từ phải sang trái sau bước 4.
 const DESKTOP_VISUAL_ORDER = [0, 1, 2, 3, 7, 6, 5, 4] as const;
-
-function pickIcon(detail: string): LucideIcon {
-  const normalizedDetail = detail.toLowerCase();
-
-  if (normalizedDetail.includes("thị lực")) return Eye;
-  if (normalizedDetail.includes("đồng tử")) return Ruler;
-  if (
-    normalizedDetail.includes("khúc xạ") ||
-    normalizedDetail.includes("điều tiết")
-  ) {
-    return Activity;
-  }
-  if (
-    normalizedDetail.includes("soi đáy") ||
-    normalizedDetail.includes("đèn")
-  ) {
-    return Flashlight;
-  }
-  if (
-    normalizedDetail.includes("lác") ||
-    normalizedDetail.includes("hai mắt") ||
-    normalizedDetail.includes("2 mắt")
-  ) {
-    return Crosshair;
-  }
-  if (
-    normalizedDetail.includes("tra thuốc") ||
-    normalizedDetail.includes("liệt")
-  ) {
-    return Syringe;
-  }
-  if (
-    normalizedDetail.includes("chụp") ||
-    normalizedDetail.includes("chiếu") ||
-    normalizedDetail.includes("cận")
-  ) {
-    return Camera;
-  }
-  if (
-    normalizedDetail.includes("tư vấn") ||
-    normalizedDetail.includes("giải thích")
-  ) {
-    return MessageSquare;
-  }
-  if (
-    normalizedDetail.includes("test") ||
-    normalizedDetail.includes("thử")
-  ) {
-    return ClipboardCheck;
-  }
-
-  return CheckCircle2;
-}
 
 /** Hiển thị quy trình khám theo một đường dẫn liên tục trên cả desktop và mobile. */
 export default function ProcessSection() {
@@ -155,8 +77,8 @@ export default function ProcessSection() {
           className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10"
         >
           <SectionHeader
-          title="Quy trình đo tật khúc xạ & kiểm tra mắt"
-          description="8 bước được sắp xếp liên tục, giúp theo dõi rõ từng giai đoạn và hạn chế tối đa sai số."
+          title={messages.process.title}
+          description={messages.process.description}
           className="mb-10 md:mb-12"
           />
 
@@ -169,7 +91,7 @@ export default function ProcessSection() {
               size="lg"
               onClick={() => scrollToSection("booking")}
             >
-              Đăng ký miễn phí — ưu đãi 50%
+              {messages.process.cta}
             </Button>
           </div>
         </div>
@@ -423,8 +345,8 @@ function ProcessStepCard({ step }: { step: ProcessStep }) {
       </CardHeader>
       <CardContent>
         <ul className="flex flex-col gap-2">
-          {step.details.map((detail) => {
-            const Icon = pickIcon(detail);
+          {step.details.map((detail, index) => {
+            const Icon = step.icons[index] ?? CheckCircle2;
 
             return (
               <li

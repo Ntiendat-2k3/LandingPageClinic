@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Award, GraduationCap, Shield, Check } from "lucide-react";
+import { messages } from "@/i18n";
 
 type Doctor = {
   name: string;
@@ -12,47 +13,15 @@ type Doctor = {
 };
 
 const DoctorsSection = () => {
-  const doctors: Doctor[] = [
-    {
-      name: "Ths. Bs Trần Anh Tuấn",
-      title: "Chuyên gia Mắt – Tật khúc xạ, Ortho-K & Kiểm soát cận thị",
-      education:
-        "Tốt nghiệp Thạc sĩ loại xuất sắc chuyên ngành Mắt – Tật khúc xạ tại Fudan University, Shanghai.",
-      highlights: [
-        "Có nhiều nghiên cứu/báo cáo đăng trên các tạp chí quốc tế.",
-        "10 năm kinh nghiệm tại Shanghai Eye & ENT Hospital, BV Trung ương Huế, BV Mắt quốc tế DND.",
-        "Điều trị & kiểm soát hiệu quả cho hàng nghìn ca cận thị tiến triển, cận thị bệnh lý.",
-        "Nguyên Phụ trách Trung tâm Khúc xạ – BV Mắt quốc tế DND.",
-        "Đầy đủ chứng chỉ chuyên sâu: khúc xạ, kính Ortho-K, kiểm soát cận thị…",
-      ],
-      image: "/images/doctors/doctor1.jpg",
-    },
-    {
-      name: "ĐD/KTV Đào Thị Thúy",
-      title: "Điều dưỡng/Kỹ thuật viên khúc xạ – Ortho-K & Kiểm soát cận thị",
-      education:
-        "Được đào tạo chính quy về Chuyên khoa Mắt và Khúc xạ nhãn khoa.",
-      highlights: [
-        "Gần 15 năm kinh nghiệm trong chuyên ngành Mắt – Tật khúc xạ.",
-        "Nguyên Điều dưỡng trưởng Trung tâm Khúc xạ – BV Mắt quốc tế DND.",
-        "Sở hữu chứng chỉ khúc xạ nhãn khoa, kiểm soát cận thị.",
-        "Chứng chỉ kính áp tròng ban đêm Ortho-K.",
-      ],
-      image: "/images/doctors/doctor3.jpg",
-    },
-    {
-      name: "ĐD/KTV Phạm Thị Hương",
-      title: "Điều dưỡng/Kỹ thuật viên khúc xạ – Ortho-K & Kiểm soát cận thị",
-      education:
-        "Được đào tạo chính quy về Chuyên khoa Mắt và Khúc xạ nhãn khoa.",
-      highlights: [
-        "Gần 15 năm kinh nghiệm trong chuyên ngành Mắt – Tật khúc xạ.",
-        "Sở hữu chứng chỉ khúc xạ nhãn khoa, kiểm soát cận thị.",
-        "Chứng chỉ kính áp tròng ban đêm Ortho-K.",
-      ],
-      image: "/images/doctors/doctor2.jpg",
-    },
+  const doctorImages = [
+    "/images/doctors/doctor1.jpg",
+    "/images/doctors/doctor3.jpg",
+    "/images/doctors/doctor2.jpg",
   ];
+  const doctors: Doctor[] = messages.doctors.profiles.map((profile, index) => ({
+    ...profile,
+    image: doctorImages[index] ?? "",
+  }));
 
   const [expanded, setExpanded] = useState<number | null>(null);
   const toggle = (i: number) => setExpanded((cur) => (cur === i ? null : i));
@@ -183,7 +152,7 @@ const DoctorsSection = () => {
       >
         <div className="text-center mb-7 md:mb-10">
           <h2 className="font-space-grotesk text-2xl md:text-3xl lg:text-[32px] font-extrabold text-gray-900 uppercase">
-            Đội ngũ chuyên môn
+            {messages.doctors.sectionTitle}
           </h2>
         </div>
 
@@ -228,7 +197,7 @@ const DoctorsSection = () => {
                       <div className="flex items-center gap-2 mb-2">
                         <Award className="w-4 h-4 text-gray-500" />
                         <span className="text-sm font-semibold text-gray-900">
-                          Kinh nghiệm & thành tựu
+                          {messages.doctors.experienceTitle}
                         </span>
                       </div>
                       <ul className="space-y-2 ml-6">
@@ -247,7 +216,7 @@ const DoctorsSection = () => {
                           onClick={() => toggle(idx)}
                           className="mt-2 text-[13px] font-semibold text-emerald-700"
                         >
-                          {open ? "Thu gọn ▲" : "Xem thêm ▼"}
+                          {open ? messages.doctors.collapse : messages.doctors.expand}
                         </button>
                       )}
                     </div>
@@ -256,14 +225,14 @@ const DoctorsSection = () => {
                       <div className="flex items-center gap-2">
                         <Shield className="w-4 h-4 text-gray-500" />
                         <span className="text-[12px] text-gray-600">
-                          Cam kết chuyên môn
+                          {messages.doctors.commitmentShort}
                         </span>
                       </div>
                       <button
                         onClick={scrollToBooking}
                         className="px-3 py-1.5 rounded-full text-[12px] font-semibold text-white bg-emerald-600 hover:bg-emerald-700"
                       >
-                        Đặt lịch
+                        {messages.doctors.book}
                       </button>
                     </div>
                   </div>
@@ -310,7 +279,7 @@ const DoctorsSection = () => {
                   <div className="flex items-center gap-2 mb-1.5">
                     <Award className="w-4 h-4 text-gray-500" />
                     <span className="text-[13.5px] font-semibold text-gray-900">
-                      Kinh nghiệm & thành tựu
+                      {messages.doctors.experienceTitle}
                     </span>
                   </div>
                   <ul className="space-y-1.5 ml-6">
@@ -328,7 +297,7 @@ const DoctorsSection = () => {
                 <div className="flex items-center gap-2 pt-1">
                   <Shield className="w-4 h-4 text-gray-500" />
                   <span className="text-[12px] text-gray-600">
-                    Cam kết chuyên môn & đạo đức nghề nghiệp
+                    {messages.doctors.commitmentFull}
                   </span>
                 </div>
               </div>

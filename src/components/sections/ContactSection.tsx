@@ -4,6 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
+import { messages } from "@/i18n";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -50,15 +51,7 @@ const ContactSection = () => {
     }, 3000);
   };
 
-  const services = [
-    "Khám tổng quát mắt",
-    "Phẫu thuật Lasik",
-    "Điều trị cận thị",
-    "Điều trị đục thủy tinh thể",
-    "Khám mắt trẻ em",
-    "Tư vấn kính áp tròng",
-    "Khác",
-  ];
+  const services = messages.contact.services;
 
   const timeSlots = [
     "8:00 - 9:00",
@@ -74,11 +67,10 @@ const ContactSection = () => {
       <div className="container mx-auto container-padding">
         <div className="text-center mb-16">
           <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Đăng kí miễn phí nhận ưu đãi 50%
+            {messages.contact.title}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Liên hệ với chúng tôi để đặt lịch khám hoặc tư vấn miễn phí. Đội ngũ
-            chăm sóc khách hàng sẵn sàng hỗ trợ bạn 24/7.
+            {messages.contact.description}
           </p>
         </div>
 
@@ -87,7 +79,7 @@ const ContactSection = () => {
           <div className="space-y-8">
             <div>
               <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 mb-6">
-                Thông tin liên hệ
+                {messages.contact.contactInfo}
               </h3>
 
               <div className="space-y-6">
@@ -97,13 +89,13 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">
-                      Địa chỉ
+                      {messages.contact.addressTitle}
                     </h4>
                     <p className="text-gray-600">
-                      123 Nguyễn Văn A, Phường 1, Quận 1, TP.HCM
+                      {messages.contact.address}
                     </p>
                     <p className="text-sm text-gray-500 mt-1">
-                      Gần ngã tư Bến Thành, dễ dàng di chuyển
+                      {messages.contact.addressHint}
                     </p>
                   </div>
                 </div>
@@ -114,11 +106,11 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">
-                      Điện thoại
+                      {messages.contact.phoneTitle}
                     </h4>
-                    <p className="text-gray-600">0123 456 789</p>
+                    <p className="text-gray-600">{messages.contact.phone}</p>
                     <p className="text-sm text-gray-500 mt-1">
-                      Hotline 24/7 - Tư vấn miễn phí
+                      {messages.contact.phoneHint}
                     </p>
                   </div>
                 </div>
@@ -128,10 +120,10 @@ const ContactSection = () => {
                     <Mail className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                    <p className="text-gray-600">info@eyecarepro.vn</p>
+                    <h4 className="font-semibold text-gray-900 mb-1">{messages.contact.emailTitle}</h4>
+                    <p className="text-gray-600">{messages.contact.email}</p>
                     <p className="text-sm text-gray-500 mt-1">
-                      Phản hồi trong vòng 2 giờ
+                      {messages.contact.emailHint}
                     </p>
                   </div>
                 </div>
@@ -142,12 +134,10 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">
-                      Giờ làm việc
+                      {messages.contact.hoursTitle}
                     </h4>
                     <div className="text-gray-600 space-y-1">
-                      <p>Thứ 2 - Thứ 6: 8:00 - 18:00</p>
-                      <p>Thứ 7: 8:00 - 16:00</p>
-                      <p>Chủ nhật: 8:00 - 12:00</p>
+                      {messages.contact.hours.map((hours) => <p key={hours}>{hours}</p>)}
                     </div>
                   </div>
                 </div>
@@ -157,18 +147,17 @@ const ContactSection = () => {
             {/* Map Placeholder */}
             <div className="bg-white rounded-2xl p-6 shadow-lg">
               <h4 className="font-space-grotesk text-lg font-semibold text-gray-900 mb-4">
-                Vị trí phòng khám
+                {messages.contact.mapTitle}
               </h4>
               <div className="w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center">
                 <img
                   src="/placeholder.svg?height=256&width=400"
-                  alt="Bản đồ vị trí phòng khám"
+                  alt={messages.contact.mapAlt}
                   className="w-full h-full object-cover rounded-xl"
                 />
               </div>
               <p className="text-sm text-gray-600 mt-3">
-                Phòng khám nằm tại vị trí thuận tiện, gần các tuyến xe bus và
-                metro
+                {messages.contact.mapDescription}
               </p>
             </div>
           </div>
@@ -178,14 +167,14 @@ const ContactSection = () => {
             {!isSubmitted ? (
               <>
                 <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 mb-6">
-                  Đặt lịch khám
+                  {messages.contact.formTitle}
                 </h3>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Họ và tên *
+                        {messages.contact.nameLabel}
                       </label>
                       <input
                         type="text"
@@ -194,13 +183,13 @@ const ContactSection = () => {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-colors"
-                        placeholder="Nhập họ và tên"
+                        placeholder={messages.contact.namePlaceholder}
                       />
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Số điện thoại *
+                        {messages.contact.phoneLabel}
                       </label>
                       <input
                         type="tel"
@@ -209,14 +198,14 @@ const ContactSection = () => {
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-colors"
-                        placeholder="Nhập số điện thoại"
+                        placeholder={messages.contact.phonePlaceholder}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email
+                      {messages.contact.emailLabel}
                     </label>
                     <input
                       type="email"
@@ -224,13 +213,13 @@ const ContactSection = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-colors"
-                      placeholder="Nhập địa chỉ email"
+                      placeholder={messages.contact.emailPlaceholder}
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Dịch vụ cần khám *
+                      {messages.contact.serviceLabel}
                     </label>
                     <select
                       name="service"
@@ -239,7 +228,7 @@ const ContactSection = () => {
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-colors"
                     >
-                      <option value="">Chọn dịch vụ</option>
+                      <option value="">{messages.contact.selectService}</option>
                       {services.map((service, index) => (
                         <option key={index} value={service}>
                           {service}
@@ -251,7 +240,7 @@ const ContactSection = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Ngày khám *
+                        {messages.contact.dateLabel}
                       </label>
                       <input
                         type="date"
@@ -266,7 +255,7 @@ const ContactSection = () => {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Giờ khám *
+                        {messages.contact.timeLabel}
                       </label>
                       <select
                         name="time"
@@ -275,7 +264,7 @@ const ContactSection = () => {
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-colors"
                       >
-                        <option value="">Chọn giờ</option>
+                        <option value="">{messages.contact.selectTime}</option>
                         {timeSlots.map((slot, index) => (
                           <option key={index} value={slot}>
                             {slot}
@@ -287,7 +276,7 @@ const ContactSection = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Ghi chú thêm
+                      {messages.contact.messageLabel}
                     </label>
                     <textarea
                       name="message"
@@ -295,7 +284,7 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       rows={4}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-colors resize-none"
-                      placeholder="Mô tả triệu chứng hoặc yêu cầu đặc biệt..."
+                      placeholder={messages.contact.messagePlaceholder}
                     />
                   </div>
 
@@ -304,19 +293,19 @@ const ContactSection = () => {
                     className="w-full btn-primary flex items-center justify-center space-x-2"
                   >
                     <Send className="w-5 h-5" />
-                    <span>Đặt lịch ngay</span>
+                    <span>{messages.contact.submit}</span>
                   </button>
 
                   <p className="text-xs text-gray-500 text-center">
-                    Bằng cách đặt lịch, bạn đồng ý với{" "}
+                    {messages.contact.agreementPrefix}{" "}
                     <a href="#" className="text-cyan-600 hover:underline">
-                      điều khoản sử dụng
+                      {messages.contact.terms}
                     </a>{" "}
-                    và{" "}
+                    {messages.contact.agreementJoin}{" "}
                     <a href="#" className="text-cyan-600 hover:underline">
-                      chính sách bảo mật
+                      {messages.contact.privacy}
                     </a>{" "}
-                    của chúng tôi.
+                    {messages.contact.agreementSuffix}
                   </p>
                 </form>
               </>
@@ -326,17 +315,16 @@ const ContactSection = () => {
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
                 <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 mb-4">
-                  Đặt lịch thành công!
+                  {messages.contact.successTitle}
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Cảm ơn bạn đã đặt lịch. Chúng tôi sẽ liên hệ xác nhận trong
-                  vòng 30 phút.
+                  {messages.contact.successDescription}
                 </p>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <p className="text-sm text-gray-600">
-                    Mã đặt lịch:{" "}
+                    {messages.contact.bookingCode}{" "}
                     <span className="font-semibold text-gray-900">
-                      #ECP{Date.now().toString().slice(-6)}
+                      {messages.contact.bookingCodePrefix}{Date.now().toString().slice(-6)}
                     </span>
                   </p>
                 </div>

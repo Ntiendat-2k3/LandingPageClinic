@@ -1,4 +1,5 @@
 import emailjs from "@emailjs/browser";
+import { formatMessage, locale, messages } from "@/i18n";
 
 const required = (v: string | undefined, k: string) => {
   if (!v) throw new Error(`Missing env ${k}`);
@@ -61,30 +62,32 @@ const formatDateVN = (input: string): string => {
 export const sendBookingNotification = async (bookingData: BookingData) => {
   try {
     const booking_date_vn = formatDateVN(bookingData.date);
-    const nowVN = new Date().toLocaleString("vi-VN");
+    const nowVN = new Date().toLocaleString(locale);
 
     const templateParams = {
-      to_name: "Bác sĩ phòng khám mắt",
-      to_email: "khách hàng",
-      from_name: "Hệ thống đặt lịch phòng khám",
+      to_name: messages.email.recipientName,
+      to_email: messages.email.recipientEmail,
+      from_name: messages.email.senderName,
 
       // Thông tin khách hàng đặt lịch
       customer_name: bookingData.name,
       customer_phone: bookingData.phone,
       booking_date_vn, // <<< dùng biến đã format dd-MM-yyyy
       booking_time: bookingData.time,
-      customer_message: bookingData.message || "Không có ghi chú",
+      customer_message: bookingData.message || messages.email.noNote,
       booking_datetime: nowVN,
 
-      notification_subject: `🔔 Lịch hẹn mới từ ${bookingData.name}`,
-      formatted_message: `
-        Khách hàng: ${bookingData.name}
-        Số điện thoại: ${bookingData.phone}
-        Ngày khám: ${booking_date_vn}
-        Giờ khám: ${bookingData.time}
-        Ghi chú: ${bookingData.message || "Không có"}
-        Thời gian đặt: ${nowVN}
-      `.trim(),
+      notification_subject: formatMessage(messages.email.subject, {
+        name: bookingData.name,
+      }),
+      formatted_message: [
+        `${messages.email.customerLabel}: ${bookingData.name}`,
+        `${messages.email.phoneLabel}: ${bookingData.phone}`,
+        `${messages.email.dateLabel}: ${booking_date_vn}`,
+        `${messages.email.timeLabel}: ${bookingData.time}`,
+        `${messages.email.noteLabel}: ${bookingData.message || messages.email.none}`,
+        `${messages.email.createdAtLabel}: ${nowVN}`,
+      ].join("\n"),
 
       // Tùy chọn: giữ thêm booking_date cũ nhưng đã format (phòng khi template cũ còn dùng)
       booking_date: booking_date_vn,

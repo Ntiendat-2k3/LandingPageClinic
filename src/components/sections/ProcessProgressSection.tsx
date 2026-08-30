@@ -2,58 +2,15 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Eye } from "lucide-react";
+import { formatMessage, messages } from "@/i18n";
 
 /* ========== DATA ========== */
 type Step = { number: string; title: string; details: string[] };
 
-const steps: Step[] = [
-  {
-    number: "1",
-    title: "BƯỚC 1: đánh giá sơ bộ",
-    details: ["Thử thị lực & đo khoảng cách đồng tử", "Đo khúc xạ máy"],
-  },
-  {
-    number: "2",
-    title: "BƯỚC 2: kiểm soát điều tiết",
-    details: ["Nghiệm pháp nhả điều tiết", "Soi bóng đồng tử"],
-  },
-  {
-    number: "3",
-    title: "BƯỚC 3: đo khúc xạ sơ bộ",
-    details: ["Thử kính cầu/kính trụ sơ bộ"],
-  },
-  {
-    number: "4",
-    title: "BƯỚC 4: đo khúc xạ tối ưu",
-    details: ["Thử kính cầu/kính trụ tối ưu"],
-  },
-  {
-    number: "5",
-    title: "BƯỚC 5: cấp đơn kính",
-    details: [
-      "Cân bằng hai mắt, test lại điều tiết",
-      "Tinh chỉnh thông số kính",
-    ],
-  },
-  {
-    number: "6",
-    title: "BƯỚC 6: khám sàng lọc",
-    details: ["Test lác, đánh giá thị giác hai mắt", "Soi đáy mắt"],
-  },
-  {
-    number: "7",
-    title: "BƯỚC 7: thực hiện chỉ định",
-    details: [
-      "Thăm dò lâm sàng & cận lâm sàng",
-      "VD: chụp chiếu, liệt điều tiết…",
-    ],
-  },
-  {
-    number: "8",
-    title: "BƯỚC 8: tư vấn hướng xử trí",
-    details: ["Giải thích chi tiết tình trạng", "Tư vấn phác đồ phù hợp"],
-  },
-];
+const steps: Step[] = messages.processProgress.steps.map((step, index) => ({
+  ...step,
+  number: String(index + 1),
+}));
 
 /* ========== COMPONENT ========== */
 const ProcessProgressSection: React.FC = () => {
@@ -100,14 +57,14 @@ const ProcessProgressSection: React.FC = () => {
         {/* Header gọn */}
         <header className="text-center pt-6 lg:pt-8 pb-4 shrink-0">
           <h2 className="font-space-grotesk text-2xl lg:text-5xl font-extrabold tracking-wide text-emerald-600">
-            QUY TRÌNH
+            {messages.processProgress.title}
           </h2>
           <p className="font-space-grotesk text-base lg:text-2xl font-bold text-gray-800 mt-1">
-            ĐO TẬT KHÚC XẠ & KIỂM TRA MẮT
+            {messages.processProgress.subtitle}
           </p>
           <div className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 ring-1 ring-emerald-100 shadow-sm">
             <span className="text-emerald-600 font-semibold">
-              Hạn chế tối đa sai số
+              {messages.processProgress.tagline}
             </span>
           </div>
         </header>
@@ -188,7 +145,9 @@ const ProcessProgressSection: React.FC = () => {
                   <button
                     key={i}
                     onClick={() => setActive(i)}
-                    aria-label={`Bước ${i + 1}`}
+                    aria-label={formatMessage(messages.processProgress.stepLabel, {
+                      number: i + 1,
+                    })}
                     className="group focus:outline-none"
                     style={{
                       position: "absolute",
@@ -283,9 +242,9 @@ const ProcessProgressSection: React.FC = () => {
                 href="#booking"
                 className="inline-flex items-center gap-3 bg-emerald-500 text-white px-8 py-3 rounded-full font-extrabold text-base shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
               >
-                Đăng kí miễn phí nhận ưu đãi{" "}
+                {messages.processProgress.cta}{" "}
                 <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1.5 py-0.5 text-xl text-emerald-700 font-extrabold">
-                  50%
+                  {messages.common.offer}
                 </span>
               </a>
             </div>

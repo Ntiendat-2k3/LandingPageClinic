@@ -7,6 +7,7 @@ interface CTASectionProps {
   title: string;
   description: string;
   primaryButtonText: string;
+  primaryButtonHref?: string;
   secondaryButtonText?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
@@ -18,6 +19,7 @@ const CTASection = ({
   title,
   description,
   primaryButtonText,
+  primaryButtonHref,
   secondaryButtonText,
   onPrimaryClick,
   onSecondaryClick,
@@ -43,11 +45,12 @@ const CTASection = ({
         </p>
 
         <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
-          <Button
-            size="lg"
-            onClick={onPrimaryClick}
-          >
-            {primaryButtonText}
+          <Button size="lg" onClick={onPrimaryClick} asChild={Boolean(primaryButtonHref)}>
+            {primaryButtonHref ? (
+              <a href={primaryButtonHref}>{primaryButtonText}</a>
+            ) : (
+              primaryButtonText
+            )}
           </Button>
 
           {secondaryButtonText && (

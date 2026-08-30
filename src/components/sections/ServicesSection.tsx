@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useScrollToSection } from "../../hooks/useScrollToSection";
+import { messages } from "@/i18n";
 
 /* ==== Badge icon luôn tròn, không bị méo ==== */
 const IconBadge = ({
@@ -44,20 +45,19 @@ const ServicesSection = () => {
   const scrollToSection = useScrollToSection();
 
   const servicePackages = [
-    { icon: Eye, title: "Gói khám tổng quan" },
-    { icon: Target, title: "Atropine nồng độ thấp 0.01%, 0.025% và 0.05%" },
-    { icon: Activity, title: "Gói khám kiểm soát tật khúc xạ" },
-    { icon: Glasses, title: "Tròng kính kiểm soát cận thị Myocare, Stellest" },
-    { icon: Shield, title: "Gói khám kính áp tròng ban đêm Ortho-K" },
-    { icon: Zap, title: "Kính áp tròng ban đêm Ortho-K" },
-    { icon: Stethoscope, title: "Đo trục nhãn cầu" },
-    { icon: Baby, title: "Lăng kính & tập luyện điều chỉnh lác/phục hồi TL" },
+    { icon: Eye, title: messages.services.packages[0], featured: true },
+    { icon: Target, title: messages.services.packages[1], featured: false },
+    { icon: Activity, title: messages.services.packages[2], featured: true },
+    { icon: Glasses, title: messages.services.packages[3], featured: false },
+    { icon: Shield, title: messages.services.packages[4], featured: true },
+    { icon: Zap, title: messages.services.packages[5], featured: false },
+    { icon: Stethoscope, title: messages.services.packages[6], featured: false },
+    { icon: Baby, title: messages.services.packages[7], featured: false },
   ];
 
-  // Hàng trên: 3 item có "Gói khám", Hàng dưới: 5 item còn lại
-  const isGoiKham = (t: string) => /gói khám/i.test(t);
-  const topPackages = servicePackages.filter((p) => isGoiKham(p.title));
-  const bottomPackages = servicePackages.filter((p) => !isGoiKham(p.title));
+  // Cách phân nhóm không phụ thuộc vào ngôn ngữ hiển thị.
+  const topPackages = servicePackages.filter((item) => item.featured);
+  const bottomPackages = servicePackages.filter((item) => !item.featured);
 
   // Card UI dùng chung — ĐÃ BỎ NGHIÊNG
   const Card = ({
@@ -125,13 +125,13 @@ const ServicesSection = () => {
         {/* Header */}
         <div className="text-center mb-8 md:mb-9">
           <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-black mb-2">
-            CHƯƠNG TRÌNH ĐỘC QUYỀN, DUY NHẤT TẠI HÀ NỘI
+            {messages.services.title}
           </h2>
           <p className="inline-block rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-[15px] md:text-xl shadow">
-            “ĐẢM BẢO KIỂM SOÁT TIẾN TRIỂN CẬN THỊ”
+            {messages.services.guarantee}
           </p>
           <p className="text-sm md:text-lg text-black mt-2 font-bold">
-            XOÁ TAN NỖI LO TĂNG ĐỘ CẬN
+            {messages.services.subtitle}
           </p>
         </div>
 
@@ -172,9 +172,9 @@ const ServicesSection = () => {
               onClick={() => scrollToSection("booking")}
               className="relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-base text-white bg-gradient-to-r from-emerald-500 to-cyan-500 shadow-lg active:scale-[0.98]"
             >
-              Đăng kí miễn phí ưu đãi
+              {messages.services.cta}
               <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-2 py-0.5 text-2xl text-emerald-700 font-extrabold">
-                50%
+                {messages.common.offer}
               </span>
             </button>
           </div>
@@ -222,9 +222,9 @@ const ServicesSection = () => {
               href="#booking"
               className="inline-flex items-center gap-3 bg-emerald-500 text-white px-8 py-3 rounded-full font-extrabold text-base shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
             >
-              Đăng kí miễn phí ưu đãi{" "}
+              {messages.services.cta}{" "}
               <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1.5 py-0.5 text-xl text-emerald-700 font-extrabold">
-                50%
+                {messages.common.offer}
               </span>
             </a>
           </div>

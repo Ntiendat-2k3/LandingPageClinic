@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { messages } from "@/i18n";
 
 type Treatment = {
   name: string;
@@ -13,40 +14,23 @@ type Treatment = {
 
 const treatments: Treatment[] = [
   {
-    name: "Atropine nồng độ thấp",
+    ...messages.pricing.treatments[0],
     image: "/images/ksct1.jpg",
-    effectiveness: [
-      "Hiệu quả kiểm soát độ cận thị: ~67%",
-      "Hiệu quả kiểm soát trục nhãn cầu: ~51%",
-    ],
-    tag: "Thuốc nhỏ mắt",
     tone: "emerald",
   },
   {
-    name: "Tròng kính kiểm soát cận thị",
+    ...messages.pricing.treatments[1],
     image: "/images/ksct2.jpg",
-    effectiveness: [
-      "Hiệu quả kiểm soát độ cận thị: ~70%",
-      "Hiệu quả kiểm soát trục nhãn cầu: ~55%",
-    ],
-    tag: "Tròng chuyên dụng",
     tone: "teal",
   },
   {
-    name: "Kính áp tròng Ortho-K",
+    ...messages.pricing.treatments[2],
     image: "/images/ksct3.jpg",
-    effectiveness: [
-      "Hiệu quả kiểm soát độ cận thị: ~80%",
-      "Hiệu quả kiểm soát trục nhãn cầu: ~70%",
-    ],
-    tag: "Đeo ban đêm",
     tone: "purple",
   },
   {
-    name: "Phương án kết hợp",
+    ...messages.pricing.treatments[3],
     image: "/images/ksct4.jpg",
-    description: "Phối hợp 2–3 phương pháp để tối ưu hiệu quả theo từng hồ sơ.",
-    tag: "Tư vấn cá nhân hóa",
     tone: "lime",
   },
 ];
@@ -92,18 +76,17 @@ const PricingSection: React.FC = () => {
           {/* tag “KIỂM SOÁT CẬN THỊ” – to hơn, cân đối */}
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 text-white text-base md:text-lg font-semibold tracking-wide shadow-md">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/90" />
-            KIỂM SOÁT CẬN THỊ
+            {messages.pricing.badge}
           </div>
 
           <h2 className="mt-4 text-2xl md:text-4xl xl:text-5xl font-extrabold leading-tight text-gray-900">
-            CÁC PHƯƠNG PHÁP TIÊN TIẾN HIỆU QUẢ CAO
+            {messages.pricing.titleLineOne}
             <br className="hidden sm:block" />
-            HÀNG ĐẦU THẾ GIỚI
+            {messages.pricing.titleLineTwo}
           </h2>
 
           <p className="mt-3 text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
-            Tùy hồ sơ khúc xạ và nhịp tiến triển, bác sĩ sẽ cá nhân hóa phác đồ
-            để tối ưu kết quả cho trẻ.
+            {messages.pricing.description}
           </p>
         </div>
 
@@ -184,8 +167,7 @@ const PricingSection: React.FC = () => {
 
         {/* footnote – câu mới */}
         <p className="mt-8 text-center text-[11px] md:text-xs text-gray-500">
-          * Hiệu quả tham khảo từ các nghiên cứu dài hạn trên thế giới; kết quả
-          thực tế phụ thuộc từng cá nhân.
+          {messages.pricing.footnote}
         </p>
       </div>
     </section>

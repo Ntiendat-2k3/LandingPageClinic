@@ -12,6 +12,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { SITE_CONTACT } from "@/config/site";
+import { locale, messages } from "@/i18n";
 
 interface BookingData {
   name: string;
@@ -48,6 +50,9 @@ const BookingSuccess = () => {
     return null;
   }
 
+  const [thankYouPrefix, thankYouSuffix] =
+    messages.bookingSuccess.thankYou.split("{name}");
+
   return (
     <section className="section-padding flex min-h-screen items-center bg-gradient-primary">
       <div className="container mx-auto container-padding">
@@ -57,42 +62,42 @@ const BookingSuccess = () => {
               <CheckCircle className="size-10" aria-hidden="true" />
             </div>
             <CardTitle>
-              <h1>Đặt lịch thành công!</h1>
+              <h1>{messages.bookingSuccess.title}</h1>
             </CardTitle>
             <CardDescription>
-              Cảm ơn <strong className="text-primary">{bookingData.name}</strong>{" "}
-              đã tin tưởng. Chúng tôi sẽ liên hệ trong 30 phút để xác nhận lịch
-              hẹn.
+              {thankYouPrefix}
+              <strong className="text-primary">{bookingData.name}</strong>
+              {thankYouSuffix}
             </CardDescription>
           </CardHeader>
 
           <CardContent className="flex flex-col gap-5">
             <section className="rounded-xl bg-muted p-5" aria-labelledby="booking-details-title">
               <h2 id="booking-details-title" className="mb-3 font-semibold text-foreground">
-                Thông tin đặt lịch
+                {messages.bookingSuccess.detailsTitle}
               </h2>
               <dl className="grid gap-2 text-muted-foreground">
                 <div className="flex flex-wrap justify-between gap-2">
-                  <dt className="font-medium text-foreground">Họ tên</dt>
+                  <dt className="font-medium text-foreground">{messages.bookingSuccess.name}</dt>
                   <dd>{bookingData.name}</dd>
                 </div>
                 <div className="flex flex-wrap justify-between gap-2">
-                  <dt className="font-medium text-foreground">Số điện thoại</dt>
+                  <dt className="font-medium text-foreground">{messages.bookingSuccess.phone}</dt>
                   <dd>{bookingData.phone}</dd>
                 </div>
                 <div className="flex flex-wrap justify-between gap-2">
-                  <dt className="font-medium text-foreground">Ngày khám</dt>
+                  <dt className="font-medium text-foreground">{messages.bookingSuccess.date}</dt>
                   <dd>
-                    {new Date(bookingData.date).toLocaleDateString("vi-VN")}
+                    {new Date(bookingData.date).toLocaleDateString(locale)}
                   </dd>
                 </div>
                 <div className="flex flex-wrap justify-between gap-2">
-                  <dt className="font-medium text-foreground">Giờ khám</dt>
+                  <dt className="font-medium text-foreground">{messages.bookingSuccess.time}</dt>
                   <dd>{bookingData.time}</dd>
                 </div>
                 {bookingData.message ? (
                   <div className="flex flex-col gap-1">
-                    <dt className="font-medium text-foreground">Ghi chú</dt>
+                    <dt className="font-medium text-foreground">{messages.bookingSuccess.message}</dt>
                     <dd>{bookingData.message}</dd>
                   </div>
                 ) : null}
@@ -102,9 +107,9 @@ const BookingSuccess = () => {
             {emailStatus === "success" ? (
               <Alert>
                 <Mail aria-hidden="true" />
-                <AlertTitle>Đã gửi thông báo</AlertTitle>
+                <AlertTitle>{messages.bookingSuccess.notificationSent}</AlertTitle>
                 <AlertDescription>
-                  Thông tin đặt lịch đã được chuyển đến phòng khám.
+                  {messages.bookingSuccess.notificationSentDescription}
                 </AlertDescription>
               </Alert>
             ) : null}
@@ -112,22 +117,22 @@ const BookingSuccess = () => {
             {emailStatus === "error" ? (
               <Alert variant="destructive">
                 <Mail aria-hidden="true" />
-                <AlertTitle>Chưa gửi được thông báo</AlertTitle>
+                <AlertTitle>{messages.bookingSuccess.notificationFailed}</AlertTitle>
                 <AlertDescription>
-                  Vui lòng gọi trực tiếp để phòng khám xác nhận lịch hẹn.
+                  {messages.bookingSuccess.notificationFailedDescription}
                 </AlertDescription>
               </Alert>
             ) : null}
 
             <Alert>
               <Phone aria-hidden="true" />
-              <AlertTitle>Liên hệ trực tiếp</AlertTitle>
+              <AlertTitle>{messages.bookingSuccess.directContact}</AlertTitle>
               <AlertDescription>
                 <a
-                  href="tel:0387812321"
+                  href={`tel:${SITE_CONTACT.phonePlain}`}
                   className="font-semibold text-primary underline-offset-4 hover:underline"
                 >
-                  0387 812 321
+                  {SITE_CONTACT.phonePlain.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3")}
                 </a>
               </AlertDescription>
             </Alert>
@@ -141,7 +146,7 @@ const BookingSuccess = () => {
               onClick={() => navigate("/", { replace: true })}
             >
               <Home data-icon="inline-start" />
-              Quay về trang chủ
+              {messages.bookingSuccess.backHome}
             </Button>
           </CardFooter>
         </Card>

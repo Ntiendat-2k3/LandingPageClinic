@@ -15,8 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-const MESSENGER_USERNAME = "pkmatdrtrantuan";
+import { SITE_CONTACT, SITE_LINKS } from "@/config/site";
+import { messages } from "@/i18n";
 
 /** Hiển thị nhóm hành động liên hệ nhanh theo vị trí cuộn của người dùng. */
 const StickyCTA = () => {
@@ -45,7 +45,7 @@ const StickyCTA = () => {
 
   const openMessenger = () => {
     window.open(
-      `https://m.me/${MESSENGER_USERNAME}`,
+      SITE_LINKS.messenger,
       "_blank",
       "noopener,noreferrer"
     );
@@ -67,20 +67,20 @@ const StickyCTA = () => {
                   <div className="flex size-9 items-center justify-center rounded-full bg-gradient-primary text-white">
                     <Phone className="size-4" aria-hidden="true" />
                   </div>
-                  <CardTitle>Cần hỗ trợ?</CardTitle>
+                  <CardTitle>{messages.stickyCta.title}</CardTitle>
                 </div>
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon-sm"
                   onClick={() => setIsExpanded(false)}
-                  aria-label="Đóng nhóm liên hệ nhanh"
+                  aria-label={messages.stickyCta.closeLabel}
                 >
                   <X />
                 </Button>
               </div>
               <CardDescription>
-                Chọn cách thức liên hệ phù hợp với bạn.
+                {messages.stickyCta.description}
               </CardDescription>
             </CardHeader>
 
@@ -89,14 +89,14 @@ const StickyCTA = () => {
                 type="button"
                 className="h-auto w-full justify-start py-3"
                 onClick={() => {
-                  window.location.href = "tel:0387812321";
+                  window.location.href = `tel:${SITE_CONTACT.phonePlain}`;
                 }}
               >
                 <Phone data-icon="inline-start" />
                 <span className="flex flex-col items-start">
-                  <span>Gọi ngay</span>
+                  <span>{messages.stickyCta.callNow}</span>
                   <span className="text-xs font-normal opacity-90">
-                    0387 812 321
+                    {SITE_CONTACT.phonePlain.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3")}
                   </span>
                 </span>
               </Button>
@@ -109,9 +109,9 @@ const StickyCTA = () => {
               >
                 <Calendar data-icon="inline-start" />
                 <span className="flex flex-col items-start">
-                  <span>Đặt lịch khám</span>
+                  <span>{messages.stickyCta.book}</span>
                   <span className="text-xs font-normal text-muted-foreground">
-                    Nhanh chóng, tiện lợi
+                    {messages.stickyCta.bookDescription}
                   </span>
                 </span>
               </Button>
@@ -124,9 +124,9 @@ const StickyCTA = () => {
               >
                 <MessageCircle data-icon="inline-start" />
                 <span className="flex flex-col items-start">
-                  <span>Chat trực tuyến</span>
+                  <span>{messages.stickyCta.chat}</span>
                   <span className="text-xs font-normal opacity-80">
-                    Mở Messenger
+                    {messages.stickyCta.messenger}
                   </span>
                 </span>
               </Button>
@@ -138,7 +138,7 @@ const StickyCTA = () => {
             size="icon-lg"
             className="rounded-full shadow-2xl motion-safe:animate-pulse"
             onClick={() => setIsExpanded(true)}
-            aria-label="Mở nhóm liên hệ nhanh"
+            aria-label={messages.stickyCta.openLabel}
           >
             <Phone />
           </Button>
@@ -153,7 +153,7 @@ const StickyCTA = () => {
             size="icon"
             className="rounded-full shadow-lg"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            aria-label="Cuộn lên đầu trang"
+            aria-label={messages.stickyCta.scrollTopLabel}
           >
             <ChevronUp />
           </Button>

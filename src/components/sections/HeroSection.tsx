@@ -2,14 +2,12 @@
 
 import {
   ArrowRight,
-  ClipboardCheck,
   Clock,
   Shield,
   Star,
   Users,
 } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
+import { messages } from "@/i18n";
 
 const HeroSection = () => {
   const scrollToContact = () => {
@@ -33,21 +31,21 @@ const HeroSection = () => {
             {/* 3 dòng tiêu đề */}
             <div className="space-y-1">
               <h1 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight text-gray-900 uppercase lg:text-center">
-                Phòng khám
+                {messages.hero.clinic}
               </h1>
               <h2 className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight uppercase lg:text-center">
                 <span className="bg-gradient-to-r from-cyan-600 to-emerald-600 bg-clip-text text-transparent">
-                  Chuyên khoa Mắt & Khúc xạ
+                  {messages.hero.specialty}
                 </span>
               </h2>
               <div className="font-space-grotesk text-[28px] md:text-[40px] font-extrabold leading-tight text-gray-900 uppercase lg:text-center">
-                Dr Trần Tuấn
+                {messages.hero.doctor}
               </div>
             </div>
 
             {/* Tagline */}
             <p className="mt-3 text-base md:text-lg text-gray-700 lg:text-center">
-              Chăm sóc đôi mắt một cách toàn diện
+              {messages.hero.tagline}
             </p>
 
             <div className="w-full h-0.5 bg-gray-200 mt-4"></div>
@@ -55,7 +53,7 @@ const HeroSection = () => {
             {/* Khẩu hiệu + danh sách */}
             <div className="mt-4">
               <div className="text-[15px] md:text-lg font-extrabold tracking-wide text-emerald-700">
-                KIỂM SOÁT CẬN THỊ – ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT
+                {messages.hero.headline}
               </div>
 
               <ul className="mt-3 space-y-2">
@@ -64,8 +62,7 @@ const HeroSection = () => {
                     <Star className="w-3.5 h-3.5 text-cyan-600" />
                   </span>
                   <span className="text-[15px] md:text-base text-gray-700">
-                    Áp dụng các phương pháp tiên tiến và hiệu quả cao nhất trên
-                    thế giới
+                    {messages.hero.benefits[0]}
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -73,8 +70,7 @@ const HeroSection = () => {
                     <Users className="w-3.5 h-3.5 text-emerald-600" />
                   </span>
                   <span className="text-[15px] md:text-base text-gray-700">
-                    Đội ngũ bác sĩ và nhân viên y tế giàu kinh nghiệm, được đào
-                    tạo chuyên sâu
+                    {messages.hero.benefits[1]}
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -82,8 +78,7 @@ const HeroSection = () => {
                     <Shield className="w-3.5 h-3.5 text-blue-600" />
                   </span>
                   <span className="text-[15px] md:text-base text-gray-700">
-                    Chính sách bảo đảm kiểm soát hiệu quả cận thị độc quyền tại
-                    Hà Nội
+                    {messages.hero.benefits[2]}
                   </span>
                 </li>
               </ul>
@@ -97,22 +92,22 @@ const HeroSection = () => {
                     icon: (
                       <Users className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600" />
                     ),
-                    val: "10K+",
-                    txt: "Bệnh nhân điều trị",
+                    val: messages.hero.stats[0].value,
+                    txt: messages.hero.stats[0].label,
                   },
                   {
                     icon: (
                       <Star className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
                     ),
-                    val: "97.8%",
-                    txt: "Hài lòng",
+                    val: messages.hero.stats[1].value,
+                    txt: messages.hero.stats[1].label,
                   },
                   {
                     icon: (
                       <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                     ),
-                    val: "10+",
-                    txt: "Năm kinh nghiệm",
+                    val: messages.hero.stats[2].value,
+                    txt: messages.hero.stats[2].label,
                   },
                 ].map((s, i) => (
                   <div
@@ -137,30 +132,18 @@ const HeroSection = () => {
               </div>
             </div>
 
-            {/* CTA chính và liên kết sang form đánh giá độc lập. */}
-            <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:mt-8">
+            {/* CTA */}
+            <div className="mt-6 text-center lg:mt-8">
               <button
                 onClick={scrollToContact}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99] sm:w-auto lg:hover:cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99] lg:hover:cursor-pointer"
               >
-                Đăng ký miễn phí ưu đãi
+                {messages.hero.cta}
                 <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1 py-0.5 text-2xl text-emerald-700 font-extrabold">
-                  50%
+                  {messages.common.offer}
                 </span>
                 <ArrowRight className="w-5 h-5" />
               </button>
-
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="h-auto min-h-12 w-full whitespace-normal py-3 sm:w-auto"
-              >
-                <a href="/danh-gia-nguy-co-can-thi/">
-                  <ClipboardCheck data-icon="inline-start" />
-                  Đánh giá nguy cơ tiến triển cận thị
-                </a>
-              </Button>
             </div>
           </div>
 
@@ -175,14 +158,14 @@ const HeroSection = () => {
                 */}
                 <img
                   src="/images/section1.jpg"
-                  alt="Phòng khám mắt hiện đại"
+                  alt={messages.hero.imageAlt}
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="absolute -left-3 -top-3 bg-white rounded-xl shadow p-2 flex items-center gap-2">
                 <Shield className="w-4 h-4 text-emerald-600" />
                 <span className="text-xs font-semibold text-gray-800">
-                  Bảo đảm hiệu quả
+                  {messages.hero.assurance}
                 </span>
               </div>
             </div>

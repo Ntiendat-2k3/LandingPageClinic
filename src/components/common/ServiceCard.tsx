@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { ServiceItem } from "@/types";
 import { getColorClasses } from "@/utils/colorUtils";
+import { messages } from "@/i18n";
 
 interface ServiceCardProps {
   service: ServiceItem;
@@ -59,7 +60,7 @@ const ServiceCard = ({
             </div>
             {service.duration ? (
               <div className="text-sm text-muted-foreground">
-                Thời gian: {service.duration}
+                {messages.serviceCard.durationPrefix} {service.duration}
               </div>
             ) : null}
           </div>
@@ -68,7 +69,7 @@ const ServiceCard = ({
 
       <CardFooter>
         <Button className="w-full" onClick={onButtonClick}>
-          Đặt lịch ngay
+          {messages.common.bookNow}
         </Button>
       </CardFooter>
     </Card>

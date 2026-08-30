@@ -10,29 +10,16 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { SITE_CONTACT, SITE_LINKS } from "@/config/site";
+import { messages } from "@/i18n";
+
+const PARTNER_IMAGES = ["zeiss.jpg", "seed.jpg", "tgvision.jpg", "101.jpg", "gomed.jpg", "santen.jpg"] as const;
 
 const Footer = () => {
-  const partners = [
-    { src: "/images/partners/zeiss.jpg", alt: "ZEISS" },
-    { src: "/images/partners/seed.jpg", alt: "SEED" },
-    { src: "/images/partners/tgvision.jpg", alt: "TG Vision" },
-    { src: "/images/partners/101.jpg", alt: "101 Trading Co." },
-    { src: "/images/partners/gomed.jpg", alt: "GoMed" },
-    { src: "/images/partners/santen.jpg", alt: "Santen" },
-  ];
-
-  const fanpageUrl = "https://www.facebook.com/pkmatdrtrantuan";
-  const messengerUrl = "https://m.me/pkmatdrtrantuan";
-
-  // ====== Config cho địa chỉ / Zalo ======
-  const ADDRESS_TEXT = "122 Bà Triệu, phường Hai Bà Trưng, Hà Nội";
-  // Link cố định (phòng khám B)
-  const MAPS_URL = "https://maps.app.goo.gl/8Ab7ZyQyaadiZZD46";
-
-  // Hiển thị vẫn như cũ, nhưng dùng số thuần để link Zalo
-  const PHONE_DISPLAY = "03.878.12321";
-  const PHONE_PLAIN = "0387812321";
-  const ZALO_URL = `https://zalo.me/${PHONE_PLAIN}`;
+  const partners = PARTNER_IMAGES.map((image, index) => ({
+    src: `/images/partners/${image}`,
+    alt: messages.footer.partnerAlts[index],
+  }));
 
   // === Responsive width cho Page Plugin (1 iframe duy nhất) ===
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -64,15 +51,15 @@ const Footer = () => {
             {/* Logo + tên */}
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl grid place-items-center bg-white shadow-sm">
-                <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
+                <img src="/images/logo.png" alt={messages.footer.logoAlt} className="w-14 h-14" />
               </div>
 
               <div>
                 <h3 className="font-space-grotesk text-[15px] lg:text-xl font-bold">
-                  PHÒNG KHÁM CHUYÊN KHOA MẮT &amp; KHÚC XẠ
+                  {messages.footer.brandLineOne}
                 </h3>
                 <p className="lg:text-xl text-emerald-300 font-bold uppercase">
-                  Dr Trần Tuấn
+                  {messages.footer.brandLineTwo}
                 </p>
               </div>
             </div>
@@ -81,38 +68,38 @@ const Footer = () => {
             <div className="space-y-3 text-sm text-gray-300">
               {/* Địa chỉ -> Google Maps (link cố định) */}
               <a
-                href={MAPS_URL}
+                href={SITE_CONTACT.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-3 group"
-                aria-label="Mở Google Maps"
-                title="Mở Google Maps"
+                aria-label={messages.footer.openMaps}
+                title={messages.footer.openMaps}
               >
                 <MapPin className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0 group-hover:text-cyan-300 transition-colors" />
                 <span className="underline decoration-dotted underline-offset-2 group-hover:text-white">
-                  {ADDRESS_TEXT}
+                  {SITE_CONTACT.address}
                 </span>
               </a>
 
               {/* SĐT -> Zalo */}
               <a
-                href={ZALO_URL}
+                href={SITE_LINKS.zalo}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 group"
-                aria-label="Chat Zalo"
-                title="Mở Zalo chat"
+                aria-label={messages.footer.chatZalo}
+                title={messages.footer.openZalo}
               >
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0 group-hover:text-cyan-300 transition-colors" />
                 <span className="underline decoration-dotted underline-offset-2 group-hover:text-white">
-                  {PHONE_DISPLAY}
+                  {SITE_CONTACT.phoneDisplay}
                 </span>
               </a>
 
               <div className="flex items-start gap-3">
                 <Clock className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0" />
                 <span>
-                  Thời gian làm việc: 08:00 – 19:00 (tất cả các ngày trong tuần)
+                  {messages.footer.workingHours}
                 </span>
               </div>
             </div>
@@ -121,20 +108,19 @@ const Footer = () => {
             <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-5">
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
                 <div className="flex-1">
-                  <div className="text-lg font-bold">CẦN HỖ TRỢ?</div>
+                  <div className="text-lg font-bold">{messages.footer.supportTitle}</div>
                   <p className="text-gray-300 text-sm">
-                    Nhấn “Chat me now” để tư vấn nhanh qua Messenger hoặc gọi
-                    Hotline.
+                    {messages.footer.supportDescription}
                   </p>
                 </div>
                 <a
-                  href={messengerUrl}
+                  href={SITE_LINKS.messenger}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 w-full md:w-auto px-5 py-3 rounded-xl bg-emerald-500 text-white font-semibold whitespace-nowrap shrink-0 hover:bg-emerald-600 active:scale-[.99] transition"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  Chat me now
+                  {messages.footer.chatNow}
                 </a>
               </div>
             </div>
@@ -142,25 +128,25 @@ const Footer = () => {
             {/* Socials */}
             <div className="flex items-center gap-4">
               <a
-                href={fanpageUrl}
+                href={SITE_CONTACT.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
-                aria-label="Facebook"
+                aria-label={messages.footer.facebookLabel}
               >
                 <Facebook className="w-4 h-4" />
               </a>
               <a
                 href="#"
                 className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
-                aria-label="Instagram"
+                aria-label={messages.footer.instagramLabel}
               >
                 <Instagram className="w-4 h-4" />
               </a>
               <a
                 href="#"
                 className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
-                aria-label="YouTube"
+                aria-label={messages.footer.youtubeLabel}
               >
                 <Youtube className="w-4 h-4" />
               </a>
@@ -169,7 +155,7 @@ const Footer = () => {
             {/* Đối tác */}
             <div>
               <div className="text-sm text-gray-300 mb-3 font-semibold">
-                ĐỐI TÁC CHIẾN LƯỢC
+                {messages.footer.partnersTitle}
               </div>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 items-center">
                 {partners.map((p, i) => (
@@ -197,9 +183,9 @@ const Footer = () => {
             >
               <iframe
                 key={fbWidth}
-                title="Facebook Page"
+                title={messages.footer.facebookPageTitle}
                 src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
-                  fanpageUrl
+                  SITE_CONTACT.facebookUrl
                 )}&tabs=timeline&width=${fbWidth}&height=360&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
                 width="100%"
                 height="360"
@@ -211,7 +197,7 @@ const Footer = () => {
               />
             </div>
             <p className="mt-3 text-sm text-gray-300">
-              Theo dõi fanpage để nhận ưu đãi & cập nhật mới nhất.
+              {messages.footer.followPage}
             </p>
           </div>
         </div>
@@ -220,17 +206,17 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
-              © 2024 Dr Trần Tuấn. Tất cả quyền được bảo lưu.
+              {messages.footer.copyright}
             </p>
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-cyan-400 transition-colors">
-                Chính sách bảo mật
+                {messages.footer.privacy}
               </a>
               <a href="#" className="hover:text-cyan-400 transition-colors">
-                Điều khoản sử dụng
+                {messages.footer.terms}
               </a>
               <a href="#" className="hover:text-cyan-400 transition-colors">
-                Sitemap
+                {messages.footer.sitemap}
               </a>
             </div>
           </div>

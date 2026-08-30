@@ -1,3 +1,5 @@
+import { messages } from "@/i18n";
+
 // Validation utilities for booking form
 export interface ValidationError {
   field: string;
@@ -20,15 +22,15 @@ export interface BookingFormData {
 // Vietnamese name validation - allows Vietnamese characters
 const validateName = (name: string): ValidationError | null => {
   if (!name.trim()) {
-    return { field: "name", message: "Họ và tên không được để trống" };
+    return { field: "name", message: messages.validation.nameRequired };
   }
 
   if (name.trim().length < 2) {
-    return { field: "name", message: "Họ và tên phải có ít nhất 2 ký tự" };
+    return { field: "name", message: messages.validation.nameTooShort };
   }
 
   if (name.trim().length > 50) {
-    return { field: "name", message: "Họ và tên không được quá 50 ký tự" };
+    return { field: "name", message: messages.validation.nameTooLong };
   }
 
   // Allow Vietnamese characters, spaces, and common punctuation
@@ -38,7 +40,7 @@ const validateName = (name: string): ValidationError | null => {
   if (!nameRegex.test(name.trim())) {
     return {
       field: "name",
-      message: "Họ và tên chỉ được chứa chữ cái và khoảng trắng",
+      message: messages.validation.nameInvalidCharacters,
     };
   }
 
@@ -46,7 +48,7 @@ const validateName = (name: string): ValidationError | null => {
   if (name.includes("  ")) {
     return {
       field: "name",
-      message: "Họ và tên không được chứa nhiều khoảng trắng liên tiếp",
+      message: messages.validation.nameRepeatedSpaces,
     };
   }
 
@@ -56,7 +58,7 @@ const validateName = (name: string): ValidationError | null => {
 // Vietnamese phone number validation
 const validatePhone = (phone: string): ValidationError | null => {
   if (!phone.trim()) {
-    return { field: "phone", message: "Số điện thoại không được để trống" };
+    return { field: "phone", message: messages.validation.phoneRequired };
   }
 
   // Remove all spaces and special characters for validation
@@ -69,7 +71,7 @@ const validatePhone = (phone: string): ValidationError | null => {
   if (!phoneRegex.test(cleanPhone)) {
     return {
       field: "phone",
-      message: "Số điện thoại không đúng định dạng Việt Nam",
+      message: messages.validation.phoneInvalid,
     };
   }
 
@@ -79,7 +81,7 @@ const validatePhone = (phone: string): ValidationError | null => {
 // Date validation
 const validateDate = (date: string): ValidationError | null => {
   if (!date.trim()) {
-    return { field: "date", message: "Ngày khám không được để trống" };
+    return { field: "date", message: messages.validation.dateRequired };
   }
 
   const selectedDate = new Date(date);
@@ -87,13 +89,13 @@ const validateDate = (date: string): ValidationError | null => {
   today.setHours(0, 0, 0, 0);
 
   if (isNaN(selectedDate.getTime())) {
-    return { field: "date", message: "Ngày khám không hợp lệ" };
+    return { field: "date", message: messages.validation.dateInvalid };
   }
 
   if (selectedDate < today) {
     return {
       field: "date",
-      message: "Ngày khám không được là ngày trong quá khứ",
+      message: messages.validation.datePast,
     };
   }
 
@@ -104,13 +106,13 @@ const validateDate = (date: string): ValidationError | null => {
   if (selectedDate > maxDate) {
     return {
       field: "date",
-      message: "Chỉ có thể đặt lịch trong vòng 6 tháng tới",
+      message: messages.validation.dateTooFar,
     };
   }
 
   // Check if it's Sunday (0 = Sunday)
   if (selectedDate.getDay() === 0) {
-    return { field: "date", message: "Phòng khám không làm việc vào Chủ nhật" };
+    return { field: "date", message: messages.validation.dateSunday };
   }
 
   return null;
@@ -119,7 +121,7 @@ const validateDate = (date: string): ValidationError | null => {
 // Time validation
 const validateTime = (time: string): ValidationError | null => {
   if (!time.trim()) {
-    return { field: "time", message: "Giờ khám không được để trống" };
+    return { field: "time", message: messages.validation.timeRequired };
   }
 
   const validTimeSlots = [
@@ -134,7 +136,7 @@ const validateTime = (time: string): ValidationError | null => {
   ];
 
   if (!validTimeSlots.includes(time)) {
-    return { field: "time", message: "Giờ khám không hợp lệ" };
+    return { field: "time", message: messages.validation.timeInvalid };
   }
 
   return null;
@@ -143,7 +145,7 @@ const validateTime = (time: string): ValidationError | null => {
 // Message validation (optional field)
 const validateMessage = (message: string): ValidationError | null => {
   if (message.length > 500) {
-    return { field: "message", message: "Ghi chú không được quá 500 ký tự" };
+    return { field: "message", message: messages.validation.messageTooLong };
   }
 
   // Check for suspicious patterns (basic spam detection)
@@ -158,7 +160,7 @@ const validateMessage = (message: string): ValidationError | null => {
     if (pattern.test(message)) {
       return {
         field: "message",
-        message: "Ghi chú chứa nội dung không phù hợp",
+        message: messages.validation.messageInappropriate,
       };
     }
   }

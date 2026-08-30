@@ -1,26 +1,27 @@
 "use client";
 
 import { AlertTriangle, Eye, AlertCircle, Zap, Droplets } from "lucide-react";
+import { messages } from "@/i18n";
 
 const GoalsSection = () => {
   const myopiaStats = [
     {
-      text: "Tăng 4.06 lần nguy cơ bị thoái hóa võng mạc cận thị",
+      text: messages.goals.stats[0],
       icon: Eye,
       color: "from-blue-500 to-blue-600",
     },
     {
-      text: "Tăng 21.5 lần nguy cơ bị bong võng mạc",
+      text: messages.goals.stats[1],
       icon: AlertCircle,
       color: "from-red-500 to-red-600",
     },
     {
-      text: "Tăng 5.4 lần nguy cơ bị đục thủy tinh thể",
+      text: messages.goals.stats[2],
       icon: Zap,
       color: "from-orange-500 to-orange-600",
     },
     {
-      text: "Tăng 2.5 lần nguy cơ bị Glaucoma (cườm nước - glocom)",
+      text: messages.goals.stats[3],
       icon: Droplets,
       color: "from-green-500 to-emerald-600",
     },
@@ -56,12 +57,12 @@ const GoalsSection = () => {
             <span className="inline-flex w-10 h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 items-center justify-center rounded-full bg-red-100">
               <AlertTriangle className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-red-600" />
             </span>
-            CẬN THỊ VÀ BIẾN CHỨNG CỦA CẬN THỊ
+            {messages.goals.title}
           </h2>
 
           <div className="block"></div>
           <div className="my-2 inline-block rounded-xl px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-base md:text-2xl lg:text-[22px] shadow">
-            ĐANG ĐƯỢC COI LÀ VẤN NẠN TOÀN CẦU
+            {messages.goals.globalIssue}
           </div>
         </div>
 
@@ -71,19 +72,19 @@ const GoalsSection = () => {
           <div className="space-y-4 lg:space-y-4 overflow-visible min-h-0">
             <div className="rounded-2xl p-4 lg:p-4 bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 shadow">
               <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900">
-                2050
+                {messages.goals.year}
               </p>
               <p className="mt-1 text-base md:text-xl lg:text-[20px] font-medium text-gray-800">
-                Ước tính có tới{" "}
+                {messages.goals.estimatePrefix}{" "}
                 <span className="text-red-600 font-bold">
-                  50% dân số thế giới
+                  {messages.goals.population}
                 </span>{" "}
-                mắc cận thị
+                {messages.goals.estimateSuffix}
               </p>
             </div>
 
             <p className="text-base md:text-lg lg:text-[20px] font-semibold text-gray-800">
-              Cận thị cao sẽ tăng nguy cơ:
+              {messages.goals.riskLead}
             </p>
 
             <div className="flex flex-col gap-3 lg:gap-3 min-h-0">
@@ -127,7 +128,7 @@ const GoalsSection = () => {
             <div className="relative rounded-2xl overflow-hidden bg-white shadow-2xl ring-1 ring-black/5 min-h-[220px] sm:min-h-[260px] lg:min-h-0 h-full flex items-center justify-center">
               <img
                 src="/images/essilor.jpg"
-                alt="Control Myopia Today or Risk Poor Vision Tomorrow"
+                alt={messages.goals.campaignImageAlt}
                 className="block w-auto h-auto max-h-full
                            max-w-[95%] sm:max-w-[92%] lg:max-w-[80%] xl:max-w-[72%]
                            object-contain"
@@ -140,7 +141,7 @@ const GoalsSection = () => {
               <div className="relative rounded-2xl overflow-hidden bg-black shadow-xl ring-1 ring-black/5 flex-1 flex items-center justify-center">
                 <img
                   src="/images/retinalInsider.jpg"
-                  alt="Hình ảnh võng mạc bị tổn thương"
+                  alt={messages.goals.retinaImageAlt}
                   className="block w-auto h-auto max-h-full
                              max-w-[95%] sm:max-w-[92%] lg:max-w-[80%] xl:max-w-[72%]
                              object-contain"
@@ -148,7 +149,7 @@ const GoalsSection = () => {
               </div>
               <div className="mt-2 text-center">
                 <span className="inline-block px-3 py-1 rounded-full bg-white/90 text-gray-900 text-sm sm:text-base lg:text-[16px] font-medium shadow">
-                  Hình ảnh võng mạc bị tổn thương
+                  {messages.goals.retinaCaption}
                 </span>
               </div>
             </div>

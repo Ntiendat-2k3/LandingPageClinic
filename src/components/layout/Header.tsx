@@ -11,18 +11,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-const ADDRESS_TEXT = "122 Bà Triệu, phường Hai Bà Trưng, Hà Nội";
-const MAPS_URL = "https://maps.app.goo.gl/8Ab7ZyQyaadiZZD46";
-const PHONE_DISPLAY = "03.878.12321";
-const PHONE_PLAIN = "0387812321";
-const ZALO_URL = `https://zalo.me/${PHONE_PLAIN}`;
+import { SITE_CONTACT, SITE_LINKS } from "@/config/site";
+import { formatMessage, messages } from "@/i18n";
 
 const NAVIGATION_ITEMS = [
-  { label: "Dịch vụ", sectionId: "services" },
-  { label: "Quy trình", sectionId: "process" },
-  { label: "Kiểm soát cận thị", sectionId: "pricing" },
-  { label: "Đội ngũ chuyên môn", sectionId: "doctors" },
+  { label: messages.header.navigation.services, sectionId: "services" },
+  { label: messages.header.navigation.process, sectionId: "process" },
+  { label: messages.header.navigation.myopiaControl, sectionId: "pricing" },
+  { label: messages.header.navigation.team, sectionId: "doctors" },
 ] as const;
 
 const Header = () => {
@@ -42,16 +38,16 @@ const Header = () => {
           <div className="flex shrink-0 items-center gap-2">
             <img
               src="/images/logo.png"
-              alt="Logo Phòng khám Mắt Dr Trần Tuấn"
+              alt={messages.header.logoAlt}
               className="size-12 shrink-0 sm:size-14"
             />
             <div className="font-heading text-xs font-bold leading-tight whitespace-nowrap text-foreground sm:text-sm lg:text-base xl:text-lg">
-              <div>Phòng khám CK Mắt &amp; Khúc xạ</div>
-              <div>Dr Trần Tuấn</div>
+              <div>{messages.header.brandLineOne}</div>
+              <div>{messages.header.brandLineTwo}</div>
             </div>
           </div>
 
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Điều hướng chính">
+          <nav className="hidden items-center gap-1 md:flex" aria-label={messages.header.mainNavigationLabel}>
             {NAVIGATION_ITEMS.map((item) => (
               <Button
                 key={item.sectionId}
@@ -67,24 +63,28 @@ const Header = () => {
 
           <div className="hidden shrink-0 items-center gap-3 text-xs text-muted-foreground lg:flex xl:gap-4 xl:text-sm">
             <a
-              href={ZALO_URL}
+              href={SITE_LINKS.zalo}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 transition-colors hover:text-primary"
-              aria-label={`Chat Zalo qua số ${PHONE_DISPLAY}`}
+              aria-label={formatMessage(messages.header.zaloLabel, {
+                phone: SITE_CONTACT.phoneDisplay,
+              })}
             >
               <Phone className="size-4" aria-hidden="true" />
-              <span>{PHONE_DISPLAY}</span>
+              <span>{SITE_CONTACT.phoneDisplay}</span>
             </a>
             <a
-              href={MAPS_URL}
+              href={SITE_CONTACT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 transition-colors hover:text-primary"
-              aria-label={`Mở Google Maps đến ${ADDRESS_TEXT}`}
+              aria-label={formatMessage(messages.header.mapsLabel, {
+                address: SITE_CONTACT.address,
+              })}
             >
               <MapPin className="size-4" aria-hidden="true" />
-              <span>{ADDRESS_TEXT}</span>
+              <span>{SITE_CONTACT.address}</span>
             </a>
           </div>
 
@@ -95,22 +95,22 @@ const Header = () => {
                 variant="ghost"
                 size="icon"
                 className="md:hidden"
-                aria-label="Mở menu điều hướng"
+                aria-label={messages.header.openMenuLabel}
               >
                 <Menu />
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
               <SheetHeader>
-                <SheetTitle>Phòng khám Mắt Dr Trần Tuấn</SheetTitle>
+                <SheetTitle>{messages.header.mobileTitle}</SheetTitle>
                 <SheetDescription>
-                  Chọn nội dung cần xem hoặc liên hệ với phòng khám.
+                  {messages.header.mobileDescription}
                 </SheetDescription>
               </SheetHeader>
 
               <nav
                 className="flex flex-col gap-1 px-4"
-                aria-label="Điều hướng trên thiết bị di động"
+                aria-label={messages.header.mobileNavigationLabel}
               >
                 {NAVIGATION_ITEMS.map((item) => (
                   <Button
@@ -129,22 +129,22 @@ const Header = () => {
 
               <div className="flex flex-col gap-3 px-4 text-sm text-muted-foreground">
                 <a
-                  href={ZALO_URL}
+                  href={SITE_LINKS.zalo}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 transition-colors hover:text-primary"
                 >
                   <Phone className="size-4" aria-hidden="true" />
-                  <span>{PHONE_DISPLAY}</span>
+                  <span>{SITE_CONTACT.phoneDisplay}</span>
                 </a>
                 <a
-                  href={MAPS_URL}
+                  href={SITE_CONTACT.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-2 transition-colors hover:text-primary"
                 >
                   <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                  <span>{ADDRESS_TEXT}</span>
+                  <span>{SITE_CONTACT.address}</span>
                 </a>
               </div>
 
@@ -155,7 +155,7 @@ const Header = () => {
                   className="w-full"
                   onClick={() => scrollToSection("booking")}
                 >
-                  Đặt lịch khám
+                  {messages.common.bookAppointment}
                 </Button>
               </div>
             </SheetContent>

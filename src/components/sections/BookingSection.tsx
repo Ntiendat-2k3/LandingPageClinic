@@ -29,6 +29,7 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { sendBookingNotification, type BookingData } from "@/lib/emailjs";
+import { messages } from "@/i18n";
 import {
   formatPhoneNumber,
   getFieldError,
@@ -149,23 +150,23 @@ const BookingSection = () => {
     <section id="booking" className="section-padding bg-gradient-primary">
       <div data-scroll-reveal className="container mx-auto container-padding">
         <SectionHeader
-          title="Đăng ký miễn phí nhận ưu đãi 50%"
-          description="Điền thông tin bên dưới để đặt lịch. Chúng tôi sẽ liên hệ xác nhận trong 30 phút."
+          title={messages.booking.title}
+          description={messages.booking.description}
           className="mb-10 md:mb-12"
         />
 
         <Card className="mx-auto max-w-3xl">
           <CardHeader>
-            <CardTitle>Thông tin đặt lịch khám</CardTitle>
+            <CardTitle>{messages.booking.cardTitle}</CardTitle>
             <CardDescription>
-              Các trường có dấu * là thông tin bắt buộc.
+              {messages.booking.requiredNote}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} noValidate>
               <FieldGroup>
                 <FieldSet>
-                  <FieldLegend>Thông tin cá nhân</FieldLegend>
+                  <FieldLegend>{messages.booking.personalInfo}</FieldLegend>
                   <FieldGroup>
                     <Field
                       data-invalid={Boolean(nameError)}
@@ -173,7 +174,7 @@ const BookingSection = () => {
                     >
                       <FieldLabel htmlFor="booking-name">
                         <User className="size-4" aria-hidden="true" />
-                        Họ và tên *
+                        {messages.booking.nameLabel}
                       </FieldLabel>
                       <Input
                         id="booking-name"
@@ -186,7 +187,7 @@ const BookingSection = () => {
                         autoComplete="name"
                         aria-invalid={Boolean(nameError)}
                         aria-describedby={nameError ? "booking-name-error" : undefined}
-                        placeholder="Nhập họ và tên của bạn"
+                        placeholder={messages.booking.namePlaceholder}
                       />
                       <FieldError id="booking-name-error">
                         {nameError}
@@ -199,7 +200,7 @@ const BookingSection = () => {
                     >
                       <FieldLabel htmlFor="booking-phone">
                         <Phone className="size-4" aria-hidden="true" />
-                        Số điện thoại *
+                        {messages.booking.phoneLabel}
                       </FieldLabel>
                       <Input
                         id="booking-phone"
@@ -213,7 +214,7 @@ const BookingSection = () => {
                         inputMode="tel"
                         aria-invalid={Boolean(phoneError)}
                         aria-describedby={phoneError ? "booking-phone-error" : undefined}
-                        placeholder="0387 812 321"
+                        placeholder={messages.booking.phonePlaceholder}
                       />
                       <FieldError id="booking-phone-error">
                         {phoneError}
@@ -223,7 +224,7 @@ const BookingSection = () => {
                 </FieldSet>
 
                 <FieldSet>
-                  <FieldLegend>Thông tin lịch hẹn</FieldLegend>
+                  <FieldLegend>{messages.booking.appointmentInfo}</FieldLegend>
                   <FieldGroup className="grid md:grid-cols-2">
                     <Field
                       data-invalid={Boolean(dateError)}
@@ -231,7 +232,7 @@ const BookingSection = () => {
                     >
                       <FieldLabel htmlFor="booking-date">
                         <Calendar className="size-4" aria-hidden="true" />
-                        Ngày khám *
+                        {messages.booking.dateLabel}
                       </FieldLabel>
                       <Input
                         id="booking-date"
@@ -256,7 +257,7 @@ const BookingSection = () => {
                     >
                       <FieldLabel htmlFor="booking-time">
                         <Clock className="size-4" aria-hidden="true" />
-                        Giờ khám *
+                        {messages.booking.timeLabel}
                       </FieldLabel>
                       <NativeSelect
                         id="booking-time"
@@ -269,7 +270,7 @@ const BookingSection = () => {
                         aria-describedby={timeError ? "booking-time-error" : undefined}
                       >
                         <NativeSelectOption value="">
-                          Chọn giờ
+                          {messages.booking.selectTime}
                         </NativeSelectOption>
                         {TIME_SLOTS.map((timeSlot) => (
                           <NativeSelectOption key={timeSlot} value={timeSlot}>
@@ -290,7 +291,7 @@ const BookingSection = () => {
                 >
                   <FieldLabel htmlFor="booking-message">
                     <MessageSquare className="size-4" aria-hidden="true" />
-                    Ghi chú thêm
+                    {messages.booking.messageLabel}
                   </FieldLabel>
                   <Textarea
                     id="booking-message"
@@ -306,7 +307,7 @@ const BookingSection = () => {
                         ? "booking-message-error booking-message-count"
                         : "booking-message-count"
                     }
-                    placeholder="Mô tả triệu chứng hoặc yêu cầu đặc biệt..."
+                    placeholder={messages.booking.messagePlaceholder}
                   />
                   <div className="flex items-start justify-between gap-4">
                     <FieldError id="booking-message-error">
@@ -330,10 +331,10 @@ const BookingSection = () => {
                   {isLoading ? (
                     <>
                       <Spinner data-icon="inline-start" />
-                      Đang gửi thông báo...
+                      {messages.booking.submitting}
                     </>
                   ) : (
-                    "Đặt lịch ngay"
+                    messages.booking.submit
                   )}
                 </Button>
               </FieldGroup>
