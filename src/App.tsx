@@ -12,7 +12,8 @@ import ProcessSection from "./components/sections/ProcessSection";
 import ServicesSection from "./components/sections/ServicesSection";
 import TestimonialsSection from "./components/sections/TestimonialsSection";
 import VideoSection from "./components/sections/VideoSection";
-import StickyCTA from "./components/ui/StickyCTA";
+import StickyCTA from "./components/common/StickyCTA";
+import ScrollRevealObserver from "./components/common/ScrollRevealObserver";
 import BookingSuccess from "./pages/BookingSuccess";
 
 function HomePage() {
@@ -35,9 +36,16 @@ function HomePage() {
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
+      <a
+        href="#main-content"
+        className="sr-only fixed left-4 top-4 z-50 rounded-lg bg-background px-4 py-2 text-foreground shadow-lg focus:not-sr-only"
+      >
+        Chuyển đến nội dung chính
+      </a>
       <Header />
-      <main>
+      <ScrollRevealObserver />
+      <main id="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/booking-success" element={<BookingSuccess />} />

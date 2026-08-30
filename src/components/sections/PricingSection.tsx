@@ -86,7 +86,7 @@ const PricingSection: React.FC = () => {
         <div className="absolute bottom-0 left-1/3 w-72 h-72 rounded-full blur-3xl bg-purple-200/30" />
       </div>
 
-      <div className="container mx-auto px-4 relative">
+      <div data-scroll-reveal className="container mx-auto px-4 relative">
         {/* Title + TAG */}
         <div className="text-center mb-8 md:mb-12">
           {/* tag “KIỂM SOÁT CẬN THỊ” – to hơn, cân đối */}

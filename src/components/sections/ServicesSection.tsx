@@ -118,7 +118,10 @@ const ServicesSection = () => {
         <div className="absolute bottom-10 right-10 w-20 h-20 rounded-full border-2 border-emerald-300" />
       </div>
 
-      <div className="container mx-auto container-padding relative z-10">
+      <div
+        data-scroll-reveal
+        className="container mx-auto container-padding relative z-10"
+      >
         {/* Header */}
         <div className="text-center mb-8 md:mb-9">
           <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-black mb-2">

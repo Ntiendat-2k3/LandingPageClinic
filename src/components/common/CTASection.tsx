@@ -1,5 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
 interface CTASectionProps {
   title: string;
   description: string;
@@ -21,38 +24,40 @@ const CTASection = ({
   variant = "default",
   className = "",
 }: CTASectionProps) => {
-  const baseClasses =
+  const baseClasses = cn(
+    "rounded-xl p-5 md:rounded-2xl",
     variant === "gradient"
-      ? // Mobile gọn: bo tròn & padding nhỏ, desktop giữ rộng
-        "bg-gradient-secondary rounded-xl p-5 md:rounded-2xl md:p-12"
-      : "bg-white rounded-xl p-5 md:rounded-2xl md:p-8 shadow-lg border border-gray-100";
+      ? "bg-gradient-secondary md:p-12"
+      : "bg-card shadow-lg ring-1 ring-border md:p-8"
+  );
 
   return (
-    <div className={`mt-10 md:mt-16 text-center ${className}`}>
+    <div className={cn("mt-10 text-center md:mt-16", className)}>
       <div className={baseClasses}>
-        <h3 className="font-space-grotesk text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4">
+        <h3 className="mb-2 font-heading text-xl font-bold text-foreground md:mb-4 md:text-3xl">
           {title}
         </h3>
 
-        <p className="text-sm md:text-lg text-gray-600 mb-5 md:mb-8 max-w-xl md:max-w-2xl mx-auto leading-relaxed">
+        <p className="mx-auto mb-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:mb-8 md:max-w-2xl md:text-lg">
           {description}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-          <button
-            className="btn-primary !px-4 !py-3 !text-sm sm:!px-6 sm:!py-3.5 sm:!text-base"
+        <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+          <Button
+            size="lg"
             onClick={onPrimaryClick}
           >
             {primaryButtonText}
-          </button>
+          </Button>
 
           {secondaryButtonText && (
-            <button
-              className="btn-secondary !px-4 !py-3 !text-sm sm:!px-6 sm:!py-3.5 sm:!text-base"
+            <Button
+              variant="outline"
+              size="lg"
               onClick={onSecondaryClick}
             >
               {secondaryButtonText}
-            </button>
+            </Button>
           )}
         </div>
       </div>

@@ -20,7 +20,7 @@ export const EMAILJS_CONFIG = {
   ),
 } as const;
 
-// Initialize EmailJS
+// Khởi tạo EmailJS một lần với khóa công khai từ môi trường.
 emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
 export interface BookingData {
@@ -41,12 +41,12 @@ const formatDateVN = (input: string): string => {
     return `${d}-${m}-${y}`;
   }
   // dd/mm/yyyy hoặc dd-mm-yyyy -> chuyển sang dd-MM-yyyy
-  const dmy = input.match(/^(\d{2})[\/-](\d{2})[\/-](\d{4})$/);
+  const dmy = input.match(/^(\d{2})[/-](\d{2})[/-](\d{4})$/);
   if (dmy) {
     const [, d, m, y] = dmy;
     return `${d}-${m}-${y}`;
   }
-  // Fallback: để JS parse rồi format theo local
+  // Dùng trình phân tích ngày của JavaScript khi chuỗi không theo hai định dạng trên.
   const d = new Date(input);
   if (!isNaN(d.getTime())) {
     const dd = String(d.getDate()).padStart(2, "0");

@@ -1,77 +1,59 @@
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "@fontsource/be-vietnam-pro/800.css";
 @import "./styles/reset.css";
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: #ffffff;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --popover: #ffffff;
+  --popover-foreground: #111827;
+  --primary: #0891b2;
+  --primary-foreground: #ffffff;
+  --secondary: #10b981;
+  --secondary-foreground: #052e2b;
+  --muted: #f3f4f6;
+  --muted-foreground: #4b5563;
+  --accent: #ecfdf5;
+  --accent-foreground: #047857;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #d1d5db;
+  --ring: #06b6d4;
+  --brand-cyan: #06b6d4;
+  --brand-emerald: #10b981;
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: #111827;
+  --foreground: #f9fafb;
+  --card: #1f2937;
+  --card-foreground: #f9fafb;
+  --popover: #1f2937;
+  --popover-foreground: #f9fafb;
+  --primary: #22d3ee;
+  --primary-foreground: #083344;
+  --secondary: #34d399;
+  --secondary-foreground: #052e2b;
+  --muted: #374151;
+  --muted-foreground: #d1d5db;
+  --accent: #064e3b;
+  --accent-foreground: #d1fae5;
+  --destructive: #f87171;
+  --destructive-foreground: #450a0a;
+  --border: #374151;
+  --input: #4b5563;
+  --ring: #22d3ee;
 }
 
 @theme inline {
@@ -94,67 +76,76 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-emerald: var(--brand-emerald);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Added font variables for Space Grotesk and DM Sans */
-  --font-space-grotesk: var(--font-space-grotesk);
-  --font-dm-sans: var(--font-dm-sans);
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-dm-sans);
-    line-height: 1.6;
-    color: #1f2937;
-    background-color: #ffffff;
+
+  html {
+    scroll-behavior: smooth;
   }
 
-  /* Added heading styles */
+  main section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    line-height: 1.6;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-space-grotesk);
-    font-weight: 600;
+    @apply font-heading;
     line-height: 1.2;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 }
 
-/* Added custom utility classes */
-.font-space-grotesk {
-  font-family: var(--font-space-grotesk);
+/* Chỉ ẩn nội dung sau khi JavaScript đã sẵn sàng để tránh mất nội dung khi script lỗi. */
+.scroll-reveal-enabled [data-scroll-reveal]:not([data-scroll-reveal="visible"]) {
+  opacity: 0;
+  transform: translate3d(0, 1.25rem, 0);
 }
 
+.scroll-reveal-enabled [data-scroll-reveal] {
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-enabled [data-scroll-reveal="visible"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Giữ tương thích với các section cũ trong lúc thống nhất typography. */
+.font-space-grotesk,
 .font-dm-sans {
-  font-family: var(--font-dm-sans);
+  font-family: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -172,13 +163,7 @@
   background: #94a3b8;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Added animation utilities */
-@keyframes fadeInUp {
+@keyframes fade-in-up {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -190,30 +175,32 @@ html {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+  animation: fade-in-up 0.6s ease-out;
 }
 
-/* Added custom gradient backgrounds */
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+  background: linear-gradient(
+    135deg,
+    var(--brand-cyan) 0%,
+    var(--brand-emerald) 100%
+  );
 }
 
 .bg-gradient-secondary {
   background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%);
 }
 
-/* Updated button styles to only apply hover effects on desktop */
+/* Các class cũ vẫn dùng token thương hiệu để tránh lệch màu giữa các section. */
 .btn-primary {
-  @apply bg-gradient-to-r from-cyan-500 to-emerald-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 md:hover:shadow-lg md:hover:scale-105 md:cursor-pointer;
+  @apply rounded-lg bg-gradient-to-r from-brand-cyan to-brand-emerald px-6 py-3 font-semibold text-white transition-all duration-300 md:hover:scale-105 md:hover:shadow-lg;
 }
 
 .btn-secondary {
-  @apply border-2 border-cyan-500 text-cyan-600 font-semibold py-3 px-6 rounded-lg transition-all duration-300 md:hover:bg-cyan-50 md:hover:shadow-md md:cursor-pointer;
+  @apply rounded-lg border-2 border-primary px-6 py-3 font-semibold text-primary transition-all duration-300 md:hover:bg-accent md:hover:shadow-md;
 }
 
-/* Updated utility classes to only apply hover effects on desktop */
 .card-hover {
-  @apply transition-all duration-300 md:hover:shadow-xl md:hover:-translate-y-2;
+  @apply transition-all duration-300 md:hover:-translate-y-2 md:hover:shadow-xl;
 }
 
 .section-padding {
@@ -223,17 +210,28 @@ html {
 .container-padding {
   @apply px-4 sm:px-6 lg:px-8;
 }
-/* Added float animation */
 
 @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-        .float-animation {
-          animation: float 4s ease-in-out infinite;
-        }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

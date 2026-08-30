@@ -1,180 +1,166 @@
-"use client";
-
 import { useState } from "react";
-import { Menu, X, Phone, MapPin } from "lucide-react";
+import { MapPin, Menu, Phone } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
+const ADDRESS_TEXT = "122 Bà Triệu, phường Hai Bà Trưng, Hà Nội";
+const MAPS_URL = "https://maps.app.goo.gl/8Ab7ZyQyaadiZZD46";
+const PHONE_DISPLAY = "03.878.12321";
+const PHONE_PLAIN = "0387812321";
+const ZALO_URL = `https://zalo.me/${PHONE_PLAIN}`;
+
+const NAVIGATION_ITEMS = [
+  { label: "Dịch vụ", sectionId: "services" },
+  { label: "Quy trình", sectionId: "process" },
+  { label: "Kiểm soát cận thị", sectionId: "pricing" },
+  { label: "Đội ngũ chuyên môn", sectionId: "doctors" },
+] as const;
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById(sectionId)
+      ?.scrollIntoView({ behavior: "smooth" });
     setIsMenuOpen(false);
   };
 
-  // ====== Config cho địa chỉ / Zalo (giống Footer) ======
-  const ADDRESS_TEXT = "122 Bà Triệu, phường Hai Bà Trưng, Hà Nội";
-
-  // Link cố định của phòng khám (có thể đưa vào ENV nếu muốn)
-  const MAPS_URL = "https://maps.app.goo.gl/8Ab7ZyQyaadiZZD46";
-
-  const PHONE_DISPLAY = "03.878.12321";
-  const PHONE_PLAIN = "0387812321";
-  const ZALO_URL = `https://zalo.me/${PHONE_PLAIN}`;
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <div className="w-14 h-14">
-              <img src="/images/logo.png" alt="logo" className="w-14 h-14" />
-            </div>
-            <div className="font-space-grotesk font-bold text-[15px] lg:text-xl text-gray-900">
-              Phòng khám CK Mắt & Khúc xạ <br className="lg:hidden block" /> Dr
-              Trần Tuấn
+        <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex shrink-0 items-center gap-2">
+            <img
+              src="/images/logo.png"
+              alt="Logo Phòng khám Mắt Dr Trần Tuấn"
+              className="size-12 shrink-0 sm:size-14"
+            />
+            <div className="font-heading text-xs font-bold leading-tight whitespace-nowrap text-foreground sm:text-sm lg:text-base xl:text-lg">
+              <div>Phòng khám CK Mắt &amp; Khúc xạ</div>
+              <div>Dr Trần Tuấn</div>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection("services")}
-              className="text-gray-600 hover:text-cyan-600 transition-colors font-medium"
-            >
-              Dịch vụ
-            </button>
-            <button
-              onClick={() => scrollToSection("process")}
-              className="text-gray-600 hover:text-cyan-600 transition-colors font-medium"
-            >
-              Quy trình
-            </button>
-            <button
-              onClick={() => scrollToSection("pricing")}
-              className="text-gray-600 hover:text-cyan-600 transition-colors font-medium"
-            >
-              Kiểm soát cận thị
-            </button>
-            <button
-              onClick={() => scrollToSection("doctors")}
-              className="text-gray-600 hover:text-cyan-600 transition-colors font-medium"
-            >
-              Đội ngũ chuyên môn
-            </button>
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Điều hướng chính">
+            {NAVIGATION_ITEMS.map((item) => (
+              <Button
+                key={item.sectionId}
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => scrollToSection(item.sectionId)}
+              >
+                {item.label}
+              </Button>
+            ))}
           </nav>
 
-          {/* Contact Info (Desktop) */}
-          <div className="hidden lg:flex items-center space-x-4 text-sm text-gray-600">
-            {/* SĐT -> Zalo */}
+          <div className="hidden shrink-0 items-center gap-3 text-xs text-muted-foreground lg:flex xl:gap-4 xl:text-sm">
             <a
               href={ZALO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 hover:text-cyan-600 transition-colors"
-              aria-label="Chat Zalo"
-              title="Mở Zalo chat"
+              className="flex items-center gap-1 transition-colors hover:text-primary"
+              aria-label={`Chat Zalo qua số ${PHONE_DISPLAY}`}
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="size-4" aria-hidden="true" />
               <span>{PHONE_DISPLAY}</span>
             </a>
-
-            {/* Địa chỉ -> Google Maps (link cố định) */}
             <a
               href={MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 hover:text-cyan-600 transition-colors"
-              aria-label="Mở Google Maps"
-              title="Mở Google Maps"
+              className="flex items-center gap-1 transition-colors hover:text-primary"
+              aria-label={`Mở Google Maps đến ${ADDRESS_TEXT}`}
             >
-              <MapPin className="w-4 h-4" />
+              <MapPin className="size-4" aria-hidden="true" />
               <span>{ADDRESS_TEXT}</span>
             </a>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={toggleMenu}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6 text-gray-600" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-600" />
-            )}
-          </button>
-        </div>
+          <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            <SheetTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                aria-label="Mở menu điều hướng"
+              >
+                <Menu />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <SheetHeader>
+                <SheetTitle>Phòng khám Mắt Dr Trần Tuấn</SheetTitle>
+                <SheetDescription>
+                  Chọn nội dung cần xem hoặc liên hệ với phòng khám.
+                </SheetDescription>
+              </SheetHeader>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
-            <nav className="flex flex-col space-y-4">
-              <button
-                onClick={() => scrollToSection("services")}
-                className="text-left text-gray-600 hover:text-cyan-600 transition-colors font-medium"
+              <nav
+                className="flex flex-col gap-1 px-4"
+                aria-label="Điều hướng trên thiết bị di động"
               >
-                Dịch vụ
-              </button>
-              <button
-                onClick={() => scrollToSection("process")}
-                className="text-left text-gray-600 hover:text-cyan-600 transition-colors font-medium"
-              >
-                Quy trình
-              </button>
-              <button
-                onClick={() => scrollToSection("pricing")}
-                className="text-left text-gray-600 hover:text-cyan-600 transition-colors font-medium"
-              >
-                Kiểm soát cận thị
-              </button>
-              <button
-                onClick={() => scrollToSection("doctors")}
-                className="text-left text-gray-600 hover:text-cyan-600 transition-colors font-medium"
-              >
-                Đội ngũ chuyên môn
-              </button>
+                {NAVIGATION_ITEMS.map((item) => (
+                  <Button
+                    key={item.sectionId}
+                    type="button"
+                    variant="ghost"
+                    className="w-full justify-start"
+                    onClick={() => scrollToSection(item.sectionId)}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+              </nav>
 
-              <div className="pt-2 border-t border-gray-100">
-                {/* SĐT -> Zalo (Mobile) */}
+              <Separator />
+
+              <div className="flex flex-col gap-3 px-4 text-sm text-muted-foreground">
                 <a
                   href={ZALO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-sm text-gray-600 mb-2 hover:text-cyan-600 transition-colors"
-                  aria-label="Chat Zalo"
-                  title="Mở Zalo chat"
+                  className="flex items-center gap-2 transition-colors hover:text-primary"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="size-4" aria-hidden="true" />
                   <span>{PHONE_DISPLAY}</span>
                 </a>
-
-                {/* Địa chỉ -> Google Maps (Mobile, link cố định) */}
                 <a
                   href={MAPS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-sm text-gray-600 mb-4 hover:text-cyan-600 transition-colors"
-                  aria-label="Mở Google Maps"
-                  title="Mở Google Maps"
+                  className="flex items-start gap-2 transition-colors hover:text-primary"
                 >
-                  <MapPin className="w-4 h-4" />
+                  <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                   <span>{ADDRESS_TEXT}</span>
                 </a>
+              </div>
 
-                <button
+              <div className="mt-auto p-4">
+                <Button
+                  type="button"
+                  size="lg"
+                  className="w-full"
                   onClick={() => scrollToSection("booking")}
-                  className="btn-primary w-full"
                 >
                   Đặt lịch khám
-                </button>
+                </Button>
               </div>
-            </nav>
-          </div>
-        )}
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );

@@ -1,27 +1,55 @@
-"use client";
-
 import type React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Calendar,
-  Clock,
-  User,
-  Phone,
-  MessageSquare,
-  Loader2,
-  AlertCircle,
-} from "lucide-react";
-import { sendBookingNotification, type BookingData } from "../../lib/emailjs";
-import {
-  validateBookingForm,
-  getFieldError,
-  formatPhoneNumber,
-  sanitizeInput,
-  type ValidationError,
-  type BookingFormData,
-} from "../../utils/validation";
+import { Calendar, Clock, MessageSquare, Phone, User } from "lucide-react";
 
+import SectionHeader from "@/components/common/SectionHeader";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
+import { Spinner } from "@/components/ui/spinner";
+import { Textarea } from "@/components/ui/textarea";
+import { sendBookingNotification, type BookingData } from "@/lib/emailjs";
+import {
+  formatPhoneNumber,
+  getFieldError,
+  sanitizeInput,
+  validateBookingForm,
+  type BookingFormData,
+  type ValidationError,
+} from "@/utils/validation";
+
+const TIME_SLOTS = [
+  "08:00 - 09:00",
+  "09:00 - 10:00",
+  "10:00 - 11:00",
+  "14:00 - 15:00",
+  "15:00 - 16:00",
+  "16:00 - 17:00",
+  "17:00 - 18:00",
+  "18:00 - 19:00",
+] as const;
+
+/** Điều phối dữ liệu, kiểm tra hợp lệ và gửi yêu cầu đặt lịch khám. */
 const BookingSection = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<BookingFormData>({
@@ -31,67 +59,48 @@ const BookingSection = () => {
     time: "",
     message: "",
   });
-
   const [isLoading, setIsLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>(
     []
   );
   const [showErrors, setShowErrors] = useState(false);
 
-  // Khung giờ 1 tiếng
-  const timeSlots = [
-    "08:00 - 09:00",
-    "09:00 - 10:00",
-    "10:00 - 11:00",
-    "14:00 - 15:00",
-    "15:00 - 16:00",
-    "16:00 - 17:00",
-    "17:00 - 18:00",
-    "18:00 - 19:00",
-  ];
-
   const handleInputChange = (
-    e: React.ChangeEvent<
+    event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    const { name, value } = e.target;
-
+    const { name, value } = event.target;
     let sanitizedValue = value;
 
-    // Sanitize input based on field type
-    if (name === "name") {
+    if (name === "name" || name === "message") {
       sanitizedValue = sanitizeInput(value);
     } else if (name === "phone") {
-      // Allow only numbers, spaces, and common phone formatting characters
-      sanitizedValue = value.replace(/[^\d\s\-$$$$.]/g, "");
-    } else if (name === "message") {
-      sanitizedValue = sanitizeInput(value);
+      sanitizedValue = value.replace(/[^\d\s().+-]/g, "");
     }
 
-    setFormData((prev) => ({ ...prev, [name]: sanitizedValue }));
+    setFormData((current) => ({ ...current, [name]: sanitizedValue }));
 
-    // Clear validation errors when user starts typing
     if (showErrors) {
-      setValidationErrors((prev) =>
-        prev.filter((error) => error.field !== name)
+      setValidationErrors((current) =>
+        current.filter((error) => error.field !== name)
       );
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setShowErrors(true);
 
     const validation = validateBookingForm(formData);
 
     if (!validation.isValid) {
       setValidationErrors(validation.errors);
-      // Scroll to first error
       const firstErrorField = validation.errors[0]?.field;
       if (firstErrorField) {
-        const element = document.querySelector(`[name="${firstErrorField}"]`);
-        element?.scrollIntoView({ behavior: "smooth", block: "center" });
+        document
+          .querySelector(`[name="${firstErrorField}"]`)
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
       }
       return;
     }
@@ -99,15 +108,12 @@ const BookingSection = () => {
     setValidationErrors([]);
     setIsLoading(true);
 
-    console.log("Form submitted:", formData);
+    const formattedData = {
+      ...formData,
+      phone: formatPhoneNumber(formData.phone),
+    };
 
     try {
-      const formattedData = {
-        ...formData,
-        phone: formatPhoneNumber(formData.phone),
-      };
-
-      // Send email notification
       const emailResult = await sendBookingNotification(
         formattedData as BookingData
       );
@@ -120,17 +126,9 @@ const BookingSection = () => {
         replace: true,
       });
     } catch (error) {
-      console.error("Error sending booking notification:", error);
-
-      // Navigate to success page even if email fails
+      console.error("Không thể gửi thông báo đặt lịch:", error);
       navigate("/booking-success", {
-        state: {
-          bookingData: {
-            ...formData,
-            phone: formatPhoneNumber(formData.phone),
-          },
-          emailStatus: "error",
-        },
+        state: { bookingData: formattedData, emailStatus: "error" },
         replace: true,
       });
     } finally {
@@ -138,102 +136,105 @@ const BookingSection = () => {
     }
   };
 
-  const renderFieldError = (fieldName: string) => {
-    const error = getFieldError(validationErrors, fieldName);
-    if (!error || !showErrors) return null;
+  const getError = (fieldName: string) =>
+    showErrors ? getFieldError(validationErrors, fieldName) : undefined;
 
-    return (
-      <div className="flex items-center mt-1 text-red-600 text-sm">
-        <AlertCircle className="w-4 h-4 mr-1 flex-shrink-0" />
-        <span>{error}</span>
-      </div>
-    );
-  };
-
-  const getFieldBorderClass = (fieldName: string) => {
-    const hasError = getFieldError(validationErrors, fieldName) && showErrors;
-    return hasError
-      ? "border-red-300 focus:ring-red-500 focus:border-red-500"
-      : "border-gray-300 focus:ring-cyan-500 focus:border-transparent";
-  };
+  const nameError = getError("name");
+  const phoneError = getError("phone");
+  const dateError = getError("date");
+  const timeError = getError("time");
+  const messageError = getError("message");
 
   return (
     <section id="booking" className="section-padding bg-gradient-primary">
-      <div className="container mx-auto container-padding">
-        <div className="text-center mb-16">
-          <h2 className="font-space-grotesk text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Đăng kí miễn phí nhận ưu đãi 50%
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Điền thông tin bên dưới để đặt lịch. Chúng tôi sẽ liên hệ xác nhận
-            trong 30 phút.
-          </p>
-        </div>
+      <div data-scroll-reveal className="container mx-auto container-padding">
+        <SectionHeader
+          title="Đăng ký miễn phí nhận ưu đãi 50%"
+          description="Điền thông tin bên dưới để đặt lịch. Chúng tôi sẽ liên hệ xác nhận trong 30 phút."
+          className="mb-10 md:mb-12"
+        />
 
-        <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="p-8 md:p-12">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Thông tin cá nhân */}
-                <div className="space-y-4">
-                  <h3 className="font-space-grotesk text-xl font-semibold text-gray-900 mb-4">
-                    Thông tin cá nhân
-                  </h3>
+        <Card className="mx-auto max-w-3xl">
+          <CardHeader>
+            <CardTitle>Thông tin đặt lịch khám</CardTitle>
+            <CardDescription>
+              Các trường có dấu * là thông tin bắt buộc.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} noValidate>
+              <FieldGroup>
+                <FieldSet>
+                  <FieldLegend>Thông tin cá nhân</FieldLegend>
+                  <FieldGroup>
+                    <Field
+                      data-invalid={Boolean(nameError)}
+                      data-disabled={isLoading}
+                    >
+                      <FieldLabel htmlFor="booking-name">
+                        <User className="size-4" aria-hidden="true" />
+                        Họ và tên *
+                      </FieldLabel>
+                      <Input
+                        id="booking-name"
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isLoading}
+                        autoComplete="name"
+                        aria-invalid={Boolean(nameError)}
+                        aria-describedby={nameError ? "booking-name-error" : undefined}
+                        placeholder="Nhập họ và tên của bạn"
+                      />
+                      <FieldError id="booking-name-error">
+                        {nameError}
+                      </FieldError>
+                    </Field>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      <User className="w-4 h-4 inline mr-2" />
-                      Họ và tên *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      disabled={isLoading}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 transition-all disabled:opacity-50 ${getFieldBorderClass(
-                        "name"
-                      )}`}
-                      placeholder="Nhập họ và tên của bạn"
-                    />
-                    {renderFieldError("name")}
-                  </div>
+                    <Field
+                      data-invalid={Boolean(phoneError)}
+                      data-disabled={isLoading}
+                    >
+                      <FieldLabel htmlFor="booking-phone">
+                        <Phone className="size-4" aria-hidden="true" />
+                        Số điện thoại *
+                      </FieldLabel>
+                      <Input
+                        id="booking-phone"
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                        disabled={isLoading}
+                        autoComplete="tel"
+                        inputMode="tel"
+                        aria-invalid={Boolean(phoneError)}
+                        aria-describedby={phoneError ? "booking-phone-error" : undefined}
+                        placeholder="0387 812 321"
+                      />
+                      <FieldError id="booking-phone-error">
+                        {phoneError}
+                      </FieldError>
+                    </Field>
+                  </FieldGroup>
+                </FieldSet>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      <Phone className="w-4 h-4 inline mr-2" />
-                      Số điện thoại *
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                      disabled={isLoading}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 transition-all disabled:opacity-50 ${getFieldBorderClass(
-                        "phone"
-                      )}`}
-                      placeholder="0387 812 321"
-                    />
-                    {renderFieldError("phone")}
-                  </div>
-                </div>
-
-                {/* Thông tin đặt lịch */}
-                <div className="space-y-4">
-                  <h3 className="font-space-grotesk text-xl font-semibold text-gray-900 mb-4">
-                    Thông tin đặt lịch
-                  </h3>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        <Calendar className="w-4 h-4 inline mr-2" />
+                <FieldSet>
+                  <FieldLegend>Thông tin lịch hẹn</FieldLegend>
+                  <FieldGroup className="grid md:grid-cols-2">
+                    <Field
+                      data-invalid={Boolean(dateError)}
+                      data-disabled={isLoading}
+                    >
+                      <FieldLabel htmlFor="booking-date">
+                        <Calendar className="size-4" aria-hidden="true" />
                         Ngày khám *
-                      </label>
-                      <input
+                      </FieldLabel>
+                      <Input
+                        id="booking-date"
                         type="date"
                         name="date"
                         value={formData.date}
@@ -241,83 +242,104 @@ const BookingSection = () => {
                         required
                         disabled={isLoading}
                         min={new Date().toISOString().split("T")[0]}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 transition-all disabled:opacity-50 ${getFieldBorderClass(
-                          "date"
-                        )}`}
+                        aria-invalid={Boolean(dateError)}
+                        aria-describedby={dateError ? "booking-date-error" : undefined}
                       />
-                      {renderFieldError("date")}
-                    </div>
+                      <FieldError id="booking-date-error">
+                        {dateError}
+                      </FieldError>
+                    </Field>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        <Clock className="w-4 h-4 inline mr-2" />
+                    <Field
+                      data-invalid={Boolean(timeError)}
+                      data-disabled={isLoading}
+                    >
+                      <FieldLabel htmlFor="booking-time">
+                        <Clock className="size-4" aria-hidden="true" />
                         Giờ khám *
-                      </label>
-                      <select
+                      </FieldLabel>
+                      <NativeSelect
+                        id="booking-time"
                         name="time"
                         value={formData.time}
                         onChange={handleInputChange}
                         required
                         disabled={isLoading}
-                        className={`w-full px-4 py-3 border rounded-xl focus:ring-2 transition-all disabled:opacity-50 ${getFieldBorderClass(
-                          "time"
-                        )}`}
+                        aria-invalid={Boolean(timeError)}
+                        aria-describedby={timeError ? "booking-time-error" : undefined}
                       >
-                        <option value="">Chọn giờ</option>
-                        {timeSlots.map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
+                        <NativeSelectOption value="">
+                          Chọn giờ
+                        </NativeSelectOption>
+                        {TIME_SLOTS.map((timeSlot) => (
+                          <NativeSelectOption key={timeSlot} value={timeSlot}>
+                            {timeSlot}
+                          </NativeSelectOption>
                         ))}
-                      </select>
-                      {renderFieldError("time")}
-                    </div>
-                  </div>
+                      </NativeSelect>
+                      <FieldError id="booking-time-error">
+                        {timeError}
+                      </FieldError>
+                    </Field>
+                  </FieldGroup>
+                </FieldSet>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      <MessageSquare className="w-4 h-4 inline mr-2" />
-                      Ghi chú thêm
-                    </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      rows={4}
-                      disabled={isLoading}
-                      maxLength={500}
-                      className={`w-full px-4 py-3 border rounded-xl focus:ring-2 transition-all resize-none disabled:opacity-50 ${getFieldBorderClass(
-                        "message"
-                      )}`}
-                      placeholder="Mô tả triệu chứng hoặc yêu cầu đặc biệt..."
-                    />
-                    <div className="flex justify-between items-center mt-1">
-                      <div>{renderFieldError("message")}</div>
-                      <span className="text-xs text-gray-500">
-                        {formData.message.length}/500
-                      </span>
-                    </div>
+                <Field
+                  data-invalid={Boolean(messageError)}
+                  data-disabled={isLoading}
+                >
+                  <FieldLabel htmlFor="booking-message">
+                    <MessageSquare className="size-4" aria-hidden="true" />
+                    Ghi chú thêm
+                  </FieldLabel>
+                  <Textarea
+                    id="booking-message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                    disabled={isLoading}
+                    maxLength={500}
+                    aria-invalid={Boolean(messageError)}
+                    aria-describedby={
+                      messageError
+                        ? "booking-message-error booking-message-count"
+                        : "booking-message-count"
+                    }
+                    placeholder="Mô tả triệu chứng hoặc yêu cầu đặc biệt..."
+                  />
+                  <div className="flex items-start justify-between gap-4">
+                    <FieldError id="booking-message-error">
+                      {messageError}
+                    </FieldError>
+                    <FieldDescription
+                      id="booking-message-count"
+                      className="ml-auto shrink-0"
+                    >
+                      {formData.message.length}/500
+                    </FieldDescription>
                   </div>
-                </div>
+                </Field>
 
-                <button
+                <Button
                   type="submit"
+                  size="lg"
                   disabled={isLoading}
-                  className="w-full btn-primary text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full"
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      <Spinner data-icon="inline-start" />
                       Đang gửi thông báo...
                     </>
                   ) : (
                     "Đặt lịch ngay"
                   )}
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+                </Button>
+              </FieldGroup>
+            </form>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );

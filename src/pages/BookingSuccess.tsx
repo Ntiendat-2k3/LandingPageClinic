@@ -1,8 +1,17 @@
-"use client";
-
 import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { CheckCircle, Mail, Phone, Home } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CheckCircle, Home, Mail, Phone } from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface BookingData {
   name: string;
@@ -20,16 +29,13 @@ interface LocationState {
 const BookingSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const state = location.state as LocationState;
+  const state = location.state as LocationState | null;
   const bookingData = state?.bookingData;
-  const emailStatus = state?.emailStatus || "";
+  const emailStatus = state?.emailStatus ?? "";
 
-  // Redirect to home if no booking data
   useEffect(() => {
     if (
-      !bookingData ||
-      !bookingData.name ||
+      !bookingData?.name ||
       !bookingData.phone ||
       !bookingData.date ||
       !bookingData.time
@@ -38,112 +44,107 @@ const BookingSuccess = () => {
     }
   }, [bookingData, navigate]);
 
-  const handleBackToHome = () => {
-    navigate("/", { replace: true });
-  };
-
-  // Show loading or redirect if no data
   if (!bookingData) {
     return null;
   }
 
   return (
-    <section className="section-padding bg-gradient-primary min-h-screen flex items-center">
+    <section className="section-padding flex min-h-screen items-center bg-gradient-primary">
       <div className="container mx-auto container-padding">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="bg-white rounded-3xl p-12 shadow-2xl">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle className="w-10 h-10 text-green-600" />
+        <Card size="lg" className="mx-auto max-w-2xl">
+          <CardHeader className="text-center">
+            <div className="mx-auto mb-2 flex size-20 items-center justify-center rounded-full bg-accent text-accent-foreground">
+              <CheckCircle className="size-10" aria-hidden="true" />
             </div>
-
-            <h1 className="font-space-grotesk text-3xl font-bold text-gray-900 mb-4">
-              Đặt lịch thành công!
-            </h1>
-
-            <p className="text-lg text-gray-600 mb-8">
-              Cảm ơn{" "}
-              <span className="font-semibold text-cyan-600">
-                {bookingData.name}
-              </span>{" "}
+            <CardTitle>
+              <h1>Đặt lịch thành công!</h1>
+            </CardTitle>
+            <CardDescription>
+              Cảm ơn <strong className="text-primary">{bookingData.name}</strong>{" "}
               đã tin tưởng. Chúng tôi sẽ liên hệ trong 30 phút để xác nhận lịch
               hẹn.
-            </p>
+            </CardDescription>
+          </CardHeader>
 
-            {/* Booking Details */}
-            <div className="bg-gray-50 rounded-2xl p-6 mb-6 text-left">
-              <h3 className="font-semibold text-gray-900 mb-4">
-                Thông tin đặt lịch:
-              </h3>
-              <div className="space-y-2 text-gray-600">
-                <p>
-                  <span className="font-medium">Họ tên:</span>{" "}
-                  {bookingData.name}
-                </p>
-                <p>
-                  <span className="font-medium">Số điện thoại:</span>{" "}
-                  {bookingData.phone}
-                </p>
-                <p>
-                  <span className="font-medium">Ngày khám:</span>{" "}
-                  {new Date(bookingData.date).toLocaleDateString("vi-VN")}
-                </p>
-                <p>
-                  <span className="font-medium">Giờ khám:</span>{" "}
-                  {bookingData.time}
-                </p>
-                {bookingData.message && (
-                  <p>
-                    <span className="font-medium">Ghi chú:</span>{" "}
-                    {bookingData.message}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* Email Status */}
-            {emailStatus === "success" && (
-              <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-6">
-                <div className="flex items-center justify-center text-green-700">
-                  <Mail className="w-5 h-5 mr-2" />
-                  <span className="font-medium">
-                    Thông báo đã được gửi đến phòng khám
-                  </span>
+          <CardContent className="flex flex-col gap-5">
+            <section className="rounded-xl bg-muted p-5" aria-labelledby="booking-details-title">
+              <h2 id="booking-details-title" className="mb-3 font-semibold text-foreground">
+                Thông tin đặt lịch
+              </h2>
+              <dl className="grid gap-2 text-muted-foreground">
+                <div className="flex flex-wrap justify-between gap-2">
+                  <dt className="font-medium text-foreground">Họ tên</dt>
+                  <dd>{bookingData.name}</dd>
                 </div>
-              </div>
-            )}
-
-            {emailStatus === "error" && (
-              <div className="bg-red-50 border border-red-200 rounded-2xl p-4 mb-6">
-                <div className="flex items-center justify-center text-red-700">
-                  <Mail className="w-5 h-5 mr-2" />
-                  <span className="font-medium">
-                    Có lỗi xảy ra khi gửi thông báo. Vui lòng gọi trực tiếp.
-                  </span>
+                <div className="flex flex-wrap justify-between gap-2">
+                  <dt className="font-medium text-foreground">Số điện thoại</dt>
+                  <dd>{bookingData.phone}</dd>
                 </div>
-              </div>
-            )}
+                <div className="flex flex-wrap justify-between gap-2">
+                  <dt className="font-medium text-foreground">Ngày khám</dt>
+                  <dd>
+                    {new Date(bookingData.date).toLocaleDateString("vi-VN")}
+                  </dd>
+                </div>
+                <div className="flex flex-wrap justify-between gap-2">
+                  <dt className="font-medium text-foreground">Giờ khám</dt>
+                  <dd>{bookingData.time}</dd>
+                </div>
+                {bookingData.message ? (
+                  <div className="flex flex-col gap-1">
+                    <dt className="font-medium text-foreground">Ghi chú</dt>
+                    <dd>{bookingData.message}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            </section>
 
-            {/* Emergency Contact */}
-            <div className="bg-cyan-50 rounded-2xl p-6 mb-8">
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Thông tin liên hệ khẩn cấp:
-              </h3>
-              <div className="flex items-center justify-center text-cyan-600">
-                <Phone className="w-5 h-5 mr-2" />
-                <span className="font-semibold text-lg">0387 812 321</span>
-              </div>
-            </div>
+            {emailStatus === "success" ? (
+              <Alert>
+                <Mail aria-hidden="true" />
+                <AlertTitle>Đã gửi thông báo</AlertTitle>
+                <AlertDescription>
+                  Thông tin đặt lịch đã được chuyển đến phòng khám.
+                </AlertDescription>
+              </Alert>
+            ) : null}
 
-            {/* Back to Home Button */}
-            <button
-              onClick={handleBackToHome}
-              className="w-full btn-primary text-lg py-4 flex items-center justify-center"
+            {emailStatus === "error" ? (
+              <Alert variant="destructive">
+                <Mail aria-hidden="true" />
+                <AlertTitle>Chưa gửi được thông báo</AlertTitle>
+                <AlertDescription>
+                  Vui lòng gọi trực tiếp để phòng khám xác nhận lịch hẹn.
+                </AlertDescription>
+              </Alert>
+            ) : null}
+
+            <Alert>
+              <Phone aria-hidden="true" />
+              <AlertTitle>Liên hệ trực tiếp</AlertTitle>
+              <AlertDescription>
+                <a
+                  href="tel:0387812321"
+                  className="font-semibold text-primary underline-offset-4 hover:underline"
+                >
+                  0387 812 321
+                </a>
+              </AlertDescription>
+            </Alert>
+          </CardContent>
+
+          <CardFooter>
+            <Button
+              type="button"
+              size="lg"
+              className="w-full"
+              onClick={() => navigate("/", { replace: true })}
             >
-              <Home className="w-5 h-5 mr-2" />
+              <Home data-icon="inline-start" />
               Quay về trang chủ
-            </button>
-          </div>
-        </div>
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
     </section>
   );

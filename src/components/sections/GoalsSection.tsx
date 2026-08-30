@@ -46,7 +46,10 @@ const GoalsSection = () => {
       </div>
 
       {/* Container full-height ở LG+ */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative flex flex-col lg:h-full">
+      <div
+        data-scroll-reveal
+        className="container mx-auto px-4 sm:px-6 lg:px-8 relative flex flex-col lg:h-full"
+      >
         {/* Header (tăng size chữ) */}
         <div className="text-center mb-4 lg:mb-4 shrink-0">
           <h2 className="mt-2 inline-flex items-center gap-3 text-[30px] leading-tight md:text-[42px] lg:text-[48px] font-extrabold text-gray-900">

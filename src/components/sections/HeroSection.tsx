@@ -1,6 +1,15 @@
 "use client";
 
-import { ArrowRight, Star, Users, Clock, Shield } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardCheck,
+  Clock,
+  Shield,
+  Star,
+  Users,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   const scrollToContact = () => {
@@ -128,11 +137,11 @@ const HeroSection = () => {
               </div>
             </div>
 
-            {/* CTA — căn giữa */}
-            <div className="mt-6 lg:mt-8 text-center">
+            {/* CTA chính và liên kết sang form đánh giá độc lập. */}
+            <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center lg:mt-8">
               <button
                 onClick={scrollToContact}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99] lg:hover:cursor-pointer"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl px-6 py-4 text-white font-semibold bg-gradient-to-r from-cyan-600 to-emerald-600 shadow-[0_12px_30px_rgba(16,185,129,0.35)] active:scale-[.99] sm:w-auto lg:hover:cursor-pointer"
               >
                 Đăng ký miễn phí ưu đãi
                 <span className="ml-1 inline-flex items-center rounded-xl bg-white/90 px-1 py-0.5 text-2xl text-emerald-700 font-extrabold">
@@ -140,6 +149,18 @@ const HeroSection = () => {
                 </span>
                 <ArrowRight className="w-5 h-5" />
               </button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-auto min-h-12 w-full whitespace-normal py-3 sm:w-auto"
+              >
+                <a href="/danh-gia-nguy-co-can-thi/">
+                  <ClipboardCheck data-icon="inline-start" />
+                  Đánh giá nguy cơ tiến triển cận thị
+                </a>
+              </Button>
             </div>
           </div>
 

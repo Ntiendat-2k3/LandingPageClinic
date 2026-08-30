@@ -30,7 +30,7 @@ const VideoSection = () => {
 
   return (
     <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
+      <div data-scroll-reveal className="container mx-auto px-4">
         {/* Title */}
         <div className="text-center mb-6 md:mb-12">
           <h2

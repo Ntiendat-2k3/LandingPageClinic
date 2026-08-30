@@ -1,11 +1,20 @@
 import type React from "react";
+import { cn } from "@/lib/utils";
+
+type StatCardColor =
+  | "cyan"
+  | "emerald"
+  | "blue"
+  | "purple"
+  | "green"
+  | "orange";
 
 interface StatCardProps {
   icon: React.ComponentType<{ className?: string }>;
   value: string;
   label: string;
   description?: string;
-  color?: string;
+  color?: StatCardColor;
 }
 
 const StatCard = ({
@@ -27,18 +36,19 @@ const StatCard = ({
   return (
     <div className="text-center">
       <div
-        className={`w-12 h-12 md:w-16 md:h-16 rounded-lg md:rounded-2xl flex items-center justify-center mx-auto mb-2 md:mb-4 ${
-          colorClasses[color as keyof typeof colorClasses] || colorClasses.cyan
-        }`}
+        className={cn(
+          "mx-auto mb-2 flex size-12 items-center justify-center rounded-lg md:mb-4 md:size-16 md:rounded-2xl",
+          colorClasses[color]
+        )}
       >
-        <Icon className="w-6 h-6 md:w-8 md:h-8" />
+        <Icon className="size-6 md:size-8" />
       </div>
-      <div className="font-space-grotesk text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+      <div className="mb-2 font-heading text-2xl font-bold text-foreground md:text-3xl">
         {value}
       </div>
-      <div className="text-gray-600 text-sm md:text-base">{label}</div>
+      <div className="text-sm text-muted-foreground md:text-base">{label}</div>
       {description && (
-        <div className="text-xs text-gray-500 mt-1">{description}</div>
+        <div className="mt-1 text-xs text-muted-foreground">{description}</div>
       )}
     </div>
   );

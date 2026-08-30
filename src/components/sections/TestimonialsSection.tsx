@@ -139,7 +139,7 @@ const TestimonialsSection = () => {
 
   return (
     <section id="testimonials" className="section-padding bg-white">
-      <div className="container mx-auto container-padding">
+      <div data-scroll-reveal className="container mx-auto container-padding">
         {/* Heading */}
         <div className="text-center mb-8 md:mb-12">
           <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-gray-900 mb-2 uppercase">

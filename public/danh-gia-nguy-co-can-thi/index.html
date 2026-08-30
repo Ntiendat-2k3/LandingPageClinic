@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Đánh giá nguy cơ tiến triển cận thị - Trung tâm kiểm soát cận thị Dr Trần Tuấn" />
+    <title>Đánh giá nguy cơ tiến triển cận thị | Dr Trần Tuấn</title>
+    <style>
+      :root { --navy:#12355b; --blue:#1e5e9d; --green:#159447; --mint:#effaf3; --ink:#17314f; --muted:#617289; --line:#dbe6f0; --paper:#fff; --bg:#f4f8fb; }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:linear-gradient(150deg,#edf5fa 0%,#f8fbfd 48%,#edf8f2 100%); color:var(--ink); min-height:100vh; }
+      .shell { width:min(100%,820px); margin:0 auto; padding:24px 16px 56px; }
+      .brand { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:18px; color:var(--navy); font-size:13px; font-weight:750; letter-spacing:.01em; text-align:left; }
+      .logo-window { width:112px; height:61px; overflow:hidden; position:relative; flex:0 0 auto; }
+      .logo-window img { position:absolute; width:160px; max-width:none; left:-25px; top:-49px; }
+      .card { background:rgba(255,255,255,.96); border:1px solid rgba(205,220,232,.85); border-radius:24px; box-shadow:0 18px 45px rgba(25,58,86,.10); overflow:hidden; }
+      .hero { background:linear-gradient(135deg,#10365e,#246aa7); color:white; padding:30px 28px 26px; position:relative; overflow:hidden; }
+      .hero::after { content:""; position:absolute; width:260px; height:260px; border:1px solid rgba(255,255,255,.17); border-radius:50%; right:-100px; top:-155px; box-shadow:0 0 0 30px rgba(255,255,255,.045),0 0 0 62px rgba(255,255,255,.035); }
+      .eyebrow { color:#aee9cb; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin:0 0 10px; }
+      h1 { font-size:clamp(27px,6vw,40px); line-height:1.08; letter-spacing:-.035em; margin:0; max-width:600px; position:relative; z-index:1; }
+      .hero p { margin:14px 0 0; max-width:590px; line-height:1.55; color:#e4f1fb; font-size:15px; position:relative; z-index:1; }
+      .content { padding:26px 28px 30px; }
+      .notice { display:flex; gap:10px; background:#f5f9fc; border:1px solid #dbeaf4; padding:12px 14px; border-radius:13px; color:#526980; font-size:13px; line-height:1.45; margin-bottom:24px; }
+      .notice strong { color:#294f74; }
+      .progress { display:flex; gap:8px; margin:0 0 24px; }
+      .progress span { height:5px; flex:1; border-radius:99px; background:#e6eef4; }
+      .progress span.active { background:var(--green); }
+      .section-title { font-size:19px; letter-spacing:-.02em; margin:0 0 5px; }
+      .section-subtitle { color:var(--muted); font-size:14px; margin:0 0 20px; line-height:1.45; }
+      fieldset { border:0; padding:0; margin:0 0 26px; }
+      legend { display:block; font-size:15px; font-weight:750; line-height:1.4; margin-bottom:11px; }
+      .options { display:grid; gap:9px; }
+      label.option { border:1px solid var(--line); padding:13px 14px; border-radius:12px; display:flex; align-items:center; gap:10px; font-size:14px; line-height:1.35; cursor:pointer; transition:.15s ease; background:#fff; }
+      label.option:hover { border-color:#7cc59b; background:#fbfffc; }
+      input[type=radio] { accent-color:var(--green); width:17px; height:17px; flex:0 0 auto; }
+      label.option:has(input:checked) { border-color:var(--green); background:var(--mint); box-shadow:inset 0 0 0 1px var(--green); }
+      button { appearance:none; border:0; border-radius:12px; background:var(--green); color:white; width:100%; min-height:52px; padding:14px 18px; font:inherit; font-weight:800; cursor:pointer; box-shadow:0 9px 18px rgba(21,148,71,.20); }
+      button:hover { filter:brightness(.96); }
+      .messenger-link { display:flex; align-items:center; justify-content:center; gap:9px; width:100%; min-height:52px; margin-top:11px; padding:14px 18px; border-radius:12px; background:#1877f2; color:#fff; text-decoration:none; font-size:14px; font-weight:800; box-shadow:0 9px 18px rgba(24,119,242,.18); }
+      .required { color:#c54b40; }
+      .hidden { display:none !important; }
+      .result { text-align:center; padding:4px 0 0; }
+      .result-badge { width:70px; height:70px; border-radius:50%; display:grid; place-items:center; margin:0 auto 16px; font-weight:900; color:#fff; font-size:23px; }
+      .result-badge.high { background:#d7564a; } .result-badge.medium { background:#df922b; } .result-badge.low { background:var(--green); }
+      .result h2 { margin:0; letter-spacing:-.028em; font-size:26px; }
+      .result p { color:var(--muted); line-height:1.55; font-size:15px; max-width:590px; margin:13px auto 20px; }
+      .recommendation { text-align:left; background:#f5f9fc; border:1px solid #dceaf3; padding:16px; border-radius:14px; margin:0 0 22px; }
+      .recommendation small { display:block; color:#59728b; font-weight:800; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; font-size:11px; }
+      .recommendation strong { font-size:15px; line-height:1.45; display:block; }
+      .contact { border-top:1px solid var(--line); margin-top:24px; padding-top:24px; text-align:left; }
+      .cta-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; margin:20px 0 4px; }
+      .cta-grid a, .cta-grid button { margin:0; text-decoration:none; display:flex; align-items:center; justify-content:center; text-align:center; min-height:58px; padding:12px; font-size:14px; line-height:1.3; }
+      .cta-grid a { background:#1877f2; color:#fff; border-radius:12px; font-weight:800; box-shadow:0 9px 18px rgba(24,119,242,.18); }
+      .cta-grid button { background:var(--green); }
+      .contact h3 { margin:0 0 6px; font-size:20px; letter-spacing:-.02em; } .contact p { margin:0 0 17px; font-size:14px; }
+      .field { margin-bottom:14px; } .field label { display:block; font-size:13px; font-weight:750; margin:0 0 7px; }
+      .field input { width:100%; border:1px solid var(--line); border-radius:11px; padding:13px; font:inherit; color:var(--ink); outline:0; } .field input:focus { border-color:var(--green); box-shadow:0 0 0 3px rgba(21,148,71,.12); }
+      .consent { display:flex; gap:9px; align-items:flex-start; color:var(--muted); font-size:12px; line-height:1.45; margin:16px 0 18px; } .consent input { margin-top:3px; accent-color:var(--green); }
+      .complete { text-align:center; padding:20px 4px 5px; } .complete h2 { margin:0 0 10px; font-size:26px; } .complete p { color:var(--muted); line-height:1.55; }
+      .fineprint { margin:22px 0 0; color:#7b8ea0; font-size:11px; line-height:1.5; text-align:center; }
+      .error { color:#b44038; font-size:13px; margin:0 0 14px; font-weight:650; }
+      @media (max-width:560px) { .shell{padding:14px 10px 34px}.hero{padding:26px 20px 22px}.content{padding:22px 20px 25px}.brand{font-size:12px}.logo-window{width:94px;transform:scale(.9);transform-origin:center}.hero p{font-size:14px}.cta-grid{grid-template-columns:1fr} }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="brand"><div class="logo-window"><img src="Logo PK.png" alt="Logo Trung tâm kiểm soát cận thị Dr Trần Tuấn" /></div><span>TRUNG TÂM KIỂM SOÁT CẬN THỊ<br />DR TRẦN TUẤN</span></div>
+      <section class="card">
+        <header class="hero"><p class="eyebrow">Sàng lọc trực tuyến</p><h1>Đánh giá nguy cơ tiến triển cận thị</h1><p>Hoàn thành trong khoảng 2 phút để nhận kết quả tham khảo và đề xuất phù hợp cho bé.</p></header>
+        <div class="content">
+          <div class="notice"><span>ⓘ</span><div><strong>Thông tin quan trọng:</strong> Kết quả chỉ mang tính tham khảo, không thay thế việc khám, chẩn đoán hoặc điều trị bởi bác sĩ.</div></div>
+          <div class="progress" aria-label="Tiến trình"><span class="active"></span><span id="step2bar"></span><span id="step3bar"></span></div>
+          <form id="screeningForm" novalidate>
+            <section id="questionsPanel">
+              <h2 class="section-title">Thông tin sàng lọc</h2><p class="section-subtitle">Vui lòng chọn phương án phù hợp nhất với bé.</p>
+              <div id="questionError" class="error hidden">Vui lòng hoàn thành tất cả câu hỏi để xem kết quả.</div>
+              <fieldset><legend>1. Bé hiện bao nhiêu tuổi? <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="age" value="2">Dưới 6 tuổi</label><label class="option"><input type="radio" name="age" value="2">6–8 tuổi</label><label class="option"><input type="radio" name="age" value="1">9–12 tuổi</label><label class="option"><input type="radio" name="age" value="0">13–17 tuổi</label></div></fieldset>
+              <fieldset><legend>2. Giới tính của bé <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="sex" value="0">Nam</label><label class="option"><input type="radio" name="sex" value="1">Nữ</label></div></fieldset>
+              <fieldset><legend>3. Bé được phát hiện cận thị lần đầu vào khoảng độ tuổi nào? <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="onset" value="3">Dưới 9 tuổi</label><label class="option"><input type="radio" name="onset" value="1">Từ 9–12 tuổi</label><label class="option"><input type="radio" name="onset" value="0">Trên 12 tuổi</label></div></fieldset>
+              <fieldset><legend>4. Độ cận gần nhất của bé thuộc mức nào? <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="degree" value="0">Nhẹ hơn -3,00D</label><label class="option"><input type="radio" name="degree" value="1">Từ -3,00D đến dưới -6,00D</label><label class="option"><input type="radio" name="degree" value="2">Từ -6,00D trở lên</label><label class="option"><input type="radio" name="degree" value="0">Chưa có kết quả đo gần nhất</label></div></fieldset>
+              <fieldset><legend>5. Trong 12 tháng gần đây, độ cận của bé tăng trung bình ở mức nào? <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="progression" value="0">Tăng dưới 0,50D/năm</label><label class="option"><input type="radio" name="progression" value="2">Tăng từ 0,50D đến dưới 0,75D/năm</label><label class="option"><input type="radio" name="progression" value="3">Tăng từ 0,75D/năm trở lên</label><label class="option"><input type="radio" name="progression" value="1">Chưa đo lại trong 12 tháng qua</label></div></fieldset>
+              <fieldset><legend>6. Bố hoặc mẹ của bé có bị cận thị hoặc đã từng phẫu thuật điều chỉnh cận thị không? <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="parents" value="0">Không có</label><label class="option"><input type="radio" name="parents" value="1">Có một người</label><label class="option"><input type="radio" name="parents" value="2">Có cả hai người</label></div></fieldset>
+              <fieldset><legend>7. Trung bình mỗi ngày, bé dành bao lâu cho hoạt động ngoài trời vào ban ngày? <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="outdoor" value="2">Dưới 1 giờ</label><label class="option"><input type="radio" name="outdoor" value="1">Từ 1 đến dưới 2 giờ</label><label class="option"><input type="radio" name="outdoor" value="0">Từ 2 giờ trở lên</label></div></fieldset>
+              <fieldset><legend>8. Trung bình mỗi ngày, ngoài giờ ở trường, bé nhìn gần bao lâu? <span class="required">*</span></legend><p class="section-subtitle">Bao gồm học bài, đọc sách, dùng điện thoại, máy tính bảng và máy tính.</p><div class="options"><label class="option"><input type="radio" name="near" value="0">Dưới 1 giờ</label><label class="option"><input type="radio" name="near" value="0">Từ 1 đến dưới 2 giờ</label><label class="option"><input type="radio" name="near" value="1">Từ 2 đến dưới 3 giờ</label><label class="option"><input type="radio" name="near" value="2">Từ 3 giờ trở lên</label></div></fieldset>
+              <fieldset><legend>9. Phụ huynh đang cần tư vấn điều gì cho bé? <span class="required">*</span></legend><div class="options"><label class="option"><input type="radio" name="concern" value="Tăng độ cận nhanh">Bé tăng độ cận nhanh</label><label class="option"><input type="radio" name="concern" value="Đánh giá nguy cơ">Cần đánh giá nguy cơ tiến triển cận thị</label><label class="option"><input type="radio" name="concern" value="Kiểm soát cận thị">Cần tư vấn theo dõi / kiểm soát cận thị</label><label class="option"><input type="radio" name="concern" value="Vấn đề khác">Vấn đề khác</label></div></fieldset>
+              <button type="button" id="showResult">Xem kết quả đánh giá</button>
+            </section>
+            <section id="resultPanel" class="hidden"><div class="result"><div id="badge" class="result-badge">!</div><h2 id="resultTitle"></h2><p id="resultText"></p><div class="recommendation"><small>Đề xuất</small><strong id="recommendationText"></strong></div></div><div class="contact"><h3>Nhận tư vấn miễn phí</h3><p>Chọn cách thuận tiện nhất. Tư vấn trực tuyến kết nối trực tiếp với Messenger; tư vấn qua điện thoại mở biểu mẫu bảo mật của trung tâm. Trung tâm sẽ liên hệ lại trong 30 phút.</p><div class="cta-grid"><a href="https://m.me/pkmatdrtrantuan" target="_blank" rel="noopener">◉ Tư vấn trực tuyến<br />qua Messenger</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSdBPckGO4AxJlx_jGoZvXp47KrBHiPfeQDguZtiE_emb-Uziw/viewform" target="_blank" rel="noopener">☎ Tư vấn<br />qua điện thoại</a></div></div></section>
+          </form>
+          <p class="fineprint">© Trung tâm kiểm soát cận thị Dr Trần Tuấn · Kết quả sàng lọc chỉ mang tính tham khảo. · <a href="privacy.html" target="_blank" rel="noopener">Chính sách quyền riêng tư</a></p>
+        </div>
+      </section>
+    </main>
+    <script>
+      const form = document.getElementById('screeningForm');
+      const names = ['age','sex','onset','degree','progression','parents','outdoor','near','concern'];
+      const qPanel = document.getElementById('questionsPanel'), rPanel = document.getElementById('resultPanel'), cPanel = document.getElementById('completePanel');
+      let currentResult = null;
+      function value(name){ const el=form.querySelector(`input[name="${name}"]:checked`); return el ? el.value : null; }
+      function classify(){
+        const v = Object.fromEntries(names.map(n=>[n,value(n)]));
+        const earlyOnset = Number(v.onset) === 3;
+        const moderateDegree = Number(v.degree) === 1;
+        const highDegree = Number(v.degree) === 2;
+        const moderateProgression = Number(v.progression) === 2;
+        const rapidProgression = Number(v.progression) === 3;
+        const familyRisk = Number(v.parents) > 0;
+        const twoParentsMyopic = Number(v.parents) === 2;
+        const lifestylePair = Number(v.outdoor) > 0 && Number(v.near) > 0;
+        const youngerCurrentAge = Number(v.age) === 2;
+
+        // Lifestyle and sex are modifiers only: neither can independently raise the result.
+        const high = rapidProgression || highDegree || (earlyOnset && (moderateDegree || moderateProgression));
+        const medium = !high && (moderateProgression || earlyOnset || (moderateDegree && (youngerCurrentAge || familyRisk || lifestylePair)) || (twoParentsMyopic && (Number(v.outdoor) > 0 || Number(v.near) > 0)));
+        return high ? 'high' : medium ? 'medium' : 'low';
+      }
+      const content = {
+        high:{title:'Nguy cơ tiến triển cận thị cao', text:'Câu trả lời cho thấy bé có các yếu tố cần được quan tâm sớm, như tăng độ nhanh, phát hiện cận thị khi còn nhỏ hoặc độ cận cao.', rec:'Đề nghị khám chuyên sâu và tiến hành kiểm soát cận thị theo chỉ định của bác sĩ.'},
+        medium:{title:'Nguy cơ tiến triển cận thị trung bình', text:'Bé có một hoặc một số yếu tố cần được theo dõi. Việc tư vấn chuyên môn sẽ giúp phụ huynh hiểu rõ hơn về tình trạng của bé.', rec:'Đề nghị khám chuyên sâu và tiến hành kiểm soát cận thị theo chỉ định của bác sĩ.'},
+        low:{title:'Nguy cơ tiến triển cận thị thấp', text:'Thông tin hiện tại chưa ghi nhận nhiều yếu tố cảnh báo nổi bật. Phụ huynh vẫn nên duy trì thói quen chăm sóc mắt tốt cho bé.', rec:'Đề nghị theo dõi định kỳ mỗi 3–6 tháng.'}
+      };
+      document.getElementById('showResult').addEventListener('click',()=>{
+        const missing=names.some(n=>!value(n)); document.getElementById('questionError').classList.toggle('hidden',!missing); if(missing){document.getElementById('questionError').scrollIntoView({behavior:'smooth',block:'center'});return;}
+        currentResult=classify(); const r=content[currentResult]; const badge=document.getElementById('badge'); badge.className='result-badge '+currentResult; badge.textContent=currentResult==='high'?'!':currentResult==='medium'?'!':'✓'; document.getElementById('resultTitle').textContent=r.title; document.getElementById('resultText').textContent=r.text; document.getElementById('recommendationText').textContent=r.rec; qPanel.classList.add('hidden');rPanel.classList.remove('hidden');document.getElementById('step2bar').classList.add('active'); window.scrollTo({top:0,behavior:'smooth'});
+      });
+    </script>
+  </body>
+</html>
