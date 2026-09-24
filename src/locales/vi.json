@@ -3,9 +3,22 @@
     "skipToContent": "Chuyển đến nội dung chính",
     "riskAssessment": {
       "ariaLabel": "Đánh giá nguy cơ tiến triển cận thị",
+      "badge": "Đánh giá trực tuyến",
       "title": "Kiểm tra nguy cơ tiến triển cận thị cho bé",
       "description": "Hoàn thành bài đánh giá trực tuyến trong khoảng 2 phút để nhận kết quả tham khảo và đề xuất phù hợp.",
-      "button": "Làm bài đánh giá nguy cơ"
+      "button": "Làm bài đánh giá nguy cơ",
+      "timePill": "Chỉ mất 2 phút",
+      "freePill": "Miễn phí 100%",
+      "instantPill": "Nhận kết quả ngay"
+    },
+    "progressionWarning": {
+      "badge": "Cảnh báo tiến triển cận thị",
+      "titleLine1": "Con đang tăng độ?",
+      "titleLine2": "Đừng chỉ thay kính.",
+      "description": "Cận thị tiến triển cần được theo dõi theo thời gian. Việc kiểm tra đúng quy trình giúp hiểu rõ tình trạng mắt, những yếu tố nguy cơ và hướng chăm sóc phù hợp cho từng bé.",
+      "feature1": "Đo trục nhãn cầu định kỳ",
+      "feature2": "Theo dõi tốc độ tăng độ",
+      "feature3": "Phác đồ cá nhân hóa"
     }
   },
   "common": {
@@ -17,19 +30,22 @@
   },
   "header": {
     "navigation": {
+      "whenToVisit": "Khi nào con cần đi khám?",
+      "myopiaControl": "Kiểm soát cận thị",
       "services": "Dịch vụ",
       "process": "Quy trình",
-      "myopiaControl": "Kiểm soát cận thị",
       "team": "Đội ngũ chuyên môn"
     },
     "logoAlt": "Logo Phòng khám Mắt Dr Trần Tuấn",
-    "brandLineOne": "Phòng khám CK Mắt & Khúc xạ",
-    "brandLineTwo": "Dr Trần Tuấn",
+    "brandLineOne": "Trung tâm kiểm soát cận thị",
+    "brandLineTwo": "Phòng khám CK Mắt Dr Trần Tuấn",
     "mainNavigationLabel": "Điều hướng chính",
     "zaloLabel": "Chat Zalo qua số {phone}",
+    "zaloOa": "Zalo OA",
+    "zaloOaLabel": "Liên hệ qua Zalo OA",
     "mapsLabel": "Mở Google Maps đến {address}",
     "openMenuLabel": "Mở menu điều hướng",
-    "mobileTitle": "Phòng khám Mắt Dr Trần Tuấn",
+    "mobileTitle": "Trung tâm kiểm soát cận thị",
     "mobileDescription": "Chọn nội dung cần xem hoặc liên hệ với phòng khám.",
     "mobileNavigationLabel": "Điều hướng trên thiết bị di động"
   },
@@ -69,22 +85,27 @@
     "scrollTopLabel": "Cuộn lên đầu trang"
   },
   "hero": {
+    "centerTitle": "TRUNG TÂM KIỂM SOÁT CẬN THỊ",
+    "clinicTitle": "PHÒNG KHÁM CK MẮT DR TRẦN TUẤN",
     "clinic": "Phòng khám",
     "specialty": "Chuyên khoa Mắt & Khúc xạ",
     "doctor": "Dr Trần Tuấn",
-    "tagline": "Chăm sóc đôi mắt một cách toàn diện",
+    "tagline": "Kiểm soát cận thị với phác đồ cá nhân hóa",
     "headline": "KIỂM SOÁT CẬN THỊ – ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT",
     "benefits": [
-      "Áp dụng các phương pháp tiên tiến và hiệu quả cao nhất trên thế giới",
+      "Áp dụng các phương pháp kiểm soát cận thị hiệu quả cao và cá nhân hóa cho từng trẻ",
       "Đội ngũ bác sĩ và nhân viên y tế giàu kinh nghiệm, được đào tạo chuyên sâu",
-      "Chính sách bảo đảm kiểm soát hiệu quả cận thị độc quyền tại Hà Nội"
+      "Chương trình trải nghiệm kính Ortho-K miễn phí trong 7 ngày*"
     ],
+    "orthoKNote": "*Áp dụng có điều kiện, xin liên hệ với Trung tâm để biết thêm chi tiết",
     "stats": [
       { "value": "10K+", "label": "Bệnh nhân điều trị" },
       { "value": "97.8%", "label": "Hài lòng" },
       { "value": "10+", "label": "Năm kinh nghiệm" }
     ],
     "cta": "Đăng ký miễn phí ưu đãi",
+    "ctaBook": "Đăng ký khám",
+    "ctaAssess": "Đánh giá nguy cơ cận thị",
     "imageAlt": "Phòng khám mắt hiện đại",
     "assurance": "Bảo đảm hiệu quả"
   },
@@ -104,7 +125,36 @@
     "riskLead": "Cận thị cao sẽ tăng nguy cơ:",
     "campaignImageAlt": "Control Myopia Today or Risk Poor Vision Tomorrow",
     "retinaImageAlt": "Hình ảnh võng mạc bị tổn thương",
-    "retinaCaption": "Hình ảnh võng mạc bị tổn thương"
+    "retinaCaption": "Hình ảnh võng mạc bị tổn thương",
+    "signs": {
+      "badge": "KHI NÀO NÊN ĐƯA BÉ ĐI KHÁM?",
+      "titleLine1": "Đừng đợi đến khi",
+      "titleLine2": "bé không nhìn rõ.",
+      "description": "Những dấu hiệu dưới đây không thay thế chẩn đoán, nhưng là lý do nên kiểm tra mắt sớm.",
+      "items": [
+        {
+          "number": "01",
+          "title": "Nheo mắt hoặc ngồi sát",
+          "description": "Thường xuyên nheo mắt khi nhìn xa, ngồi sát TV hoặc màn hình."
+        },
+        {
+          "number": "02",
+          "title": "Than mỏi mắt, đau đầu",
+          "description": "Đặc biệt sau giờ học, đọc sách hoặc dùng thiết bị điện tử."
+        },
+        {
+          "number": "03",
+          "title": "Hay nghiêng đầu khi nhìn",
+          "description": "Con hay nghiêng đầu khi học bài, sinh hoạt hoặc tỏ ý không muốn nhìn xa"
+        },
+        {
+          "number": "04",
+          "title": "Dụi mắt, nháy mắt",
+          "description": "Thường xuyên dụi mắt, nháy mắt đặc biệt khi học bài và nhìn gần thời gian dài"
+        }
+      ],
+      "cta": "Đặt lịch kiểm tra mắt"
+    }
   },
   "video": {
     "title": "ĐO CHIỀU DÀI TRỤC NHÃN CẦU",
@@ -128,35 +178,67 @@
     "cta": "Đăng kí miễn phí ưu đãi"
   },
   "process": {
-    "title": "Quy trình đo tật khúc xạ & kiểm tra mắt",
-    "description": "8 bước được sắp xếp liên tục, giúp theo dõi rõ từng giai đoạn và hạn chế tối đa sai số.",
+    "badge": "QUY TRÌNH KHÁM",
+    "title": "Gia đình sẽ nhận được gì sau buổi khám?",
+    "description": "Quy trình được thiết kế để hạn chế sai số, dành thời gian giải thích và giúp phụ huynh hiểu rõ bước tiếp theo.",
+    "cta": "Đặt lịch khám",
     "steps": [
-      { "title": "Đánh giá sơ bộ", "details": ["Thử thị lực & đo khoảng cách đồng tử", "Đo khúc xạ máy"] },
-      { "title": "Kiểm soát điều tiết", "details": ["Nghiệm pháp nhả điều tiết", "Soi bóng đồng tử"] },
-      { "title": "Đo khúc xạ sơ bộ", "details": ["Thử kính cầu/kính trụ sơ bộ"] },
-      { "title": "Đo khúc xạ tối ưu", "details": ["Thử kính cầu/kính trụ tối ưu"] },
-      { "title": "Cấp đơn kính", "details": ["Test cân bằng 2 mắt", "Đeo thử & tinh chỉnh thông số"] },
-      { "title": "Khám sàng lọc", "details": ["Test lác, đánh giá 2 mắt", "Soi đáy mắt & giải thích sơ bộ"] },
-      { "title": "Thực hiện chỉ định", "details": ["Cận lâm sàng theo bác sĩ", "Chụp chiếu, tra thuốc liệt điều tiết…"] },
-      { "title": "Tư vấn hướng xử trí", "details": ["Giải thích chi tiết tình trạng", "Tư vấn phác đồ phù hợp"] }
-    ],
-    "cta": "Đăng ký miễn phí — ưu đãi 50%"
+      {
+        "number": "01",
+        "title": "Đánh giá ban đầu",
+        "description": "Thử thị lực, khai thác tình trạng mắt và thói quen sinh hoạt."
+      },
+      {
+        "number": "02",
+        "title": "Đo khúc xạ & kiểm tra chuyên sâu",
+        "description": "Đo chiều dài trục nhãn cầu và các kiểm tra khác theo chỉ định của bác sĩ"
+      },
+      {
+        "number": "03",
+        "title": "Giải thích kết quả",
+        "description": "Phụ huynh hiểu tình trạng của bé bằng ngôn ngữ rõ ràng, dễ hiểu."
+      },
+      {
+        "number": "04",
+        "title": "Kế hoạch theo dõi",
+        "description": "Tư vấn hướng chăm sóc, lựa chọn phù hợp và lịch tái khám khi cần."
+      },
+      {
+        "number": "05",
+        "title": "Trung tâm luôn đồng hành cùng bố mẹ",
+        "description": "Liên hệ dễ dàng với Trung tâm ngay khi cần"
+      },
+      {
+        "number": "06",
+        "title": "Lộ trình cá nhân hóa",
+        "description": "Mỗi trẻ sẽ có một phác đồ điều trị riêng, tối đa hóa hiệu quả điều trị"
+      }
+    ]
   },
   "pricing": {
     "treatments": [
       {
         "name": "Atropine nồng độ thấp",
-        "effectiveness": ["Hiệu quả kiểm soát độ cận thị: ~67%", "Hiệu quả kiểm soát trục nhãn cầu: ~51%"],
+        "effectiveness": [
+          "Hiệu quả kiểm soát độ cận thị: có thể lên tới 67%",
+          "Hiệu quả kiểm soát trục nhãn cầu: có thể lên tới 51%"
+        ],
         "tag": "Thuốc nhỏ mắt"
       },
       {
         "name": "Tròng kính kiểm soát cận thị",
-        "effectiveness": ["Hiệu quả kiểm soát độ cận thị: ~70%", "Hiệu quả kiểm soát trục nhãn cầu: ~55%"],
+        "effectiveness": [
+          "Hiệu quả kiểm soát độ cận thị: có thể lên tới 70%",
+          "Hiệu quả kiểm soát trục nhãn cầu: có thể lên tới 55%"
+        ],
         "tag": "Tròng chuyên dụng"
       },
       {
         "name": "Kính áp tròng Ortho-K",
-        "effectiveness": ["Hiệu quả kiểm soát độ cận thị: ~80%", "Hiệu quả kiểm soát trục nhãn cầu: ~70%"],
+        "effectiveness": [
+          "Hiệu quả kiểm soát độ cận thị: có thể lên tới 80%",
+          "Hiệu quả kiểm soát trục nhãn cầu: có thể lên tới 70%"
+        ],
         "tag": "Đeo ban đêm"
       },
       {
@@ -165,10 +247,11 @@
         "tag": "Tư vấn cá nhân hóa"
       }
     ],
-    "badge": "KIỂM SOÁT CẬN THỊ",
-    "titleLineOne": "CÁC PHƯƠNG PHÁP TIÊN TIẾN HIỆU QUẢ CAO",
-    "titleLineTwo": "HÀNG ĐẦU THẾ GIỚI",
-    "description": "Tùy hồ sơ khúc xạ và nhịp tiến triển, bác sĩ sẽ cá nhân hóa phác đồ để tối ưu kết quả cho trẻ.",
+    "badge": "CÁC PHƯƠNG ÁN KIỂM SOÁT CẬN THỊ",
+    "titleLineOne": "Không có một phương án",
+    "titleLineTwoPrefix": "cho ",
+    "titleLineTwoHighlight": "mọi trẻ.",
+    "description": "Bác sĩ sẽ cân nhắc hồ sơ khúc xạ, độ tuổi, nhịp tiến triển, tình trạng mắt và khả năng tuân thủ của gia đình trước khi tư vấn.",
     "footnote": "* Hiệu quả tham khảo từ các nghiên cứu dài hạn trên thế giới; kết quả thực tế phụ thuộc từng cá nhân."
   },
   "doctors": {
@@ -222,16 +305,16 @@
     "ctaDescription": "Hãy để chúng tôi chăm sóc đôi mắt của bạn với sự tận tâm và chuyên nghiệp.",
     "cta": "Đăng kí miễn phí ưu đãi",
     "items": [
-      { "name": "Bạn Hải Linh", "age": "10 tuổi", "content": "Mẹ thấy mắt bạn ấy có dấu hiệu bị lệch, đi khám mấy nơi đều bảo không sao. Nghe nói bác sĩ Tuấn chuyên khám lác nên qua thử. Sau một thời gian điều trị cùng bác sĩ Tuấn, đến nay đã không còn thấy mắt con bị lệch nữa rồi. Con cũng tự tin hơn ở trường lớp." },
+      { "name": "Phụ huynh bạn Hải Linh - 10 tuổi", "age": "", "content": "Điều tôi yên tâm nhất là bác sĩ giải thích kỹ vì sao cần theo dõi và gia đình phải làm gì ở nhà." },
       { "name": "Bạn Trúc Anh", "age": "9 tuổi", "content": "Lần đầu bố mẹ cho bạn ấy đi khám cũng chỉ để kiểm tra xem có vấn đề gì không. Nào ngờ bé bị cận loạn cao bẩm sinh kèm nhược thị. May được bác sĩ Tuấn tư vấn tận tình, hướng tập luyện như bác sĩ dặn; đến nay mắt con đã hết nhược thị hoàn toàn rồi." },
       { "name": "Bạn Gia Bảo", "age": "14 tuổi", "content": "Cháu theo khám bác sĩ Tuấn cũng được 5 năm rồi. Hiện độ cận loạn rất ổn định, 2 năm nay không tăng độ. Sắp tới bác sĩ Tuấn sẽ cho cháu đeo Ortho-K để không phải dùng kính gọng nữa." },
-      { "name": "Anh Phạm Đức Thành", "age": "45 tuổi", "content": "Con tôi 12 tuổi cận 4 độ. Sau 6 tháng theo phác đồ tại đây, độ tăng chậm rõ rệt. Bác sĩ theo dõi sát và hướng dẫn chăm sóc rất kỹ." },
+      { "name": "Anh Phạm Đức Thành", "age": "45 tuổi", "content": "Chúng tôi không chỉ nhận một đơn kính, mà còn nhận được kế hoạch chăm sóc mắt rõ ràng hơn. Con cũng được hướng dẫn từng bước, không còn sợ mỗi lần đi khám mắt. Gia đình rất yên tâm khi khám tại đây" },
       { "name": "Anh Trần Minh Tiến", "age": "42 tuổi", "content": "Gắn bó với chiếc kính cận 25 độ dày cộm hàng chục năm nay, được bạn bè giới thiệu đến khám tại phòng khám của BS Trần Tuấn và được tư vấn đổi sang loại tròng siêu mỏng dành riêng cho cận cao. Giờ tôi đeo kính cảm thấy rất thoải mái dễ chịu, không còn cảnh suốt ngày phải đẩy kính lên nữa, cải thiện thẩm mỹ và tự tin hơn rất nhiều trong công việc cũng như cuộc sống hàng ngày." },
       { "name": "Chị Đặng Thị Linh", "age": "31 tuổi", "content": "Con và gia đình được bác sĩ hướng dẫn đeo – tháo – vệ sinh kính áp tròng rất cẩn thận và tỉ mỉ. Giờ bé có thể tự đeo và tháo kính một mình, hằng ngày học tập và sinh hoạt rất tự tin." }
     ]
   },
   "booking": {
-    "title": "Đăng ký miễn phí nhận ưu đãi 50%",
+    "title": "Đặt lịch tư vấn ngay",
     "description": "Điền thông tin bên dưới để đặt lịch. Chúng tôi sẽ liên hệ xác nhận trong 30 phút.",
     "cardTitle": "Thông tin đặt lịch khám",
     "requiredNote": "Các trường có dấu * là thông tin bắt buộc.",

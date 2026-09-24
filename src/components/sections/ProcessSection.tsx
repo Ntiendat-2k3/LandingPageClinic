@@ -1,367 +1,75 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import {
-  domAnimation,
-  LazyMotion,
-  m,
-  useReducedMotion,
-} from "framer-motion";
-import type { LucideIcon } from "lucide-react";
-import {
-  Activity,
-  Camera,
-  CheckCircle2,
-  ClipboardCheck,
-  Crosshair,
-  Eye,
-  Flashlight,
-  MessageSquare,
-  Ruler,
-  Syringe,
-} from "lucide-react";
+"use client";
 
-import SectionHeader from "@/components/common/SectionHeader";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
 import { messages } from "@/i18n";
 
-type ProcessStep = {
-  number: number;
-  title: string;
-  details: string[];
-  icons: LucideIcon[];
-};
-
-type ProcessPoint = {
-  x: number;
-  y: number;
-};
-
-const PROCESS_DETAIL_ICONS: LucideIcon[][] = [
-  [Eye, Activity],
-  [Activity, Ruler],
-  [Activity],
-  [Activity],
-  [Crosshair, ClipboardCheck],
-  [Crosshair, Flashlight],
-  [Camera, Syringe],
-  [MessageSquare, MessageSquare],
-];
-
-const PROCESS_STEPS: ProcessStep[] = messages.process.steps.map(
-  (step, index) => ({
-    ...step,
-    number: index + 1,
-    icons: PROCESS_DETAIL_ICONS[index] ?? [],
-  })
-);
-
-// Hàng dưới đảo chiều để đường đi liên tục từ phải sang trái sau bước 4.
-const DESKTOP_VISUAL_ORDER = [0, 1, 2, 3, 7, 6, 5, 4] as const;
-
-/** Hiển thị quy trình khám theo một đường dẫn liên tục trên cả desktop và mobile. */
+/**
+ * Section Quy trình khám: Gia đình sẽ nhận được gì sau buổi khám?
+ * Hiển thị thông điệp cam kết cùng 6 bước/quyền lợi rõ ràng cho phụ huynh.
+ */
 export default function ProcessSection() {
   const scrollToSection = useScrollToSection();
-  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <LazyMotion features={domAnimation} strict>
-      <section id="process" className="bg-background py-14 md:py-20">
-        <div
-          data-scroll-reveal
-          className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10"
-        >
-          <SectionHeader
-          title={messages.process.title}
-          description={messages.process.description}
-          className="mb-10 md:mb-12"
-          />
+    <section
+      id="process"
+      className="relative py-14 sm:py-18 lg:py-24 bg-gradient-to-b from-white via-emerald-50/20 to-white overflow-hidden"
+    >
+      <div className="container mx-auto px-2.5 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          {/* Cột trái: Tiêu đề và nút kêu gọi hành động */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="inline-block text-xs sm:text-sm font-bold tracking-wider text-emerald-700 uppercase mb-2">
+              {messages.process.badge}
+            </div>
 
-          <MobileProcessTimeline shouldReduceMotion={shouldReduceMotion} />
-          <DesktopProcessTimeline shouldReduceMotion={shouldReduceMotion} />
+            <h2 className="font-space-grotesk text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold leading-tight text-slate-900">
+              {messages.process.title}
+            </h2>
 
-          <div className="mt-10 flex justify-center">
-            <Button
-              type="button"
-              size="lg"
-              onClick={() => scrollToSection("booking")}
-            >
-              {messages.process.cta}
-            </Button>
+            <p className="mt-4 text-sm sm:text-base lg:text-lg text-slate-600 leading-relaxed max-w-md">
+              {messages.process.description}
+            </p>
+
+            <div className="mt-8">
+              <Button
+                type="button"
+                size="lg"
+                onClick={() => scrollToSection("booking")}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl px-6 py-6 shadow-md hover:shadow-lg transition-all group cursor-pointer"
+              >
+                <span>{messages.process.cta}</span>
+                <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Cột phải: Danh sách 6 quyền lợi/bước quy trình */}
+          <div className="lg:col-span-7 bg-white/90 rounded-xl sm:rounded-3xl p-3.5 sm:p-8 lg:p-10 shadow-sm ring-1 ring-black/5 divide-y divide-gray-100">
+            {messages.process.steps.map((step, index) => (
+              <div
+                key={index}
+                className="py-5 sm:py-6 first:pt-0 last:pb-0 flex items-start gap-4 sm:gap-6"
+              >
+                <span className="font-mono text-base sm:text-lg font-extrabold text-emerald-700 shrink-0 mt-0.5">
+                  {step.number}
+                </span>
+
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-sm sm:text-base text-slate-600 leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-    </LazyMotion>
-  );
-}
-
-function MobileProcessTimeline({
-  shouldReduceMotion,
-}: {
-  shouldReduceMotion: boolean | null;
-}) {
-  return (
-    <div className="relative mx-auto max-w-xl md:hidden">
-      <svg
-        className="pointer-events-none absolute inset-y-0 left-0 h-full w-8"
-        viewBox="0 0 32 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <line
-          x1="16"
-          y1="2"
-          x2="16"
-          y2="98"
-          stroke="var(--border)"
-          strokeWidth="3"
-          vectorEffect="non-scaling-stroke"
-        />
-        <m.line
-          x1="16"
-          y1="2"
-          x2="16"
-          y2="98"
-          stroke="var(--primary)"
-          strokeWidth="3"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          initial={shouldReduceMotion ? false : { pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 1.2, ease: "easeOut" }}
-        />
-        {!shouldReduceMotion ? (
-          <m.line
-            x1="16"
-            y1="2"
-            x2="16"
-            y2="98"
-            stroke="var(--primary-foreground)"
-            strokeWidth="1.5"
-            strokeDasharray="5 12"
-            vectorEffect="non-scaling-stroke"
-            initial={{ opacity: 0 }}
-            animate={{ strokeDashoffset: [0, -17] }}
-            whileInView={{ opacity: 0.65 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{
-              strokeDashoffset: {
-                duration: 1.4,
-                repeat: Infinity,
-                ease: "linear",
-              },
-              opacity: { duration: 0.2, delay: 1.1 },
-            }}
-          />
-        ) : null}
-      </svg>
-
-      <ol className="flex flex-col gap-4 pl-11">
-        {PROCESS_STEPS.map((step) => (
-          <li key={step.number} className="relative">
-            <span className="absolute left-[-44px] top-4 z-10 grid size-8 place-items-center rounded-full border-2 border-primary bg-background text-sm font-bold text-primary shadow-sm">
-              {step.number}
-            </span>
-            <ProcessStepCard step={step} />
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-function DesktopProcessTimeline({
-  shouldReduceMotion,
-}: {
-  shouldReduceMotion: boolean | null;
-}) {
-  const stageRef = useRef<HTMLDivElement | null>(null);
-  const markerRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const [layout, setLayout] = useState<{
-    width: number;
-    height: number;
-    points: ProcessPoint[];
-  }>({ width: 0, height: 0, points: [] });
-
-  useLayoutEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
-
-    let frameId = 0;
-
-    const measure = () => {
-      cancelAnimationFrame(frameId);
-      frameId = requestAnimationFrame(() => {
-        const stageRect = stage.getBoundingClientRect();
-        const points = PROCESS_STEPS.map((_, index) => {
-          const markerRect = markerRefs.current[index]?.getBoundingClientRect();
-          if (!markerRect) return null;
-
-          return {
-            x: markerRect.left - stageRect.left + markerRect.width / 2,
-            y: markerRect.top - stageRect.top + markerRect.height / 2,
-          };
-        });
-
-        if (points.some((point) => point === null)) return;
-
-        setLayout({
-          width: stageRect.width,
-          height: stage.scrollHeight,
-          points: points as ProcessPoint[],
-        });
-      });
-    };
-
-    const resizeObserver = new ResizeObserver(measure);
-    resizeObserver.observe(stage);
-    measure();
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      resizeObserver.disconnect();
-    };
-  }, []);
-
-  const path = layout.points
-    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`)
-    .join(" ");
-
-  return (
-    <div ref={stageRef} className="relative hidden md:block">
-      {path ? (
-        <svg
-          className="pointer-events-none absolute inset-0 z-0"
-          width="100%"
-          height={layout.height}
-          viewBox={`0 0 ${layout.width} ${layout.height}`}
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <defs>
-            <marker
-              id="process-arrow"
-              markerWidth="8"
-              markerHeight="8"
-              refX="7"
-              refY="4"
-              orient="auto"
-            >
-              <path d="M 0 0 L 8 4 L 0 8 Z" fill="var(--primary)" />
-            </marker>
-          </defs>
-
-          <path
-            d={path}
-            fill="none"
-            stroke="var(--border)"
-            strokeWidth="8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            vectorEffect="non-scaling-stroke"
-          />
-          <m.path
-            d={path}
-            fill="none"
-            stroke="var(--primary)"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            markerEnd="url(#process-arrow)"
-            vectorEffect="non-scaling-stroke"
-            initial={shouldReduceMotion ? false : { pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 1.6, ease: "easeOut" }}
-          />
-          {!shouldReduceMotion ? (
-            <m.path
-              d={path}
-              fill="none"
-              stroke="var(--primary-foreground)"
-              strokeWidth="1.5"
-              strokeDasharray="7 19"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              vectorEffect="non-scaling-stroke"
-              initial={{ opacity: 0 }}
-              animate={{ strokeDashoffset: [0, -26] }}
-              whileInView={{ opacity: 0.65 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{
-                strokeDashoffset: {
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "linear",
-                },
-                opacity: { duration: 0.2, delay: 1.5 },
-              }}
-            />
-          ) : null}
-        </svg>
-      ) : null}
-
-      <ol className="relative z-10 grid grid-cols-4 gap-x-6 gap-y-24">
-        {DESKTOP_VISUAL_ORDER.map((stepIndex) => {
-          const step = PROCESS_STEPS[stepIndex];
-
-          return (
-            <li key={step.number} className="relative flex min-w-0 flex-col pt-12">
-              <m.span
-                ref={(element) => {
-                  markerRefs.current[stepIndex] = element;
-                }}
-                className="absolute left-1/2 top-0 grid size-10 -translate-x-1/2 place-items-center rounded-full border-4 border-background bg-primary text-sm font-bold text-primary-foreground shadow-sm"
-                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.75 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{
-                  duration: shouldReduceMotion ? 0 : 0.35,
-                  delay: shouldReduceMotion ? 0 : stepIndex * 0.08,
-                }}
-              >
-                {step.number}
-              </m.span>
-              <ProcessStepCard step={step} />
-            </li>
-          );
-        })}
-      </ol>
-    </div>
-  );
-}
-
-function ProcessStepCard({ step }: { step: ProcessStep }) {
-  return (
-    <Card size="sm" className="h-full shadow-sm">
-      <CardHeader>
-        <CardTitle>{step.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ul className="flex flex-col gap-2">
-          {step.details.map((detail, index) => {
-            const Icon = step.icons[index] ?? CheckCircle2;
-
-            return (
-              <li
-                key={detail}
-                className="flex items-start gap-2 text-sm leading-5 text-muted-foreground"
-              >
-                <span className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-primary">
-                  <Icon className="size-3.5" aria-hidden="true" />
-                </span>
-                <span>{detail}</span>
-              </li>
-            );
-          })}
-        </ul>
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 }

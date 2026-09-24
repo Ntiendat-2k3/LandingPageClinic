@@ -98,19 +98,19 @@ const TestimonialsSection = () => {
 
   return (
     <section id="testimonials" className="section-padding bg-white">
-      <div data-scroll-reveal className="container mx-auto container-padding">
+      <div data-scroll-reveal className="container mx-auto px-2.5 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="font-space-grotesk text-2xl md:text-4xl font-extrabold text-gray-900 mb-2 uppercase">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="font-space-grotesk text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2 uppercase">
             {messages.testimonials.title}
           </h2>
-          <p className="text-sm md:text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
             {messages.testimonials.description}
           </p>
         </div>
 
         {/* ===== Mobile: list kéo trượt + ReadMore ===== */}
-        <div className="md:hidden -mx-4 px-4">
+        <div className="md:hidden -mx-2.5 px-2.5">
           <div className="flex gap-4 overflow-x-auto overflow-y-visible snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {testimonials.map((t, idx) => (
               <article
@@ -124,7 +124,7 @@ const TestimonialsSection = () => {
 
                 <div className="px-4 pb-4 pt-2 text-center">
                   <div className="font-semibold text-gray-900 text-[14.5px]">
-                    {t.name} — {t.age}
+                    {t.name}{t.age ? ` — ${t.age}` : ""}
                   </div>
                   <div className="mt-1">
                     <Stars n={t.rating} />
@@ -137,77 +137,29 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* ===== Desktop: lưới 3 cột (hiển thị đầy đủ) ===== */}
-        <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* ===== Desktop: lưới 3 cột với khoảng cách hàng rộng thoáng và chiều ngang thu gọn ===== */}
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-3 gap-x-6 lg:gap-x-7 gap-y-16 lg:gap-y-20 pt-4">
           {testimonials.map((t, idx) => (
             <article
               key={idx}
-              className="relative bg-white rounded-2xl p-6 pt-12 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 text-center"
+              className="relative bg-white rounded-2xl p-6 pt-12 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100/90 text-center flex flex-col"
             >
               <div className="absolute -top-8 left-1/2 -translate-x-1/2">
                 <Avatar src={t.image} alt={t.name} size="w-20 h-20" />
               </div>
 
-              <h3 className="font-semibold text-gray-900">
-                {t.name} — {t.age}
+              <h3 className="font-semibold text-gray-900 text-[15.5px]">
+                {t.name}{t.age ? ` — ${t.age}` : ""}
               </h3>
-              <div className="mt-1 mb-4">
+              <div className="mt-1.5 mb-3.5">
                 <Stars n={t.rating} />
               </div>
 
-              <p className="text-gray-600 leading-relaxed italic">
+              <p className="text-gray-600 leading-relaxed italic text-[13.5px] lg:text-[14px]">
                 “{t.content}”
               </p>
             </article>
           ))}
-        </div>
-
-        {/* ===== CTA MOBILE ===== */}
-        <div className="mt-12 md:hidden">
-          <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100">
-            <h3
-              className="text-base font-bold text-gray-900 mb-2"
-              style={{ textWrap: "balance" }}
-            >
-              {messages.testimonials.ctaTitle}
-            </h3>
-            <p className="text-[13px] text-gray-600 mb-4">
-              {messages.testimonials.ctaDescription}
-            </p>
-
-            <a
-              href="#booking"
-              className="w-full flex items-center justify-center gap-3 px-5 py-3 rounded-full text-white font-extrabold text-sm bg-emerald-500 shadow-lg active:scale-[0.98] hover:bg-emerald-600 transition"
-            >
-              <span className="leading-tight text-left">
-                {messages.testimonials.cta}
-              </span>
-              <span className="px-2 py-1 rounded-full bg-white/95 text-emerald-600 font-black ring-1 ring-emerald-200">
-                {messages.common.offer}
-              </span>
-            </a>
-          </div>
-        </div>
-
-        {/* ===== CTA DESKTOP ===== */}
-        <div className="hidden md:block mt-16 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-            <h3 className="font-space-grotesk text-2xl font-bold text-gray-900 mb-3">
-              {messages.testimonials.ctaTitle}
-            </h3>
-            <p className="text-gray-600 mb-5 max-w-2xl mx-auto">
-              {messages.testimonials.ctaDescription}
-            </p>
-            <a
-              href="#booking"
-              className="inline-flex items-center gap-3 bg-emerald-500 text-white px-10 py-4 rounded-full font-extrabold text-lg shadow-lg hover:shadow-xl hover:scale-105 hover:bg-emerald-600 transition"
-            >
-              {messages.testimonials.cta}{" "}
-              <span className="px-3 py-1 rounded-full bg-white text-emerald-600 font-black">
-                {messages.common.offer}
-              </span>
-            </a>
-          </div>
         </div>
       </div>
     </section>

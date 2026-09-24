@@ -9,12 +9,12 @@ import GoalsSection from "./components/sections/GoalsSection";
 import HeroSection from "./components/sections/HeroSection";
 import PricingSection from "./components/sections/PricingSection";
 import ProcessSection from "./components/sections/ProcessSection";
-import ServicesSection from "./components/sections/ServicesSection";
+// import ServicesSection from "./components/sections/ServicesSection";
 import TestimonialsSection from "./components/sections/TestimonialsSection";
-import VideoSection from "./components/sections/VideoSection";
+// import VideoSection from "./components/sections/VideoSection";
 import StickyCTA from "./components/common/StickyCTA";
 import ScrollRevealObserver from "./components/common/ScrollRevealObserver";
-import CTASection from "./components/common/CTASection";
+import ProgressionAssessmentSection from "./components/sections/ProgressionAssessmentSection";
 import BookingSuccess from "./pages/BookingSuccess";
 import { messages } from "./i18n";
 
@@ -23,23 +23,7 @@ function HomePage() {
     <>
       <HeroSection />
       <GoalsSection />
-      <section
-        aria-label={messages.app.riskAssessment.ariaLabel}
-        className="bg-gradient-to-b from-cyan-50/60 to-white px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
-      >
-        <div className="container mx-auto">
-          <CTASection
-            className="mt-0"
-            title={messages.app.riskAssessment.title}
-            description={messages.app.riskAssessment.description}
-            primaryButtonText={messages.app.riskAssessment.button}
-            primaryButtonHref="/danh-gia-nguy-co-can-thi/"
-            variant="gradient"
-          />
-        </div>
-      </section>
-      <VideoSection />
-      <ServicesSection />
+      <ProgressionAssessmentSection />
       <ProcessSection />
       <PricingSection />
       <DoctorsSection />

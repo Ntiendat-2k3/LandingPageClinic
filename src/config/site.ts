@@ -10,4 +10,5 @@ export const SITE_CONTACT = {
 export const SITE_LINKS = {
   messenger: `https://m.me/${SITE_CONTACT.messengerUsername}`,
   zalo: `https://zalo.me/${SITE_CONTACT.phonePlain}`,
+  zaloOa: `https://zalo.me/${SITE_CONTACT.phonePlain}`,
 } as const;

@@ -168,6 +168,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -179,11 +180,9 @@
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(
-    135deg,
-    var(--brand-cyan) 0%,
-    var(--brand-emerald) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--brand-cyan) 0%,
+      var(--brand-emerald) 100%);
 }
 
 .bg-gradient-secondary {
@@ -208,14 +207,23 @@
 }
 
 .container-padding {
-  @apply px-4 sm:px-6 lg:px-8;
+  @apply px-2.5 sm:px-6 lg:px-8;
+}
+
+/* Giới hạn chiều ngang container toàn trang (bao gồm Navbar, Hero, các section và Footer) ở mức 1140px để nội dung cân đối, không bị bè rộng tràn viền trên màn hình lớn */
+@media (min-width: 1140px) {
+  .container {
+    max-width: 1280px !important;
+  }
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -226,6 +234,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

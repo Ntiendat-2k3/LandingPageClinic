@@ -57,7 +57,7 @@ const Check = ({ className = "" }) => (
 const PricingSection: React.FC = () => {
   return (
     <section
-      id="pricing"
+      id="myopia-control"
       className="relative py-12 md:py-16 xl:py-20 overflow-hidden"
       style={{
         background:
@@ -70,24 +70,30 @@ const PricingSection: React.FC = () => {
         <div className="absolute bottom-0 left-1/3 w-72 h-72 rounded-full blur-3xl bg-purple-200/30" />
       </div>
 
-      <div data-scroll-reveal className="container mx-auto px-4 relative">
-        {/* Title + TAG */}
-        <div className="text-center mb-8 md:mb-12">
-          {/* tag “KIỂM SOÁT CẬN THỊ” – to hơn, cân đối */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 text-white text-base md:text-lg font-semibold tracking-wide shadow-md">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/90" />
-            {messages.pricing.badge}
+      <div data-scroll-reveal className="container mx-auto px-2.5 sm:px-6 lg:px-8 relative">
+        {/* Banner tiêu đề phong cách mới theo ảnh 1 */}
+        <div className="mb-8 sm:mb-10 lg:mb-12 rounded-xl sm:rounded-3xl bg-[#0c3666] text-white p-4 sm:p-8 lg:p-10 shadow-xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+            <div className="lg:col-span-7">
+              <div className="text-xs sm:text-sm font-bold tracking-wider text-emerald-400 uppercase">
+                {messages.pricing.badge}
+              </div>
+              <h2 className="mt-2 font-space-grotesk text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-tight">
+                <span className="block text-white">
+                  {messages.pricing.titleLineOne}
+                </span>
+                <span className="block text-white">
+                  <span>{messages.pricing.titleLineTwoPrefix}</span>
+                  <span className="text-emerald-400">{messages.pricing.titleLineTwoHighlight}</span>
+                </span>
+              </h2>
+            </div>
+            <div className="lg:col-span-5">
+              <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed">
+                {messages.pricing.description}
+              </p>
+            </div>
           </div>
-
-          <h2 className="mt-4 text-2xl md:text-4xl xl:text-5xl font-extrabold leading-tight text-gray-900">
-            {messages.pricing.titleLineOne}
-            <br className="hidden sm:block" />
-            {messages.pricing.titleLineTwo}
-          </h2>
-
-          <p className="mt-3 text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
-            {messages.pricing.description}
-          </p>
         </div>
 
         {/* Grid responsive */}
@@ -113,7 +119,7 @@ const PricingSection: React.FC = () => {
                   </div>
                 )}
 
-                <div className="p-5 md:p-6">
+                <div className="p-4 sm:p-5 md:p-6">
                   {/* Ảnh – to hơn (giảm padding) */}
                   <div className="relative w-full rounded-2xl overflow-hidden border border-white/70 bg-gradient-to-br from-white to-emerald-50">
                     <div className="aspect-[4/3] md:aspect-[5/3] w-full flex items-center justify-center">

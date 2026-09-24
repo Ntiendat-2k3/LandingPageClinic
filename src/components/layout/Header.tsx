@@ -15,10 +15,8 @@ import { SITE_CONTACT, SITE_LINKS } from "@/config/site";
 import { formatMessage, messages } from "@/i18n";
 
 const NAVIGATION_ITEMS = [
-  { label: messages.header.navigation.services, sectionId: "services" },
-  { label: messages.header.navigation.process, sectionId: "process" },
-  { label: messages.header.navigation.myopiaControl, sectionId: "pricing" },
-  { label: messages.header.navigation.team, sectionId: "doctors" },
+  { label: messages.header.navigation.whenToVisit, sectionId: "when-to-visit" },
+  { label: messages.header.navigation.myopiaControl, sectionId: "myopia-control" },
 ] as const;
 
 const Header = () => {
@@ -33,7 +31,7 @@ const Header = () => {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-2.5 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           <div className="flex shrink-0 items-center gap-2">
             <img
@@ -63,16 +61,14 @@ const Header = () => {
 
           <div className="hidden shrink-0 items-center gap-3 text-xs text-muted-foreground lg:flex xl:gap-4 xl:text-sm">
             <a
-              href={SITE_LINKS.zalo}
+              href={SITE_LINKS.zaloOa}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 transition-colors hover:text-primary"
-              aria-label={formatMessage(messages.header.zaloLabel, {
-                phone: SITE_CONTACT.phoneDisplay,
-              })}
+              aria-label={messages.header.zaloOaLabel}
             >
               <Phone className="size-4" aria-hidden="true" />
-              <span>{SITE_CONTACT.phoneDisplay}</span>
+              <span>{messages.header.zaloOa}</span>
             </a>
             <a
               href={SITE_CONTACT.mapsUrl}
@@ -129,19 +125,23 @@ const Header = () => {
 
               <div className="flex flex-col gap-3 px-4 text-sm text-muted-foreground">
                 <a
-                  href={SITE_LINKS.zalo}
+                  href={SITE_LINKS.zaloOa}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 transition-colors hover:text-primary"
+                  aria-label={messages.header.zaloOaLabel}
                 >
                   <Phone className="size-4" aria-hidden="true" />
-                  <span>{SITE_CONTACT.phoneDisplay}</span>
+                  <span>{messages.header.zaloOa}</span>
                 </a>
                 <a
                   href={SITE_CONTACT.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-2 transition-colors hover:text-primary"
+                  aria-label={formatMessage(messages.header.mapsLabel, {
+                    address: SITE_CONTACT.address,
+                  })}
                 >
                   <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                   <span>{SITE_CONTACT.address}</span>

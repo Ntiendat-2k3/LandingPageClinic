@@ -10,17 +10,19 @@ type Doctor = {
   education: string;
   highlights: string[];
   image: string;
+  position: string;
 };
 
 const DoctorsSection = () => {
   const doctorImages = [
-    "/images/doctors/doctor1.jpg",
-    "/images/doctors/doctor3.jpg",
-    "/images/doctors/doctor2.jpg",
+    { src: "/images/doctors/doctor1.jpg", position: "50% 72%" },
+    { src: "/images/doctors/doctor3.jpg", position: "50% 65%" },
+    { src: "/images/doctors/doctor2.jpg", position: "50% 65%" },
   ];
   const doctors: Doctor[] = messages.doctors.profiles.map((profile, index) => ({
     ...profile,
-    image: doctorImages[index] ?? "",
+    image: doctorImages[index]?.src ?? "",
+    position: doctorImages[index]?.position ?? "center",
   }));
 
   const [expanded, setExpanded] = useState<number | null>(null);
@@ -145,19 +147,19 @@ const DoctorsSection = () => {
         </svg>
       </div>
 
-      {/* ===== CONTENT WRAPPER (thu nhỏ desktop) ===== */}
+      {/* ===== CONTENT WRAPPER (thu nhỏ để vừa vặn 1 màn hình) ===== */}
       <div
         data-scroll-reveal
-        className="relative z-10 mx-auto px-4 md:px-6 max-w-[1050px] lg:max-w-[1180px] py-10 md:py-12"
+        className="container relative z-10 mx-auto px-2.5 sm:px-6 lg:px-8 py-8 md:py-10"
       >
-        <div className="text-center mb-7 md:mb-10">
-          <h2 className="font-space-grotesk text-2xl md:text-3xl lg:text-[32px] font-extrabold text-gray-900 uppercase">
+        <div className="text-center mb-5 md:mb-6">
+          <h2 className="font-space-grotesk text-2xl md:text-3xl lg:text-[30px] font-extrabold text-gray-900 uppercase">
             {messages.doctors.sectionTitle}
           </h2>
         </div>
 
         {/* ===== MOBILE ===== */}
-        <div className="md:hidden -mx-4 px-4">
+        <div className="md:hidden -mx-2.5 px-2.5">
           <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {doctors.map((d, idx) => {
               const open = expanded === idx;
@@ -165,72 +167,77 @@ const DoctorsSection = () => {
               return (
                 <article
                   key={idx}
-                  className="snap-start basis-[86%] shrink-0 rounded-xl border border-gray-100 bg-white/90 backdrop-blur-sm shadow-sm"
+                  className="snap-start basis-[86%] shrink-0 rounded-xl border border-gray-100 bg-white/90 backdrop-blur-sm shadow-sm flex flex-col"
                 >
-                  <div className="relative aspect-[5/6] w-full overflow-hidden rounded-t-xl bg-gray-50">
-                    <img
-                      src={d.image || "/placeholder.svg"}
-                      alt={d.name}
-                      className="absolute inset-0 w-full h-full object-cover object-[50%_85%]"
-                      loading="lazy"
-                    />
+                  <div className="pt-4 px-4 flex justify-center">
+                    <div className="w-36 h-44 overflow-hidden rounded-xl bg-gray-50 shadow-sm">
+                      <img
+                        src={d.image || "/placeholder.svg"}
+                        alt={d.name}
+                        className="w-full h-full object-cover"
+                        style={{ objectPosition: d.position }}
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
 
-                  <div className="p-4 space-y-3">
-                    <header>
-                      <h3 className="font-space-grotesk text-[17px] font-bold text-gray-900">
-                        {d.name}
-                      </h3>
-                      <p className="text-emerald-700 text-[13.5px] font-medium mt-0.5">
-                        {d.title}
-                      </p>
-                    </header>
+                  <div className="p-4 space-y-2.5 flex-1 flex flex-col justify-between">
+                    <div className="space-y-2.5">
+                      <header>
+                        <h3 className="font-space-grotesk text-[16px] font-bold text-gray-900">
+                          {d.name}
+                        </h3>
+                        <p className="text-emerald-700 text-[13px] font-medium mt-0.5">
+                          {d.title}
+                        </p>
+                      </header>
 
-                    <div className="flex items-start gap-2">
-                      <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5" />
-                      <p className="text-[13px] text-gray-700 leading-relaxed">
-                        {d.education}
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Award className="w-4 h-4 text-gray-500" />
-                        <span className="text-sm font-semibold text-gray-900">
-                          {messages.doctors.experienceTitle}
-                        </span>
+                      <div className="flex items-start gap-2">
+                        <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5 shrink-0" />
+                        <p className="text-[12.5px] text-gray-700 leading-snug">
+                          {d.education}
+                        </p>
                       </div>
-                      <ul className="space-y-2 ml-6">
-                        {bullets.map((h, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <Check className="w-4 h-4 text-emerald-600 mt-0.5" />
-                            <span className="text-[13px] text-gray-700 leading-relaxed">
-                              {h}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
 
-                      {d.highlights.length > 2 && (
-                        <button
-                          onClick={() => toggle(idx)}
-                          className="mt-2 text-[13px] font-semibold text-emerald-700"
-                        >
-                          {open ? messages.doctors.collapse : messages.doctors.expand}
-                        </button>
-                      )}
+                      <div>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <Award className="w-4 h-4 text-gray-500 shrink-0" />
+                          <span className="text-[13px] font-semibold text-gray-900">
+                            {messages.doctors.experienceTitle}
+                          </span>
+                        </div>
+                        <ul className="space-y-1.5 ml-5">
+                          {bullets.map((h, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <Check className="w-3.5 h-3.5 text-emerald-600 mt-0.5 shrink-0" />
+                              <span className="text-[12.5px] text-gray-700 leading-snug">
+                                {h}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {d.highlights.length > 2 && (
+                          <button
+                            onClick={() => toggle(idx)}
+                            className="mt-1.5 text-[12.5px] font-semibold text-emerald-700"
+                          >
+                            {open ? messages.doctors.collapse : messages.doctors.expand}
+                          </button>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-1">
-                      <div className="flex items-center gap-2">
-                        <Shield className="w-4 h-4 text-gray-500" />
-                        <span className="text-[12px] text-gray-600">
+                    <div className="flex items-center justify-between pt-2 border-t border-gray-100 mt-2">
+                      <div className="flex items-center gap-1.5">
+                        <Shield className="w-3.5 h-3.5 text-gray-500 shrink-0" />
+                        <span className="text-[11.5px] text-gray-600">
                           {messages.doctors.commitmentShort}
                         </span>
                       </div>
                       <button
                         onClick={scrollToBooking}
-                        className="px-3 py-1.5 rounded-full text-[12px] font-semibold text-white bg-emerald-600 hover:bg-emerald-700"
+                        className="px-3 py-1 rounded-full text-[11.5px] font-semibold text-white bg-emerald-600 hover:bg-emerald-700"
                       >
                         {messages.doctors.book}
                       </button>
@@ -242,61 +249,66 @@ const DoctorsSection = () => {
           </div>
         </div>
 
-        {/* ===== DESKTOP (thu nhỏ) ===== */}
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-7">
+        {/* ===== DESKTOP (thu nhỏ ảnh để vừa 1 viewport) ===== */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {doctors.map((d, idx) => (
             <article
               key={idx}
-              className="relative rounded-xl border border-gray-100 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300"
+              className="relative rounded-xl border border-gray-100 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 flex flex-col"
             >
-              <div className="w-full overflow-hidden rounded-t-xl bg-gray-50 aspect-[4/5]">
-                <img
-                  src={d.image || "/placeholder.svg"}
-                  alt={d.name}
-                  className="w-full h-full object-cover object-[50%_86%]"
-                  loading="lazy"
-                />
+              <div className="pt-5 px-5 flex justify-center">
+                <div className="w-40 h-48 lg:w-44 lg:h-52 overflow-hidden rounded-xl bg-gray-50 shadow-sm">
+                  <img
+                    src={d.image || "/placeholder.svg"}
+                    alt={d.name}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: d.position }}
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
-              <div className="p-5 space-y-3.5">
-                <header>
-                  <h3 className="font-space-grotesk text-lg font-bold text-gray-900 leading-snug">
-                    {d.name}
-                  </h3>
-                  <p className="text-emerald-700 font-medium mt-0.5 text-[13.5px]">
-                    {d.title}
-                  </p>
-                </header>
+              <div className="p-4 lg:p-5 space-y-2.5 flex-1 flex flex-col justify-between">
+                <div className="space-y-2.5">
+                  <header>
+                    <h3 className="font-space-grotesk text-base lg:text-[17px] font-bold text-gray-900 leading-snug">
+                      {d.name}
+                    </h3>
+                    <p className="text-emerald-700 font-medium mt-0.5 text-[13px]">
+                      {d.title}
+                    </p>
+                  </header>
 
-                <div className="flex items-start gap-2">
-                  <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5" />
-                  <p className="text-[13.5px] text-gray-700 leading-relaxed">
-                    {d.education}
-                  </p>
-                </div>
-
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <Award className="w-4 h-4 text-gray-500" />
-                    <span className="text-[13.5px] font-semibold text-gray-900">
-                      {messages.doctors.experienceTitle}
-                    </span>
+                  <div className="flex items-start gap-2">
+                    <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5 shrink-0" />
+                    <p className="text-[12.5px] lg:text-[13px] text-gray-700 leading-snug">
+                      {d.education}
+                    </p>
                   </div>
-                  <ul className="space-y-1.5 ml-6">
-                    {d.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-emerald-600 mt-0.5" />
-                        <span className="text-[13.5px] text-gray-700 leading-relaxed">
-                          {h}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <Award className="w-4 h-4 text-gray-500 shrink-0" />
+                      <span className="text-[13px] font-semibold text-gray-900">
+                        {messages.doctors.experienceTitle}
+                      </span>
+                    </div>
+                    <ul className="space-y-1.5 ml-5">
+                      {d.highlights.map((h, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 mt-0.5 shrink-0" />
+                          <span className="text-[12.5px] lg:text-[13px] text-gray-700 leading-snug">
+                            {h}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2 pt-1">
-                  <Shield className="w-4 h-4 text-gray-500" />
-                  <span className="text-[12px] text-gray-600">
+                <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+                  <Shield className="w-3.5 h-3.5 text-gray-500 shrink-0" />
+                  <span className="text-[11.5px] text-gray-600">
                     {messages.doctors.commitmentFull}
                   </span>
                 </div>
