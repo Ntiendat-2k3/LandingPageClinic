@@ -44,7 +44,16 @@ form.addEventListener("submit", async (event) => {
     if (!response.ok) throw new Error("SCREENING_NOT_SAVED");
     const result = await response.json();
     if (!result.saved || !["high", "medium", "low"].includes(result.risk)) throw new Error("INVALID_RESULT");
-    sessionStorage.setItem("screening-result", result.risk);
+    try {
+      sessionStorage.setItem("screening-result", result.risk);
+      if (typeof result.notificationSent !== "boolean") {
+        sessionStorage.removeItem("screening-notification");
+      } else {
+        sessionStorage.setItem("screening-notification", result.notificationSent === true ? "success" : "error");
+      }
+    } catch {
+      // Trình duyệt chặn lưu phiên vẫn phải chuyển trang vì Sheet đã ghi thành công.
+    }
     location.assign("/cam-on-khao-sat");
   } catch {
     submitError.classList.remove("hidden");

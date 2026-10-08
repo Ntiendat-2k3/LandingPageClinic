@@ -1,5 +1,6 @@
-import { CheckCircle, MessageCircle } from "lucide-react";
+import { CheckCircle, Mail, MessageCircle } from "lucide-react";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SITE_LINKS } from "@/config/site";
@@ -23,8 +24,16 @@ const results = {
 type Risk = keyof typeof results;
 
 const ScreeningSuccess = () => {
-  const stored = sessionStorage.getItem("screening-result");
+  let stored: string | null = null;
+  let storedNotification: string | null = null;
+  try {
+    stored = sessionStorage.getItem("screening-result");
+    storedNotification = sessionStorage.getItem("screening-notification");
+  } catch {
+    // Trang vẫn hiển thị trạng thái an toàn khi trình duyệt chặn lưu phiên.
+  }
   const result = stored && Object.prototype.hasOwnProperty.call(results, stored) ? results[stored as Risk] : null;
+  const notificationStatus = result ? storedNotification : null;
 
   return (
     <section className="section-padding flex min-h-screen items-center bg-gradient-primary">
@@ -45,6 +54,20 @@ const ScreeningSuccess = () => {
             ) : (
               <p className="rounded-xl bg-muted p-5">{messages.screeningSuccess.missingResult}</p>
             )}
+            {notificationStatus === "success" ? (
+              <Alert>
+                <Mail aria-hidden="true" />
+                <AlertTitle>{messages.screeningSuccess.notificationSent}</AlertTitle>
+                <AlertDescription>{messages.screeningSuccess.notificationSentDescription}</AlertDescription>
+              </Alert>
+            ) : null}
+            {notificationStatus === "error" ? (
+              <Alert variant="destructive">
+                <Mail aria-hidden="true" />
+                <AlertTitle>{messages.screeningSuccess.notificationFailed}</AlertTitle>
+                <AlertDescription>{messages.screeningSuccess.notificationFailedDescription}</AlertDescription>
+              </Alert>
+            ) : null}
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button asChild className="flex-1"><a href={SITE_LINKS.messenger} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" /> {messages.screeningSuccess.messenger}</a></Button>
               <Button asChild variant="outline" className="flex-1"><a href="/danh-gia-nguy-co-can-thi/">{messages.screeningSuccess.retry}</a></Button>

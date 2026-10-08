@@ -30,6 +30,12 @@ Trong EmailJS, kết nối một email service và tạo template. Đặt **To E
 
 Có thể dùng [mẫu HTML thông báo đặt lịch](chỉnh%20sửa%20landingpage/Lần%201%20-%202.1.2026/emailjs-booking-template.html) trong Code Editor của EmailJS. Mẫu dùng đúng các biến `customer_name`, `customer_phone`, `booking_date_vn`, `booking_time`, `customer_message` và `booking_datetime` mà ứng dụng gửi.
 
+### Email thông báo khảo sát
+
+Tạo thêm **một template riêng** trong cùng tài khoản EmailJS. Đặt **To Email** là địa chỉ nhận của phòng khám, **Subject** là `{{notification_subject}}` và dán [mẫu HTML khảo sát](chỉnh%20sửa%20landingpage/Lần%201%20-%202.1.2026/emailjs-screening-template.html) vào Code Editor. Template chỉ dùng `submitted_at`; chín câu trả lời và đường dẫn Sheet không được gửi qua EmailJS.
+
+Điền Template ID mới vào `EMAILJS_SCREENING_TEMPLATE_ID` trong `.env` khi chạy local và Environment Variables trên Vercel. API khảo sát dùng lại `VITE_EMAILJS_SERVICE_ID` và `VITE_EMAILJS_PUBLIC_KEY` đang dùng cho đặt lịch. Sau khi đổi biến, khởi động lại Vite hoặc tạo deployment mới. Lưu và thử template trong EmailJS, sau đó gửi một khảo sát thử để xác nhận Sheet có dòng mới, email đến hộp thư và trang cảm ơn báo trạng thái thông báo. Khi EmailJS lỗi hoặc chưa cấu hình, khảo sát vẫn được lưu và khách vẫn xem được kết quả.
+
 Thứ tự cột của Sheet khảo sát (`A:N`): mã lượt gửi, thời điểm Việt Nam, nguồn, 9 câu trả lời theo thứ tự trên trang, mức nguy cơ, đồng ý chính sách.
 
 Nếu cần tạo lại Sheet, hàng tiêu đề dưới đây có thể dán trực tiếp vào ô `A1` của từng bảng:

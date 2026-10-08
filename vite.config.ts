@@ -18,6 +18,9 @@ export default defineConfig({
           "GOOGLE_PRIVATE_KEY",
           "BOOKING_SHEET_ID",
           "SCREENING_SHEET_ID",
+          "VITE_EMAILJS_SERVICE_ID",
+          "VITE_EMAILJS_PUBLIC_KEY",
+          "EMAILJS_SCREENING_TEMPLATE_ID",
         ]) {
           if (!process.env[name] && env[name]) process.env[name] = env[name];
         }

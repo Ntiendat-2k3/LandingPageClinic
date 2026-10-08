@@ -352,6 +352,10 @@
     "backHome": "Quay về trang chủ"
   },
   "screeningSuccess": {
+    "notificationSent": "Đã gửi thông báo",
+    "notificationSentDescription": "Câu trả lời đã được lưu và phòng khám đã nhận email thông báo về lượt khảo sát mới.",
+    "notificationFailed": "Chưa gửi được thông báo",
+    "notificationFailedDescription": "Câu trả lời đã được lưu nhưng email thông báo chưa gửi được. Phòng khám vẫn có thể xem lượt khảo sát trong danh sách.",
     "title": "Cảm ơn bạn đã hoàn thành khảo sát",
     "genericTitle": "Kết quả khảo sát",
     "genericDescription": "Trang này hiển thị kết quả sau khi bạn gửi khảo sát thành công.",

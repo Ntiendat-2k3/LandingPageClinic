@@ -11,6 +11,7 @@ process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL = "test@example.invalid";
 process.env.GOOGLE_PRIVATE_KEY = privateKey.export({ format: "pem", type: "pkcs8" });
 process.env.BOOKING_SHEET_ID = "booking-test";
 process.env.SCREENING_SHEET_ID = "screening-test";
+process.env.EMAILJS_SCREENING_TEMPLATE_ID = "";
 
 function response() {
   return {
@@ -78,9 +79,68 @@ test("khảo sát tính lại mức nguy cơ và ghi đúng Sheet", async () => 
   await screeningHandler(request(screening()), res);
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.risk, "high");
+  assert.equal(res.body.notificationSent, null);
   assert.match(written.url, /screening-test/);
   assert.equal(written.body.values[0].length, 14);
   assert.equal(written.body.values[0][12], "high");
+});
+
+test("khảo sát gửi email sau khi lưu Sheet và không gửi lại khi trùng mã", async () => {
+  process.env.VITE_EMAILJS_SERVICE_ID = "service-test";
+  process.env.VITE_EMAILJS_PUBLIC_KEY = "public-test";
+  process.env.EMAILJS_SCREENING_TEMPLATE_ID = "template-screening-test";
+  const payload = screening();
+  const calls = [];
+  let alreadySaved = false;
+  try {
+    globalThis.fetch = async (url, options) => {
+      calls.push({ url: String(url), options });
+      if (options.method === "GET") return { ok: true, json: async () => ({ values: alreadySaved ? [[payload.requestId]] : [] }) };
+      return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
+    };
+    const first = response();
+    await screeningHandler(request(payload), first);
+    assert.equal(first.statusCode, 200);
+    assert.equal(first.body.notificationSent, true);
+    const sheetIndex = calls.findIndex(({ options }) => options.method === "POST" && options.headers.Authorization);
+    const emailIndex = calls.findIndex(({ url }) => url.includes("api.emailjs.com"));
+    assert.ok(sheetIndex >= 0 && emailIndex > sheetIndex);
+    const emailBody = JSON.parse(calls[emailIndex].options.body);
+    assert.equal(emailBody.template_id, "template-screening-test");
+    assert.deepEqual(Object.keys(emailBody.template_params).sort(), ["notification_subject", "submitted_at"]);
+
+    alreadySaved = true;
+    const duplicate = response();
+    await screeningHandler(request(payload), duplicate);
+    assert.equal(duplicate.body.notificationSent, null);
+    assert.equal(calls.filter(({ url }) => url.includes("api.emailjs.com")).length, 1);
+  } finally {
+    delete process.env.VITE_EMAILJS_SERVICE_ID;
+    delete process.env.VITE_EMAILJS_PUBLIC_KEY;
+    process.env.EMAILJS_SCREENING_TEMPLATE_ID = "";
+  }
+});
+
+test("lỗi EmailJS không làm khảo sát đã lưu thành lỗi", async () => {
+  process.env.VITE_EMAILJS_SERVICE_ID = "service-test";
+  process.env.VITE_EMAILJS_PUBLIC_KEY = "public-test";
+  process.env.EMAILJS_SCREENING_TEMPLATE_ID = "template-screening-test";
+  try {
+    globalThis.fetch = async (url, options) => {
+      if (String(url).includes("api.emailjs.com")) return { ok: false, status: 412 };
+      if (options.method === "GET") return { ok: true, json: async () => ({ values: [] }) };
+      return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
+    };
+    const res = response();
+    await screeningHandler(request(screening()), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.saved, true);
+    assert.equal(res.body.notificationSent, false);
+  } finally {
+    delete process.env.VITE_EMAILJS_SERVICE_ID;
+    delete process.env.VITE_EMAILJS_PUBLIC_KEY;
+    process.env.EMAILJS_SCREENING_TEMPLATE_ID = "";
+  }
 });
 
 test("dữ liệu thiếu đồng ý hoặc lỗi Sheets không được báo thành công", async () => {

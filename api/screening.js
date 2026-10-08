@@ -5,6 +5,36 @@ import { validateScreening } from "./_validation.js";
 
 const FIELDS = ["age", "sex", "onset", "degree", "progression", "parents", "outdoor", "near", "concern"];
 
+/** Gửi thông báo sau khi Sheet đã ghi; lỗi email không thay đổi kết quả lưu khảo sát. */
+async function notifyScreening(submittedAt) {
+  const serviceId = process.env.VITE_EMAILJS_SERVICE_ID;
+  const templateId = process.env.EMAILJS_SCREENING_TEMPLATE_ID;
+  const publicKey = process.env.VITE_EMAILJS_PUBLIC_KEY;
+  if (!serviceId || !templateId || !publicKey) return null;
+
+  try {
+    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(8000),
+      body: JSON.stringify({
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        template_params: {
+          notification_subject: "Có khảo sát nguy cơ cận thị mới",
+          submitted_at: submittedAt,
+        },
+      }),
+    });
+    if (!response.ok) throw new Error(`EMAILJS_${response.status}`);
+    return true;
+  } catch (error) {
+    console.error("Không thể gửi thông báo khảo sát:", error instanceof Error ? error.message : "UNKNOWN_ERROR");
+    return false;
+  }
+}
+
 /** Tính lại kết quả trên máy chủ và chỉ xác nhận sau khi lưu đủ câu trả lời. */
 export default async function handler(req, res) {
   try {
@@ -14,15 +44,18 @@ export default async function handler(req, res) {
     if (!screening) return res.status(400).json({ error: "INVALID_SCREENING" });
 
     const risk = classify(Object.fromEntries(FIELDS.map((field) => [field, screening.answers[field].value])));
-    const row = [screening.requestId, timestampVN(), "screening-page",
+    const submittedAt = timestampVN();
+    const spreadsheetId = process.env.SCREENING_SHEET_ID;
+    const row = [screening.requestId, submittedAt, "screening-page",
       ...FIELDS.map((field) => screening.answers[field].label), risk, "yes"];
-    await appendLead({
-      spreadsheetId: process.env.SCREENING_SHEET_ID,
+    const { duplicate } = await appendLead({
+      spreadsheetId,
       range: "'Trang tính1'!A:N",
       requestId: screening.requestId,
       row,
     });
-    return res.status(200).json({ saved: true, risk });
+    const notificationSent = duplicate ? null : await notifyScreening(submittedAt);
+    return res.status(200).json({ saved: true, risk, notificationSent });
   } catch (error) {
     return respondError(res, error);
   }
