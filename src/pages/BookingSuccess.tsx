@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle, Home, Mail, Phone } from "lucide-react";
 
@@ -33,6 +34,10 @@ const BookingSuccess = () => {
   const state = location.state as LocationState | null;
   const bookingData = state?.bookingData;
   const emailStatus = state?.emailStatus ?? "";
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, []);
 
   const [thankYouPrefix, thankYouSuffix] =
     messages.bookingSuccess.thankYou.split("{name}");
