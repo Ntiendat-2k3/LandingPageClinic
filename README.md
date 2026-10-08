@@ -36,6 +36,8 @@ Tạo thêm **một template riêng** trong cùng tài khoản EmailJS. Đặt *
 
 Điền Template ID mới vào `EMAILJS_SCREENING_TEMPLATE_ID` trong `.env` khi chạy local và Environment Variables trên Vercel. API khảo sát dùng lại `VITE_EMAILJS_SERVICE_ID` và `VITE_EMAILJS_PUBLIC_KEY` đang dùng cho đặt lịch. Sau khi đổi biến, khởi động lại Vite hoặc tạo deployment mới. Lưu và thử template trong EmailJS, sau đó gửi một khảo sát thử để xác nhận Sheet có dòng mới, email đến hộp thư và trang cảm ơn báo trạng thái thông báo. Khi EmailJS lỗi hoặc chưa cấu hình, khảo sát vẫn được lưu và khách vẫn xem được kết quả.
 
+Thông báo khảo sát được gửi từ `api/screening.js` trên Vercel Function hoặc Node của Vite khi chạy local. Trong EmailJS Dashboard → **Account → Security**, cần bật **API access from non-browser environments** cho tài khoản này. Nếu tùy chọn đang tắt, EmailJS trả `403`, khảo sát vẫn lưu vào Sheet nhưng trang cảm ơn báo chưa gửi được email. Xem dòng `Không thể gửi thông báo khảo sát:` trong log Function hoặc terminal chạy Vite để biết lỗi cụ thể.
+
 Thứ tự cột của Sheet khảo sát (`A:N`): mã lượt gửi, thời điểm Việt Nam, nguồn, 9 câu trả lời theo thứ tự trên trang, mức nguy cơ, đồng ý chính sách.
 
 Nếu cần tạo lại Sheet, hàng tiêu đề dưới đây có thể dán trực tiếp vào ô `A1` của từng bảng:

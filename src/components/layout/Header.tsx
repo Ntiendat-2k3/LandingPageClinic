@@ -33,14 +33,14 @@ const Header = () => {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="container mx-auto px-2.5 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex shrink-0 items-center gap-2">
+        <div className="flex h-16 items-center justify-between gap-2 sm:gap-4">
+          <div className="flex min-w-0 items-center gap-1.5 sm:shrink-0 sm:gap-2">
             <img
               src="/images/logo.png"
               alt={messages.header.logoAlt}
-              className="size-12 shrink-0 sm:size-14"
+              className="size-11 shrink-0 sm:size-14"
             />
-            <div className="font-heading text-xs font-bold leading-tight whitespace-nowrap text-foreground sm:text-sm lg:text-base xl:text-lg">
+            <div className="min-w-0 font-heading text-[13px] font-bold leading-[1.15] text-foreground min-[360px]:text-sm sm:whitespace-nowrap sm:leading-tight lg:text-base xl:text-lg">
               <div>{messages.header.brandLineOne}</div>
               <div>{messages.header.brandLineTwo}</div>
             </div>

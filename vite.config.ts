@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import { readFile } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 
 // https://vite.dev/config/
@@ -9,9 +10,25 @@ export default defineConfig({
     react(),
     tailwindcss(),
     {
-      name: "local-api",
+      name: "local-routes",
       apply: "serve",
       configureServer(server) {
+        // Vite không tự phục vụ index.html trong thư mục public khi URL kết thúc bằng dấu /.
+        server.middlewares.use(async (req, res, next) => {
+          const route = new URL(req.url ?? "/", "http://localhost").pathname;
+          if (route !== "/danh-gia-nguy-co-can-thi/" || (req.method !== "GET" && req.method !== "HEAD")) {
+            return next();
+          }
+
+          try {
+            const html = await readFile(new URL("./public/danh-gia-nguy-co-can-thi/index.html", import.meta.url));
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            res.end(req.method === "HEAD" ? undefined : html);
+          } catch (error) {
+            next(error);
+          }
+        });
+
         const env = loadEnv(server.config.mode, server.config.envDir, "");
         for (const name of [
           "GOOGLE_SERVICE_ACCOUNT_EMAIL",

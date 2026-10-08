@@ -1,4 +1,5 @@
-import { CheckCircle, Mail, MessageCircle } from "lucide-react";
+import { CheckCircle, Home, Mail, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -68,9 +69,22 @@ const ScreeningSuccess = () => {
                 <AlertDescription>{messages.screeningSuccess.notificationFailedDescription}</AlertDescription>
               </Alert>
             ) : null}
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild className="flex-1"><a href={SITE_LINKS.messenger} target="_blank" rel="noopener noreferrer"><MessageCircle aria-hidden="true" /> {messages.screeningSuccess.messenger}</a></Button>
-              <Button asChild variant="outline" className="flex-1"><a href="/danh-gia-nguy-co-can-thi/">{messages.screeningSuccess.retry}</a></Button>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <Button asChild size="lg" className="w-full">
+                <a href={SITE_LINKS.messenger} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle aria-hidden="true" />
+                  {messages.screeningSuccess.messenger}
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="w-full">
+                <Link to="/">
+                  <Home aria-hidden="true" />
+                  {messages.bookingSuccess.backHome}
+                </Link>
+              </Button>
+              <Button asChild variant="link" className="w-full sm:col-span-2">
+                <a href="/danh-gia-nguy-co-can-thi/">{messages.screeningSuccess.retry}</a>
+              </Button>
             </div>
           </CardContent>
         </Card>

@@ -125,9 +125,12 @@ test("lỗi EmailJS không làm khảo sát đã lưu thành lỗi", async () =>
   process.env.VITE_EMAILJS_SERVICE_ID = "service-test";
   process.env.VITE_EMAILJS_PUBLIC_KEY = "public-test";
   process.env.EMAILJS_SCREENING_TEMPLATE_ID = "template-screening-test";
+  const originalConsoleError = console.error;
+  const errors = [];
+  console.error = (...args) => errors.push(args.join(" "));
   try {
     globalThis.fetch = async (url, options) => {
-      if (String(url).includes("api.emailjs.com")) return { ok: false, status: 412 };
+      if (String(url).includes("api.emailjs.com")) return { ok: false, status: 412, text: async () => "Origin is not allowed" };
       if (options.method === "GET") return { ok: true, json: async () => ({ values: [] }) };
       return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
     };
@@ -136,7 +139,9 @@ test("lỗi EmailJS không làm khảo sát đã lưu thành lỗi", async () =>
     assert.equal(res.statusCode, 200);
     assert.equal(res.body.saved, true);
     assert.equal(res.body.notificationSent, false);
+    assert.match(errors[0], /EMAILJS_412: Origin is not allowed/);
   } finally {
+    console.error = originalConsoleError;
     delete process.env.VITE_EMAILJS_SERVICE_ID;
     delete process.env.VITE_EMAILJS_PUBLIC_KEY;
     process.env.EMAILJS_SCREENING_TEMPLATE_ID = "";

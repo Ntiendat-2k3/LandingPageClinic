@@ -27,10 +27,15 @@ async function notifyScreening(submittedAt) {
         },
       }),
     });
-    if (!response.ok) throw new Error(`EMAILJS_${response.status}`);
+    if (!response.ok) {
+      const detail = (await response.text()).replace(/\s+/g, " ").slice(0, 200);
+      throw new Error(`EMAILJS_${response.status}${detail ? `: ${detail}` : ""}`);
+    }
     return true;
   } catch (error) {
-    console.error("Không thể gửi thông báo khảo sát:", error instanceof Error ? error.message : "UNKNOWN_ERROR");
+    const reason = error instanceof Error ? error.message : "UNKNOWN_ERROR";
+    const cause = error instanceof Error && error.cause instanceof Error ? error.cause.message : null;
+    console.error("Không thể gửi thông báo khảo sát:", cause ? `${reason} (${cause})` : reason);
     return false;
   }
 }
