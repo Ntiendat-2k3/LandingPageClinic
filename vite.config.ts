@@ -38,6 +38,7 @@ export default defineConfig({
           "VITE_EMAILJS_SERVICE_ID",
           "VITE_EMAILJS_PUBLIC_KEY",
           "EMAILJS_SCREENING_TEMPLATE_ID",
+          "EMAILJS_PRIVATE_KEY",
         ]) {
           if (!process.env[name] && env[name]) process.env[name] = env[name];
         }

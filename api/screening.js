@@ -10,6 +10,7 @@ async function notifyScreening(submittedAt) {
   const serviceId = process.env.VITE_EMAILJS_SERVICE_ID;
   const templateId = process.env.EMAILJS_SCREENING_TEMPLATE_ID;
   const publicKey = process.env.VITE_EMAILJS_PUBLIC_KEY;
+  const privateKey = process.env.EMAILJS_PRIVATE_KEY;
   if (!serviceId || !templateId || !publicKey) return null;
 
   try {
@@ -21,6 +22,7 @@ async function notifyScreening(submittedAt) {
         service_id: serviceId,
         template_id: templateId,
         user_id: publicKey,
+        ...(privateKey ? { accessToken: privateKey } : {}),
         template_params: {
           notification_subject: "Có khảo sát nguy cơ cận thị mới",
           submitted_at: submittedAt,

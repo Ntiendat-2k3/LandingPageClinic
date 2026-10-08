@@ -89,6 +89,7 @@ test("khảo sát gửi email sau khi lưu Sheet và không gửi lại khi trù
   process.env.VITE_EMAILJS_SERVICE_ID = "service-test";
   process.env.VITE_EMAILJS_PUBLIC_KEY = "public-test";
   process.env.EMAILJS_SCREENING_TEMPLATE_ID = "template-screening-test";
+  process.env.EMAILJS_PRIVATE_KEY = "private-test";
   const payload = screening();
   const calls = [];
   let alreadySaved = false;
@@ -107,6 +108,7 @@ test("khảo sát gửi email sau khi lưu Sheet và không gửi lại khi trù
     assert.ok(sheetIndex >= 0 && emailIndex > sheetIndex);
     const emailBody = JSON.parse(calls[emailIndex].options.body);
     assert.equal(emailBody.template_id, "template-screening-test");
+    assert.equal(emailBody.accessToken, "private-test");
     assert.deepEqual(Object.keys(emailBody.template_params).sort(), ["notification_subject", "submitted_at"]);
 
     alreadySaved = true;
@@ -118,6 +120,7 @@ test("khảo sát gửi email sau khi lưu Sheet và không gửi lại khi trù
     delete process.env.VITE_EMAILJS_SERVICE_ID;
     delete process.env.VITE_EMAILJS_PUBLIC_KEY;
     process.env.EMAILJS_SCREENING_TEMPLATE_ID = "";
+    delete process.env.EMAILJS_PRIVATE_KEY;
   }
 });
 
