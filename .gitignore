@@ -14,6 +14,7 @@ node_modules
 dist
 dist-ssr
 *.local
+chỉnh sửa landingpage/
 
 # Editor directories and files
 .vscode/*
