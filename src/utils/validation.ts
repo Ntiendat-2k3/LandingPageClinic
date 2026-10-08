@@ -1,6 +1,6 @@
 import { messages } from "@/i18n";
 
-// Validation utilities for booking form
+// Kiểm tra dữ liệu biểu mẫu đặt lịch.
 export interface ValidationError {
   field: string;
   message: string;
@@ -19,7 +19,7 @@ export interface BookingFormData {
   message: string;
 }
 
-// Vietnamese name validation - allows Vietnamese characters
+// Chấp nhận họ tên có dấu tiếng Việt.
 const validateName = (name: string): ValidationError | null => {
   if (!name.trim()) {
     return { field: "name", message: messages.validation.nameRequired };
@@ -33,9 +33,8 @@ const validateName = (name: string): ValidationError | null => {
     return { field: "name", message: messages.validation.nameTooLong };
   }
 
-  // Allow Vietnamese characters, spaces, and common punctuation
-  const nameRegex =
-    /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵýỷỹ\s]+$/;
+  // Chấp nhận chữ cái tiếng Việt và khoảng trắng.
+  const nameRegex = /^[\p{L}\s]+$/u;
 
   if (!nameRegex.test(name.trim())) {
     return {
@@ -44,7 +43,7 @@ const validateName = (name: string): ValidationError | null => {
     };
   }
 
-  // Check for excessive spaces
+  // Tránh nhiều khoảng trắng liên tiếp.
   if (name.includes("  ")) {
     return {
       field: "name",
@@ -55,16 +54,16 @@ const validateName = (name: string): ValidationError | null => {
   return null;
 };
 
-// Vietnamese phone number validation
+// Kiểm tra số điện thoại Việt Nam.
 const validatePhone = (phone: string): ValidationError | null => {
   if (!phone.trim()) {
     return { field: "phone", message: messages.validation.phoneRequired };
   }
 
-  // Remove all spaces and special characters for validation
-  const cleanPhone = phone.replace(/[\s\-$$$$.]/g, "");
+  // Bỏ dấu phân cách trước khi kiểm tra.
+  const cleanPhone = phone.replace(/[\s().-]/g, "");
 
-  // Vietnamese phone number patterns
+  // Chỉ nhận đầu số di động Việt Nam.
   const phoneRegex =
     /^(0|\+84)(3[2-9]|5[689]|7[06-9]|8[1-689]|9[0-46-9])[0-9]{7}$/;
 
@@ -78,47 +77,43 @@ const validatePhone = (phone: string): ValidationError | null => {
   return null;
 };
 
-// Date validation
+// Kiểm tra ngày hẹn.
 const validateDate = (date: string): ValidationError | null => {
   if (!date.trim()) {
     return { field: "date", message: messages.validation.dateRequired };
   }
 
-  const selectedDate = new Date(date);
+  const [year, month, day] = date.split("-").map(Number);
+  const selectedDate = new Date(Date.UTC(year, month - 1, day));
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  if (isNaN(selectedDate.getTime())) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || selectedDate.getUTCFullYear() !== year || selectedDate.getUTCMonth() !== month - 1 || selectedDate.getUTCDate() !== day) {
     return { field: "date", message: messages.validation.dateInvalid };
   }
 
-  if (selectedDate < today) {
+  if (date < today.toLocaleDateString("sv-SE", { timeZone: "Asia/Bangkok" })) {
     return {
       field: "date",
       message: messages.validation.datePast,
     };
   }
 
-  // Don't allow booking too far in advance (6 months)
+  // Chỉ nhận lịch trong vòng sáu tháng.
   const maxDate = new Date();
   maxDate.setMonth(maxDate.getMonth() + 6);
 
-  if (selectedDate > maxDate) {
+  if (date > maxDate.toLocaleDateString("sv-SE", { timeZone: "Asia/Bangkok" })) {
     return {
       field: "date",
       message: messages.validation.dateTooFar,
     };
   }
 
-  // Check if it's Sunday (0 = Sunday)
-  if (selectedDate.getDay() === 0) {
-    return { field: "date", message: messages.validation.dateSunday };
-  }
-
   return null;
 };
 
-// Time validation
+// Kiểm tra giờ hẹn.
 const validateTime = (time: string): ValidationError | null => {
   if (!time.trim()) {
     return { field: "time", message: messages.validation.timeRequired };
@@ -142,18 +137,18 @@ const validateTime = (time: string): ValidationError | null => {
   return null;
 };
 
-// Message validation (optional field)
+// Kiểm tra ghi chú tùy chọn.
 const validateMessage = (message: string): ValidationError | null => {
   if (message.length > 500) {
     return { field: "message", message: messages.validation.messageTooLong };
   }
 
-  // Check for suspicious patterns (basic spam detection)
+  // Loại bỏ một số mẫu spam thường gặp.
   const suspiciousPatterns = [
-    /https?:\/\//i, // URLs
-    /www\./i, // Website references
-    /@[a-zA-Z0-9]/i, // Email patterns
-    /\b(viagra|casino|loan|money|win|prize)\b/i, // Common spam words
+    /https?:\/\//i, // Liên kết
+    /www\./i, // Tên miền
+    /@[a-zA-Z0-9]/i, // Địa chỉ email
+    /\b(viagra|casino|loan|money|win|prize)\b/i, // Từ khóa spam
   ];
 
   for (const pattern of suspiciousPatterns) {
@@ -168,13 +163,13 @@ const validateMessage = (message: string): ValidationError | null => {
   return null;
 };
 
-// Main validation function
+// Kiểm tra toàn bộ biểu mẫu.
 export const validateBookingForm = (
   formData: BookingFormData
 ): ValidationResult => {
   const errors: ValidationError[] = [];
 
-  // Validate each field
+  // Kiểm tra từng trường.
   const nameError = validateName(formData.name);
   if (nameError) errors.push(nameError);
 
@@ -196,7 +191,7 @@ export const validateBookingForm = (
   };
 };
 
-// Helper function to get error message for a specific field
+// Lấy lỗi của trường cụ thể.
 export const getFieldError = (
   errors: ValidationError[],
   fieldName: string
@@ -205,7 +200,7 @@ export const getFieldError = (
   return error ? error.message : null;
 };
 
-// Helper function to format phone number for display
+// Chuẩn hóa số điện thoại để hiển thị.
 export const formatPhoneNumber = (phone: string): string => {
   const cleaned = phone.replace(/\D/g, "");
 
@@ -214,9 +209,4 @@ export const formatPhoneNumber = (phone: string): string => {
   }
 
   return phone;
-};
-
-// Helper function to sanitize input
-export const sanitizeInput = (input: string): string => {
-  return input.trim().replace(/\s+/g, " ");
 };

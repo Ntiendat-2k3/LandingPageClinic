@@ -16,8 +16,8 @@ type Doctor = {
 const DoctorsSection = () => {
   const doctorImages = [
     { src: "/images/doctors/doctor1.jpg", position: "50% 72%" },
-    { src: "/images/doctors/doctor3.jpg", position: "50% 65%" },
-    { src: "/images/doctors/doctor2.jpg", position: "50% 65%" },
+    { src: "/images/doctors/staff-thuy.webp", position: "50% 30%" },
+    { src: "/images/doctors/staff-huong.webp", position: "50% 30%" },
   ];
   const doctors: Doctor[] = messages.doctors.profiles.map((profile, index) => ({
     ...profile,
@@ -153,9 +153,9 @@ const DoctorsSection = () => {
         className="container relative z-10 mx-auto px-2.5 sm:px-6 lg:px-8 py-8 md:py-10"
       >
         <div className="text-center mb-5 md:mb-6">
-          <h2 className="font-space-grotesk text-2xl md:text-3xl lg:text-[30px] font-extrabold text-gray-900 uppercase">
+          <h1 className="font-space-grotesk text-2xl md:text-3xl lg:text-[30px] font-extrabold text-gray-900 uppercase">
             {messages.doctors.sectionTitle}
-          </h2>
+          </h1>
         </div>
 
         {/* ===== MOBILE ===== */}
@@ -184,9 +184,9 @@ const DoctorsSection = () => {
                   <div className="p-4 space-y-2.5 flex-1 flex flex-col justify-between">
                     <div className="space-y-2.5">
                       <header>
-                        <h3 className="font-space-grotesk text-[16px] font-bold text-gray-900">
+                        <h2 className="font-space-grotesk text-[16px] font-bold text-gray-900">
                           {d.name}
-                        </h3>
+                        </h2>
                         <p className="text-emerald-700 text-[13px] font-medium mt-0.5">
                           {d.title}
                         </p>
@@ -271,9 +271,9 @@ const DoctorsSection = () => {
               <div className="p-4 lg:p-5 space-y-2.5 flex-1 flex flex-col justify-between">
                 <div className="space-y-2.5">
                   <header>
-                    <h3 className="font-space-grotesk text-base lg:text-[17px] font-bold text-gray-900 leading-snug">
+                    <h2 className="font-space-grotesk text-base lg:text-[17px] font-bold text-gray-900 leading-snug">
                       {d.name}
-                    </h3>
+                    </h2>
                     <p className="text-emerald-700 font-medium mt-0.5 text-[13px]">
                       {d.title}
                     </p>

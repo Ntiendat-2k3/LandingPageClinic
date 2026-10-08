@@ -1,183 +1,96 @@
-"use client";
-
-import React from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
+import { Check } from "lucide-react";
 import { messages } from "@/i18n";
 
-type Treatment = {
-  name: string;
-  image: string;
-  effectiveness?: string[];
-  description?: string;
-  tag?: string;
-  tone?: "emerald" | "teal" | "purple" | "lime";
-};
+const images = [
+  { src: "/images/methods/atropine.webp", width: 900, height: 600 },
+  { src: "/images/methods/spectacle-lens.jpg", width: 475, height: 699 },
+  { src: "/images/methods/ortho-k.jpg", width: 887, height: 1048 },
+  { src: "/images/methods/combination.webp", width: 900, height: 900 },
+] as const;
 
-const treatments: Treatment[] = [
-  {
-    ...messages.pricing.treatments[0],
-    image: "/images/ksct1.jpg",
-    tone: "emerald",
-  },
-  {
-    ...messages.pricing.treatments[1],
-    image: "/images/ksct2.jpg",
-    tone: "teal",
-  },
-  {
-    ...messages.pricing.treatments[2],
-    image: "/images/ksct3.jpg",
-    tone: "purple",
-  },
-  {
-    ...messages.pricing.treatments[3],
-    image: "/images/ksct4.jpg",
-    tone: "lime",
-  },
-];
+/** Giữ ảnh và nội dung của từng phương pháp trong cùng một tab để tránh hiển thị sai cặp. */
+export default function PricingSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const treatment = messages.pricing.treatments[activeIndex];
 
-const tone = {
-  emerald: { chip: "text-emerald-700 bg-emerald-50", dot: "bg-emerald-400" },
-  teal: { chip: "text-teal-700 bg-teal-50", dot: "bg-teal-400" },
-  purple: { chip: "text-purple-700 bg-purple-50", dot: "bg-purple-400" },
-  lime: { chip: "text-lime-700 bg-lime-50", dot: "bg-lime-400" },
-};
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let nextIndex = index;
+    if (event.key === "ArrowRight") nextIndex = (index + 1) % images.length;
+    else if (event.key === "ArrowLeft") nextIndex = (index - 1 + images.length) % images.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = images.length - 1;
+    else return;
 
-const Check = ({ className = "" }) => (
-  <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
-    <path
-      d="M20 7L10 17l-6-6"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+    event.preventDefault();
+    setActiveIndex(nextIndex);
+    tabRefs.current[nextIndex]?.focus();
+  };
 
-const PricingSection: React.FC = () => {
   return (
-    <section
-      id="myopia-control"
-      className="relative py-12 md:py-16 xl:py-20 overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(236,253,245,1) 0%, rgba(240,249,255,1) 100%)",
-      }}
-    >
-      {/* décor */}
-      <div className="pointer-events-none absolute inset-0 opacity-50">
-        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl bg-emerald-200/40" />
-        <div className="absolute bottom-0 left-1/3 w-72 h-72 rounded-full blur-3xl bg-purple-200/30" />
-      </div>
+    <section id="myopia-control" className="scroll-mt-16 h-[calc(100dvh-4rem)] overflow-y-auto bg-gradient-to-br from-emerald-50 to-cyan-50">
+      <div data-scroll-reveal className="container mx-auto flex min-h-full flex-col justify-center px-2.5 py-4 sm:px-6 lg:px-8">
+        <div className="grid gap-3 lg:grid-cols-2 lg:gap-10">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">{messages.pricing.badge}</p>
+            <h2 className="mt-2 text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl md:text-4xl">
+              {messages.pricing.titleLineOne}{" "}
+              {messages.pricing.titleLineTwoPrefix}
+              <span className="text-emerald-700">{messages.pricing.titleLineTwoHighlight}</span>
+            </h2>
+          </div>
+          <p className="self-center text-sm leading-snug text-slate-700 sm:text-base sm:leading-relaxed">{messages.pricing.description}</p>
+        </div>
 
-      <div data-scroll-reveal className="container mx-auto px-2.5 sm:px-6 lg:px-8 relative">
-        {/* Banner tiêu đề phong cách mới theo ảnh 1 */}
-        <div className="mb-8 sm:mb-10 lg:mb-12 rounded-xl sm:rounded-3xl bg-[#0c3666] text-white p-4 sm:p-8 lg:p-10 shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-            <div className="lg:col-span-7">
-              <div className="text-xs sm:text-sm font-bold tracking-wider text-emerald-400 uppercase">
-                {messages.pricing.badge}
-              </div>
-              <h2 className="mt-2 font-space-grotesk text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-tight">
-                <span className="block text-white">
-                  {messages.pricing.titleLineOne}
-                </span>
-                <span className="block text-white">
-                  <span>{messages.pricing.titleLineTwoPrefix}</span>
-                  <span className="text-emerald-400">{messages.pricing.titleLineTwoHighlight}</span>
-                </span>
-              </h2>
-            </div>
-            <div className="lg:col-span-5">
-              <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed">
-                {messages.pricing.description}
-              </p>
-            </div>
+        <div role="tablist" aria-label={messages.pricing.badge} className="mt-4 flex gap-2 overflow-x-auto rounded-xl bg-white/75 p-1.5">
+          {messages.pricing.treatments.map((item, index) => (
+            <button
+              key={item.name}
+              ref={(node) => { tabRefs.current[index] = node; }}
+              type="button"
+              role="tab"
+              id={`treatment-tab-${index}`}
+              aria-controls="treatment-panel"
+              aria-selected={activeIndex === index}
+              tabIndex={activeIndex === index ? 0 : -1}
+              onClick={() => setActiveIndex(index)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
+              className={`min-w-max flex-1 rounded-lg px-4 py-2 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 sm:py-3 ${activeIndex === index ? "bg-emerald-700 text-white" : "text-slate-700 hover:bg-emerald-50"}`}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+
+        <div id="treatment-panel" role="tabpanel" aria-labelledby={`treatment-tab-${activeIndex}`} tabIndex={0} className="mt-4 grid items-center gap-5 rounded-2xl bg-white/70 p-3 shadow-sm sm:p-4 md:grid-cols-2 md:p-5">
+          <div className="flex items-center justify-center overflow-hidden rounded-xl bg-white">
+            <img
+              src={images[activeIndex].src}
+              alt={treatment.name}
+              width={images[activeIndex].width}
+              height={images[activeIndex].height}
+              className="block h-auto w-auto max-h-[20dvh] max-w-full object-contain md:max-h-[min(29dvh,300px)]"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <p className="font-bold text-emerald-700">{treatment.tag}</p>
+            <h3 className="mt-2 text-2xl font-extrabold text-slate-900 md:text-3xl">{treatment.name}</h3>
+            {treatment.description && <p className="mt-4 leading-relaxed text-slate-700">{treatment.description}</p>}
+            <ul className="mt-5 space-y-3">
+              {treatment.effectiveness.map((line) => (
+                <li key={line} className="flex items-start gap-3 text-slate-700">
+                  <Check className="mt-1 size-5 shrink-0 text-emerald-700" aria-hidden="true" />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Grid responsive */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-7 max-w-7xl mx-auto">
-          {treatments.map((t, i) => {
-            const theme = tone[t.tone || "emerald"];
-            return (
-              <div
-                key={i}
-                className={
-                  "group relative rounded-3xl border border-white/70 bg-white/80 backdrop-blur-xl " +
-                  "shadow-[0_10px_28px_rgba(16,185,129,0.10)] " +
-                  "md:hover:shadow-[0_18px_40px_rgba(16,185,129,0.16)] md:transition-all md:duration-500 " +
-                  (i % 2 !== 0 ? "md:translate-y-1.5" : "")
-                }
-              >
-                {/* Tag nhỏ trên từng card (nếu có) */}
-                {t.tag && (
-                  <div
-                    className={`absolute -top-3 left-4 px-3 py-1 rounded-full text-[11px] md:text-xs font-semibold ${theme.chip} shadow-sm border border-white/70`}
-                  >
-                    {t.tag}
-                  </div>
-                )}
-
-                <div className="p-4 sm:p-5 md:p-6">
-                  {/* Ảnh – to hơn (giảm padding) */}
-                  <div className="relative w-full rounded-2xl overflow-hidden border border-white/70 bg-gradient-to-br from-white to-emerald-50">
-                    <div className="aspect-[4/3] md:aspect-[5/3] w-full flex items-center justify-center">
-                      <img
-                        src={t.image || "/placeholder.svg"}
-                        alt={t.name}
-                        className="max-h-full max-w-full object-contain p-2 md:p-3 md:transition-transform md:duration-500 md:group-hover:scale-[1.04]"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span
-                      className={`absolute bottom-3 right-3 h-2 w-2 rounded-full ${theme.dot} md:animate-pulse`}
-                    />
-                  </div>
-
-                  {/* Tên – to hơn */}
-                  <h3 className="mt-4 text-lg md:text-xl font-bold text-gray-900 leading-snug">
-                    {t.name}
-                  </h3>
-
-                  {/* Nội dung – to hơn */}
-                  <div className="mt-2 md:mt-3 space-y-2">
-                    {t.effectiveness ? (
-                      t.effectiveness.map((line, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-start gap-2 text-[14px] md:text-base text-gray-700"
-                        >
-                          <span className="mt-0.5 text-emerald-500">
-                            <Check className="h-4 w-4" />
-                          </span>
-                          <span className="leading-6">{line}</span>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-[14px] md:text-base text-gray-700">
-                        {t.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* BỎ dải phần trăm/ % dưới cùng */}
-                </div>
-
-                {/* ring hover */}
-                <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-300 to-purple-400 opacity-0 md:group-hover:opacity-20 md:transition-opacity md:duration-500" />
-              </div>
-            );
-          })}
-        </div>
-
-        {/* footnote – câu mới */}
-        <p className="mt-8 text-center text-[11px] md:text-xs text-gray-500">
-          {messages.pricing.footnote}
-        </p>
+        <p className="mt-3 text-center text-xs leading-relaxed text-slate-600 md:text-sm">{messages.pricing.footnote}</p>
       </div>
     </section>
   );
-};
-
-export default PricingSection;
+}

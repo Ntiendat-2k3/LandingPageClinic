@@ -1,6 +1,5 @@
-"use client";
-
-import { ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useScrollToSection } from "@/hooks/useScrollToSection";
 import { messages } from "@/i18n";
@@ -11,6 +10,31 @@ import { messages } from "@/i18n";
  */
 export default function ProcessSection() {
   const scrollToSection = useScrollToSection();
+  const videoContainer = useRef<HTMLDivElement>(null);
+  const [playVideo, setPlayVideo] = useState(false);
+
+  useEffect(() => {
+    const container = videoContainer.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting || document.hidden) {
+        setPlayVideo(false);
+      } else if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setPlayVideo(true);
+      }
+    }, { threshold: 0.35 });
+    const stopWhenHidden = () => {
+      if (document.hidden) setPlayVideo(false);
+    };
+
+    observer.observe(container);
+    document.addEventListener("visibilitychange", stopWhenHidden);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", stopWhenHidden);
+    };
+  }, []);
 
   return (
     <section
@@ -19,8 +43,7 @@ export default function ProcessSection() {
     >
       <div className="container mx-auto px-2.5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Cột trái: Tiêu đề và nút kêu gọi hành động */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
+          <div className="lg:col-span-5">
             <div className="inline-block text-xs sm:text-sm font-bold tracking-wider text-emerald-700 uppercase mb-2">
               {messages.process.badge}
             </div>
@@ -34,21 +57,30 @@ export default function ProcessSection() {
             </p>
 
             <div className="mt-8">
-              <Button
-                type="button"
-                size="lg"
-                onClick={() => scrollToSection("booking")}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl px-6 py-6 shadow-md hover:shadow-lg transition-all group cursor-pointer"
-              >
-                <span>{messages.process.cta}</span>
-                <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
+              <h3 className="mb-4 text-xl font-extrabold text-slate-900 sm:text-2xl">
+                {messages.video.title}<span className="block text-emerald-700">{messages.video.badge}</span>
+              </h3>
+              <div ref={videoContainer} className="relative aspect-video overflow-hidden rounded-2xl bg-slate-900 shadow-lg">
+                {playVideo ? (
+                  <iframe
+                    src="https://www.youtube.com/embed/xdi4Gp9bE-Q?autoplay=1&mute=1&playsinline=1&rel=0"
+                    title={messages.video.title}
+                    className="absolute inset-0 size-full"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <button type="button" onClick={() => setPlayVideo(true)} className="grid size-full place-items-center text-white hover:bg-slate-800" aria-label={messages.video.play}>
+                    <Play className="size-14 fill-current" aria-hidden="true" />
+                  </button>
+                )}
+              </div>
+              <a href="https://youtu.be/xdi4Gp9bE-Q" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-emerald-800 underline underline-offset-4">{messages.video.watchOnYoutube}</a>
             </div>
           </div>
 
-          {/* Cột phải: Danh sách 6 quyền lợi/bước quy trình */}
-          <div className="lg:col-span-7 bg-white/90 rounded-xl sm:rounded-3xl p-3.5 sm:p-8 lg:p-10 shadow-sm ring-1 ring-black/5 divide-y divide-gray-100">
-            {messages.process.steps.map((step, index) => (
+          <div className="lg:col-span-7 rounded-xl bg-white/90 p-3.5 shadow-sm ring-1 ring-black/5 sm:rounded-3xl sm:p-8 lg:p-10">
+            <div className="divide-y divide-gray-100">{messages.process.steps.map((step, index) => (
               <div
                 key={index}
                 className="py-5 sm:py-6 first:pt-0 last:pb-0 flex items-start gap-4 sm:gap-6"
@@ -66,7 +98,13 @@ export default function ProcessSection() {
                   </p>
                 </div>
               </div>
-            ))}
+            ))}</div>
+            <div className="mt-7 flex justify-center">
+              <Button type="button" size="lg" onClick={() => scrollToSection("booking")} className="min-h-14 rounded-xl bg-emerald-600 px-7 font-bold text-white hover:bg-emerald-700">
+                {messages.process.cta}
+                <ArrowRight className="size-5" aria-hidden="true" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

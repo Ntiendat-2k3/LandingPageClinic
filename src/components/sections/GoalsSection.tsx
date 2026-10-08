@@ -53,17 +53,13 @@ const GoalsSection = () => {
       >
         {/* Header - giữ nguyên 2 dòng đầu tiên */}
         <div className="text-center mb-6 lg:mb-8 shrink-0">
-          <h2 className="mt-2 inline-flex items-center gap-3 text-[26px] leading-tight md:text-[36px] lg:text-[42px] font-extrabold text-gray-900">
+          <h1 className="mt-2 inline-flex flex-wrap items-center justify-center gap-3 text-[26px] leading-tight md:text-[36px] lg:text-[42px] font-extrabold text-gray-900">
             <span className="inline-flex w-9 h-9 md:w-11 md:h-11 lg:w-12 lg:h-12 items-center justify-center rounded-full bg-red-100 shrink-0">
               <AlertTriangle className="w-5 h-5 md:w-7 md:h-7 lg:w-8 lg:h-8 text-red-600" />
             </span>
             <span>{messages.goals.title}</span>
-          </h2>
-
-          <div className="block"></div>
-          <div className="my-2 inline-block rounded-xl px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold text-sm md:text-xl lg:text-[20px] shadow">
-            {messages.goals.globalIssue}
-          </div>
+          </h1>
+          <p className="mt-2 text-sm font-bold uppercase tracking-wide text-emerald-700 md:text-lg">{messages.goals.globalIssue}</p>
         </div>
 
         {/* Grid 2 cột: 1/2 bên trái và 1/2 bên phải */}
@@ -129,14 +125,15 @@ const GoalsSection = () => {
               <img
                 src="/images/essilor.jpg"
                 alt={messages.goals.campaignImageAlt}
-                className="w-full h-auto max-h-[220px] object-cover sm:object-contain"
+                className="w-full h-auto max-h-[160px] object-cover sm:object-contain"
               />
               <div className="pointer-events-none absolute inset-0 bg-emerald-400/5" />
             </div>
+            <p className="text-xs leading-relaxed text-slate-600">{messages.goals.sources}</p>
           </div>
 
           {/* RIGHT 50%: Khi nào nên đưa bé đi khám & 4 dấu hiệu */}
-          <div className="flex flex-col justify-between rounded-xl sm:rounded-2xl bg-white/90 backdrop-blur-sm p-3.5 sm:p-6 lg:p-7 shadow-lg ring-1 ring-black/5">
+          <div className="flex flex-col justify-between p-3.5 sm:p-6 lg:p-7">
             <div>
               {/* Overline badge */}
               <div className="text-xs sm:text-sm font-bold tracking-wider text-emerald-700 uppercase">
@@ -144,14 +141,14 @@ const GoalsSection = () => {
               </div>
 
               {/* Tiêu đề chính 2 dòng */}
-              <h3 className="mt-2 text-2xl sm:text-3xl font-extrabold leading-tight">
+              <h2 className="mt-2 text-2xl sm:text-3xl font-extrabold leading-tight">
                 <span className="block text-slate-900">
                   {messages.goals.signs.titleLine1}
                 </span>
                 <span className="block text-emerald-600">
                   {messages.goals.signs.titleLine2}
                 </span>
-              </h3>
+              </h2>
 
               {/* Mô tả */}
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -178,18 +175,13 @@ const GoalsSection = () => {
               </div>
             </div>
 
-            {/* Nút CTA chuyển xuống dưới theo mũi tên chỉ dẫn */}
-            <div className="mt-5 pt-2">
-              <button
-                type="button"
-                onClick={scrollToBooking}
-                className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-emerald-700 hover:text-emerald-800 transition-colors group cursor-pointer border border-emerald-600/30 hover:border-emerald-600 bg-emerald-50/50 hover:bg-emerald-50 px-4 py-2.5 rounded-xl shadow-sm"
-              >
-                <span>{messages.goals.signs.cta}</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
-            </div>
           </div>
+        </div>
+        <div className="mt-8 flex justify-center">
+          <button type="button" onClick={scrollToBooking} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-7 py-3 text-base font-bold text-white shadow-md transition-colors hover:bg-emerald-700">
+            <span>{messages.goals.signs.cta}</span>
+            <ArrowRight className="size-5" aria-hidden="true" />
+          </button>
         </div>
       </div>
     </section>

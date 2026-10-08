@@ -4,11 +4,11 @@ export const SITE_CONTACT = {
   phoneDisplay: "03.878.12321",
   phonePlain: "0387812321",
   messengerUsername: "pkmatdrtrantuan",
-  facebookUrl: "https://www.facebook.com/pkmatdrtrantuan",
+  facebookUrl: "https://www.facebook.com/pkmatdrtrantuan/",
 } as const;
 
 export const SITE_LINKS = {
   messenger: `https://m.me/${SITE_CONTACT.messengerUsername}`,
-  zalo: `https://zalo.me/${SITE_CONTACT.phonePlain}`,
-  zaloOa: `https://zalo.me/${SITE_CONTACT.phonePlain}`,
+  zalo: "https://zalo.me/4393035500427685747",
+  tiktok: "https://www.tiktok.com/@drtrantuan_orthok",
 } as const;

@@ -1,10 +1,10 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import BookingSection from "./components/sections/BookingSection";
 import DoctorsSection from "./components/sections/DoctorsSection";
 // import EquipmentSection from "./components/sections/EquipmentSection";
-// import FAQSection from "./components/sections/FaqSection";
+import FAQSection from "./components/sections/FaqSection";
 import GoalsSection from "./components/sections/GoalsSection";
 import HeroSection from "./components/sections/HeroSection";
 import PricingSection from "./components/sections/PricingSection";
@@ -16,6 +16,7 @@ import StickyCTA from "./components/common/StickyCTA";
 import ScrollRevealObserver from "./components/common/ScrollRevealObserver";
 import ProgressionAssessmentSection from "./components/sections/ProgressionAssessmentSection";
 import BookingSuccess from "./pages/BookingSuccess";
+import ScreeningSuccess from "./pages/ScreeningSuccess";
 import { messages } from "./i18n";
 
 function HomePage() {
@@ -29,7 +30,7 @@ function HomePage() {
       <DoctorsSection />
       {/* <EquipmentSection /> */}
       <TestimonialsSection />
-      {/* <FAQSection /> */}
+      <FAQSection />
       <BookingSection />
     </>
   );
@@ -49,7 +50,9 @@ function App() {
       <main id="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/booking-success" element={<BookingSuccess />} />
+          <Route path="/cam-on-dang-ky" element={<BookingSuccess />} />
+          <Route path="/booking-success" element={<Navigate to="/cam-on-dang-ky" replace />} />
+          <Route path="/cam-on-khao-sat" element={<ScreeningSuccess />} />
         </Routes>
       </main>
       <Footer />

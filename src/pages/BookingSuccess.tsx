@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle, Home, Mail, Phone } from "lucide-react";
 
@@ -35,21 +34,6 @@ const BookingSuccess = () => {
   const bookingData = state?.bookingData;
   const emailStatus = state?.emailStatus ?? "";
 
-  useEffect(() => {
-    if (
-      !bookingData?.name ||
-      !bookingData.phone ||
-      !bookingData.date ||
-      !bookingData.time
-    ) {
-      navigate("/", { replace: true });
-    }
-  }, [bookingData, navigate]);
-
-  if (!bookingData) {
-    return null;
-  }
-
   const [thankYouPrefix, thankYouSuffix] =
     messages.bookingSuccess.thankYou.split("{name}");
 
@@ -62,17 +46,15 @@ const BookingSuccess = () => {
               <CheckCircle className="size-10" aria-hidden="true" />
             </div>
             <CardTitle>
-              <h1>{messages.bookingSuccess.title}</h1>
+              <h1>{bookingData ? messages.bookingSuccess.title : messages.bookingSuccess.genericTitle}</h1>
             </CardTitle>
             <CardDescription>
-              {thankYouPrefix}
-              <strong className="text-primary">{bookingData.name}</strong>
-              {thankYouSuffix}
+              {bookingData ? <>{thankYouPrefix}<strong className="text-primary">{bookingData.name}</strong>{thankYouSuffix}</> : messages.bookingSuccess.genericThankYou}
             </CardDescription>
           </CardHeader>
 
           <CardContent className="flex flex-col gap-5">
-            <section className="rounded-xl bg-muted p-5" aria-labelledby="booking-details-title">
+            {bookingData ? <section className="rounded-xl bg-muted p-5" aria-labelledby="booking-details-title">
               <h2 id="booking-details-title" className="mb-3 font-semibold text-foreground">
                 {messages.bookingSuccess.detailsTitle}
               </h2>
@@ -102,7 +84,7 @@ const BookingSuccess = () => {
                   </div>
                 ) : null}
               </dl>
-            </section>
+            </section> : null}
 
             {emailStatus === "success" ? (
               <Alert>

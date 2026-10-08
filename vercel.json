@@ -11,5 +11,10 @@
       "destination": "/danh-gia-nguy-co-can-thi/privacy.html",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    { "source": "/cam-on-dang-ky", "destination": "/index.html" },
+    { "source": "/cam-on-khao-sat", "destination": "/index.html" },
+    { "source": "/booking-success", "destination": "/index.html" }
   ]
 }

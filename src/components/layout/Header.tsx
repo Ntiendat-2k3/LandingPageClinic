@@ -11,7 +11,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { SITE_CONTACT, SITE_LINKS } from "@/config/site";
+import { SITE_CONTACT } from "@/config/site";
+import SocialLinks from "@/components/common/SocialLinks";
 import { formatMessage, messages } from "@/i18n";
 
 const NAVIGATION_ITEMS = [
@@ -45,7 +46,7 @@ const Header = () => {
             </div>
           </div>
 
-          <nav className="hidden items-center gap-1 md:flex" aria-label={messages.header.mainNavigationLabel}>
+          <nav className="hidden items-center gap-1 xl:flex" aria-label={messages.header.mainNavigationLabel}>
             {NAVIGATION_ITEMS.map((item) => (
               <Button
                 key={item.sectionId}
@@ -60,21 +61,16 @@ const Header = () => {
           </nav>
 
           <div className="hidden shrink-0 items-center gap-3 text-xs text-muted-foreground lg:flex xl:gap-4 xl:text-sm">
-            <a
-              href={SITE_LINKS.zaloOa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 transition-colors hover:text-primary"
-              aria-label={messages.header.zaloOaLabel}
-            >
+            <SocialLinks />
+            <a href={`tel:${SITE_CONTACT.phonePlain}`} className="flex items-center gap-1 whitespace-nowrap font-semibold text-foreground hover:text-primary">
               <Phone className="size-4" aria-hidden="true" />
-              <span>{messages.header.zaloOa}</span>
+              <span>{SITE_CONTACT.phoneDisplay}</span>
             </a>
             <a
               href={SITE_CONTACT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 transition-colors hover:text-primary"
+              className="hidden items-center gap-1 transition-colors hover:text-primary 2xl:flex"
               aria-label={formatMessage(messages.header.mapsLabel, {
                 address: SITE_CONTACT.address,
               })}
@@ -90,7 +86,7 @@ const Header = () => {
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="md:hidden"
+                className="xl:hidden"
                 aria-label={messages.header.openMenuLabel}
               >
                 <Menu />
@@ -124,15 +120,10 @@ const Header = () => {
               <Separator />
 
               <div className="flex flex-col gap-3 px-4 text-sm text-muted-foreground">
-                <a
-                  href={SITE_LINKS.zaloOa}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 transition-colors hover:text-primary"
-                  aria-label={messages.header.zaloOaLabel}
-                >
+                <SocialLinks />
+                <a href={`tel:${SITE_CONTACT.phonePlain}`} className="flex items-center gap-2 transition-colors hover:text-primary">
                   <Phone className="size-4" aria-hidden="true" />
-                  <span>{messages.header.zaloOa}</span>
+                  <span>{SITE_CONTACT.phoneDisplay}</span>
                 </a>
                 <a
                   href={SITE_CONTACT.mapsUrl}

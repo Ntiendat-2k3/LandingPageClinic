@@ -1,28 +1,14 @@
 import emailjs from "@emailjs/browser";
 import { formatMessage, locale, messages } from "@/i18n";
 
-const required = (v: string | undefined, k: string) => {
-  if (!v) throw new Error(`Missing env ${k}`);
-  return v;
-};
-
 export const EMAILJS_CONFIG = {
-  SERVICE_ID: required(
-    import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    "VITE_EMAILJS_SERVICE_ID"
-  ),
-  TEMPLATE_ID: required(
-    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-    "VITE_EMAILJS_TEMPLATE_ID"
-  ),
-  PUBLIC_KEY: required(
-    import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-    "VITE_EMAILJS_PUBLIC_KEY"
-  ),
+  SERVICE_ID: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  TEMPLATE_ID: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  PUBLIC_KEY: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
 } as const;
 
 // Khởi tạo EmailJS một lần với khóa công khai từ môi trường.
-emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+if (EMAILJS_CONFIG.PUBLIC_KEY) emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
 
 export interface BookingData {
   name: string;
@@ -60,13 +46,15 @@ const formatDateVN = (input: string): string => {
 };
 
 export const sendBookingNotification = async (bookingData: BookingData) => {
+  if (!EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.TEMPLATE_ID || !EMAILJS_CONFIG.PUBLIC_KEY) {
+    return { success: false };
+  }
   try {
     const booking_date_vn = formatDateVN(bookingData.date);
     const nowVN = new Date().toLocaleString(locale);
 
     const templateParams = {
       to_name: messages.email.recipientName,
-      to_email: messages.email.recipientEmail,
       from_name: messages.email.senderName,
 
       // Thông tin khách hàng đặt lịch
@@ -93,19 +81,14 @@ export const sendBookingNotification = async (bookingData: BookingData) => {
       booking_date: booking_date_vn,
     };
 
-    const response = await emailjs.send(
+    await emailjs.send(
       EMAILJS_CONFIG.SERVICE_ID,
       EMAILJS_CONFIG.TEMPLATE_ID,
       templateParams
     );
 
-    console.log(
-      "Email notification sent to clinic owner successfully:",
-      response
-    );
-    return { success: true, response };
-  } catch (error) {
-    console.error("Failed to send booking notification:", error);
-    return { success: false, error };
+    return { success: true };
+  } catch {
+    return { success: false };
   }
 };

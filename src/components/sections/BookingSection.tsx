@@ -1,5 +1,5 @@
 import type React from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Calendar, Clock, MessageSquare, Phone, User } from "lucide-react";
 
@@ -33,7 +33,6 @@ import { messages } from "@/i18n";
 import {
   formatPhoneNumber,
   getFieldError,
-  sanitizeInput,
   validateBookingForm,
   type BookingFormData,
   type ValidationError,
@@ -65,6 +64,8 @@ const BookingSection = () => {
     []
   );
   const [showErrors, setShowErrors] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const requestId = useRef<string | null>(null);
 
   const handleInputChange = (
     event: React.ChangeEvent<
@@ -74,13 +75,13 @@ const BookingSection = () => {
     const { name, value } = event.target;
     let sanitizedValue = value;
 
-    if (name === "name" || name === "message") {
-      sanitizedValue = sanitizeInput(value);
-    } else if (name === "phone") {
+    if (name === "phone") {
       sanitizedValue = value.replace(/[^\d\s().+-]/g, "");
     }
 
     setFormData((current) => ({ ...current, [name]: sanitizedValue }));
+    requestId.current = null;
+    setSubmitError(false);
 
     if (showErrors) {
       setValidationErrors((current) =>
@@ -108,6 +109,7 @@ const BookingSection = () => {
 
     setValidationErrors([]);
     setIsLoading(true);
+    setSubmitError(false);
 
     const formattedData = {
       ...formData,
@@ -115,11 +117,16 @@ const BookingSection = () => {
     };
 
     try {
-      const emailResult = await sendBookingNotification(
-        formattedData as BookingData
-      );
+      requestId.current ??= crypto.randomUUID();
+      const response = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formattedData, requestId: requestId.current }),
+      });
+      if (!response.ok || !(await response.json()).saved) throw new Error("BOOKING_NOT_SAVED");
+      const emailResult = await sendBookingNotification(formattedData as BookingData);
 
-      navigate("/booking-success", {
+      navigate("/cam-on-dang-ky", {
         state: {
           bookingData: formattedData,
           emailStatus: emailResult.success ? "success" : "error",
@@ -127,11 +134,8 @@ const BookingSection = () => {
         replace: true,
       });
     } catch (error) {
-      console.error("Không thể gửi thông báo đặt lịch:", error);
-      navigate("/booking-success", {
-        state: { bookingData: formattedData, emailStatus: "error" },
-        replace: true,
-      });
+      console.error("Không thể lưu yêu cầu đặt lịch:", error);
+      setSubmitError(true);
     } finally {
       setIsLoading(false);
     }
@@ -242,7 +246,7 @@ const BookingSection = () => {
                         onChange={handleInputChange}
                         required
                         disabled={isLoading}
-                        min={new Date().toISOString().split("T")[0]}
+                        min={new Date().toLocaleDateString("sv-SE", { timeZone: "Asia/Bangkok" })}
                         aria-invalid={Boolean(dateError)}
                         aria-describedby={dateError ? "booking-date-error" : undefined}
                       />
@@ -337,6 +341,11 @@ const BookingSection = () => {
                     messages.booking.submit
                   )}
                 </Button>
+                {submitError ? (
+                  <p role="alert" className="text-sm text-destructive">
+                    {messages.booking.submitError} <a className="underline" href="tel:0387812321">0387 812 321</a>
+                  </p>
+                ) : null}
               </FieldGroup>
             </form>
           </CardContent>

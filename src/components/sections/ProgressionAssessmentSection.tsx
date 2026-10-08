@@ -75,14 +75,14 @@ const ProgressionAssessmentSection = () => {
               </div>
 
               {/* Tiêu đề cảnh báo */}
-              <h2 className="font-space-grotesk text-xl sm:text-3xl lg:text-[34px] font-extrabold leading-tight tracking-tight">
+              <h1 className="font-space-grotesk text-xl sm:text-3xl lg:text-[34px] font-extrabold uppercase leading-tight tracking-tight">
                 <span className="block text-slate-900">
                   {messages.app.progressionWarning.titleLine1}
                 </span>
                 <span className="block text-emerald-600 mt-1">
                   {messages.app.progressionWarning.titleLine2}
                 </span>
-              </h2>
+              </h1>
 
               {/* Đoạn mô tả */}
               <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
@@ -118,9 +118,9 @@ const ProgressionAssessmentSection = () => {
                     <span>{messages.app.riskAssessment.badge}</span>
                   </div>
 
-                  <h3 className="font-space-grotesk text-base sm:text-xl font-bold text-slate-900 leading-snug">
+                  <h1 className="font-space-grotesk text-lg sm:text-xl font-bold uppercase text-slate-900 leading-snug">
                     {messages.app.riskAssessment.title}
-                  </h3>
+                  </h1>
 
                   <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                     {messages.app.riskAssessment.description}
@@ -147,7 +147,7 @@ const ProgressionAssessmentSection = () => {
                 <div className="pt-4 sm:pt-6 relative z-10">
                   <a
                     href="/danh-gia-nguy-co-can-thi/"
-                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-bold text-sm sm:text-base text-white bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-[length:200%_auto] hover:bg-right transition-all duration-300 shadow-md shadow-emerald-600/25 hover:shadow-lg hover:shadow-emerald-600/35 hover:-translate-y-0.5 active:translate-y-0 group"
+                    className="w-full min-h-14 inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-full font-bold text-base text-white bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-[length:200%_auto] hover:bg-right transition-all duration-300 shadow-md shadow-emerald-600/25 hover:shadow-lg hover:shadow-emerald-600/35 hover:-translate-y-0.5 active:translate-y-0 group"
                   >
                     <span>{messages.app.riskAssessment.button}</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

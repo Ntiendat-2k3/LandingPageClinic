@@ -4,12 +4,10 @@ import {
   Phone,
   MapPin,
   Clock,
-  Facebook,
-  Instagram,
-  Youtube,
   MessageSquare,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import SocialLinks from "@/components/common/SocialLinks";
 import { SITE_CONTACT, SITE_LINKS } from "@/config/site";
 import { messages } from "@/i18n";
 
@@ -81,14 +79,11 @@ const Footer = () => {
                 </span>
               </a>
 
-              {/* SĐT -> Zalo */}
+              {/* Hotline */}
               <a
-                href={SITE_LINKS.zalo}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`tel:${SITE_CONTACT.phonePlain}`}
                 className="flex items-center gap-3 group"
-                aria-label={messages.footer.chatZalo}
-                title={messages.footer.openZalo}
+                aria-label={SITE_CONTACT.phoneDisplay}
               >
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0 group-hover:text-cyan-300 transition-colors" />
                 <span className="underline decoration-dotted underline-offset-2 group-hover:text-white">
@@ -125,32 +120,7 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Socials */}
-            <div className="flex items-center gap-4">
-              <a
-                href={SITE_CONTACT.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
-                aria-label={messages.footer.facebookLabel}
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
-                aria-label={messages.footer.instagramLabel}
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 bg-gray-800 rounded-full grid place-items-center hover:bg-cyan-600 transition-colors"
-                aria-label={messages.footer.youtubeLabel}
-              >
-                <Youtube className="w-4 h-4" />
-              </a>
-            </div>
+            <SocialLinks />
 
             {/* Đối tác */}
             <div>
@@ -209,14 +179,8 @@ const Footer = () => {
               {messages.footer.copyright}
             </p>
             <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-cyan-400 transition-colors">
+              <a href="/danh-gia-nguy-co-can-thi/privacy.html" className="hover:text-cyan-400 transition-colors">
                 {messages.footer.privacy}
-              </a>
-              <a href="#" className="hover:text-cyan-400 transition-colors">
-                {messages.footer.terms}
-              </a>
-              <a href="#" className="hover:text-cyan-400 transition-colors">
-                {messages.footer.sitemap}
               </a>
             </div>
           </div>
