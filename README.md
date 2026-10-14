@@ -10,9 +10,14 @@ npm run start
 npm run lint
 node --test tests/lead-api.test.mjs
 npm run build
+npm run test:seo
 ```
 
 `npm run start` chạy Vite cùng hai route `/api/booking` và `/api/screening` chỉ dành cho local; các route này gọi lại đúng handler trong `api/`. Điền biến Google vào `.env` hoặc `.env.local` (đã được Git bỏ qua), rồi mở URL Vite in ra để thử gửi biểu mẫu. Cần mạng ra Google và quyền ghi Sheet thật. Bản production vẫn dùng Vercel Functions. Bài kiểm tra API dùng Google Sheets giả lập, không ghi dữ liệu thật.
+
+## SEO và GEO
+
+Đặt `SITE_URL` trong Environment Variables của Vercel Production thành origin HTTPS của tên miền chính (ví dụ `https://ten-mien-cua-ban.vn`, không có đường dẫn). Bước build sẽ tạo HTML trang chủ có nội dung sẵn, canonical, Open Graph, `sitemap.xml` và dòng Sitemap trong `robots.txt`. Khi chưa có `SITE_URL`, build vẫn chạy nhưng không tạo canonical hoặc sitemap để tránh khai báo nhầm một domain tạm. Chạy `npm run test:seo` sau `npm run build` để kiểm tra các trang đã sinh.
 
 ## Cấu hình Google Sheets
 

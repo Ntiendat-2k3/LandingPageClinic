@@ -11,24 +11,24 @@ type Doctor = {
   highlights: string[];
   image: string;
   position: string;
+  zoom: number;
 };
 
 const DoctorsSection = () => {
   const doctorImages = [
-    { src: "/images/doctors/doctor1.jpg", position: "50% 72%" },
-    { src: "/images/doctors/staff-thuy.webp", position: "50% 30%" },
-    { src: "/images/doctors/staff-huong.webp", position: "50% 30%" },
+    { src: "/images/doctors/doctor1.jpg", position: "50% 72%", zoom: 1 },
+    { src: "/images/doctors/staff-thuy.webp", position: "50% 70%", zoom: 2.1 },
+    { src: "/images/doctors/staff-huong.webp", position: "50% 30%", zoom: 1.25 },
   ];
   const doctors: Doctor[] = messages.doctors.profiles.map((profile, index) => ({
     ...profile,
     image: doctorImages[index]?.src ?? "",
     position: doctorImages[index]?.position ?? "center",
+    zoom: doctorImages[index]?.zoom ?? 1,
   }));
 
   const [expanded, setExpanded] = useState<number | null>(null);
   const toggle = (i: number) => setExpanded((cur) => (cur === i ? null : i));
-  const scrollToBooking = () =>
-    document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section id="doctors" className="relative overflow-hidden bg-white">
@@ -150,12 +150,12 @@ const DoctorsSection = () => {
       {/* ===== CONTENT WRAPPER (thu nhỏ để vừa vặn 1 màn hình) ===== */}
       <div
         data-scroll-reveal
-        className="container relative z-10 mx-auto px-2.5 sm:px-6 lg:px-8 py-8 md:py-10"
+        className="container relative z-10 mx-auto px-2.5 sm:px-6 lg:px-8 py-8 md:py-10 lg:py-5"
       >
         <div className="text-center mb-5 md:mb-6">
-          <h1 className="font-space-grotesk text-2xl md:text-3xl lg:text-[30px] font-extrabold text-gray-900 uppercase">
+          <h2 className="font-space-grotesk text-2xl font-extrabold uppercase text-gray-900 sm:text-3xl lg:text-[32px]">
             {messages.doctors.sectionTitle}
-          </h1>
+          </h2>
         </div>
 
         {/* ===== MOBILE ===== */}
@@ -175,7 +175,7 @@ const DoctorsSection = () => {
                         src={d.image || "/placeholder.svg"}
                         alt={d.name}
                         className="w-full h-full object-cover"
-                        style={{ objectPosition: d.position }}
+                        style={{ objectPosition: d.position, transform: `scale(${d.zoom})` }}
                         loading="lazy"
                       />
                     </div>
@@ -184,9 +184,9 @@ const DoctorsSection = () => {
                   <div className="p-4 space-y-2.5 flex-1 flex flex-col justify-between">
                     <div className="space-y-2.5">
                       <header>
-                        <h2 className="font-space-grotesk text-[16px] font-bold text-gray-900">
+                        <h3 className="font-space-grotesk text-[16px] font-bold text-gray-900">
                           {d.name}
-                        </h2>
+                        </h3>
                         <p className="text-emerald-700 text-[13px] font-medium mt-0.5">
                           {d.title}
                         </p>
@@ -194,7 +194,7 @@ const DoctorsSection = () => {
 
                       <div className="flex items-start gap-2">
                         <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5 shrink-0" />
-                        <p className="text-[12.5px] text-gray-700 leading-snug">
+                        <p className="text-base leading-normal text-gray-700">
                           {d.education}
                         </p>
                       </div>
@@ -210,7 +210,7 @@ const DoctorsSection = () => {
                           {bullets.map((h, i) => (
                             <li key={i} className="flex items-start gap-2">
                               <Check className="w-3.5 h-3.5 text-emerald-600 mt-0.5 shrink-0" />
-                              <span className="text-[12.5px] text-gray-700 leading-snug">
+                              <span className="text-base leading-normal text-gray-700">
                                 {h}
                               </span>
                             </li>
@@ -235,12 +235,12 @@ const DoctorsSection = () => {
                           {messages.doctors.commitmentShort}
                         </span>
                       </div>
-                      <button
-                        onClick={scrollToBooking}
+                      <a
+                        href="/#booking"
                         className="px-3 py-1 rounded-full text-[11.5px] font-semibold text-white bg-emerald-600 hover:bg-emerald-700"
                       >
                         {messages.doctors.book}
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </article>
@@ -262,18 +262,18 @@ const DoctorsSection = () => {
                     src={d.image || "/placeholder.svg"}
                     alt={d.name}
                     className="w-full h-full object-cover"
-                    style={{ objectPosition: d.position }}
+                    style={{ objectPosition: d.position, transform: `scale(${d.zoom})` }}
                     loading="lazy"
                   />
                 </div>
               </div>
 
-              <div className="p-4 lg:p-5 space-y-2.5 flex-1 flex flex-col justify-between">
-                <div className="space-y-2.5">
+              <div className="flex flex-1 flex-col justify-between space-y-2 p-4">
+                <div className="space-y-2">
                   <header>
-                    <h2 className="font-space-grotesk text-base lg:text-[17px] font-bold text-gray-900 leading-snug">
+                    <h3 className="font-space-grotesk text-base lg:text-[17px] font-bold text-gray-900 leading-snug">
                       {d.name}
-                    </h2>
+                    </h3>
                     <p className="text-emerald-700 font-medium mt-0.5 text-[13px]">
                       {d.title}
                     </p>
@@ -281,7 +281,7 @@ const DoctorsSection = () => {
 
                   <div className="flex items-start gap-2">
                     <GraduationCap className="w-4 h-4 text-gray-500 mt-0.5 shrink-0" />
-                    <p className="text-[12.5px] lg:text-[13px] text-gray-700 leading-snug">
+                    <p className="text-sm leading-normal text-gray-700">
                       {d.education}
                     </p>
                   </div>
@@ -293,24 +293,17 @@ const DoctorsSection = () => {
                         {messages.doctors.experienceTitle}
                       </span>
                     </div>
-                    <ul className="space-y-1.5 ml-5">
+                    <ul className="ml-5 space-y-1">
                       {d.highlights.map((h, i) => (
                         <li key={i} className="flex items-start gap-2">
                           <Check className="w-3.5 h-3.5 text-emerald-600 mt-0.5 shrink-0" />
-                          <span className="text-[12.5px] lg:text-[13px] text-gray-700 leading-snug">
+                          <span className="text-sm leading-normal text-gray-700">
                             {h}
                           </span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                </div>
-
-                <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
-                  <Shield className="w-3.5 h-3.5 text-gray-500 shrink-0" />
-                  <span className="text-[11.5px] text-gray-600">
-                    {messages.doctors.commitmentFull}
-                  </span>
                 </div>
               </div>
             </article>

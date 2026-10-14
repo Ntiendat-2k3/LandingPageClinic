@@ -102,7 +102,7 @@
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   h1,
@@ -177,6 +177,55 @@
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out;
+}
+
+/* Hai nút Hero chỉ bật sáng và xuất hiện khi người dùng cuộn tới chúng. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes hero-cta-reveal {
+    0% {
+      opacity: 0;
+      transform: translateY(28px) scale(0.88);
+      box-shadow: 0 0 0 0 rgb(16 185 129 / 0);
+    }
+
+    40% {
+      opacity: 1;
+      transform: translateY(-8px) scale(1.06);
+      box-shadow: 0 0 0 8px rgb(16 185 129 / 0.24), 0 18px 28px rgb(16 185 129 / 0.2);
+    }
+
+    70% {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 0 0 18px rgb(16 185 129 / 0);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      box-shadow: 0 0 0 0 rgb(16 185 129 / 0);
+    }
+  }
+
+  [data-hero-cta="pending"] .hero-cta-attention {
+    opacity: 0;
+    transform: translateY(28px) scale(0.88);
+    pointer-events: none;
+  }
+
+  [data-hero-cta="visible"] .hero-cta-attention {
+    animation: hero-cta-reveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  [data-hero-cta="visible"] .hero-cta-attention-delayed {
+    animation-delay: 0.28s;
+  }
+
+  [data-hero-cta] .hero-cta-attention:focus-visible {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    pointer-events: auto;
+  }
 }
 
 .bg-gradient-primary {

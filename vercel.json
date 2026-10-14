@@ -13,8 +13,22 @@
     }
   ],
   "rewrites": [
-    { "source": "/cam-on-dang-ky", "destination": "/index.html" },
-    { "source": "/cam-on-khao-sat", "destination": "/index.html" },
-    { "source": "/booking-success", "destination": "/index.html" }
+    { "source": "/cam-on-dang-ky", "destination": "/_confirmation.html" },
+    { "source": "/cam-on-khao-sat", "destination": "/_confirmation.html" },
+    { "source": "/booking-success", "destination": "/_confirmation.html" }
+  ],
+  "headers": [
+    {
+      "source": "/cam-on-dang-ky",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/cam-on-khao-sat",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/booking-success",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ]
 }

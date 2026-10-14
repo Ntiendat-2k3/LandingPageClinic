@@ -34,13 +34,13 @@ export default function PricingSection() {
         <div className="grid gap-3 lg:grid-cols-2 lg:gap-10">
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">{messages.pricing.badge}</p>
-            <h2 className="mt-2 text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl md:text-4xl">
+            <h2 className="mt-2 text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl lg:text-[32px]">
               {messages.pricing.titleLineOne}{" "}
               {messages.pricing.titleLineTwoPrefix}
               <span className="text-emerald-700">{messages.pricing.titleLineTwoHighlight}</span>
             </h2>
           </div>
-          <p className="self-center text-sm leading-snug text-slate-700 sm:text-base sm:leading-relaxed">{messages.pricing.description}</p>
+          <p className="self-center text-base leading-normal text-slate-700 lg:text-sm">{messages.pricing.description}</p>
         </div>
 
         <div role="tablist" aria-label={messages.pricing.badge} className="mt-4 flex gap-2 overflow-x-auto rounded-xl bg-white/75 p-1.5">
@@ -75,12 +75,12 @@ export default function PricingSection() {
             />
           </div>
           <div>
-            <p className="font-bold text-emerald-700">{treatment.tag}</p>
-            <h3 className="mt-2 text-2xl font-extrabold text-slate-900 md:text-3xl">{treatment.name}</h3>
-            {treatment.description && <p className="mt-4 leading-relaxed text-slate-700">{treatment.description}</p>}
+            <p className="text-base font-bold text-emerald-700 lg:text-sm">{treatment.tag}</p>
+            <h3 className="mt-2 text-xl font-extrabold text-slate-900 md:text-2xl">{treatment.name}</h3>
+            {treatment.description && <p className="mt-4 text-base leading-normal text-slate-700 lg:text-sm">{treatment.description}</p>}
             <ul className="mt-5 space-y-3">
               {treatment.effectiveness.map((line) => (
-                <li key={line} className="flex items-start gap-3 text-slate-700">
+                <li key={line} className="flex items-start gap-3 text-base leading-normal text-slate-700 lg:text-sm">
                   <Check className="mt-1 size-5 shrink-0 text-emerald-700" aria-hidden="true" />
                   <span>{line}</span>
                 </li>

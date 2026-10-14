@@ -1,11 +1,11 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 /** Kích hoạt hiệu ứng xuất hiện một lần cho các vùng nội dung được đánh dấu khi chúng đi vào khung nhìn. */
 export default function ScrollRevealObserver() {
   const { pathname } = useLocation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const root = document.documentElement;
     const targets = Array.from(
       document.querySelectorAll<HTMLElement>("[data-scroll-reveal]"),

@@ -1,79 +1,61 @@
 "use client";
 
 import { AlertTriangle, Eye, AlertCircle, Zap, Droplets, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { messages } from "@/i18n";
 
 const GoalsSection = () => {
-  const scrollToBooking = () => {
-    const el = document.getElementById("booking");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
   const myopiaStats = [
     {
       text: messages.goals.stats[0],
       icon: Eye,
-      color: "from-blue-500 to-blue-600",
     },
     {
       text: messages.goals.stats[1],
       icon: AlertCircle,
-      color: "from-red-500 to-red-600",
     },
     {
       text: messages.goals.stats[2],
       icon: Zap,
-      color: "from-orange-500 to-orange-600",
     },
     {
       text: messages.goals.stats[3],
       icon: Droplets,
-      color: "from-green-500 to-emerald-600",
     },
   ];
 
   return (
     <section
       id="goals"
-      className="relative overflow-hidden py-12 lg:py-16"
-      style={{
-        background:
-          "linear-gradient(180deg, rgba(236,252,247,0.55) 0%, rgba(240,249,255,0.55) 100%)",
-      }}
+      className="relative overflow-hidden bg-[#f4faf9] py-10 lg:py-3"
     >
-      {/* décor */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-emerald-300/30 blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 rounded-full bg-blue-300/20 blur-3xl" />
-      </div>
-
       <div
         data-scroll-reveal
         className="container mx-auto px-2.5 sm:px-6 lg:px-8 relative flex flex-col"
       >
         {/* Header - giữ nguyên 2 dòng đầu tiên */}
-        <div className="text-center mb-6 lg:mb-8 shrink-0">
-          <h1 className="mt-2 inline-flex flex-wrap items-center justify-center gap-3 text-[26px] leading-tight md:text-[36px] lg:text-[42px] font-extrabold text-gray-900">
-            <span className="inline-flex w-9 h-9 md:w-11 md:h-11 lg:w-12 lg:h-12 items-center justify-center rounded-full bg-red-100 shrink-0">
-              <AlertTriangle className="w-5 h-5 md:w-7 md:h-7 lg:w-8 lg:h-8 text-red-600" />
+        <div className="mb-6 shrink-0 text-center lg:mb-2">
+          <h2 className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-2xl font-extrabold leading-tight text-gray-900 sm:text-3xl lg:text-[32px]">
+            <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-emerald-100 md:size-11 lg:size-10">
+              <AlertTriangle className="size-5 text-emerald-700 md:size-7 lg:size-6" />
             </span>
             <span>{messages.goals.title}</span>
-          </h1>
-          <p className="mt-2 text-sm font-bold uppercase tracking-wide text-emerald-700 md:text-lg">{messages.goals.globalIssue}</p>
+            <span className="basis-full text-sm font-bold uppercase tracking-wide text-emerald-700 md:text-base">{messages.goals.globalIssue}</span>
+          </h2>
         </div>
 
-        {/* Grid 2 cột: 1/2 bên trái và 1/2 bên phải */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
-          {/* LEFT 50%: Nội dung cũ co nhỏ lại + ảnh đeo kính chuyển xuống dưới */}
-          <div className="flex flex-col gap-3.5">
+        {/* Hai cột cân đối, ưu tiên thêm chiều ngang cho nguồn số liệu ở cột trái. */}
+        <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-6">
+          {/* Cột trái: nguy cơ, ảnh minh họa và nguồn số liệu. */}
+          <div className="flex flex-col gap-3.5 lg:gap-2">
             {/* Thẻ năm 2050 - co nhỏ gọn gàng */}
-            <div className="rounded-2xl p-3 sm:p-4 bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 shadow-sm">
-              <p className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-none">
+            <div className="rounded-2xl border-l-4 border-cyan-600 bg-gradient-to-r from-cyan-50 to-emerald-50 p-3 shadow-sm sm:p-4 lg:p-3">
+              <p className="text-2xl font-extrabold leading-none text-gray-900 sm:text-3xl">
                 {messages.goals.year}
               </p>
-              <p className="mt-1 text-sm sm:text-base lg:text-[17px] font-medium text-gray-800">
+              <p className="mt-1 text-sm font-medium text-gray-800 sm:text-base lg:text-sm">
                 {messages.goals.estimatePrefix}{" "}
-                <span className="text-red-600 font-bold">
+                <span className="font-bold text-emerald-700">
                   {messages.goals.population}
                 </span>{" "}
                 {messages.goals.estimateSuffix}
@@ -81,12 +63,12 @@ const GoalsSection = () => {
             </div>
 
             {/* Dòng cảnh báo nguy cơ */}
-            <p className="text-sm sm:text-base font-semibold text-gray-800">
+            <p className="text-base font-semibold text-gray-800 lg:text-sm">
               {messages.goals.riskLead}
             </p>
 
             {/* 4 dòng nguy cơ - thu nhỏ icon và padding */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 lg:gap-1.5">
               {myopiaStats.map((s, i) => {
                 const Icon = s.icon;
                 const last = i === myopiaStats.length - 1;
@@ -98,20 +80,19 @@ const GoalsSection = () => {
                     {/* ICON + line */}
                     <div className="relative flex justify-center">
                       <div
-                        className={`z-10 w-8 h-8 rounded-full bg-gradient-to-br ${s.color} shadow-sm flex items-center justify-center text-white ring-2 ring-white`}
+                        className="z-10 flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-emerald-600 text-white shadow-sm ring-2 ring-white"
                       >
                         <Icon className="w-4 h-4" />
                       </div>
                       <span
-                        className={`absolute left-1/2 -translate-x-1/2 top-8 w-[2px] ${
-                          last ? "hidden" : "block"
-                        } bg-gradient-to-b from-emerald-400 via-cyan-400 to-blue-400`}
+                        className={`absolute left-1/2 -translate-x-1/2 top-8 w-[2px] ${last ? "hidden" : "block"
+                          } bg-gradient-to-b from-emerald-400 via-cyan-400 to-blue-400`}
                         style={{ height: "1rem" }}
                       />
                     </div>
 
-                    <div className="bg-white/90 backdrop-blur rounded-lg ring-1 ring-black/5 shadow-sm px-3.5 py-2">
-                      <p className="text-xs sm:text-sm text-gray-700 leading-snug">
+                    <div className="rounded-lg bg-white/90 px-3.5 py-2 shadow-sm ring-1 ring-emerald-100 lg:py-1.5">
+                      <p className="text-base leading-normal text-gray-700 lg:text-sm">
                         {s.text}
                       </p>
                     </div>
@@ -121,52 +102,51 @@ const GoalsSection = () => {
             </div>
 
             {/* Ảnh đeo kính chuyển xuống dưới nội dung */}
-            <div className="relative rounded-2xl overflow-hidden bg-white shadow-md ring-1 ring-black/5 mt-2 flex items-center justify-center">
+            <div className="relative mt-2 overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-emerald-100 lg:mt-1">
               <img
                 src="/images/essilor.jpg"
                 alt={messages.goals.campaignImageAlt}
-                className="w-full h-auto max-h-[160px] object-cover sm:object-contain"
+                className="h-36 w-full object-cover object-center sm:h-40 lg:h-40"
               />
-              <div className="pointer-events-none absolute inset-0 bg-emerald-400/5" />
             </div>
-            <p className="text-xs leading-relaxed text-slate-600">{messages.goals.sources}</p>
+            <p className="text-xs leading-snug text-slate-600">{messages.goals.sources}</p>
+            <a href="https://doi.org/10.1167/iovs.62.5.2" target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-emerald-800 underline underline-offset-2">
+              {messages.goals.sourceLinkText}
+            </a>
           </div>
 
-          {/* RIGHT 50%: Khi nào nên đưa bé đi khám & 4 dấu hiệu */}
-          <div className="flex flex-col justify-between p-3.5 sm:p-6 lg:p-7">
+          {/* Cột phải: thời điểm đi khám và bốn dấu hiệu cần chú ý. */}
+          <div className="flex flex-col">
             <div>
-              {/* Overline badge */}
-              <div className="text-xs sm:text-sm font-bold tracking-wider text-emerald-700 uppercase">
+              <div className="text-xs font-bold uppercase tracking-wider text-emerald-700 sm:text-sm">
                 {messages.goals.signs.badge}
               </div>
-
-              {/* Tiêu đề chính 2 dòng */}
-              <h2 className="mt-2 text-2xl sm:text-3xl font-extrabold leading-tight">
+              <h3 className="mt-2 text-2xl font-extrabold leading-tight sm:text-3xl">
                 <span className="block text-slate-900">
                   {messages.goals.signs.titleLine1}
                 </span>
-                <span className="block text-emerald-600">
+                <span className="block text-emerald-700">
                   {messages.goals.signs.titleLine2}
                 </span>
-              </h2>
+              </h3>
 
               {/* Mô tả */}
-              <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <p className="mt-2 text-base leading-normal text-slate-600 lg:text-sm">
                 {messages.goals.signs.description}
               </p>
 
               {/* 4 dấu hiệu nhận biết */}
-              <div className="mt-4 divide-y divide-gray-100 border-t border-b border-gray-100">
+              <div className="mt-4 flex flex-col gap-2 lg:mt-3 lg:gap-3">
                 {messages.goals.signs.items.map((item, index) => (
-                  <div key={index} className="py-3 flex items-start gap-3.5">
+                  <div key={index} className="flex items-start gap-3 rounded-lg bg-white/90 px-3.5 py-2 shadow-sm ring-1 ring-emerald-100 lg:py-1.5">
                     <span className="text-sm font-bold text-emerald-600 shrink-0 mt-0.5 font-mono">
                       {item.number}
                     </span>
                     <div>
-                      <h4 className="text-sm sm:text-base font-bold text-slate-900">
+                      <h4 className="text-base font-bold text-slate-900">
                         {item.title}
                       </h4>
-                      <p className="mt-0.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      <p className="mt-0.5 text-base leading-normal text-slate-600 lg:text-sm">
                         {item.description}
                       </p>
                     </div>
@@ -177,11 +157,13 @@ const GoalsSection = () => {
 
           </div>
         </div>
-        <div className="mt-8 flex justify-center">
-          <button type="button" onClick={scrollToBooking} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-7 py-3 text-base font-bold text-white shadow-md transition-colors hover:bg-emerald-700">
-            <span>{messages.goals.signs.cta}</span>
-            <ArrowRight className="size-5" aria-hidden="true" />
-          </button>
+        <div className="mt-8 flex justify-center lg:mt-3">
+          <Button asChild size="lg" className="h-auto min-h-14 whitespace-normal rounded-xl px-7 py-3 text-center text-base font-bold shadow-md">
+            <a href="/#booking">
+              <span>{messages.goals.signs.cta}</span>
+              <ArrowRight className="size-5" aria-hidden="true" />
+            </a>
+          </Button>
         </div>
       </div>
     </section>

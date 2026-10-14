@@ -23,18 +23,13 @@ const NAVIGATION_ITEMS = [
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const scrollToSection = (sectionId: string) => {
-    document
-      .getElementById(sectionId)
-      ?.scrollIntoView({ behavior: "smooth" });
-    setIsMenuOpen(false);
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="container mx-auto px-2.5 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-2 sm:gap-4">
-          <div className="flex min-w-0 items-center gap-1.5 sm:shrink-0 sm:gap-2">
+          <a href="/" className="flex min-w-0 items-center gap-1.5 sm:shrink-0 sm:gap-2" aria-label={messages.header.brandLineOne}>
             <img
               src="/images/logo.png"
               alt={messages.header.logoAlt}
@@ -44,18 +39,17 @@ const Header = () => {
               <div>{messages.header.brandLineOne}</div>
               <div>{messages.header.brandLineTwo}</div>
             </div>
-          </div>
+          </a>
 
           <nav className="hidden items-center gap-1 xl:flex" aria-label={messages.header.mainNavigationLabel}>
             {NAVIGATION_ITEMS.map((item) => (
               <Button
+                asChild
                 key={item.sectionId}
-                type="button"
                 variant="ghost"
                 size="sm"
-                onClick={() => scrollToSection(item.sectionId)}
               >
-                {item.label}
+                <a href={`/#${item.sectionId}`}>{item.label}</a>
               </Button>
             ))}
           </nav>
@@ -70,7 +64,7 @@ const Header = () => {
               href={SITE_CONTACT.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden items-center gap-1 transition-colors hover:text-primary 2xl:flex"
+              className="hidden items-center gap-1 font-semibold text-foreground transition-colors hover:text-primary 2xl:flex"
               aria-label={formatMessage(messages.header.mapsLabel, {
                 address: SITE_CONTACT.address,
               })}
@@ -106,13 +100,12 @@ const Header = () => {
               >
                 {NAVIGATION_ITEMS.map((item) => (
                   <Button
+                    asChild
                     key={item.sectionId}
-                    type="button"
                     variant="ghost"
                     className="w-full justify-start"
-                    onClick={() => scrollToSection(item.sectionId)}
                   >
-                    {item.label}
+                    <a href={`/#${item.sectionId}`} onClick={closeMenu}>{item.label}</a>
                   </Button>
                 ))}
               </nav>
@@ -121,7 +114,7 @@ const Header = () => {
 
               <div className="flex flex-col gap-3 px-4 text-sm text-muted-foreground">
                 <SocialLinks />
-                <a href={`tel:${SITE_CONTACT.phonePlain}`} className="flex items-center gap-2 transition-colors hover:text-primary">
+                <a href={`tel:${SITE_CONTACT.phonePlain}`} className="flex items-center gap-2 font-semibold text-foreground transition-colors hover:text-primary">
                   <Phone className="size-4" aria-hidden="true" />
                   <span>{SITE_CONTACT.phoneDisplay}</span>
                 </a>
@@ -129,7 +122,7 @@ const Header = () => {
                   href={SITE_CONTACT.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2 transition-colors hover:text-primary"
+                  className="flex items-start gap-2 font-semibold text-foreground transition-colors hover:text-primary"
                   aria-label={formatMessage(messages.header.mapsLabel, {
                     address: SITE_CONTACT.address,
                   })}
@@ -141,12 +134,11 @@ const Header = () => {
 
               <div className="mt-auto p-4">
                 <Button
-                  type="button"
+                  asChild
                   size="lg"
                   className="w-full"
-                  onClick={() => scrollToSection("booking")}
                 >
-                  {messages.common.bookAppointment}
+                  <a href="/#booking" onClick={closeMenu}>{messages.common.bookAppointment}</a>
                 </Button>
               </div>
             </SheetContent>

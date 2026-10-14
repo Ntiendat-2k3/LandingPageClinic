@@ -75,17 +75,17 @@ const ProgressionAssessmentSection = () => {
               </div>
 
               {/* Tiêu đề cảnh báo */}
-              <h1 className="font-space-grotesk text-xl sm:text-3xl lg:text-[34px] font-extrabold uppercase leading-tight tracking-tight">
+              <h2 className="font-space-grotesk text-2xl sm:text-3xl lg:text-[32px] font-extrabold uppercase leading-tight tracking-tight">
                 <span className="block text-slate-900">
                   {messages.app.progressionWarning.titleLine1}
                 </span>
                 <span className="block text-emerald-600 mt-1">
                   {messages.app.progressionWarning.titleLine2}
                 </span>
-              </h1>
+              </h2>
 
               {/* Đoạn mô tả */}
-              <p className="text-slate-600 text-xs sm:text-base leading-relaxed">
+              <p className="text-base leading-normal text-slate-600 lg:text-sm">
                 {messages.app.progressionWarning.description}
               </p>
 
@@ -118,11 +118,11 @@ const ProgressionAssessmentSection = () => {
                     <span>{messages.app.riskAssessment.badge}</span>
                   </div>
 
-                  <h1 className="font-space-grotesk text-lg sm:text-xl font-bold uppercase text-slate-900 leading-snug">
+                  <h3 className="font-space-grotesk text-lg sm:text-xl font-bold uppercase text-slate-900 leading-snug">
                     {messages.app.riskAssessment.title}
-                  </h1>
+                  </h3>
 
-                  <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                  <p className="text-base leading-normal text-slate-600 lg:text-sm">
                     {messages.app.riskAssessment.description}
                   </p>
 

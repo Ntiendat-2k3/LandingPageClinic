@@ -53,9 +53,9 @@ const Footer = () => {
               </div>
 
               <div>
-                <h3 className="font-space-grotesk text-[15px] lg:text-xl font-bold">
+                <p className="font-space-grotesk text-[15px] lg:text-xl font-bold">
                   {messages.footer.brandLineOne}
-                </h3>
+                </p>
                 <p className="lg:text-xl text-emerald-300 font-bold uppercase">
                   {messages.footer.brandLineTwo}
                 </p>
@@ -74,7 +74,7 @@ const Footer = () => {
                 title={messages.footer.openMaps}
               >
                 <MapPin className="w-4 h-4 mt-0.5 text-cyan-400 shrink-0 group-hover:text-cyan-300 transition-colors" />
-                <span className="underline decoration-dotted underline-offset-2 group-hover:text-white">
+                <span className="font-semibold text-white underline decoration-dotted underline-offset-2 group-hover:text-cyan-200">
                   {SITE_CONTACT.address}
                 </span>
               </a>
@@ -86,7 +86,7 @@ const Footer = () => {
                 aria-label={SITE_CONTACT.phoneDisplay}
               >
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0 group-hover:text-cyan-300 transition-colors" />
-                <span className="underline decoration-dotted underline-offset-2 group-hover:text-white">
+                <span className="font-semibold text-white underline decoration-dotted underline-offset-2 group-hover:text-cyan-200">
                   {SITE_CONTACT.phoneDisplay}
                 </span>
               </a>
@@ -149,7 +149,7 @@ const Footer = () => {
           <div>
             <div
               ref={wrapperRef}
-              className="rounded-2xl overflow-hidden w-full md:w-[495px]"
+              className="w-full max-w-[495px] overflow-hidden rounded-2xl"
             >
               <iframe
                 key={fbWidth}

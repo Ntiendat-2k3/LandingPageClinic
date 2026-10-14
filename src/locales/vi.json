@@ -1,4 +1,8 @@
 {
+  "seo": {
+    "clinicName": "Phòng khám chuyên khoa Mắt Dr Trần Tuấn",
+    "city": "Hà Nội"
+  },
   "app": {
     "skipToContent": "Chuyển đến nội dung chính",
     "riskAssessment": {
@@ -47,7 +51,14 @@
     "mobileNavigationLabel": "Điều hướng trên thiết bị di động"
   },
   "footer": {
-    "partnerAlts": ["ZEISS", "SEED", "TG Vision", "101 Trading Co.", "GoMed", "Santen"],
+    "partnerAlts": [
+      "ZEISS",
+      "SEED",
+      "TG Vision",
+      "101 Trading Co.",
+      "GoMed",
+      "Santen"
+    ],
     "logoAlt": "logo",
     "brandLineOne": "PHÒNG KHÁM CHUYÊN KHOA MẮT & KHÚC XẠ",
     "brandLineTwo": "Dr Trần Tuấn",
@@ -81,12 +92,13 @@
   },
   "hero": {
     "centerTitle": "TRUNG TÂM KIỂM SOÁT CẬN THỊ",
-    "clinicTitleLine1": "PHÒNG KHÁM CHUYÊN KHOA",
-    "clinicTitleLine2": "MẮT DR TRẦN TUẤN",
+    "clinicTitleLine1": "PHÒNG KHÁM CHUYÊN KHOA MẮT",
+    "clinicTitleLine2": "DR TRẦN TUẤN",
     "clinic": "Phòng khám",
     "specialty": "Chuyên khoa Mắt & Khúc xạ",
     "doctor": "Dr Trần Tuấn",
     "tagline": "Kiểm soát cận thị cho trẻ với phác đồ cá nhân hóa",
+    "intro": "Áp dụng các phương pháp kiểm soát cận thị có hiệu quả cao và cá nhân hóa cho từng trẻ.",
     "headline": "KIỂM SOÁT CẬN THỊ – ĐIỀU CHỈNH LÁC KHÔNG PHẪU THUẬT",
     "benefits": [
       "Bác sĩ chuyên khoa khúc xạ và đội ngũ nhân viên y tế trên 10 năm kinh nghiệm trực tiếp tư vấn, lộ trình theo dõi rõ ràng",
@@ -114,6 +126,7 @@
     "estimateSuffix": "mắc cận thị",
     "riskLead": "Trẻ mắc cận thị ở mức -6.00D, so với người chính thị sẽ:",
     "sources": "Nguồn số liệu: Sankaridurg P và cộng sự, IMI Impact of Myopia, IOVS 2021;62(5):2, doi:10.1167/iovs.62.5.2; Flitcroft DI, Prog Retin Eye Res 2012;31(6):622–660; Vongphanit J và cộng sự, Ophthalmology 2002;109(4):704–711; Chang MA và cộng sự, Ophthalmology 2005;112(8):1395–1401; Marcus MW và cộng sự, Ophthalmology 2011;118(10):1989–1994.",
+    "sourceLinkText": "Xem nghiên cứu IMI Impact of Myopia (2021)",
     "campaignImageAlt": "Control Myopia Today or Risk Poor Vision Tomorrow",
     "retinaImageAlt": "Hình ảnh võng mạc bị tổn thương",
     "retinaCaption": "Hình ảnh võng mạc bị tổn thương",
@@ -211,8 +224,8 @@
   "pricing": {
     "treatments": [
       {
-          "name": "ATROPINE NỒNG ĐỘ THẤP",
-          "effectiveness": [
+        "name": "ATROPINE NỒNG ĐỘ THẤP",
+        "effectiveness": [
           "Các nồng độ: 0,01%, 0,025% và 0,05%",
           "Hiệu quả kiểm soát độ cận thị: có thể lên tới 67%",
           "Hiệu quả kiểm soát trục nhãn cầu: có thể lên tới 51%"
@@ -256,7 +269,7 @@
     "sectionTitle": "Đội ngũ chuyên môn",
     "experienceTitle": "Kinh nghiệm & thành tựu",
     "commitmentShort": "Cam kết chuyên môn",
-    "commitmentFull": "Cam kết chuyên môn & đạo đức nghề nghiệp",
+    "commitmentFull": "",
     "book": "Đặt lịch",
     "expand": "Xem thêm ▼",
     "collapse": "Thu gọn ▲",
@@ -303,14 +316,46 @@
     "ctaDescription": "Hãy để chúng tôi chăm sóc đôi mắt của bạn với sự tận tâm và chuyên nghiệp.",
     "cta": "Đăng kí miễn phí ưu đãi",
     "items": [
-      { "name": "Mẹ bạn Hải Linh", "location": "Hà Nội", "content": "Điều tôi yên tâm nhất là bác sĩ giải thích kỹ vì sao cần theo dõi và gia đình phải làm gì tại nhà." },
-      { "name": "Bạn Trúc Anh", "location": "Hà Nội", "content": "Lần đầu bố mẹ cho bạn ấy đi khám cũng chỉ để kiểm tra xem có vấn đề gì không. Nào ngờ bé bị cận loạn cao bẩm sinh kèm nhược thị. May được bác sĩ Tuấn tư vấn tận tình, hướng tập luyện như bác sĩ dặn; đến nay mắt con đã nhìn tốt rồi." },
-      { "name": "Bạn Gia Bảo", "location": "Quảng Trị", "content": "Cháu theo khám bác sĩ Tuấn cũng được 5 năm rồi. Hiện độ cận loạn rất ổn định, 2 năm nay gần như không tăng độ. Sắp tới bác sĩ Tuấn sẽ cho cháu đeo Ortho-K để không phải dùng kính gọng nữa." },
-      { "name": "Bố bạn Gia An", "location": "Hưng Yên", "content": "Con tôi 12 tuổi cận 4 độ. Sau 6 tháng theo phác đồ tại đây, độ tăng chậm rõ rệt. Bác sĩ theo dõi sát và hướng dẫn chăm sóc rất kỹ." },
-      { "name": "Anh Minh Tiến", "location": "Hải Phòng", "content": "Gắn bó với chiếc kính cận 25 độ dày cộm hàng chục năm nay, được bạn bè giới thiệu đến khám tại phòng khám của BS Trần Tuấn và được tư vấn đổi sang loại tròng siêu mỏng. Giờ tôi đeo kính cảm thấy rất thoải mái dễ chịu, tự tin hơn rất nhiều trong công việc cũng như cuộc sống hằng ngày." },
-      { "name": "Mẹ bạn Yến Nhi", "location": "Hà Nội", "content": "Chúng tôi không chỉ nhận được một đơn kính chính xác, mà còn nhận được một kế hoạch chăm sóc mắt rõ ràng. Chúng tôi hoàn toàn chủ động trong việc theo dõi cho con." },
-      { "name": "Mẹ bạn Văn Phúc", "location": "Hà Nội", "content": "Các cô và bác sĩ rất nhẹ nhàng. Con cũng được hướng dẫn từng bước, không còn sợ mỗi lần đi khám nữa. Gia đình rất yên tâm khi khám tại đây." },
-      { "name": "Chị Linh", "location": "Hòa Bình", "content": "Con và gia đình được bác sĩ hướng dẫn đeo – tháo – vệ sinh kính áp tròng rất cẩn thận và tỉ mỉ. Giờ bé có thể tự đeo và tháo kính một mình, hằng ngày học tập và sinh hoạt rất tự tin." }
+      {
+        "name": "Mẹ bạn Hải Linh",
+        "location": "Hà Nội",
+        "content": "Điều tôi yên tâm nhất là bác sĩ giải thích kỹ vì sao cần theo dõi và gia đình phải làm gì tại nhà."
+      },
+      {
+        "name": "Bạn Trúc Anh",
+        "location": "Hà Nội",
+        "content": "Lần đầu bố mẹ cho bạn ấy đi khám cũng chỉ để kiểm tra xem có vấn đề gì không. Nào ngờ bé bị cận loạn cao bẩm sinh kèm nhược thị. May được bác sĩ Tuấn tư vấn tận tình, hướng tập luyện như bác sĩ dặn; đến nay mắt con đã nhìn tốt rồi."
+      },
+      {
+        "name": "Bạn Gia Bảo",
+        "location": "Quảng Trị",
+        "content": "Cháu theo khám bác sĩ Tuấn cũng được 5 năm rồi. Hiện độ cận loạn rất ổn định, 2 năm nay gần như không tăng độ. Sắp tới bác sĩ Tuấn sẽ cho cháu đeo Ortho-K để không phải dùng kính gọng nữa."
+      },
+      {
+        "name": "Bố bạn Gia An",
+        "location": "Hưng Yên",
+        "content": "Con tôi 12 tuổi cận 4 độ. Sau 6 tháng theo phác đồ tại đây, độ tăng chậm rõ rệt. Bác sĩ theo dõi sát và hướng dẫn chăm sóc rất kỹ."
+      },
+      {
+        "name": "Anh Minh Tiến",
+        "location": "Hải Phòng",
+        "content": "Gắn bó với chiếc kính cận 25 độ dày cộm hàng chục năm nay, được bạn bè giới thiệu đến khám tại phòng khám của BS Trần Tuấn và được tư vấn đổi sang loại tròng siêu mỏng. Giờ tôi đeo kính cảm thấy rất thoải mái dễ chịu, tự tin hơn rất nhiều trong công việc cũng như cuộc sống hằng ngày."
+      },
+      {
+        "name": "Mẹ bạn Yến Nhi",
+        "location": "Hà Nội",
+        "content": "Chúng tôi không chỉ nhận được một đơn kính chính xác, mà còn nhận được một kế hoạch chăm sóc mắt rõ ràng. Chúng tôi hoàn toàn chủ động trong việc theo dõi cho con."
+      },
+      {
+        "name": "Mẹ bạn Văn Phúc",
+        "location": "Hà Nội",
+        "content": "Các cô và bác sĩ rất nhẹ nhàng. Con cũng được hướng dẫn từng bước, không còn sợ mỗi lần đi khám nữa. Gia đình rất yên tâm khi khám tại đây."
+      },
+      {
+        "name": "Chị Linh",
+        "location": "Hòa Bình",
+        "content": "Con và gia đình được bác sĩ hướng dẫn đeo – tháo – vệ sinh kính áp tròng rất cẩn thận và tỉ mỉ. Giờ bé có thể tự đeo và tháo kính một mình, hằng ngày học tập và sinh hoạt rất tự tin."
+      }
     ]
   },
   "booking": {
@@ -363,9 +408,21 @@
     "missingResult": "Kết quả chỉ hiển thị trên thiết bị đã gửi khảo sát trong phiên này. Bạn có thể làm lại để xem kết quả mới.",
     "messenger": "Tư vấn qua Messenger",
     "retry": "Làm lại khảo sát",
-    "high": { "title": "Nguy cơ tiến triển cận thị cao", "detail": "Câu trả lời cho thấy bé có các yếu tố cần được quan tâm sớm, như tăng độ nhanh, phát hiện cận thị khi còn nhỏ hoặc độ cận cao.", "recommendation": "Đề nghị khám chuyên sâu và tiến hành kiểm soát cận thị theo chỉ định của bác sĩ." },
-    "medium": { "title": "Nguy cơ tiến triển cận thị trung bình", "detail": "Bé có một hoặc một số yếu tố cần được theo dõi. Việc tư vấn chuyên môn sẽ giúp phụ huynh hiểu rõ hơn về tình trạng của bé.", "recommendation": "Đề nghị khám chuyên sâu và tiến hành kiểm soát cận thị theo chỉ định của bác sĩ." },
-    "low": { "title": "Nguy cơ tiến triển cận thị thấp", "detail": "Thông tin hiện tại chưa ghi nhận nhiều yếu tố cảnh báo nổi bật. Phụ huynh vẫn nên duy trì thói quen chăm sóc mắt tốt cho bé.", "recommendation": "Đề nghị theo dõi định kỳ mỗi 3–6 tháng." }
+    "high": {
+      "title": "Nguy cơ tiến triển cận thị cao",
+      "detail": "Câu trả lời cho thấy bé có các yếu tố cần được quan tâm sớm, như tăng độ nhanh, phát hiện cận thị khi còn nhỏ hoặc độ cận cao.",
+      "recommendation": "Đề nghị khám chuyên sâu và tiến hành kiểm soát cận thị theo chỉ định của bác sĩ."
+    },
+    "medium": {
+      "title": "Nguy cơ tiến triển cận thị trung bình",
+      "detail": "Bé có một hoặc một số yếu tố cần được theo dõi. Việc tư vấn chuyên môn sẽ giúp phụ huynh hiểu rõ hơn về tình trạng của bé.",
+      "recommendation": "Đề nghị khám chuyên sâu và tiến hành kiểm soát cận thị theo chỉ định của bác sĩ."
+    },
+    "low": {
+      "title": "Nguy cơ tiến triển cận thị thấp",
+      "detail": "Thông tin hiện tại chưa ghi nhận nhiều yếu tố cảnh báo nổi bật. Phụ huynh vẫn nên duy trì thói quen chăm sóc mắt tốt cho bé.",
+      "recommendation": "Đề nghị theo dõi định kỳ mỗi 3–6 tháng."
+    }
   },
   "serviceCard": {
     "durationPrefix": "Thời gian:"
@@ -419,7 +476,11 @@
     "email": "info@eyecarepro.vn",
     "emailHint": "Phản hồi trong vòng 2 giờ",
     "hoursTitle": "Giờ làm việc",
-    "hours": ["Thứ 2 - Thứ 6: 8:00 - 18:00", "Thứ 7: 8:00 - 16:00", "Chủ nhật: 8:00 - 12:00"],
+    "hours": [
+      "Thứ 2 - Thứ 6: 8:00 - 18:00",
+      "Thứ 7: 8:00 - 16:00",
+      "Chủ nhật: 8:00 - 12:00"
+    ],
     "mapTitle": "Vị trí phòng khám",
     "mapAlt": "Bản đồ vị trí phòng khám",
     "mapDescription": "Phòng khám nằm tại vị trí thuận tiện, gần các tuyến xe bus và metro",
@@ -432,7 +493,15 @@
     "emailPlaceholder": "Nhập địa chỉ email",
     "serviceLabel": "Dịch vụ cần khám *",
     "selectService": "Chọn dịch vụ",
-    "services": ["Khám tổng quát mắt", "Phẫu thuật Lasik", "Điều trị cận thị", "Điều trị đục thủy tinh thể", "Khám mắt trẻ em", "Tư vấn kính áp tròng", "Khác"],
+    "services": [
+      "Khám tổng quát mắt",
+      "Phẫu thuật Lasik",
+      "Điều trị cận thị",
+      "Điều trị đục thủy tinh thể",
+      "Khám mắt trẻ em",
+      "Tư vấn kính áp tròng",
+      "Khác"
+    ],
     "dateLabel": "Ngày khám *",
     "timeLabel": "Giờ khám *",
     "selectTime": "Chọn giờ",
@@ -454,27 +523,102 @@
     "description": "Đầu tư hệ thống thiết bị y tế hiện đại nhất từ các thương hiệu hàng đầu thế giới, đảm bảo chẩn đoán chính xác và điều trị hiệu quả.",
     "learnMore": "Tìm hiểu thêm",
     "commitment": "Cam kết công nghệ hàng đầu",
-    "stats": ["Thiết bị nhập khẩu", "Chứng nhận chất lượng", "Bảo trì thiết bị", "Độ chính xác"],
+    "stats": [
+      "Thiết bị nhập khẩu",
+      "Chứng nhận chất lượng",
+      "Bảo trì thiết bị",
+      "Độ chính xác"
+    ],
     "iso": "ISO",
     "ctaTitle": "Trải nghiệm công nghệ tiên tiến",
     "ctaDescription": "Đặt lịch ngay để được khám và điều trị với hệ thống thiết bị hiện đại nhất, mang đến kết quả chính xác và an toàn tuyệt đối.",
     "cta": "Đăng kí miễn phí nhận ưu đãi 50%",
     "items": [
-      { "name": "Máy OCT Zeiss Cirrus", "description": "Chụp cắt lớp quang học độ phân giải cao, phát hiện sớm bệnh lý võng mạc và thần kinh thị giác", "features": ["Độ phân giải 5μm", "Chụp 3D chi tiết", "Phân tích AI tự động"], "origin": "Đức" },
-      { "name": "Laser Femtosecond", "description": "Công nghệ laser tiên tiến cho phẫu thuật Lasik không dao, chính xác tuyệt đối", "features": ["Laser femtosecond", "Không dao phẫu thuật", "Thời gian ngắn"], "origin": "Mỹ" },
-      { "name": "Máy đo thị trường Humphrey", "description": "Thiết bị đo thị trường tiêu chuẩn vàng, phát hiện sớm glaucoma và các bệnh lý thần kinh", "features": ["Đo thị trường tự động", "Phân tích thống kê", "Theo dõi tiến triển"], "origin": "Mỹ" },
-      { "name": "Kính hiển vi phẫu thuật Leica", "description": "Kính hiển vi phẫu thuật cao cấp với hệ thống chiếu sáng LED và zoom quang học", "features": ["Zoom quang học 6x", "Chiếu sáng LED", "Hệ thống ghi hình"], "origin": "Đức" },
-      { "name": "Máy chụp đáy mắt Canon", "description": "Máy chụp đáy mắt không cần giãn đồng tử, chất lượng hình ảnh siêu nét", "features": ["Không cần giãn đồng tử", "Chụp góc rộng", "Chất lượng 4K"], "origin": "Nhật Bản" },
-      { "name": "Hệ thống khử trùng UV-C", "description": "Hệ thống khử trùng hiện đại đảm bảo an toàn tuyệt đối cho bệnh nhân", "features": ["Khử trùng UV-C", "Tự động hóa", "An toàn 99.9%"], "origin": "Hàn Quốc" }
+      {
+        "name": "Máy OCT Zeiss Cirrus",
+        "description": "Chụp cắt lớp quang học độ phân giải cao, phát hiện sớm bệnh lý võng mạc và thần kinh thị giác",
+        "features": [
+          "Độ phân giải 5μm",
+          "Chụp 3D chi tiết",
+          "Phân tích AI tự động"
+        ],
+        "origin": "Đức"
+      },
+      {
+        "name": "Laser Femtosecond",
+        "description": "Công nghệ laser tiên tiến cho phẫu thuật Lasik không dao, chính xác tuyệt đối",
+        "features": [
+          "Laser femtosecond",
+          "Không dao phẫu thuật",
+          "Thời gian ngắn"
+        ],
+        "origin": "Mỹ"
+      },
+      {
+        "name": "Máy đo thị trường Humphrey",
+        "description": "Thiết bị đo thị trường tiêu chuẩn vàng, phát hiện sớm glaucoma và các bệnh lý thần kinh",
+        "features": [
+          "Đo thị trường tự động",
+          "Phân tích thống kê",
+          "Theo dõi tiến triển"
+        ],
+        "origin": "Mỹ"
+      },
+      {
+        "name": "Kính hiển vi phẫu thuật Leica",
+        "description": "Kính hiển vi phẫu thuật cao cấp với hệ thống chiếu sáng LED và zoom quang học",
+        "features": [
+          "Zoom quang học 6x",
+          "Chiếu sáng LED",
+          "Hệ thống ghi hình"
+        ],
+        "origin": "Đức"
+      },
+      {
+        "name": "Máy chụp đáy mắt Canon",
+        "description": "Máy chụp đáy mắt không cần giãn đồng tử, chất lượng hình ảnh siêu nét",
+        "features": [
+          "Không cần giãn đồng tử",
+          "Chụp góc rộng",
+          "Chất lượng 4K"
+        ],
+        "origin": "Nhật Bản"
+      },
+      {
+        "name": "Hệ thống khử trùng UV-C",
+        "description": "Hệ thống khử trùng hiện đại đảm bảo an toàn tuyệt đối cho bệnh nhân",
+        "features": [
+          "Khử trùng UV-C",
+          "Tự động hóa",
+          "An toàn 99.9%"
+        ],
+        "origin": "Hàn Quốc"
+      }
     ]
   },
   "faq": {
     "title": "FAQ - CÂU HỎI THƯỜNG GẶP",
+    "imageAlts": [
+      "Bác sĩ kiểm tra mắt cho trẻ tại phòng khám",
+      "Nhân viên y tế kiểm tra mắt cho trẻ bằng thiết bị chuyên khoa"
+    ],
     "items": [
-      { "question": "Khi nào trẻ cần khám kiểm soát cận thị?", "answer": "Nên khám khi trẻ có các triệu chứng về mắt như nheo mắt, ngồi sát, mỏi mắt, nhìn xa kém... hoặc tăng độ nhanh. Cũng nên chủ động khám sớm nếu trẻ cận từ nhỏ hoặc gia đình có người cận thị cao." },
-      { "question": "Lần đầu tiên khám cần những gì?", "answer": "Bác sĩ kiểm tra thị lực, tình trạng khúc xạ, sức khỏe mắt và khai thác tiền sử, tốc độ tăng độ và chiều dài trục nhãn cầu. Tùy trường hợp có thể cần tra thuốc liệt điều tiết, sau đó tư vấn kế hoạch theo dõi phù hợp." },
-      { "question": "Bao lâu cần tái khám lại?", "answer": "Ít nhất trong 1 năm đầu tiên cần tái khám định kỳ mỗi 3 tháng để theo dõi tiến triển khúc xạ và chiều dài trục nhãn cầu. Khi tình trạng kiểm soát cận thị đã ổn định, tái khám mỗi 3–6 tháng hoặc theo lịch hẹn của bác sĩ." },
-      { "question": "Ortho-K, Atropine và tròng kính kiểm soát cận thị khác nhau thế nào?", "answer": "Ortho-K là kính áp tròng đeo ban đêm. Atropine là thuốc nhỏ theo đơn. Tròng kính kiểm soát cận thị là tròng kính chuyên dụng. Cả ba đều có tác dụng kiểm soát cận thị. Bác sĩ sẽ lựa chọn theo tình trạng mắt, độ tuổi và khả năng tuân thủ của trẻ." }
+      {
+        "question": "Khi nào trẻ cần khám kiểm soát cận thị?",
+        "answer": "Nên khám khi trẻ có các triệu chứng về mắt như nheo mắt, ngồi sát, mỏi mắt, nhìn xa kém... hoặc tăng độ nhanh. Cũng nên chủ động khám sớm nếu trẻ cận từ nhỏ hoặc gia đình có người cận thị cao."
+      },
+      {
+        "question": "Lần đầu tiên khám cần những gì?",
+        "answer": "Bác sĩ kiểm tra thị lực, tình trạng khúc xạ, sức khỏe mắt và khai thác tiền sử, tốc độ tăng độ và chiều dài trục nhãn cầu. Tùy trường hợp có thể cần tra thuốc liệt điều tiết, sau đó tư vấn kế hoạch theo dõi phù hợp."
+      },
+      {
+        "question": "Bao lâu cần tái khám lại?",
+        "answer": "Ít nhất trong 1 năm đầu tiên cần tái khám định kỳ mỗi 3 tháng để theo dõi tiến triển khúc xạ và chiều dài trục nhãn cầu. Khi tình trạng kiểm soát cận thị đã ổn định, tái khám mỗi 3–6 tháng hoặc theo lịch hẹn của bác sĩ."
+      },
+      {
+        "question": "Ortho-K, Atropine và tròng kính kiểm soát cận thị khác nhau thế nào?",
+        "answer": "Ortho-K là kính áp tròng đeo ban đêm. Atropine là thuốc nhỏ theo đơn. Tròng kính kiểm soát cận thị là tròng kính chuyên dụng. Cả ba đều có tác dụng kiểm soát cận thị. Bác sĩ sẽ lựa chọn theo tình trạng mắt, độ tuổi và khả năng tuân thủ của trẻ."
+      }
     ]
   },
   "processProgress": {
@@ -484,14 +628,60 @@
     "stepLabel": "Bước {number}",
     "cta": "Đăng kí miễn phí nhận ưu đãi",
     "steps": [
-      { "title": "BƯỚC 1: đánh giá sơ bộ", "details": ["Thử thị lực & đo khoảng cách đồng tử", "Đo khúc xạ máy"] },
-      { "title": "BƯỚC 2: kiểm soát điều tiết", "details": ["Nghiệm pháp nhả điều tiết", "Soi bóng đồng tử"] },
-      { "title": "BƯỚC 3: đo khúc xạ sơ bộ", "details": ["Thử kính cầu/kính trụ sơ bộ"] },
-      { "title": "BƯỚC 4: đo khúc xạ tối ưu", "details": ["Thử kính cầu/kính trụ tối ưu"] },
-      { "title": "BƯỚC 5: cấp đơn kính", "details": ["Cân bằng hai mắt, test lại điều tiết", "Tinh chỉnh thông số kính"] },
-      { "title": "BƯỚC 6: khám sàng lọc", "details": ["Test lác, đánh giá thị giác hai mắt", "Soi đáy mắt"] },
-      { "title": "BƯỚC 7: thực hiện chỉ định", "details": ["Thăm dò lâm sàng & cận lâm sàng", "VD: chụp chiếu, liệt điều tiết…"] },
-      { "title": "BƯỚC 8: tư vấn hướng xử trí", "details": ["Giải thích chi tiết tình trạng", "Tư vấn phác đồ phù hợp"] }
+      {
+        "title": "BƯỚC 1: đánh giá sơ bộ",
+        "details": [
+          "Thử thị lực & đo khoảng cách đồng tử",
+          "Đo khúc xạ máy"
+        ]
+      },
+      {
+        "title": "BƯỚC 2: kiểm soát điều tiết",
+        "details": [
+          "Nghiệm pháp nhả điều tiết",
+          "Soi bóng đồng tử"
+        ]
+      },
+      {
+        "title": "BƯỚC 3: đo khúc xạ sơ bộ",
+        "details": [
+          "Thử kính cầu/kính trụ sơ bộ"
+        ]
+      },
+      {
+        "title": "BƯỚC 4: đo khúc xạ tối ưu",
+        "details": [
+          "Thử kính cầu/kính trụ tối ưu"
+        ]
+      },
+      {
+        "title": "BƯỚC 5: cấp đơn kính",
+        "details": [
+          "Cân bằng hai mắt, test lại điều tiết",
+          "Tinh chỉnh thông số kính"
+        ]
+      },
+      {
+        "title": "BƯỚC 6: khám sàng lọc",
+        "details": [
+          "Test lác, đánh giá thị giác hai mắt",
+          "Soi đáy mắt"
+        ]
+      },
+      {
+        "title": "BƯỚC 7: thực hiện chỉ định",
+        "details": [
+          "Thăm dò lâm sàng & cận lâm sàng",
+          "VD: chụp chiếu, liệt điều tiết…"
+        ]
+      },
+      {
+        "title": "BƯỚC 8: tư vấn hướng xử trí",
+        "details": [
+          "Giải thích chi tiết tình trạng",
+          "Tư vấn phác đồ phù hợp"
+        ]
+      }
     ]
   }
 }

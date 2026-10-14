@@ -14,7 +14,13 @@ node_modules
 dist
 dist-ssr
 *.local
-chỉnh sửa landingpage/
+/chỉnh sửa landingpage/*
+!/chỉnh sửa landingpage/Lần 2/
+/chỉnh sửa landingpage/Lần 2/*
+!/chỉnh sửa landingpage/Lần 2/plan.md
+!/chỉnh sửa landingpage/Lần 2/tasks/
+/chỉnh sửa landingpage/Lần 2/tasks/*
+!/chỉnh sửa landingpage/Lần 2/tasks/*.md
 
 # Editor directories and files
 .vscode/*
