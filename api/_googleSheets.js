@@ -8,15 +8,7 @@ function encodeJson(value) {
   return Buffer.from(JSON.stringify(value)).toString("base64url");
 }
 
-/** Lấy access token bằng service account; khóa riêng chỉ được đọc trong Function. */
-async function getAccessToken() {
-  if (cachedToken && Date.now() < cachedToken.expiresAt) return cachedToken.value;
-
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n");
-  if (!email || !privateKey) throw new Error("GOOGLE_CREDENTIALS_MISSING");
-
-  const now = Math.floor(Date.now() / 1000);
+function createAssertion(email, privateKey, now) {
   const header = encodeJson({ alg: "RS256", typ: "JWT" });
   const claim = encodeJson({
     iss: email,
@@ -30,14 +22,36 @@ async function getAccessToken() {
   signer.update(unsigned);
   signer.end();
   const signature = signer.sign(privateKey).toString("base64url");
-  const assertion = `${unsigned}.${signature}`;
-  const response = await fetch(TOKEN_URL, {
+  return `${unsigned}.${signature}`;
+}
+
+async function requestToken(assertion) {
+  return fetch(TOKEN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion }),
   });
-  if (!response.ok) throw new Error("GOOGLE_AUTH_FAILED");
-  const token = await response.json();
+}
+
+/** Lấy token; chỉ thử lại khi Google xác nhận JWT lệch thời gian với đồng hồ máy. */
+async function getAccessToken() {
+  if (cachedToken && Date.now() < cachedToken.expiresAt) return cachedToken.value;
+
+  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+  if (!email || !privateKey) throw new Error("GOOGLE_CREDENTIALS_MISSING");
+
+  let response = await requestToken(createAssertion(email, privateKey, Math.floor(Date.now() / 1000)));
+  let token = await response.json();
+  if (!response.ok && token.error === "invalid_grant" && /iat|exp|timeframe/i.test(token.error_description || "")) {
+    const serverTime = Date.parse(response.headers.get("date") || "");
+    const offset = serverTime - Date.now();
+    if (Number.isFinite(serverTime) && Math.abs(offset) > 60_000 && Math.abs(offset) < 86_400_000) {
+      response = await requestToken(createAssertion(email, privateKey, Math.floor(serverTime / 1000)));
+      token = await response.json();
+    }
+  }
+  if (!response.ok) throw new Error(`GOOGLE_AUTH_${response.status}_${token.error || "UNKNOWN"}`);
   if (typeof token.access_token !== "string") throw new Error("GOOGLE_AUTH_FAILED");
   cachedToken = { value: token.access_token, expiresAt: Date.now() + Math.max(0, token.expires_in - 120) * 1000 };
   return cachedToken.value;
@@ -51,16 +65,24 @@ async function sheetsRequest(spreadsheetId, range, options = {}) {
     headers: { Authorization: `Bearer ${token}`, ...(options.append ? { "Content-Type": "application/json" } : {}) },
     ...(options.append ? { body: JSON.stringify({ majorDimension: "ROWS", values: [options.row] }) } : {}),
   });
-  if (!response.ok) throw new Error("GOOGLE_SHEETS_FAILED");
+  if (!response.ok) {
+    const detail = await response.json().catch(() => null);
+    throw new Error(`GOOGLE_SHEETS_${response.status}_${detail?.error?.status || "UNKNOWN"}`);
+  }
   return response.json();
 }
 
 /** Đối soát mã gửi trước khi thêm dòng để lần thử lại không tạo bản ghi thứ hai. */
 export async function appendLead({ spreadsheetId, range, requestId, row }) {
   if (!spreadsheetId) throw new Error("SHEET_ID_MISSING");
+  if (process.env.BOOKING_SHEET_ID && process.env.BOOKING_SHEET_ID === process.env.SCREENING_SHEET_ID) {
+    throw new Error("SHEET_IDS_MUST_BE_DISTINCT");
+  }
   const sheetName = range.includes("!") ? `${range.split("!")[0]}!` : "";
   const existing = await sheetsRequest(spreadsheetId, `${sheetName}A:A`);
   if (existing.values?.some(([id]) => id === requestId)) return { duplicate: true };
+  const header = await sheetsRequest(spreadsheetId, `${sheetName}1:1`);
+  if (header.values?.[0]?.length !== row.length) throw new Error("SHEET_SCHEMA_MISMATCH");
   await sheetsRequest(spreadsheetId, range, { append: true, row });
   return { duplicate: false };
 }

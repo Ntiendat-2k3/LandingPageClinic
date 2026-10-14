@@ -55,7 +55,7 @@ test("đặt lịch chỉ xác nhận sau khi Sheets ghi thành công và dùng 
   globalThis.fetch = async (url, options) => {
     calls.push({ url: String(url), options });
     if (String(url).includes("oauth2")) return { ok: true, json: async () => ({ access_token: "test-token", expires_in: 3600 }) };
-    if (options.method === "GET") return { ok: true, json: async () => ({ values: [] }) };
+    if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(8).fill("Tiêu đề")] : [] }) };
     return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
   };
   const res = response();
@@ -71,7 +71,7 @@ test("đặt lịch chỉ xác nhận sau khi Sheets ghi thành công và dùng 
 test("khảo sát tính lại mức nguy cơ và ghi đúng Sheet", async () => {
   let written;
   globalThis.fetch = async (url, options) => {
-    if (options.method === "GET") return { ok: true, json: async () => ({ values: [] }) };
+    if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : [] }) };
     written = { url: String(url), body: JSON.parse(options.body) };
     return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
   };
@@ -96,7 +96,7 @@ test("khảo sát gửi email sau khi lưu Sheet và không gửi lại khi trù
   try {
     globalThis.fetch = async (url, options) => {
       calls.push({ url: String(url), options });
-      if (options.method === "GET") return { ok: true, json: async () => ({ values: alreadySaved ? [[payload.requestId]] : [] }) };
+      if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : alreadySaved ? [[payload.requestId]] : [] }) };
       return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
     };
     const first = response();
@@ -134,7 +134,7 @@ test("lỗi EmailJS không làm khảo sát đã lưu thành lỗi", async () =>
   try {
     globalThis.fetch = async (url, options) => {
       if (String(url).includes("api.emailjs.com")) return { ok: false, status: 412, text: async () => "Origin is not allowed" };
-      if (options.method === "GET") return { ok: true, json: async () => ({ values: [] }) };
+      if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : [] }) };
       return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
     };
     const res = response();
@@ -151,11 +151,81 @@ test("lỗi EmailJS không làm khảo sát đã lưu thành lỗi", async () =>
   }
 });
 
+test("hai loại thông báo không được dùng chung mẫu EmailJS", async () => {
+  process.env.VITE_EMAILJS_SERVICE_ID = "service-test";
+  process.env.VITE_EMAILJS_PUBLIC_KEY = "public-test";
+  process.env.VITE_EMAILJS_TEMPLATE_ID = "template-shared";
+  process.env.EMAILJS_SCREENING_TEMPLATE_ID = "template-shared";
+  const originalConsoleError = console.error;
+  const errors = [];
+  console.error = (...args) => errors.push(args.join(" "));
+  const calls = [];
+  try {
+    globalThis.fetch = async (url, options) => {
+      calls.push(String(url));
+      if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : [] }) };
+      return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
+    };
+    const res = response();
+    await screeningHandler(request(screening()), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.notificationSent, false);
+    assert.equal(calls.some((url) => url.includes("api.emailjs.com")), false);
+    assert.match(errors[0], /EMAILJS_TEMPLATES_MUST_BE_DISTINCT/);
+  } finally {
+    console.error = originalConsoleError;
+    delete process.env.VITE_EMAILJS_SERVICE_ID;
+    delete process.env.VITE_EMAILJS_PUBLIC_KEY;
+    delete process.env.VITE_EMAILJS_TEMPLATE_ID;
+    process.env.EMAILJS_SCREENING_TEMPLATE_ID = "";
+  }
+});
+
+test("không ghi hai form vào cùng một bảng tính", async () => {
+  process.env.SCREENING_SHEET_ID = process.env.BOOKING_SHEET_ID;
+  const originalConsoleError = console.error;
+  const errors = [];
+  console.error = (...args) => errors.push(args.join(" "));
+  try {
+    globalThis.fetch = async () => { throw new Error("Không được gọi Google Sheets"); };
+    const res = response();
+    await screeningHandler(request(screening()), res);
+    assert.equal(res.statusCode, 503);
+    assert.match(errors[0], /SHEET_IDS_MUST_BE_DISTINCT/);
+  } finally {
+    console.error = originalConsoleError;
+    process.env.SCREENING_SHEET_ID = "screening-test";
+  }
+});
+
+test("không ghi khảo sát vào bảng có cấu trúc đặt lịch", async () => {
+  const originalConsoleError = console.error;
+  const errors = [];
+  console.error = (...args) => errors.push(args.join(" "));
+  let appendCount = 0;
+  try {
+    globalThis.fetch = async (url, options) => {
+      if (options.method === "GET") {
+        return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(8).fill("Tiêu đề")] : [] }) };
+      }
+      appendCount += 1;
+      return { ok: true, json: async () => ({}) };
+    };
+    const res = response();
+    await screeningHandler(request(screening()), res);
+    assert.equal(res.statusCode, 503);
+    assert.equal(appendCount, 0);
+    assert.match(errors[0], /SHEET_SCHEMA_MISMATCH/);
+  } finally {
+    console.error = originalConsoleError;
+  }
+});
+
 test("dữ liệu thiếu đồng ý hoặc lỗi Sheets không được báo thành công", async () => {
   const invalid = response();
   await screeningHandler(request({ ...screening(), consent: false }), invalid);
   assert.equal(invalid.statusCode, 400);
-  globalThis.fetch = async () => ({ ok: false, json: async () => ({}) });
+  globalThis.fetch = async () => ({ ok: false, status: 503, json: async () => ({ error: { status: "UNAVAILABLE" } }) });
   const failed = response();
   await bookingHandler(request(booking()), failed);
   assert.equal(failed.statusCode, 503);

@@ -12,6 +12,10 @@ async function notifyScreening(submittedAt) {
   const publicKey = process.env.VITE_EMAILJS_PUBLIC_KEY;
   const privateKey = process.env.EMAILJS_PRIVATE_KEY;
   if (!serviceId || !templateId || !publicKey) return null;
+  if (templateId === process.env.VITE_EMAILJS_TEMPLATE_ID) {
+    console.error("EMAILJS_TEMPLATES_MUST_BE_DISTINCT");
+    return false;
+  }
 
   try {
     const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {

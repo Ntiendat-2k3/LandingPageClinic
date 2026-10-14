@@ -8,7 +8,7 @@
 npm install
 npm run start
 npm run lint
-node --test tests/lead-api.test.mjs
+node --test tests/lead-api.test.mjs tests/google-sheets.test.mjs
 npm run build
 npm run test:seo
 ```
@@ -23,9 +23,11 @@ npm run test:seo
 
 1. Bật Google Sheets API trong **chính Google Cloud project của service account** và tạo khóa JSON. Không đặt private key trong `public/`, `src/` hoặc biến `VITE_`.
 2. Chia sẻ **hai** bảng tính đích cho email của service account với quyền Editor.
-3. Khai báo các biến trong `.env.example` ở Vercel Project Settings. `GOOGLE_PRIVATE_KEY` nhận PEM nguyên bản hoặc chuỗi có `\n`. Hai ID Sheet có thể giữ như ví dụ nếu đúng bảng tính đích.
+3. Khai báo các biến trong `.env.example` ở Vercel Project Settings. `GOOGLE_PRIVATE_KEY` nhận PEM nguyên bản hoặc chuỗi có `\n`. `BOOKING_SHEET_ID` và `SCREENING_SHEET_ID` phải trỏ tới hai bảng tính khác nhau; kiểm tra riêng cấu hình Production và redeploy sau khi đổi biến.
 4. Cấu hình ba biến `VITE_EMAILJS_*` nếu muốn gửi email thông báo phụ cho phòng khám sau khi ghi đặt lịch thành công. Thiếu chúng, biểu mẫu vẫn ghi Sheet; trang cảm ơn sẽ báo email chưa được gửi.
-5. Hai Sheet đích có đúng một tab tên `Trang tính1`. Hàng tiêu đề đã được tạo ngày 07/10/2026; chưa có bản ghi khách hàng. API ghi đích danh tab này bằng `RAW` và dùng cột A để đối soát mã lượt gửi. Không chỉnh sửa hoặc xóa cột A trong lúc vận hành.
+5. Hai Sheet đích có đúng một tab tên `Trang tính1`. API ghi đích danh tab này bằng `RAW`, dùng cột A để đối soát mã lượt gửi và kiểm tra số cột của hàng tiêu đề trước khi ghi. Không chỉnh sửa hoặc xóa cột A trong lúc vận hành.
+
+Nếu biểu mẫu trả `503`, xem log của Function `/api/booking` hoặc `/api/screening`: `GOOGLE_CREDENTIALS_MISSING`/`GOOGLE_AUTH_*` là lỗi xác thực; `SHEET_ID_MISSING`, `SHEET_IDS_MUST_BE_DISTINCT`, `SHEET_SCHEMA_MISMATCH` là lỗi cấu hình bảng; `GOOGLE_SHEETS_<mã HTTP>_*` là lỗi API Google Sheets. Đồng hồ máy chạy local cần đúng giờ để tạo JWT; mã nguồn chỉ thử lại theo thời gian Google khi Google báo riêng lỗi lệch `iat`/`exp`. Không gửi khóa riêng hoặc dữ liệu bệnh nhân khi chia sẻ log.
 
 Thứ tự cột của Sheet đặt lịch (`A:H`): mã lượt gửi, thời điểm Việt Nam, nguồn, họ tên, số điện thoại, ngày khám, giờ khám, ghi chú.
 
@@ -37,7 +39,7 @@ Có thể dùng [mẫu HTML thông báo đặt lịch](chỉnh%20sửa%20landing
 
 ### Email thông báo khảo sát
 
-Tạo thêm **một template riêng** trong cùng tài khoản EmailJS. Đặt **To Email** là địa chỉ nhận của phòng khám, **Subject** là `{{notification_subject}}` và dán [mẫu HTML khảo sát](chỉnh%20sửa%20landingpage/Lần%201%20-%202.1.2026/emailjs-screening-template.html) vào Code Editor. Template chỉ dùng `submitted_at`; chín câu trả lời và đường dẫn Sheet không được gửi qua EmailJS.
+Tạo thêm **một template riêng** trong cùng tài khoản EmailJS. `EMAILJS_SCREENING_TEMPLATE_ID` phải khác `VITE_EMAILJS_TEMPLATE_ID`; API sẽ bỏ qua thông báo khảo sát nếu hai ID trùng nhau để tránh gửi nhầm mẫu đặt lịch. Đặt **To Email** là địa chỉ nhận của phòng khám, **Subject** là `{{notification_subject}}` và dán [mẫu HTML khảo sát](chỉnh%20sửa%20landingpage/Lần%201%20-%202.1.2026/emailjs-screening-template.html) vào Code Editor. Template chỉ dùng `submitted_at`; chín câu trả lời và đường dẫn Sheet không được gửi qua EmailJS.
 
 Điền Template ID mới vào `EMAILJS_SCREENING_TEMPLATE_ID` trong `.env` khi chạy local và Environment Variables trên Vercel. API khảo sát dùng lại `VITE_EMAILJS_SERVICE_ID` và `VITE_EMAILJS_PUBLIC_KEY` đang dùng cho đặt lịch. Nếu tài khoản bật Strict Mode, lấy Private Key trong EmailJS Dashboard → **Account → API Keys** và đặt vào `EMAILJS_PRIVATE_KEY` trong `.env` và Vercel Production Environment Variables. Đây là bí mật chỉ dùng ở server: không đặt trong biến `VITE_`, `src/` hoặc `public/`. Sau khi đổi biến, khởi động lại Vite hoặc tạo deployment mới. Lưu và thử template trong EmailJS, sau đó gửi một khảo sát thử để xác nhận Sheet có dòng mới, email đến hộp thư và trang cảm ơn báo trạng thái thông báo. Khi EmailJS lỗi hoặc chưa cấu hình, khảo sát vẫn được lưu và khách vẫn xem được kết quả.
 
