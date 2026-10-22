@@ -74,10 +74,38 @@
     "tiktokLabel": "TikTok",
     "partnersTitle": "ĐỐI TÁC CHIẾN LƯỢC",
     "facebookPageTitle": "Facebook Page",
-    "followPage": "Theo dõi fanpage để nhận ưu đãi & cập nhật mới nhất.",
+    "facebookPageName": "Trung tâm kiểm soát tật khúc xạ Dr Trần Tuấn",
+    "facebookFollowers": "1.236 người theo dõi · Phòng khám Mắt chuyên sâu",
+    "followPage": "Theo dõi fanpage để nhận ưu đãi & kiến thức chăm sóc mắt mới nhất.",
+    "followPageBtn": "Theo dõi Trang",
+    "viewAllPostsBtn": "Xem tất cả bài viết trên Facebook",
+    "featuredPostsTitle": "Bài viết mới trên Fanpage",
     "showFacebookTimeline": "Thử xem dòng thời gian tại đây",
     "hideFacebookTimeline": "Thu gọn dòng thời gian",
     "viewFacebookPost": "Xem bài viết trên Facebook",
+    "featuredPosts": [
+      {
+        "id": "post-orthok",
+        "message": "Phương pháp Ortho-K (kính áp tròng ban đêm) giúp trẻ thoải mái nhìn rõ 10/10 suốt ngày dài mà không cần đeo kính gọng, đồng thời hỗ trợ kiểm soát 40% - 60% tiến triển độ cận.",
+        "permalink": "https://www.facebook.com/pkmatdrtrantuan/",
+        "image": "/images/customer/cus1.webp",
+        "createdTime": "2026-10-18T09:00:00Z"
+      },
+      {
+        "id": "post-screening",
+        "message": "Trẻ có nguy cơ tăng độ cận nhanh nếu không được theo dõi định kỳ chiều dài trục nhãn cầu. Khám tầm soát chuyên sâu cùng Ths.Bs Trần Anh Tuấn tại 122 Bà Triệu, Hà Nội.",
+        "permalink": "https://www.facebook.com/pkmatdrtrantuan/",
+        "image": "/images/customer/cus4.webp",
+        "createdTime": "2026-10-12T14:30:00Z"
+      },
+      {
+        "id": "post-glasses",
+        "message": "Tròng kính vi điểm thế hệ mới (Essilor Stellest, Zeiss MyoCare) - Giải pháp kiểm soát cận thị hiệu quả cho các bé chưa đủ điều kiện đeo kính áp tròng Ortho-K.",
+        "permalink": "https://www.facebook.com/pkmatdrtrantuan/",
+        "image": "/images/customer/cus6.webp",
+        "createdTime": "2026-10-05T10:15:00Z"
+      }
+    ],
     "copyright": "© 2024 Dr Trần Tuấn. Tất cả quyền được bảo lưu.",
     "privacy": "Chính sách bảo mật"
   },
