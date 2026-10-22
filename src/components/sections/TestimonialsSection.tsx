@@ -2,14 +2,14 @@ import { Quote } from "lucide-react";
 import { messages } from "@/i18n";
 
 const customerImages = [
-  "hai-linh.jpg",
-  "cus3.jpg",
-  "cus1.jpg",
-  "cus4.jpg",
-  "cus5.jpg",
-  "yen-nhi.jpg",
-  "van-phuc.jpg",
-  "cus6.jpg",
+  "hai-linh.webp",
+  "cus3.webp",
+  "cus1.webp",
+  "cus4.webp",
+  "cus5.webp",
+  "yen-nhi.webp",
+  "van-phuc.webp",
+  "cus6.webp",
 ] as const;
 
 const TestimonialsSection = () => (

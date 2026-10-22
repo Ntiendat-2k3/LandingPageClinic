@@ -1,5 +1,5 @@
 import { CheckCircle, Home, Mail, MessageCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -27,14 +27,19 @@ type Risk = keyof typeof results;
 const ScreeningSuccess = () => {
   let stored: string | null = null;
   let storedNotification: string | null = null;
+  let pendingContact = false;
   try {
     stored = sessionStorage.getItem("screening-result");
     storedNotification = sessionStorage.getItem("screening-notification");
+    pendingContact = Boolean(sessionStorage.getItem("screening-request-id"))
+      && sessionStorage.getItem("screening-contact-complete") !== "true";
   } catch {
     // Trang vẫn hiển thị trạng thái an toàn khi trình duyệt chặn lưu phiên.
   }
   const result = stored && Object.prototype.hasOwnProperty.call(results, stored) ? results[stored as Risk] : null;
   const notificationStatus = result ? storedNotification : null;
+
+  if (pendingContact) return <Navigate to="/danh-gia-nguy-co-can-thi/form-thong-tin/" replace />;
 
   return (
     <section className="section-padding flex min-h-screen items-center bg-gradient-primary">

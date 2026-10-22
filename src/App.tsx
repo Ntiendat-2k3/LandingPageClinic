@@ -17,6 +17,7 @@ import ScrollRevealObserver from "./components/common/ScrollRevealObserver";
 import ProgressionAssessmentSection from "./components/sections/ProgressionAssessmentSection";
 import BookingSuccess from "./pages/BookingSuccess";
 import ScreeningSuccess from "./pages/ScreeningSuccess";
+import TreatmentGuidePage from "./pages/TreatmentGuidePage";
 import { messages } from "./i18n";
 
 function HomePage() {
@@ -53,6 +54,9 @@ function App() {
           <Route path="/cam-on-dang-ky" element={<BookingSuccess />} />
           <Route path="/booking-success" element={<Navigate to="/cam-on-dang-ky" replace />} />
           <Route path="/cam-on-khao-sat" element={<ScreeningSuccess />} />
+          {messages.methodGuides.pages.map((guide) => (
+            <Route key={guide.path} path={guide.path} element={<TreatmentGuidePage guide={guide} />} />
+          ))}
         </Routes>
       </main>
       <Footer />

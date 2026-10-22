@@ -90,6 +90,13 @@ export default function PricingSection() {
         </div>
 
         <p className="mt-3 text-center text-xs leading-relaxed text-slate-600 md:text-sm">{messages.pricing.footnote}</p>
+        <nav aria-label={messages.methodGuides.allMethodsLabel} className="mt-4 flex flex-wrap justify-center gap-2">
+          {messages.methodGuides.pages.map((guide) => (
+            <a key={guide.path} href={guide.path} className="rounded-full border border-emerald-700/30 bg-white px-4 py-2 text-sm font-semibold text-emerald-800 transition-colors hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
+              {guide.heading}
+            </a>
+          ))}
+        </nav>
       </div>
     </section>
   );

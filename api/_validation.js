@@ -26,11 +26,17 @@ export function normalizePhone(value) {
   return /^0(3[2-9]|5[689]|7[06-9]|8[1-689]|9[0-46-9])\d{7}$/.test(normalized) ? normalized : null;
 }
 
+export function normalizeName(value) {
+  if (typeof value !== "string") return null;
+  const name = value.trim();
+  return name.length >= 2 && name.length <= 50 && /^[\p{L}\s]+$/u.test(name) && !/\s{2,}/.test(name) ? name : null;
+}
+
 export function validateBooking(body) {
   if (!body || !isRequestId(body.requestId) || typeof body.name !== "string" || typeof body.message !== "string") return null;
-  const name = body.name.trim();
+  const name = normalizeName(body.name);
   const phone = normalizePhone(body.phone);
-  if (name.length < 2 || name.length > 50 || !/^[\p{L}\s]+$/u.test(name) || /\s{2,}/.test(name) || !phone || body.message.length > 500) return null;
+  if (!name || !phone || body.message.length > 500) return null;
   if (typeof body.date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(body.date) || !TIME_SLOTS.has(body.time)) return null;
   const [year, month, day] = body.date.split("-").map(Number);
   const date = new Date(Date.UTC(year, month - 1, day));
@@ -54,4 +60,11 @@ export function validateScreening(body) {
     answers[field] = { label: answer.label.trim(), value: answer.value };
   }
   return { requestId: body.requestId, answers };
+}
+
+export function validateScreeningContact(body) {
+  if (!body || !isRequestId(body.requestId) || body.consent !== true) return null;
+  const name = normalizeName(body.name);
+  const phone = normalizePhone(body.phone);
+  return name && phone ? { requestId: body.requestId, name, phone } : null;
 }

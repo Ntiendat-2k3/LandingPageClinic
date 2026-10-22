@@ -75,6 +75,9 @@
     "partnersTitle": "ĐỐI TÁC CHIẾN LƯỢC",
     "facebookPageTitle": "Facebook Page",
     "followPage": "Theo dõi fanpage để nhận ưu đãi & cập nhật mới nhất.",
+    "showFacebookTimeline": "Thử xem dòng thời gian tại đây",
+    "hideFacebookTimeline": "Thu gọn dòng thời gian",
+    "viewFacebookPost": "Xem bài viết trên Facebook",
     "copyright": "© 2024 Dr Trần Tuấn. Tất cả quyền được bảo lưu.",
     "privacy": "Chính sách bảo mật"
   },
@@ -126,7 +129,7 @@
     "estimateSuffix": "mắc cận thị",
     "riskLead": "Trẻ mắc cận thị ở mức -6.00D, so với người chính thị sẽ:",
     "sources": "Nguồn số liệu: Sankaridurg P và cộng sự, IMI Impact of Myopia, IOVS 2021;62(5):2, doi:10.1167/iovs.62.5.2; Flitcroft DI, Prog Retin Eye Res 2012;31(6):622–660; Vongphanit J và cộng sự, Ophthalmology 2002;109(4):704–711; Chang MA và cộng sự, Ophthalmology 2005;112(8):1395–1401; Marcus MW và cộng sự, Ophthalmology 2011;118(10):1989–1994.",
-    "sourceLinkText": "Xem nghiên cứu IMI Impact of Myopia (2021)",
+    "sourceLinkText": "Xem báo cáo nghiên cứu của International Myopia Institute",
     "campaignImageAlt": "Control Myopia Today or Risk Poor Vision Tomorrow",
     "retinaImageAlt": "Hình ảnh võng mạc bị tổn thương",
     "retinaCaption": "Hình ảnh võng mạc bị tổn thương",
@@ -227,24 +230,24 @@
         "name": "ATROPINE NỒNG ĐỘ THẤP",
         "effectiveness": [
           "Các nồng độ: 0,01%, 0,025% và 0,05%",
-          "Hiệu quả kiểm soát độ cận thị: có thể lên tới 67%",
-          "Hiệu quả kiểm soát trục nhãn cầu: có thể lên tới 51%"
+          "Có thể được bác sĩ cân nhắc theo mức độ tiến triển cận thị của trẻ",
+          "Cần theo dõi đáp ứng và tác dụng không mong muốn khi sử dụng"
         ],
         "tag": "Thuốc nhỏ mắt"
       },
       {
         "name": "TRÒNG KÍNH KIỂM SOÁT CẬN THỊ",
         "effectiveness": [
-          "Hiệu quả kiểm soát độ cận thị: có thể lên tới 70%",
-          "Hiệu quả kiểm soát trục nhãn cầu: có thể lên tới 55%"
+          "Vừa hỗ trợ nhìn rõ vừa có thiết kế quang học nhằm làm chậm tiến triển cận thị",
+          "Bác sĩ lựa chọn loại tròng và lịch theo dõi phù hợp với từng trẻ"
         ],
         "tag": "Tròng chuyên dụng"
       },
       {
         "name": "KÍNH ÁP TRÒNG ORTHO-K",
         "effectiveness": [
-          "Hiệu quả kiểm soát độ cận thị: có thể lên tới 80%",
-          "Hiệu quả kiểm soát trục nhãn cầu: có thể lên tới 70%"
+          "Kính được đeo khi ngủ và cần được theo dõi theo lịch hẹn",
+          "Việc vệ sinh, đeo và tháo kính đúng hướng dẫn rất quan trọng"
         ],
         "tag": "Đeo ban đêm"
       },
@@ -263,7 +266,74 @@
     "titleLineTwoPrefix": "phù hợp với ",
     "titleLineTwoHighlight": "tất cả trẻ",
     "description": "Mỗi bé có độ tuổi, độ cận, tốc độ tiến triển, tình trạng mắt và khả năng tuân thủ khác nhau. Bác sĩ sẽ cân nhắc toàn diện trước khi đưa ra chỉ định theo dõi hoặc kiểm soát cận thị.",
-    "footnote": "Ghi chú: Hiệu quả tham khảo từ các nghiên cứu dài hạn trên thế giới; kết quả thực tế phụ thuộc vào tình trạng mắt và sự tuân thủ của từng bé."
+    "footnote": "Thông tin mang tính tham khảo; bác sĩ sẽ đánh giá tình trạng mắt, lợi ích và nguy cơ trước khi lựa chọn phương pháp cho từng trẻ."
+  },
+  "methodGuides": {
+    "badge": "Tìm hiểu phương pháp kiểm soát cận thị",
+    "breadcrumbLabel": "Đường dẫn trang",
+    "home": "Trang chủ",
+    "whatTitle": "Phương pháp này là gì?",
+    "whenTitle": "Khi nào cần trao đổi với bác sĩ?",
+    "careTitle": "Lưu ý an toàn",
+    "followTitle": "Theo dõi trong quá trình sử dụng",
+    "sourcesTitle": "Tài liệu tham khảo",
+    "sourceContext": "Thông tin trên trang mang tính giáo dục, được tổng hợp từ tài liệu của International Myopia Institute. Việc lựa chọn phương pháp cần dựa trên khám mắt và tư vấn trực tiếp; nội dung này không thay thế chỉ định của bác sĩ.",
+    "teamLink": "Xem đội ngũ chuyên môn",
+    "bookLink": "Đặt lịch khám tại Trung tâm",
+    "otherTitle": "Tìm hiểu các phương pháp khác",
+    "readMore": "Đọc thêm về {method}",
+    "allMethodsLabel": "Tìm hiểu chi tiết từng phương pháp",
+    "sources": [
+      {
+        "label": "IMI: Các biện pháp làm chậm tiến triển cận thị, bản tổng hợp 2025",
+        "url": "https://myopiainstitute.org/wp-content/uploads/2025/09/23.09.2025-IMI-Interventions-for-Controlling-Myopia-Onset-and-Progression-2025-English.pdf"
+      },
+      {
+        "label": "IMI: Hướng dẫn quản lý cận thị trong thực hành lâm sàng",
+        "url": "https://myopiainstitute.org/wp-content/uploads/2023/02/2023.02.12_IMI-Clinical-Myopia-Management-Guidelines_English.pdf"
+      }
+    ],
+    "pages": [
+      {
+        "path": "/kiem-soat-can-thi-bang-atropine/",
+        "title": "Atropine nồng độ thấp trong kiểm soát cận thị trẻ em | Dr Trần Tuấn",
+        "description": "Tìm hiểu vai trò, lưu ý an toàn và cách theo dõi khi dùng atropine nồng độ thấp để kiểm soát cận thị trẻ em tại Hà Nội.",
+        "heading": "Atropine nồng độ thấp trong kiểm soát cận thị trẻ em",
+        "intro": "Atropine là thuốc nhỏ mắt có thể được bác sĩ cân nhắc trong kế hoạch làm chậm tiến triển cận thị. Nồng độ và thời gian sử dụng cần được quyết định theo kết quả khám của từng trẻ.",
+        "image": "/images/methods/atropine.webp",
+        "imageAlt": "Minh họa phương pháp nhỏ mắt atropine",
+        "what": "Các nghiên cứu đánh giá atropine bằng thay đổi độ cận và chiều dài trục nhãn cầu theo thời gian. Kết quả có thể khác nhau giữa các nồng độ và nhóm trẻ; không nên suy ra một tỷ lệ hiệu quả cố định cho mọi trường hợp.",
+        "when": "Khi độ cận tăng hoặc trẻ có nhiều yếu tố nguy cơ, bác sĩ có thể xem xét thuốc cùng các phương án quang học. Tuổi, kết quả đo khúc xạ, trục nhãn cầu và khả năng theo dõi định kỳ đều cần được cân nhắc.",
+        "care": "Thuốc có thể gây chói sáng, nhìn gần mờ hoặc kích ứng ở một số trẻ. Phụ huynh không tự chọn nồng độ, thay đổi liều hay ngừng thuốc nếu chưa trao đổi với bác sĩ.",
+        "follow": "Lịch tái khám giúp bác sĩ đánh giá độ cận, trục nhãn cầu, đáp ứng và tác dụng không mong muốn để điều chỉnh kế hoạch khi cần."
+      },
+      {
+        "path": "/trong-kinh-kiem-soat-can-thi/",
+        "title": "Tròng kính kiểm soát cận thị trẻ em | Dr Trần Tuấn",
+        "description": "Tìm hiểu tròng kính kiểm soát cận thị cho trẻ: nguyên lý, cách lựa chọn và theo dõi tại Trung tâm kiểm soát cận thị Dr Trần Tuấn.",
+        "heading": "Tròng kính kiểm soát cận thị cho trẻ",
+        "intro": "Một số thiết kế tròng kính chuyên dụng vừa điều chỉnh thị lực vừa hướng tới việc làm chậm tiến triển cận thị. Tròng phù hợp phụ thuộc vào kết quả khám và nhu cầu sinh hoạt của trẻ.",
+        "image": "/images/methods/spectacle-lens.jpg",
+        "imageAlt": "Minh họa tròng kính kiểm soát cận thị",
+        "what": "Tròng kính kiểm soát cận thị sử dụng thiết kế quang học khác với tròng đơn tròng thông thường. Các nghiên cứu ghi nhận hiệu quả ở một số thiết kế, nhưng kết quả không giống nhau giữa mọi loại tròng hoặc mọi trẻ.",
+        "when": "Gia đình có thể hỏi bác sĩ về lựa chọn này khi trẻ cần kính gọng và độ cận đang tiến triển. Bác sĩ sẽ đánh giá độ kính, sự phù hợp của gọng, thói quen đeo kính và mục tiêu theo dõi.",
+        "care": "Trẻ cần đeo kính đúng hướng dẫn và báo lại nếu nhìn mờ, khó chịu hoặc không thích nghi. Không nên tự đổi sang thiết kế khác khi chưa kiểm tra lại độ kính và tình trạng mắt.",
+        "follow": "Tái khám theo lịch để đo lại khúc xạ, chiều dài trục nhãn cầu và kiểm tra kính có còn phù hợp khi trẻ lớn lên."
+      },
+      {
+        "path": "/kinh-ap-trong-ortho-k/",
+        "title": "Kính áp tròng ban đêm Ortho-K cho trẻ | Dr Trần Tuấn",
+        "description": "Tìm hiểu kính áp tròng ban đêm Ortho-K cho trẻ, các bước đánh giá trước khi đeo, vệ sinh kính và theo dõi an toàn.",
+        "heading": "Kính áp tròng ban đêm Ortho-K cho trẻ",
+        "intro": "Ortho-K là kính áp tròng cứng được đeo khi ngủ để thay đổi tạm thời hình dạng giác mạc. Phương pháp có thể được cân nhắc trong kiểm soát cận thị sau khi bác sĩ đánh giá sự phù hợp.",
+        "image": "/images/methods/ortho-k.jpg",
+        "imageAlt": "Minh họa kính áp tròng ban đêm Ortho-K",
+        "what": "Sau khi tháo kính vào buổi sáng, một số trẻ có thể nhìn rõ hơn trong ngày mà không cần kính gọng. Nghiên cứu cũng ghi nhận khả năng làm chậm sự dài ra của trục nhãn cầu, nhưng mức đáp ứng ở từng trẻ khác nhau.",
+        "when": "Bác sĩ cần kiểm tra khúc xạ, giác mạc, bề mặt mắt và khả năng tuân thủ của trẻ và gia đình trước khi quyết định. Không phải trẻ nào cũng phù hợp với việc đeo kính áp tròng qua đêm.",
+        "care": "Vệ sinh, bảo quản, đeo và tháo kính đúng hướng dẫn là điều thiết yếu vì kính áp tròng có nguy cơ gây viêm nhiễm giác mạc. Nếu mắt đỏ, đau hoặc nhìn mờ bất thường, ngừng đeo và liên hệ cơ sở khám mắt.",
+        "follow": "Cần tái khám đúng lịch để kiểm tra thị lực, giác mạc, độ vừa của kính và tiến triển cận thị; bác sĩ sẽ điều chỉnh kế hoạch khi cần."
+      }
+    ]
   },
   "doctors": {
     "sectionTitle": "Đội ngũ chuyên môn",
@@ -398,12 +468,12 @@
   },
   "screeningSuccess": {
     "notificationSent": "Đã gửi thông báo",
-    "notificationSentDescription": "Câu trả lời đã được lưu và phòng khám đã nhận email thông báo về lượt khảo sát mới.",
+    "notificationSentDescription": "Câu trả lời và thông tin liên hệ đã được lưu. Trung tâm đã nhận email thông báo để liên hệ tư vấn.",
     "notificationFailed": "Chưa gửi được thông báo",
-    "notificationFailedDescription": "Câu trả lời đã được lưu nhưng email thông báo chưa gửi được. Phòng khám vẫn có thể xem lượt khảo sát trong danh sách.",
+    "notificationFailedDescription": "Câu trả lời và thông tin liên hệ đã được lưu, nhưng email thông báo chưa gửi được. Trung tâm vẫn có thể xem thông tin trong danh sách khảo sát.",
     "title": "Cảm ơn bạn đã hoàn thành khảo sát",
     "genericTitle": "Kết quả khảo sát",
-    "genericDescription": "Trang này hiển thị kết quả sau khi bạn gửi khảo sát thành công.",
+    "genericDescription": "Trang này hiển thị kết quả sau khi bạn hoàn tất khảo sát và gửi thông tin liên hệ.",
     "disclaimer": "Thông tin đã được ghi nhận. Kết quả sàng lọc chỉ mang tính tham khảo, không thay thế việc khám, chẩn đoán hoặc điều trị bởi bác sĩ.",
     "missingResult": "Kết quả chỉ hiển thị trên thiết bị đã gửi khảo sát trong phiên này. Bạn có thể làm lại để xem kết quả mới.",
     "messenger": "Tư vấn qua Messenger",

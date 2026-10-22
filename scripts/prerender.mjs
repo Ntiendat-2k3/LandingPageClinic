@@ -1,10 +1,10 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { createServer, loadEnv } from "vite";
 
 const outputPath = resolve("dist/index.html");
 const html = await readFile(outputPath, "utf8");
-const { seo: { clinicName } } = JSON.parse(await readFile(resolve("src/locales/vi.json"), "utf8"));
+const { seo: { clinicName }, methodGuides } = JSON.parse(await readFile(resolve("src/locales/vi.json"), "utf8"));
 const siteUrl = (process.env.SITE_URL || loadEnv("production", process.cwd(), "SITE_URL").SITE_URL)?.replace(/\/+$/, "");
 if (siteUrl) {
   const parsed = new URL(siteUrl);
@@ -36,6 +36,7 @@ const addMetadata = (page, path, imagePath) => {
     tags.push(`<meta property="og:url" content="${escapeHtml(url)}" />`);
     tags.push(`<meta property="og:image" content="${escapeHtml(siteUrl + imagePath)}" />`);
     tags.push(`<meta name="twitter:card" content="summary_large_image" />`);
+    tags.push(`<meta name="twitter:image" content="${escapeHtml(siteUrl + imagePath)}" />`);
   }
 
   return page.replace("</head>", `  ${tags.join("\n  ")}\n  </head>`);
@@ -54,8 +55,8 @@ const vite = await createServer({
 });
 
 try {
-  const { renderHome, getStructuredData } = await vite.ssrLoadModule("/src/entry-server.tsx");
-  const markup = renderHome();
+  const { renderPage, getStructuredData } = await vite.ssrLoadModule("/src/entry-server.tsx");
+  const markup = renderPage("/");
   if (!markup.includes("id=\"booking\"") || !markup.includes("id=\"faq\"")) {
     throw new Error("Nội dung trang chủ chưa được render đầy đủ.");
   }
@@ -66,6 +67,18 @@ try {
     .replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
   await writeFile(outputPath, home);
 
+  for (const guide of methodGuides.pages) {
+    const pagePath = resolve("dist", guide.path.slice(1), "index.html");
+    const page = html
+      .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(guide.title)}</title>`)
+      .replace(/<meta name="description" content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeHtml(guide.description)}" />`)
+      .replace('href="/images/clinic-sign.webp"', `href="${escapeHtml(guide.image)}"`);
+    const rendered = addMetadata(page, guide.path, "/images/clinic-sign.webp")
+      .replace('<div id="root"></div>', `<div id="root">${renderPage(guide.path)}</div>`);
+    await mkdir(resolve("dist", guide.path.slice(1)), { recursive: true });
+    await writeFile(pagePath, rendered);
+  }
+
   const confirmation = html
     .replace(/<title>[^<]*<\/title>/, "<title>Cảm ơn bạn đã liên hệ | Dr Trần Tuấn</title>")
     .replace(/<meta name="description" content="[^"]*"\s*\/>/, '<meta name="description" content="Xác nhận yêu cầu tại Phòng khám chuyên khoa Mắt Dr Trần Tuấn." />')
@@ -74,6 +87,7 @@ try {
 
   for (const [file, path] of [
     ["danh-gia-nguy-co-can-thi/index.html", "/danh-gia-nguy-co-can-thi/"],
+    ["danh-gia-nguy-co-can-thi/form-thong-tin/index.html", "/danh-gia-nguy-co-can-thi/form-thong-tin/"],
     ["danh-gia-nguy-co-can-thi/privacy.html", "/danh-gia-nguy-co-can-thi/privacy.html"],
   ]) {
     const pagePath = resolve("dist", file);
@@ -82,7 +96,7 @@ try {
   }
 
   if (siteUrl) {
-    const urls = ["/", "/danh-gia-nguy-co-can-thi/", "/danh-gia-nguy-co-can-thi/privacy.html"];
+    const urls = ["/", ...methodGuides.pages.map((guide) => guide.path), "/danh-gia-nguy-co-can-thi/", "/danh-gia-nguy-co-can-thi/privacy.html"];
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((path) => `  <url><loc>${escapeHtml(siteUrl + path)}</loc></url>`).join("\n")}\n</urlset>\n`;
     await writeFile(resolve("dist/sitemap.xml"), sitemap);
     await writeFile(resolve("dist/robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);

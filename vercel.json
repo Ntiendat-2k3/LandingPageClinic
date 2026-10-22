@@ -7,6 +7,26 @@
       "permanent": true
     },
     {
+      "source": "/kiem-soat-can-thi-bang-atropine",
+      "destination": "/kiem-soat-can-thi-bang-atropine/",
+      "permanent": true
+    },
+    {
+      "source": "/trong-kinh-kiem-soat-can-thi",
+      "destination": "/trong-kinh-kiem-soat-can-thi/",
+      "permanent": true
+    },
+    {
+      "source": "/kinh-ap-trong-ortho-k",
+      "destination": "/kinh-ap-trong-ortho-k/",
+      "permanent": true
+    },
+    {
+      "source": "/danh-gia-nguy-co-can-thi/form-thong-tin",
+      "destination": "/danh-gia-nguy-co-can-thi/form-thong-tin/",
+      "permanent": true
+    },
+    {
       "source": "/privacy.html",
       "destination": "/danh-gia-nguy-co-can-thi/privacy.html",
       "permanent": true

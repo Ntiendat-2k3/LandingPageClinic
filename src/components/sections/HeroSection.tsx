@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, MapPin, Shield, Users } from "lucide-react";
+import { ArrowRight, MapPin, Shield, Target, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { messages } from "@/i18n";
 import { SITE_CONTACT } from "@/config/site";
@@ -44,7 +44,7 @@ const HeroSection = () => {
           <div className="order-1 max-w-2xl">
             {/* Giữ tên phòng khám thành hai dòng riêng, dòng cuối chỉ có tên bác sĩ. */}
             <div>
-              <h1 className="font-heading text-[25px] font-extrabold uppercase leading-[1.3] tracking-[-0.025em] sm:text-[30px] md:text-[34px] lg:text-[25px] xl:text-[31px] 2xl:text-[34px]">
+              <h1 className="text-center font-heading text-[25px] font-bold uppercase leading-[1.3] tracking-[-0.025em] sm:text-[30px] md:text-[34px] lg:text-[25px] xl:text-[31px] 2xl:text-[34px]">
                 <span className="block text-gray-900 md:whitespace-nowrap">
                   {messages.hero.centerTitle}
                 </span>
@@ -58,15 +58,19 @@ const HeroSection = () => {
             <p className="mt-5 max-w-xl text-lg font-semibold leading-snug text-slate-800 sm:text-xl xl:text-2xl">
               {messages.hero.tagline}
             </p>
-            <p className="mt-4 max-w-xl text-base leading-normal text-slate-700">
-              {messages.hero.intro}
-            </p>
-
             <div className="mt-6 h-px max-w-lg bg-gradient-to-r from-emerald-300 via-cyan-200 to-transparent" />
 
             {/* Danh sách lợi ích */}
             <div className="mt-5">
               <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex w-6 h-6 rounded-full bg-cyan-100 items-center justify-center shrink-0">
+                    <Target className="w-3.5 h-3.5 text-cyan-600" aria-hidden="true" />
+                  </span>
+                  <span className="text-base leading-normal text-slate-700">
+                    {messages.hero.intro}
+                  </span>
+                </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-0.5 inline-flex w-6 h-6 rounded-full bg-emerald-100 items-center justify-center shrink-0">
                     <Users className="w-3.5 h-3.5 text-emerald-600" />

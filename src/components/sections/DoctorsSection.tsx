@@ -16,7 +16,7 @@ type Doctor = {
 
 const DoctorsSection = () => {
   const doctorImages = [
-    { src: "/images/doctors/doctor1.jpg", position: "50% 72%", zoom: 1 },
+    { src: "/images/doctors/doctor1.webp", position: "50% 72%", zoom: 1 },
     { src: "/images/doctors/staff-thuy.webp", position: "50% 70%", zoom: 2.1 },
     { src: "/images/doctors/staff-huong.webp", position: "50% 30%", zoom: 1.25 },
   ];

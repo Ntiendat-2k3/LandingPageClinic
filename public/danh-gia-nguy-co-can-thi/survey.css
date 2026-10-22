@@ -1,0 +1,43 @@
+:root { --navy:#12355b; --blue:#1e5e9d; --green:#159447; --mint:#effaf3; --ink:#17314f; --muted:#617289; --line:#dbe6f0; --paper:#fff; --bg:#f4f8fb; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:linear-gradient(150deg,#edf5fa 0%,#f8fbfd 48%,#edf8f2 100%); color:var(--ink); min-height:100vh; }
+.shell { width:min(100%,820px); margin:0 auto; padding:24px 16px 56px; }
+.brand { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:18px; color:var(--navy); font-size:13px; font-weight:750; letter-spacing:.01em; text-align:left; }
+.logo-window { width:112px; height:61px; overflow:hidden; position:relative; flex:0 0 auto; }
+.logo-window img { position:absolute; width:160px; max-width:none; left:-25px; top:-49px; }
+.card { background:rgba(255,255,255,.96); border:1px solid rgba(205,220,232,.85); border-radius:24px; box-shadow:0 18px 45px rgba(25,58,86,.10); overflow:hidden; }
+.hero { background:linear-gradient(135deg,#10365e,#246aa7); color:white; padding:30px 28px 26px; position:relative; overflow:hidden; }
+.hero::after { content:""; position:absolute; width:260px; height:260px; border:1px solid rgba(255,255,255,.17); border-radius:50%; right:-100px; top:-155px; box-shadow:0 0 0 30px rgba(255,255,255,.045),0 0 0 62px rgba(255,255,255,.035); }
+.eyebrow { color:#aee9cb; font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; margin:0 0 10px; }
+h1 { font-size:clamp(27px,6vw,40px); line-height:1.08; letter-spacing:-.035em; margin:0; max-width:600px; position:relative; z-index:1; }
+.hero p { margin:14px 0 0; max-width:590px; line-height:1.55; color:#e4f1fb; font-size:15px; position:relative; z-index:1; }
+.content { padding:26px 28px 30px; }
+.notice { display:flex; gap:10px; background:#f5f9fc; border:1px solid #dbeaf4; padding:12px 14px; border-radius:13px; color:#526980; font-size:13px; line-height:1.45; margin-bottom:24px; }
+.notice strong { color:#294f74; }
+.section-title { font-size:19px; letter-spacing:-.02em; margin:0 0 5px; }
+.section-subtitle { color:var(--muted); font-size:14px; margin:0 0 20px; line-height:1.45; }
+fieldset { border:0; padding:0; margin:0 0 26px; }
+legend { display:block; font-size:15px; font-weight:750; line-height:1.4; margin-bottom:11px; }
+.options { display:grid; gap:9px; }
+label.option { border:1px solid var(--line); padding:13px 14px; border-radius:12px; display:flex; align-items:center; gap:10px; font-size:14px; line-height:1.35; cursor:pointer; transition:.15s ease; background:#fff; }
+label.option:hover { border-color:#7cc59b; background:#fbfffc; }
+input[type=radio] { accent-color:var(--green); width:17px; height:17px; flex:0 0 auto; }
+label.option:has(input:checked) { border-color:var(--green); background:var(--mint); box-shadow:inset 0 0 0 1px var(--green); }
+button { appearance:none; border:0; border-radius:12px; background:var(--green); color:white; width:100%; min-height:52px; padding:14px 18px; font:inherit; font-weight:800; cursor:pointer; box-shadow:0 9px 18px rgba(21,148,71,.20); }
+button:hover { filter:brightness(.96); }
+.required { color:#c54b40; }
+.hidden { display:none !important; }
+.consent { display:flex; gap:9px; align-items:flex-start; color:var(--muted); font-size:12px; line-height:1.45; margin:16px 0 18px; } .consent input { margin-top:3px; accent-color:var(--green); }
+.fineprint { margin:22px 0 0; color:#7b8ea0; font-size:11px; line-height:1.5; text-align:center; }
+.error { color:#b44038; font-size:13px; margin:0 0 14px; font-weight:650; }
+.contact-form { display:grid; gap:18px; }
+.contact-form[hidden] { display:none; }
+.form-field { display:grid; gap:8px; }
+.form-field label { font-size:15px; font-weight:750; }
+.form-field input { width:100%; min-height:52px; border:1px solid var(--line); border-radius:12px; padding:12px 14px; color:var(--ink); background:#fff; font:inherit; }
+.form-field input:focus-visible { outline:3px solid #80c9a2; outline-offset:2px; }
+.form-field input[aria-invalid="true"] { border-color:#b44038; }
+.form-field .error, .contact-form .consent, .contact-form .error { margin:0; }
+.error-summary { padding:12px 14px; border-radius:12px; background:#fff1ef; }
+button:disabled { opacity:.65; cursor:wait; }
+@media (max-width:560px) { .shell{padding:14px 10px 34px}.hero{padding:26px 20px 22px}.content{padding:22px 20px 25px}.brand{font-size:12px}.logo-window{width:94px;transform:scale(.9);transform-origin:center}.hero p{font-size:14px} }

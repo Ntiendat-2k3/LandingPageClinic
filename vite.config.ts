@@ -16,12 +16,17 @@ export default defineConfig({
         // Vite không tự phục vụ index.html trong thư mục public khi URL kết thúc bằng dấu /.
         server.middlewares.use(async (req, res, next) => {
           const route = new URL(req.url ?? "/", "http://localhost").pathname;
-          if (route !== "/danh-gia-nguy-co-can-thi/" || (req.method !== "GET" && req.method !== "HEAD")) {
+          const staticPage = route === "/danh-gia-nguy-co-can-thi/"
+            ? "./public/danh-gia-nguy-co-can-thi/index.html"
+            : route === "/danh-gia-nguy-co-can-thi/form-thong-tin/"
+              ? "./public/danh-gia-nguy-co-can-thi/form-thong-tin/index.html"
+              : null;
+          if (!staticPage || (req.method !== "GET" && req.method !== "HEAD")) {
             return next();
           }
 
           try {
-            const html = await readFile(new URL("./public/danh-gia-nguy-co-can-thi/index.html", import.meta.url));
+            const html = await readFile(new URL(staticPage, import.meta.url));
             res.setHeader("Content-Type", "text/html; charset=utf-8");
             res.end(req.method === "HEAD" ? undefined : html);
           } catch (error) {
@@ -39,14 +44,16 @@ export default defineConfig({
           "VITE_EMAILJS_PUBLIC_KEY",
           "EMAILJS_SCREENING_TEMPLATE_ID",
           "EMAILJS_PRIVATE_KEY",
+          "FACEBOOK_PAGE_ID",
+          "FACEBOOK_PAGE_ACCESS_TOKEN",
         ]) {
           if (!process.env[name] && env[name]) process.env[name] = env[name];
         }
 
-        // Chạy lại handler production khi thử biểu mẫu bằng Vite trên máy.
+        // Chạy lại handler production khi thử API bằng Vite trên máy.
         server.middlewares.use(async (req, res, next) => {
           const route = new URL(req.url ?? "/", "http://localhost").pathname;
-          if (route !== "/api/booking" && route !== "/api/screening") return next();
+          if (route !== "/api/booking" && route !== "/api/screening" && route !== "/api/facebook-posts") return next();
 
           type JsonResponse = typeof res & {
             status: (code: number) => JsonResponse;

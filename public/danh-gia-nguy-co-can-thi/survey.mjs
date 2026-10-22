@@ -13,7 +13,7 @@ form.addEventListener("change", () => {
   submitError.classList.add("hidden");
 });
 
-/** Gửi đủ câu trả lời và chỉ mở kết quả khi máy chủ xác nhận đã lưu. */
+/** Lưu câu trả lời trước, rồi chuyển sang bước liên hệ với cùng mã lượt khảo sát. */
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const answers = {};
@@ -46,20 +46,21 @@ form.addEventListener("submit", async (event) => {
     if (!result.saved || !["high", "medium", "low"].includes(result.risk)) throw new Error("INVALID_RESULT");
     try {
       sessionStorage.setItem("screening-result", result.risk);
-      if (typeof result.notificationSent !== "boolean") {
-        sessionStorage.removeItem("screening-notification");
-      } else {
-        sessionStorage.setItem("screening-notification", result.notificationSent === true ? "success" : "error");
-      }
+      sessionStorage.setItem("screening-request-id", requestId);
+      sessionStorage.removeItem("screening-notification");
+      sessionStorage.removeItem("screening-contact-complete");
     } catch {
-      // Trình duyệt chặn lưu phiên vẫn phải chuyển trang vì Sheet đã ghi thành công.
+      throw new Error("SESSION_STORAGE_UNAVAILABLE");
     }
-    location.assign("/cam-on-khao-sat");
-  } catch {
+    location.assign("/danh-gia-nguy-co-can-thi/form-thong-tin/");
+  } catch (error) {
+    submitError.textContent = error?.message === "SESSION_STORAGE_UNAVAILABLE"
+      ? "Câu trả lời đã được lưu nhưng trình duyệt không lưu được phiên. Vui lòng cho phép dữ liệu phiên rồi thử lại."
+      : "Chưa lưu được câu trả lời. Vui lòng thử lại hoặc gọi 0387 812 321.";
     submitError.classList.remove("hidden");
     submitError.scrollIntoView({ behavior: "smooth", block: "center" });
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Gửi và xem kết quả đánh giá";
+    submitButton.textContent = "Tiếp tục đến thông tin liên hệ";
   }
 });

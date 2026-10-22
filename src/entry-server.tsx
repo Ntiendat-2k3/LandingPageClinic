@@ -4,14 +4,14 @@ import App from "./App";
 import { SITE_CONTACT, SITE_LINKS } from "./config/site";
 import { messages } from "./i18n";
 
-/** Tạo HTML ban đầu của trang chủ để nội dung có thể được đọc trước khi JavaScript chạy. */
-export const renderHome = () => renderToString(
-  <StaticRouter location="/">
+/** Tạo HTML ban đầu cho URL được prerender để nội dung có thể được đọc trước khi JavaScript chạy. */
+export const renderPage = (path: string) => renderToString(
+  <StaticRouter location={path}>
     <App />
   </StaticRouter>
 );
 
-/** Chỉ mô tả những thông tin phòng khám, nhân sự và câu hỏi đang hiển thị trên trang. */
+/** Chỉ mô tả thông tin phòng khám và nhân sự đang hiển thị trên trang. */
 export const getStructuredData = (siteUrl?: string) => ({
   "@context": "https://schema.org",
   "@graph": [
@@ -39,14 +39,6 @@ export const getStructuredData = (siteUrl?: string) => ({
         logo: `${siteUrl}/images/logo.png`,
         image: `${siteUrl}/images/clinic-sign.webp`,
       } : {}),
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: messages.faq.items.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: { "@type": "Answer", text: item.answer },
-      })),
     },
   ],
 });

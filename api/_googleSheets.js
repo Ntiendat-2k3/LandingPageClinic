@@ -59,17 +59,28 @@ async function getAccessToken() {
 
 async function sheetsRequest(spreadsheetId, range, options = {}) {
   const token = await getAccessToken();
-  const url = `${SHEETS_URL}/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(range)}${options.append ? ":append?valueInputOption=RAW&insertDataOption=INSERT_ROWS" : ""}`;
+  const writeQuery = options.update ? "?valueInputOption=RAW" : options.append ? ":append?valueInputOption=RAW&insertDataOption=INSERT_ROWS" : "";
+  const url = `${SHEETS_URL}/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(range)}${writeQuery}`;
   const response = await fetch(url, {
-    method: options.append ? "POST" : "GET",
-    headers: { Authorization: `Bearer ${token}`, ...(options.append ? { "Content-Type": "application/json" } : {}) },
-    ...(options.append ? { body: JSON.stringify({ majorDimension: "ROWS", values: [options.row] }) } : {}),
+    method: options.update ? "PUT" : options.append ? "POST" : "GET",
+    headers: { Authorization: `Bearer ${token}`, ...(options.append || options.update ? { "Content-Type": "application/json" } : {}) },
+    ...(options.append || options.update ? { body: JSON.stringify({ majorDimension: "ROWS", values: [options.row] }) } : {}),
   });
   if (!response.ok) {
     const detail = await response.json().catch(() => null);
     throw new Error(`GOOGLE_SHEETS_${response.status}_${detail?.error?.status || "UNKNOWN"}`);
   }
   return response.json();
+}
+
+export async function readValues(spreadsheetId, range) {
+  if (!spreadsheetId) throw new Error("SHEET_ID_MISSING");
+  return sheetsRequest(spreadsheetId, range);
+}
+
+export async function updateValues(spreadsheetId, range, row) {
+  if (!spreadsheetId) throw new Error("SHEET_ID_MISSING");
+  return sheetsRequest(spreadsheetId, range, { update: true, row });
 }
 
 /** Đối soát mã gửi trước khi thêm dòng để lần thử lại không tạo bản ghi thứ hai. */

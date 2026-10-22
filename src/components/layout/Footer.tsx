@@ -13,6 +13,14 @@ import { messages } from "@/i18n";
 
 const PARTNER_IMAGES = ["zeiss.jpg", "seed.jpg", "tgvision.jpg", "101.jpg", "gomed.jpg", "santen.jpg"] as const;
 
+interface FacebookPost {
+  id: string;
+  message: string;
+  permalink: string;
+  image: string | null;
+  createdTime: string | null;
+}
+
 const Footer = () => {
   const partners = PARTNER_IMAGES.map((image, index) => ({
     src: `/images/partners/${image}`,
@@ -22,6 +30,8 @@ const Footer = () => {
   // === Responsive width cho Page Plugin (1 iframe duy nhất) ===
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [fbWidth, setFbWidth] = useState(340); // mặc định mobile
+  const [facebookPosts, setFacebookPosts] = useState<FacebookPost[]>([]);
+  const [showTimeline, setShowTimeline] = useState(false);
 
   useEffect(() => {
     const el = wrapperRef.current;
@@ -30,7 +40,7 @@ const Footer = () => {
     // Giới hạn tối đa 495 trên desktop, fit 100% trên mobile
     const update = () => {
       const w = Math.round(el.clientWidth);
-      setFbWidth(Math.min(w, 495));
+      if (w >= 180) setFbWidth(Math.min(w, 495));
     };
 
     update();
@@ -38,6 +48,21 @@ const Footer = () => {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/facebook-posts", { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : null)
+      .then((result) => {
+        if (Array.isArray(result?.posts)) setFacebookPosts(result.posts);
+      })
+      .catch(() => {}); // Giữ Page Plugin khi API chưa được cấu hình hoặc tạm lỗi.
+    return () => controller.abort();
+  }, []);
+
+  const hasFacebookPosts = facebookPosts.length > 0;
+  const timelineVisible = showTimeline && !hasFacebookPosts;
+  const pluginHeight = timelineVisible ? 500 : 190;
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -145,30 +170,69 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* RIGHT: Fanpage — 1 iframe, responsive theo wrapper */}
-          <div>
+          {/* Iframe khác nguồn không cho biết Timeline đã có bài; mặc định giữ khung gọn và liên kết tới fanpage. */}
+          <div className="min-w-0">
             <div
               ref={wrapperRef}
-              className="w-full max-w-[495px] overflow-hidden rounded-2xl"
+              className="w-full max-w-[495px] overflow-hidden rounded-2xl bg-white"
             >
               <iframe
-                key={fbWidth}
                 title={messages.footer.facebookPageTitle}
                 src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
                   SITE_CONTACT.facebookUrl
-                )}&tabs=timeline&width=${fbWidth}&height=360&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
-                width="100%"
-                height="360"
-                style={{ border: "none", overflow: "hidden", display: "block" }}
+                )}&${timelineVisible ? "tabs=timeline&" : ""}width=${fbWidth}&height=${pluginHeight}&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`}
+                width={fbWidth}
+                height={pluginHeight}
+                loading="lazy"
+                className="block w-full border-0"
                 scrolling="no"
                 frameBorder={0}
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 referrerPolicy="no-referrer-when-downgrade"
               />
+              {hasFacebookPosts && (
+                <div className="h-[300px] overflow-y-auto bg-white text-slate-800">
+                  {facebookPosts.map((post) => (
+                    <a
+                      key={post.id}
+                      href={post.permalink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block border-t border-slate-200 px-4 py-3 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-blue-600"
+                    >
+                      {post.createdTime && <time dateTime={post.createdTime} className="mb-1 block text-xs text-slate-500">{new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium" }).format(new Date(post.createdTime))}</time>}
+                      {post.message && <p className="line-clamp-4 whitespace-pre-line text-sm">{post.message}</p>}
+                      {post.image && <img src={post.image} alt="" loading="lazy" className="mt-2 max-h-48 w-full rounded-lg object-cover" />}
+                      <span className="mt-2 block text-sm font-semibold text-blue-700">{messages.footer.viewFacebookPost}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
-            <p className="mt-3 text-sm text-gray-300">
-              {messages.footer.followPage}
-            </p>
+            <div className="mt-3 w-full max-w-[495px] rounded-xl border border-white/10 bg-white/5 p-4">
+              <p className="font-semibold text-white">{messages.footer.facebookLabel} · {messages.footer.brandLineTwo}</p>
+              <p className="mt-1 text-sm text-gray-300">{messages.footer.followPage}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {!hasFacebookPosts && (
+                  <button
+                    type="button"
+                    onClick={() => setShowTimeline((visible) => !visible)}
+                    aria-expanded={timelineVisible}
+                    className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                  >
+                    {timelineVisible ? messages.footer.hideFacebookTimeline : messages.footer.showFacebookTimeline}
+                  </button>
+                )}
+                <a
+                  href={SITE_CONTACT.facebookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                >
+                  {messages.footer.viewFacebookPost}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -15,10 +15,10 @@ const FAQSection = () => {
             <div key={columnIndex} className="contents md:flex md:flex-col">
               {columnIndex === 1 && (
                 <img
-                  src="/images/faq1.jpg"
+                  src="/images/faq1.webp"
                   alt={messages.faq.imageAlts[0]}
-                  width="2560"
-                  height="1707"
+                  width="1200"
+                  height="800"
                   loading="lazy"
                   decoding="async"
                   className="order-2 aspect-[10/7] w-full rounded-2xl object-cover md:order-none md:mb-4 md:h-[220px] md:aspect-auto lg:h-64"
@@ -43,10 +43,10 @@ const FAQSection = () => {
 
               {columnIndex === 0 && (
                 <img
-                  src="/images/faq2.jpg"
+                  src="/images/faq2.webp"
                   alt={messages.faq.imageAlts[1]}
-                  width="2560"
-                  height="1707"
+                  width="1200"
+                  height="800"
                   loading="lazy"
                   decoding="async"
                   className="order-4 aspect-[10/7] w-full rounded-2xl object-cover md:order-none md:mt-4 md:h-[220px] md:aspect-auto lg:h-64"

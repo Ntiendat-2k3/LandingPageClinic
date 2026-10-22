@@ -45,6 +45,43 @@ const screening = () => ({
   },
 });
 
+const screeningHeaders = [
+  "Mã lượt gửi", "Thời điểm (VN)", "Nguồn", "Tuổi", "Giới tính", "Tuổi phát hiện cận",
+  "Độ cận gần nhất", "Tăng độ 12 tháng", "Cận thị ở bố/mẹ", "Thời gian ngoài trời",
+  "Thời gian nhìn gần", "Nhu cầu tư vấn", "Mức nguy cơ", "Đồng ý chính sách",
+];
+const contactHeaders = ["Họ tên phụ huynh", "Số điện thoại liên hệ", "Đồng ý liên hệ lúc (VN)"];
+
+function mockScreeningSheet() {
+  const calls = [];
+  const rows = [];
+  let header = [...screeningHeaders];
+  globalThis.fetch = async (url, options) => {
+    const target = String(url);
+    calls.push({ url: target, options });
+    if (options.method === "GET") {
+      const range = decodeURIComponent(target.split("/values/")[1] || "");
+      const values = range.endsWith("1:1") ? [header]
+        : range.endsWith("O:Q") ? []
+          : range.endsWith("A:A") ? [["Mã lượt gửi"], ...rows.map((row) => [row[0]])]
+            : /O\d+:Q\d+$/.test(range) ? [rows[Number(range.match(/O(\d+)/)[1]) - 2]?.slice(14) || []]
+              : [];
+      return { ok: true, json: async () => ({ values }) };
+    }
+    if (options.method === "PUT") {
+      const range = decodeURIComponent(target.split("/values/")[1].split("?")[0]);
+      const values = JSON.parse(options.body).values[0];
+      if (range.endsWith("O1:Q1")) header = [...screeningHeaders, ...values];
+      else rows[Number(range.match(/O(\d+)/)[1]) - 2].splice(14, 3, ...values);
+      return { ok: true, json: async () => ({ updatedRows: 1 }) };
+    }
+    if (target.includes("api.emailjs.com")) return { ok: true, text: async () => "OK" };
+    if (options.method === "POST") rows.push(JSON.parse(options.body).values[0]);
+    return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
+  };
+  return { calls, rows, get header() { return header; } };
+}
+
 test("ngày đặt lịch theo múi giờ Việt Nam được kiểm tra đúng", () => {
   assert.equal(validateBooking(booking())?.date, tomorrow);
   assert.equal(validateBooking({ ...booking(), date: "2026-02-30" }), null);
@@ -69,20 +106,29 @@ test("đặt lịch chỉ xác nhận sau khi Sheets ghi thành công và dùng 
 });
 
 test("khảo sát tính lại mức nguy cơ và ghi đúng Sheet", async () => {
-  let written;
-  globalThis.fetch = async (url, options) => {
-    if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : [] }) };
-    written = { url: String(url), body: JSON.parse(options.body) };
-    return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
-  };
+  const sheet = mockScreeningSheet();
   const res = response();
   await screeningHandler(request(screening()), res);
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.risk, "high");
-  assert.equal(res.body.notificationSent, null);
-  assert.match(written.url, /screening-test/);
-  assert.equal(written.body.values[0].length, 14);
-  assert.equal(written.body.values[0][12], "high");
+  assert.deepEqual(sheet.header.slice(14), contactHeaders);
+  assert.equal(sheet.rows[0].length, 17);
+  assert.equal(sheet.rows[0][12], "high");
+  assert.deepEqual(sheet.rows[0].slice(14), ["", "", ""]);
+  assert.equal(sheet.calls.some(({ url }) => url.includes("api.emailjs.com")), false);
+});
+
+test("form liên hệ yêu cầu đồng ý và lượt khảo sát đã lưu", async () => {
+  const payload = screening();
+  const contact = { step: "contact", requestId: payload.requestId, name: "Nguyễn Văn A", phone: "0387812321", consent: true };
+  const sheet = mockScreeningSheet();
+  const invalid = response();
+  await screeningHandler(request({ ...contact, consent: false }), invalid);
+  assert.equal(invalid.statusCode, 400);
+  const missing = response();
+  await screeningHandler(request(contact), missing);
+  assert.equal(missing.statusCode, 404);
+  assert.equal(sheet.rows.length, 0);
 });
 
 test("khảo sát gửi email sau khi lưu Sheet và không gửi lại khi trùng mã", async () => {
@@ -91,31 +137,35 @@ test("khảo sát gửi email sau khi lưu Sheet và không gửi lại khi trù
   process.env.EMAILJS_SCREENING_TEMPLATE_ID = "template-screening-test";
   process.env.EMAILJS_PRIVATE_KEY = "private-test";
   const payload = screening();
-  const calls = [];
-  let alreadySaved = false;
+  const contact = { step: "contact", requestId: payload.requestId, name: "Nguyễn Văn A", phone: "0387 812 321", consent: true };
+  const sheet = mockScreeningSheet();
   try {
-    globalThis.fetch = async (url, options) => {
-      calls.push({ url: String(url), options });
-      if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : alreadySaved ? [[payload.requestId]] : [] }) };
-      return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
-    };
     const first = response();
     await screeningHandler(request(payload), first);
     assert.equal(first.statusCode, 200);
-    assert.equal(first.body.notificationSent, true);
-    const sheetIndex = calls.findIndex(({ options }) => options.method === "POST" && options.headers.Authorization);
-    const emailIndex = calls.findIndex(({ url }) => url.includes("api.emailjs.com"));
+    assert.equal(sheet.calls.some(({ url }) => url.includes("api.emailjs.com")), false);
+    const completed = response();
+    await screeningHandler(request(contact), completed);
+    assert.equal(completed.statusCode, 200);
+    assert.equal(completed.body.notificationSent, true);
+    assert.deepEqual(sheet.rows[0].slice(14, 16), ["Nguyễn Văn A", "0387812321"]);
+    assert.ok(sheet.rows[0][16]);
+    const sheetIndex = sheet.calls.findIndex(({ options, url }) => options.method === "PUT" && url.includes("O2%3AQ2"));
+    const emailIndex = sheet.calls.findIndex(({ url }) => url.includes("api.emailjs.com"));
     assert.ok(sheetIndex >= 0 && emailIndex > sheetIndex);
-    const emailBody = JSON.parse(calls[emailIndex].options.body);
+    const emailBody = JSON.parse(sheet.calls[emailIndex].options.body);
     assert.equal(emailBody.template_id, "template-screening-test");
     assert.equal(emailBody.accessToken, "private-test");
-    assert.deepEqual(Object.keys(emailBody.template_params).sort(), ["notification_subject", "submitted_at"]);
+    assert.equal(emailBody.template_params.parent_name, "Nguyễn Văn A");
+    assert.equal(emailBody.template_params.parent_phone, "0387812321");
 
-    alreadySaved = true;
     const duplicate = response();
-    await screeningHandler(request(payload), duplicate);
+    await screeningHandler(request(contact), duplicate);
     assert.equal(duplicate.body.notificationSent, null);
-    assert.equal(calls.filter(({ url }) => url.includes("api.emailjs.com")).length, 1);
+    assert.equal(sheet.calls.filter(({ url }) => url.includes("api.emailjs.com")).length, 1);
+    const conflict = response();
+    await screeningHandler(request({ ...contact, name: "Nguyễn Văn B" }), conflict);
+    assert.equal(conflict.statusCode, 409);
   } finally {
     delete process.env.VITE_EMAILJS_SERVICE_ID;
     delete process.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -132,16 +182,19 @@ test("lỗi EmailJS không làm khảo sát đã lưu thành lỗi", async () =>
   const errors = [];
   console.error = (...args) => errors.push(args.join(" "));
   try {
-    globalThis.fetch = async (url, options) => {
-      if (String(url).includes("api.emailjs.com")) return { ok: false, status: 412, text: async () => "Origin is not allowed" };
-      if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : [] }) };
-      return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
-    };
+    const payload = screening();
+    const sheet = mockScreeningSheet();
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = (url, options) => String(url).includes("api.emailjs.com")
+      ? Promise.resolve({ ok: false, status: 412, text: async () => "Origin is not allowed" })
+      : originalFetch(url, options);
+    await screeningHandler(request(payload), response());
     const res = response();
-    await screeningHandler(request(screening()), res);
+    await screeningHandler(request({ step: "contact", requestId: payload.requestId, name: "Nguyễn Văn A", phone: "0387812321", consent: true }), res);
     assert.equal(res.statusCode, 200);
     assert.equal(res.body.saved, true);
     assert.equal(res.body.notificationSent, false);
+    assert.equal(sheet.rows[0][15], "0387812321");
     assert.match(errors[0], /EMAILJS_412: Origin is not allowed/);
   } finally {
     console.error = originalConsoleError;
@@ -159,18 +212,15 @@ test("hai loại thông báo không được dùng chung mẫu EmailJS", async (
   const originalConsoleError = console.error;
   const errors = [];
   console.error = (...args) => errors.push(args.join(" "));
-  const calls = [];
   try {
-    globalThis.fetch = async (url, options) => {
-      calls.push(String(url));
-      if (options.method === "GET") return { ok: true, json: async () => ({ values: String(url).includes("1%3A1") ? [Array(14).fill("Tiêu đề")] : [] }) };
-      return { ok: true, json: async () => ({ updates: { updatedRows: 1 } }) };
-    };
+    const payload = screening();
+    const sheet = mockScreeningSheet();
+    await screeningHandler(request(payload), response());
     const res = response();
-    await screeningHandler(request(screening()), res);
+    await screeningHandler(request({ step: "contact", requestId: payload.requestId, name: "Nguyễn Văn A", phone: "0387812321", consent: true }), res);
     assert.equal(res.statusCode, 200);
     assert.equal(res.body.notificationSent, false);
-    assert.equal(calls.some((url) => url.includes("api.emailjs.com")), false);
+    assert.equal(sheet.calls.some(({ url }) => url.includes("api.emailjs.com")), false);
     assert.match(errors[0], /EMAILJS_TEMPLATES_MUST_BE_DISTINCT/);
   } finally {
     console.error = originalConsoleError;
