@@ -110,9 +110,6 @@ const GoalsSection = () => {
               />
             </div>
             <p className="text-xs leading-snug text-slate-600">{messages.goals.sources}</p>
-            <a href="https://doi.org/10.1167/iovs.62.5.2" target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-emerald-800 underline underline-offset-2">
-              {messages.goals.sourceLinkText}
-            </a>
           </div>
 
           {/* Cột phải: thời điểm đi khám và bốn dấu hiệu cần chú ý. */}

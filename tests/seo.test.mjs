@@ -25,7 +25,7 @@ test("trang chủ có nội dung và cấu trúc SEO trong HTML ban đầu", asy
   assert.equal(graph[0]["@type"], "MedicalClinic");
   assert.equal(graph.length, 1);
   for (const guide of methodGuides.pages) assert.match(html, new RegExp(`href="${guide.path}"`));
-  assert.match(html, /Xem báo cáo nghiên cứu của International Myopia Institute/);
+  assert.match(html, /IMI Impact of Myopia/);
 });
 
 test("các phương pháp có trang HTML riêng, nội dung tham khảo và liên kết nội bộ", async () => {
