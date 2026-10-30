@@ -1,34 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { ArrowRight, MapPin, Shield, Target, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { messages } from "@/i18n";
 import { SITE_CONTACT } from "@/config/site";
 
 const HeroSection = () => {
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const [isCtaRevealed, setIsCtaRevealed] = useState(false);
-
-  // Chỉ phát hiệu ứng khi người dùng cuộn đến vùng nút; bàn phím vẫn có thể mở nút qua focus.
-  useEffect(() => {
-    if (isCtaRevealed) return;
-
-    const cta = ctaRef.current;
-    if (!cta) return;
-
-    const revealWhenInView = () => {
-      const { top, bottom } = cta.getBoundingClientRect();
-      if (top < window.innerHeight * 0.85 && bottom > window.innerHeight * 0.15) {
-        setIsCtaRevealed(true);
-      }
-    };
-
-    if (window.scrollY > 0) revealWhenInView();
-    window.addEventListener("scroll", revealWhenInView, { passive: true });
-    return () => window.removeEventListener("scroll", revealWhenInView);
-  }, [isCtaRevealed]);
-
   return (
     <section className="relative flex min-h-[100svh] items-start overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-cyan-50 lg:items-center">
       {/* Nền trang trí */}
@@ -55,7 +32,7 @@ const HeroSection = () => {
               </h1>
             </div>
 
-            <p className="mt-5 max-w-xl text-lg font-semibold leading-snug text-slate-800 sm:text-xl xl:text-2xl">
+            <p className="mt-5 max-w-none text-base font-semibold leading-snug text-slate-800 min-[400px]:text-lg sm:text-xl sm:whitespace-nowrap xl:text-2xl">
               {messages.hero.tagline}
             </p>
             <div className="mt-6 h-px max-w-lg bg-gradient-to-r from-emerald-300 via-cyan-200 to-transparent" />
@@ -121,15 +98,12 @@ const HeroSection = () => {
             </div>
           </div>
           <div
-            ref={ctaRef}
-            data-hero-cta={isCtaRevealed ? "visible" : "pending"}
-            onFocusCapture={() => setIsCtaRevealed(true)}
             className="order-2 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center lg:order-3 lg:col-span-2"
           >
             <Button
               asChild
               size="lg"
-              className="hero-cta-attention h-auto min-h-14 whitespace-normal rounded-2xl px-7 py-3.5 text-center text-base font-semibold shadow-[0_8px_20px_rgba(16,185,129,0.3)] focus-visible:ring-4"
+              className="h-auto min-h-14 whitespace-normal rounded-2xl px-7 py-3.5 text-center text-base font-semibold shadow-[0_8px_20px_rgba(16,185,129,0.3)] focus-visible:ring-4"
             >
               <a href="/#booking">
                 <span>{messages.hero.ctaBook}</span>
@@ -140,7 +114,7 @@ const HeroSection = () => {
               asChild
               variant="outline"
               size="lg"
-              className="hero-cta-attention hero-cta-attention-delayed h-auto min-h-14 whitespace-normal rounded-2xl border-emerald-600/30 bg-white px-7 py-3.5 text-center text-base font-semibold text-emerald-800 shadow-sm hover:bg-emerald-50"
+              className="h-auto min-h-14 whitespace-normal rounded-2xl border-emerald-600/30 bg-white px-7 py-3.5 text-center text-base font-semibold text-emerald-800 shadow-sm hover:bg-emerald-50"
             >
               <a href="/danh-gia-nguy-co-can-thi/">{messages.hero.ctaAssess}</a>
             </Button>

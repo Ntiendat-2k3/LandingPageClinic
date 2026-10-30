@@ -1,5 +1,6 @@
 import { useRef, useState, type KeyboardEvent } from "react";
 import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { messages } from "@/i18n";
 
 const images = [
@@ -29,7 +30,7 @@ export default function PricingSection() {
   };
 
   return (
-    <section id="myopia-control" className="scroll-mt-16 h-[calc(100dvh-4rem)] overflow-y-auto bg-gradient-to-br from-emerald-50 to-cyan-50">
+    <section id="myopia-control" className="scroll-mt-16 py-10 sm:py-14 bg-gradient-to-br from-emerald-50 to-cyan-50">
       <div data-scroll-reveal className="container mx-auto flex min-h-full flex-col justify-center px-2.5 py-4 sm:px-6 lg:px-8">
         <div className="grid gap-3 lg:grid-cols-2 lg:gap-10">
           <div>
@@ -86,6 +87,12 @@ export default function PricingSection() {
                 </li>
               ))}
             </ul>
+            {treatment.source && (
+              <p className="mt-4 text-xs italic leading-relaxed text-slate-500">
+                <span className="font-semibold">{messages.pricing.sourceLabel}: </span>
+                {treatment.source}
+              </p>
+            )}
           </div>
         </div>
 
@@ -97,6 +104,13 @@ export default function PricingSection() {
             </a>
           ))}
         </nav>
+        <div className="mt-5 flex justify-center">
+          <Button asChild size="lg" className="h-auto min-h-12 rounded-xl bg-emerald-700 px-6 py-2.5 font-semibold text-white shadow-md hover:bg-emerald-800">
+            <a href="/danh-gia-nguy-co-can-thi/">
+              {messages.pricing.ctaAssess}
+            </a>
+          </Button>
+        </div>
       </div>
     </section>
   );

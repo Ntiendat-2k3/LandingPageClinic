@@ -5,23 +5,13 @@ import {
   MapPin,
   Clock,
   MessageSquare,
-  CheckCircle2,
-  ExternalLink,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SocialLinks from "@/components/common/SocialLinks";
 import { SITE_CONTACT, SITE_LINKS } from "@/config/site";
 import { messages } from "@/i18n";
 
 const PARTNER_IMAGES = ["zeiss.jpg", "seed.jpg", "tgvision.jpg", "101.jpg", "gomed.jpg", "santen.jpg"] as const;
-
-interface FacebookPost {
-  id: string;
-  message: string;
-  permalink: string;
-  image: string | null;
-  createdTime: string | null;
-}
 
 const Footer = () => {
   const partners = PARTNER_IMAGES.map((image, index) => ({
@@ -29,24 +19,25 @@ const Footer = () => {
     alt: messages.footer.partnerAlts[index],
   }));
 
-  const [facebookPosts, setFacebookPosts] = useState<FacebookPost[]>([]);
+  // === Responsive width cho Page Plugin (1 iframe duy nhất) ===
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [fbWidth, setFbWidth] = useState(340); // mặc định mobile
 
   useEffect(() => {
-    const controller = new AbortController();
-    fetch("/api/facebook-posts", { signal: controller.signal })
-      .then((response) => response.ok ? response.json() : null)
-      .then((result) => {
-        if (Array.isArray(result?.posts) && result.posts.length > 0) {
-          setFacebookPosts(result.posts);
-        }
-      })
-      .catch(() => {});
-    return () => controller.abort();
-  }, []);
+    const el = wrapperRef.current;
+    if (!el) return;
 
-  const displayPosts: FacebookPost[] = facebookPosts.length > 0
-    ? facebookPosts
-    : messages.footer.featuredPosts;
+    // Giới hạn tối đa 495 trên desktop, fit 100% trên mobile
+    const update = () => {
+      const w = Math.round(el.clientWidth);
+      if (w >= 180) setFbWidth(Math.min(w, 495));
+    };
+
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -57,7 +48,7 @@ const Footer = () => {
           <div className="space-y-6">
             {/* Logo + tên */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl grid place-items-center bg-white shadow-sm">
+              <div className="w-12 h-12 rounded-xl grid place-items-center bg-white shadow-sm shrink-0">
                 <img src="/images/logo.png" alt={messages.footer.logoAlt} className="w-14 h-14" />
               </div>
 
@@ -65,7 +56,7 @@ const Footer = () => {
                 <p className="font-space-grotesk text-[15px] lg:text-xl font-bold">
                   {messages.footer.brandLineOne}
                 </p>
-                <p className="lg:text-xl text-emerald-300 font-bold uppercase">
+                <p className="lg:text-xl text-emerald-300 font-bold">
                   {messages.footer.brandLineTwo}
                 </p>
               </div>
@@ -154,113 +145,31 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Fanpage & Bài viết trên Facebook */}
+          {/* RIGHT: Fanpage — Card Page Plugin chuẩn theo mẫu */}
           <div className="min-w-0">
-            <div className="w-full max-w-[495px] overflow-hidden rounded-2xl border border-white/10 bg-white text-slate-800 shadow-xl">
-              {/* Fanpage Header */}
-              <div className="border-b border-slate-100 bg-gradient-to-r from-slate-50 via-white to-blue-50/50 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="relative size-12 shrink-0 rounded-full border border-slate-200 bg-white p-0.5 shadow-sm">
-                      <img
-                        src="/images/logo.png"
-                        alt={messages.footer.facebookPageName}
-                        className="size-full rounded-full object-contain"
-                      />
-                      <span className="absolute -bottom-0.5 -right-0.5 grid size-4 place-items-center rounded-full bg-blue-600 text-white shadow">
-                        <CheckCircle2 className="size-3" />
-                      </span>
-                    </div>
-                    <div className="min-w-0">
-                      <a
-                        href={SITE_CONTACT.facebookUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block truncate text-sm font-bold text-slate-900 transition hover:text-blue-600 sm:text-base"
-                      >
-                        {messages.footer.facebookPageName}
-                      </a>
-                      <p className="truncate text-xs text-slate-500">
-                        {messages.footer.facebookFollowers}
-                      </p>
-                    </div>
-                  </div>
-                  <a
-                    href={SITE_CONTACT.facebookUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-[#1877F2] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700"
-                  >
-                    <img src="/Icon_of_FB.webp" alt="" className="size-3.5 rounded-full" />
-                    <span>{messages.footer.followPageBtn}</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Feed tiêu đề */}
-              <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/90 px-4 py-2 text-xs font-medium text-slate-600">
-                <span>{messages.footer.featuredPostsTitle}</span>
-                <span className="flex items-center gap-1 text-slate-400">
-                  <Clock className="size-3" />
-                  <span>{messages.footer.facebookLabel} · {messages.footer.brandLineTwo}</span>
-                </span>
-              </div>
-
-              {/* Danh sách bài viết */}
-              <div className="max-h-[360px] divide-y divide-slate-100 overflow-y-auto">
-                {displayPosts.map((post) => (
-                  <article key={post.id} className="p-4 transition hover:bg-slate-50/80">
-                    <div className="mb-2 flex items-center justify-between text-xs text-slate-400">
-                      <span className="font-medium text-slate-600">{messages.footer.facebookLabel} · {messages.footer.brandLineTwo}</span>
-                      {post.createdTime && (
-                        <time dateTime={post.createdTime}>
-                          {new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium" }).format(new Date(post.createdTime))}
-                        </time>
-                      )}
-                    </div>
-                    <p className="line-clamp-3 whitespace-pre-line text-sm leading-relaxed text-slate-700">
-                      {post.message}
-                    </p>
-                    {post.image && (
-                      <div className="mt-3 overflow-hidden rounded-xl border border-slate-100">
-                        <img
-                          src={post.image}
-                          alt=""
-                          loading="lazy"
-                          className="max-h-44 w-full object-cover transition duration-300 hover:scale-105"
-                        />
-                      </div>
-                    )}
-                    <div className="mt-3 flex items-center justify-between">
-                      <a
-                        href={post.permalink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 transition hover:text-blue-800"
-                      >
-                        <span>{messages.footer.viewFacebookPost}</span>
-                        <ExternalLink className="size-3" />
-                      </a>
-                    </div>
-                  </article>
-                ))}
-              </div>
-
-              {/* Chân card */}
-              <div className="border-t border-slate-100 bg-slate-50 p-3">
-                <a
-                  href={SITE_CONTACT.facebookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 active:scale-[.99]"
-                >
-                  <img src="/Icon_of_FB.webp" alt="" className="size-4 rounded-full" />
-                  <span>{messages.footer.viewAllPostsBtn}</span>
-                </a>
-              </div>
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-300">
+              {messages.footer.socialTitle}
+            </h3>
+            <div
+              ref={wrapperRef}
+              className="w-full max-w-[380px] overflow-hidden rounded-lg bg-white shadow-md"
+            >
+              <iframe
+                key={fbWidth}
+                title={messages.footer.facebookPageTitle}
+                src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
+                  SITE_CONTACT.facebookUrl
+                )}&width=${Math.min(fbWidth, 380)}&height=130&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=false`}
+                width="100%"
+                height="130"
+                style={{ border: "none", overflow: "hidden", display: "block" }}
+                scrolling="no"
+                frameBorder={0}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
-
-            <p className="mt-3 text-xs leading-normal text-gray-400">
+            <p className="mt-3 text-sm text-gray-300">
               {messages.footer.followPage}
             </p>
           </div>

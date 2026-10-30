@@ -60,8 +60,8 @@
       "Santen"
     ],
     "logoAlt": "logo",
-    "brandLineOne": "PHÒNG KHÁM CHUYÊN KHOA MẮT & KHÚC XẠ",
-    "brandLineTwo": "Dr Trần Tuấn",
+    "brandLineOne": "Trung tâm kiểm soát cận thị",
+    "brandLineTwo": "Phòng khám CK Mắt Dr Trần Tuấn",
     "openMaps": "Mở Google Maps",
     "chatZalo": "Chat Zalo",
     "openZalo": "Mở Zalo chat",
@@ -73,6 +73,7 @@
     "zaloLabel": "Zalo",
     "tiktokLabel": "TikTok",
     "partnersTitle": "ĐỐI TÁC CHIẾN LƯỢC",
+    "socialTitle": "MẠNG XÃ HỘI",
     "facebookPageTitle": "Facebook Page",
     "facebookPageName": "Trung tâm kiểm soát tật khúc xạ Dr Trần Tuấn",
     "facebookFollowers": "1.236 người theo dõi · Phòng khám Mắt chuyên sâu",
@@ -139,12 +140,12 @@
     "cta": "Đăng ký miễn phí ưu đãi",
     "ctaBook": "Đặt lịch khám kiểm soát cận thị",
     "ctaAssess": "Test đánh giá nguy cơ cận thị",
-    "imageAlt": "Biển hiệu Trung tâm kiểm soát cận thị Dr Trần Tuấn tại 122 Bà Triệu",
+    "imageAlt": "Trung tâm kiểm soát cận thị",
     "assurance": "Bảo đảm hiệu quả"
   },
   "goals": {
     "stats": [
-      "Tăng 4.06 lần nguy cơ bị thoái hóa võng mạc cận thị",
+      "Tăng 40.6 lần nguy cơ bị thoái hóa võng mạc cận thị",
       "Tăng 21.5 lần nguy cơ bị bong võng mạc",
       "Tăng 5.4 lần nguy cơ bị đục thủy tinh thể",
       "Tăng 2.5 lần nguy cơ bị Glaucoma (cườm nước - glocom)"
@@ -157,7 +158,7 @@
     "estimateSuffix": "mắc cận thị",
     "riskLead": "Trẻ mắc cận thị ở mức -6.00D, so với người chính thị sẽ:",
     "sources": "Nguồn số liệu: Sankaridurg P và cộng sự, IMI Impact of Myopia, IOVS 2021;62(5):2, doi:10.1167/iovs.62.5.2; Flitcroft DI, Prog Retin Eye Res 2012;31(6):622–660; Vongphanit J và cộng sự, Ophthalmology 2002;109(4):704–711; Chang MA và cộng sự, Ophthalmology 2005;112(8):1395–1401; Marcus MW và cộng sự, Ophthalmology 2011;118(10):1989–1994.",
-    "campaignImageAlt": "Control Myopia Today or Risk Poor Vision Tomorrow",
+    "campaignImageAlt": "Kiểm soát cận thị ngay hôm nay",
     "retinaImageAlt": "Hình ảnh võng mạc bị tổn thương",
     "retinaCaption": "Hình ảnh võng mạc bị tổn thương",
     "signs": {
@@ -257,26 +258,32 @@
         "name": "ATROPINE NỒNG ĐỘ THẤP",
         "effectiveness": [
           "Các nồng độ: 0,01%, 0,025% và 0,05%",
-          "Có thể được bác sĩ cân nhắc theo mức độ tiến triển cận thị của trẻ",
+          "Hiệu quả kiểm soát độ cận thị: lên tới ~67%",
+          "Hiệu quả kiểm soát trục nhãn cầu: lên tới ~ 51%",
           "Cần theo dõi đáp ứng và tác dụng không mong muốn khi sử dụng"
         ],
-        "tag": "Thuốc nhỏ mắt"
+        "tag": "Thuốc nhỏ mắt",
+        "source": "Jason C. Yam. Low-Concentration Atropine for Myopia Progression (LAMP) Study: A Randomized, Double-Blinded, Placebo-Controlled Trial of 0.05%, 0.025%, and 0.01% Atropine Eye Drops in Myopia Control. Ophthalmology. Volume 126, Issue 1, January 2019, Pages 113-124"
       },
       {
         "name": "TRÒNG KÍNH KIỂM SOÁT CẬN THỊ",
         "effectiveness": [
           "Vừa hỗ trợ nhìn rõ vừa có thiết kế quang học nhằm làm chậm tiến triển cận thị",
-          "Bác sĩ lựa chọn loại tròng và lịch theo dõi phù hợp với từng trẻ"
+          "Hiệu quả kiểm soát độ cận thị: lên tới ~67%",
+          "Hiệu quả kiểm soát trục nhãn cầu: lên tới ~ 60%"
         ],
-        "tag": "Tròng chuyên dụng"
+        "tag": "Tròng chuyên dụng",
+        "source": "Jinhua Bao. Spectacle Lenses With Aspherical Lenslets for Myopia Control vs Single-Vision Spectacle Lenses :A Randomized Clinical Trial. JAMA Ophthalmol 2022;140;(5):472-478."
       },
       {
         "name": "KÍNH ÁP TRÒNG ORTHO-K",
         "effectiveness": [
-          "Kính được đeo khi ngủ và cần được theo dõi theo lịch hẹn",
-          "Việc vệ sinh, đeo và tháo kính đúng hướng dẫn rất quan trọng"
+          "Kính được đeo khi ngủ và tháo ra khi thức dậy",
+          "Ban ngày trẻ không cần đeo kính gọng mà vẫn nhìn rõ",
+          "Hiệu quả kiểm soát trục nhãn cầu: lên tới ~ 76%"
         ],
-        "tag": "Đeo ban đêm"
+        "tag": "Đeo ban đêm",
+        "source": "Ganyu Gong. Efficacy of orthokeratology lens with the modified small treatment zone on myopia progression and visual quality: a randomized clinical trial. Eye and Vis 11, 35 (2024)"
       },
       {
         "name": "PHỐI TRỊ LIỆU",
@@ -285,7 +292,8 @@
           "Kính Ortho-K kết hợp atropine"
         ],
         "description": "Phối hợp nhiều phương pháp để tối ưu hiệu quả theo từng tình trạng mắt.",
-        "tag": "Phác đồ cá nhân hóa"
+        "tag": "Phác đồ cá nhân hóa",
+        "source": ""
       }
     ],
     "badge": "CÁC PHƯƠNG ÁN KIỂM SOÁT CẬN THỊ",
@@ -293,7 +301,9 @@
     "titleLineTwoPrefix": "phù hợp với ",
     "titleLineTwoHighlight": "tất cả trẻ",
     "description": "Mỗi bé có độ tuổi, độ cận, tốc độ tiến triển, tình trạng mắt và khả năng tuân thủ khác nhau. Bác sĩ sẽ cân nhắc toàn diện trước khi đưa ra chỉ định theo dõi hoặc kiểm soát cận thị.",
-    "footnote": "Thông tin mang tính tham khảo; bác sĩ sẽ đánh giá tình trạng mắt, lợi ích và nguy cơ trước khi lựa chọn phương pháp cho từng trẻ."
+    "footnote": "Thông tin mang tính tham khảo; bác sĩ sẽ đánh giá tình trạng mắt, lợi ích và nguy cơ trước khi lựa chọn phương pháp cho từng trẻ.",
+    "sourceLabel": "Nguồn",
+    "ctaAssess": "Test đánh giá nguy cơ cận thị"
   },
   "methodGuides": {
     "badge": "Tìm hiểu phương pháp kiểm soát cận thị",
@@ -360,7 +370,8 @@
         "care": "Vệ sinh, bảo quản, đeo và tháo kính đúng hướng dẫn là điều thiết yếu vì kính áp tròng có nguy cơ gây viêm nhiễm giác mạc. Nếu mắt đỏ, đau hoặc nhìn mờ bất thường, ngừng đeo và liên hệ cơ sở khám mắt.",
         "follow": "Cần tái khám đúng lịch để kiểm tra thị lực, giác mạc, độ vừa của kính và tiến triển cận thị; bác sĩ sẽ điều chỉnh kế hoạch khi cần."
       }
-    ]
+    ],
+    "assessLink": "Test đánh giá nguy cơ cận thị"
   },
   "doctors": {
     "sectionTitle": "Đội ngũ chuyên môn",

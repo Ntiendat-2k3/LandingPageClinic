@@ -21,9 +21,14 @@ export default function TreatmentGuidePage({ guide }: { guide: TreatmentGuide })
             <p className="text-sm font-bold uppercase tracking-wide text-emerald-700">{content.badge}</p>
             <h1 className="mt-3 max-w-3xl text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">{guide.heading}</h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">{guide.intro}</p>
-            <Button asChild size="lg" className="mt-6 min-h-12 rounded-xl bg-emerald-700 px-6 text-white hover:bg-emerald-800">
-              <a href="/#booking">{content.bookLink}<ArrowRight className="size-4" aria-hidden="true" /></a>
-            </Button>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Button asChild size="lg" className="min-h-12 rounded-xl bg-emerald-700 px-6 text-white hover:bg-emerald-800">
+                <a href="/#booking">{content.bookLink}<ArrowRight className="size-4" aria-hidden="true" /></a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="min-h-12 rounded-xl border-emerald-600/30 bg-white px-6 font-semibold text-emerald-800 shadow-sm hover:bg-emerald-50">
+                <a href="/danh-gia-nguy-co-can-thi/">{content.assessLink}</a>
+              </Button>
+            </div>
           </div>
           <div className="overflow-hidden rounded-2xl bg-slate-50">
             <img src={guide.image} alt={guide.imageAlt} className="aspect-[4/3] w-full object-contain" />

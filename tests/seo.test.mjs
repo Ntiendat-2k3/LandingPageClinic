@@ -14,7 +14,7 @@ test("trang chủ có nội dung và cấu trúc SEO trong HTML ban đầu", asy
   assert.match(html, /id="booking"/);
   assert.match(html, /href="\/danh-gia-nguy-co-can-thi\/"/);
   assert.match(html, /<title>Dr Trần Tuấn - Trung tâm kiểm soát cận thị trẻ em tại Hà Nội<\/title>/);
-  assert.match(html, /<meta name="description" content="Khám và kiểm soát cận thị trẻ em tại Hà Nội cùng Dr Trần Tuấn\./);
+  assert.match(html, /<meta name="description" content="Trung tâm điều trị chuyên sâu về kính Ortho-k/);
   assert.match(html, /<link rel="icon" type="image\/png" href="\/images\/logo\.png"/);
   assert.match(html, /<link rel="preload" as="image" href="\/images\/clinic-sign\.webp"/);
   assert.match(html, /src="\/images\/clinic-sign\.webp"/);
