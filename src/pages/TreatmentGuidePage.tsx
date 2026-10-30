@@ -54,10 +54,10 @@ export default function TreatmentGuidePage({ guide }: { guide: TreatmentGuide })
             <BookOpen className="size-7 text-cyan-700" aria-hidden="true" />
             <h2 className="mt-3 text-xl font-bold text-slate-900">{content.sourcesTitle}</h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">{content.sourceContext}</p>
-            <ul className="mt-5 space-y-3">
-              {content.sources.map((source) => (
-                <li key={source.url}>
-                  <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-950">{source.label}</a>
+            <ul className="mt-5 list-disc space-y-2.5 pl-4 text-sm font-medium leading-relaxed text-slate-700">
+              {content.sources.map((source, index) => (
+                <li key={index}>
+                  <span>{source.label}</span>
                 </li>
               ))}
             </ul>
