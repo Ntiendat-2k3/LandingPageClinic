@@ -19,6 +19,7 @@ export const getStructuredData = (siteUrl?: string) => ({
       "@type": "MedicalClinic",
       name: messages.seo.clinicName,
       description: messages.hero.intro,
+      medicalSpecialty: "Ophthalmology",
       telephone: `+84${SITE_CONTACT.phonePlain.slice(1)}`,
       address: {
         "@type": "PostalAddress",

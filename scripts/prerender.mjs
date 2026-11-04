@@ -4,7 +4,7 @@ import { createServer, loadEnv } from "vite";
 
 const outputPath = resolve("dist/index.html");
 const html = await readFile(outputPath, "utf8");
-const { seo: { clinicName }, methodGuides } = JSON.parse(await readFile(resolve("src/locales/vi.json"), "utf8"));
+const { seo: { clinicName }, hero, methodGuides } = JSON.parse(await readFile(resolve("src/locales/vi.json"), "utf8"));
 const siteUrl = (process.env.SITE_URL || loadEnv("production", process.cwd(), "SITE_URL").SITE_URL)?.replace(/\/+$/, "");
 if (siteUrl) {
   const parsed = new URL(siteUrl);
@@ -17,7 +17,7 @@ const escapeHtml = (value) => value.replace(/[&"<>]/g, (char) => ({
   "&": "&amp;", '"': "&quot;", "<": "&lt;", ">": "&gt;",
 })[char]);
 
-const addMetadata = (page, path, imagePath) => {
+const addMetadata = (page, path, imagePath, imageAlt) => {
   const title = page.match(/<title>([^<]+)<\/title>/)?.[1];
   const description = page.match(/<meta name="description" content="([^"]+)"\s*\/>/)?.[1];
   if (!title || !description) throw new Error(`Thiếu title hoặc description: ${path}`);
@@ -35,8 +35,12 @@ const addMetadata = (page, path, imagePath) => {
     tags.push(`<link rel="canonical" href="${escapeHtml(url)}" />`);
     tags.push(`<meta property="og:url" content="${escapeHtml(url)}" />`);
     tags.push(`<meta property="og:image" content="${escapeHtml(siteUrl + imagePath)}" />`);
+    tags.push(`<meta property="og:image:alt" content="${escapeHtml(imageAlt)}" />`);
     tags.push(`<meta name="twitter:card" content="summary_large_image" />`);
+    tags.push(`<meta name="twitter:title" content="${escapeHtml(title)}" />`);
+    tags.push(`<meta name="twitter:description" content="${escapeHtml(description)}" />`);
     tags.push(`<meta name="twitter:image" content="${escapeHtml(siteUrl + imagePath)}" />`);
+    tags.push(`<meta name="twitter:image:alt" content="${escapeHtml(imageAlt)}" />`);
   }
 
   return page.replace("</head>", `  ${tags.join("\n  ")}\n  </head>`);
@@ -62,7 +66,7 @@ try {
   }
 
   const structuredData = JSON.stringify(getStructuredData(siteUrl)).replace(/</g, "\\u003c");
-  const home = addMetadata(html, "/", "/images/clinic-sign.webp")
+  const home = addMetadata(html, "/", "/images/clinic-sign.webp", hero.imageAlt)
     .replace("</head>", `  <script type="application/ld+json">${structuredData}</script>\n  </head>`)
     .replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
   await writeFile(outputPath, home);
@@ -73,8 +77,44 @@ try {
       .replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(guide.title)}</title>`)
       .replace(/<meta name="description" content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeHtml(guide.description)}" />`)
       .replace('href="/images/clinic-sign.webp"', `href="${escapeHtml(guide.image)}"`);
-    const rendered = addMetadata(page, guide.path, "/images/clinic-sign.webp")
+    let rendered = addMetadata(page, guide.path, guide.image, guide.imageAlt)
       .replace('<div id="root"></div>', `<div id="root">${renderPage(guide.path)}</div>`);
+
+    if (siteUrl) {
+      const pageData = JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            url: `${siteUrl}${guide.path}`,
+            name: guide.title,
+            description: guide.description,
+            inLanguage: "vi",
+            about: guide.heading,
+            primaryImageOfPage: `${siteUrl}${guide.image}`,
+          },
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: methodGuides.home || "Trang chủ",
+                item: `${siteUrl}/`,
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: guide.heading,
+                item: `${siteUrl}${guide.path}`,
+              },
+            ],
+          },
+        ],
+      }).replace(/</g, "\\u003c");
+      rendered = rendered.replace("</head>", `  <script type="application/ld+json">${pageData}</script>\n  </head>`);
+    }
+
     await mkdir(resolve("dist", guide.path.slice(1)), { recursive: true });
     await writeFile(pagePath, rendered);
   }
@@ -92,15 +132,15 @@ try {
   ]) {
     const pagePath = resolve("dist", file);
     const page = await readFile(pagePath, "utf8");
-    await writeFile(pagePath, addMetadata(page, path, "/images/clinic-sign.webp"));
+    await writeFile(pagePath, addMetadata(page, path, "/images/clinic-sign.webp", hero.imageAlt));
   }
 
   if (siteUrl) {
     const urls = ["/", ...methodGuides.pages.map((guide) => guide.path), "/danh-gia-nguy-co-can-thi/", "/danh-gia-nguy-co-can-thi/privacy.html"];
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((path) => `  <url><loc>${escapeHtml(siteUrl + path)}</loc></url>`).join("\n")}\n</urlset>\n`;
     await writeFile(resolve("dist/sitemap.xml"), sitemap);
-    await writeFile(resolve("dist/robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
   }
+  await writeFile(resolve("dist/robots.txt"), `User-agent: *\nAllow: /\nDisallow: /api/\n${siteUrl ? `\nSitemap: ${siteUrl}/sitemap.xml\n` : ""}`);
 } finally {
   await vite.close();
 }

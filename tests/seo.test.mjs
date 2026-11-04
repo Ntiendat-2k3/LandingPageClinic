@@ -67,7 +67,16 @@ test("robots và sitemap thống nhất với các trang có thể index", async
     const html = await readOutput(path);
     const urlPath = path === "index.html" ? "/" : `/${path.replace(/index\.html$/, "")}`;
     assert.ok(html.includes(`<link rel="canonical" href="${siteUrl}${urlPath}" />`), path);
-    assert.ok(html.includes(`<meta property="og:image" content="${siteUrl}/images/clinic-sign.webp" />`));
+    const guide = methodGuides.pages.find((item) => item.path === urlPath);
+    const imagePath = guide?.image ?? "/images/clinic-sign.webp";
+    assert.ok(html.includes(`<meta property="og:image" content="${siteUrl}${imagePath}" />`), path);
+    if (guide) {
+      const scripts = [...html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)];
+      const graph = JSON.parse(scripts.at(-1)[1])["@graph"];
+      const page = graph.find((item) => item["@type"] === "WebPage");
+      assert.equal(page.url, `${siteUrl}${guide.path}`);
+      assert.ok(graph.some((item) => item["@type"] === "BreadcrumbList"));
+    }
   }
 });
 
