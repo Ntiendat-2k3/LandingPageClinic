@@ -32,6 +32,7 @@ import { sendBookingNotification, type BookingData } from "@/lib/emailjs";
 import { messages } from "@/i18n";
 import {
   formatPhoneNumber,
+  generateRequestId,
   getFieldError,
   validateBookingForm,
   type BookingFormData,
@@ -117,7 +118,7 @@ const BookingSection = () => {
     };
 
     try {
-      requestId.current ??= crypto.randomUUID();
+      requestId.current ??= generateRequestId("booking");
       const response = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

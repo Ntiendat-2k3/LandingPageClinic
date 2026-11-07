@@ -210,3 +210,31 @@ export const formatPhoneNumber = (phone: string): string => {
 
   return phone;
 };
+
+
+/**
+ * Tạo mã lượt gửi chuẩn hóa gồm tiền tố, ngày (theo giờ Việt Nam) và 6 ký tự ngẫu nhiên ngắn gọn.
+ * Ví dụ: booking-20261107-a1b2c3
+ */
+export const generateRequestId = (prefix: "booking" | "screening"): string => {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Bangkok",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(new Date()).map(({ type, value }) => [type, value])
+  );
+  const dateStr = `${parts.year}${parts.month}${parts.day}`;
+  let rand = "";
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    rand = crypto.randomUUID().replace(/-/g, "").slice(0, 6);
+  } else if (typeof crypto !== "undefined" && typeof crypto.getRandomValues === "function") {
+    rand = Array.from(crypto.getRandomValues(new Uint8Array(3)))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  } else {
+    rand = Math.random().toString(16).slice(2, 8).padEnd(6, "0");
+  }
+  return `${prefix}-${dateStr}-${rand}`;
+};

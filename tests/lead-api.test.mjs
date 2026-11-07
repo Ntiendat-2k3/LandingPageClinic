@@ -4,7 +4,7 @@ import test from "node:test";
 
 import bookingHandler from "../api/booking.js";
 import screeningHandler from "../api/screening.js";
-import { validateBooking } from "../api/_validation.js";
+import { generateRequestId, isRequestId, validateBooking, validateScreening } from "../api/_validation.js";
 
 const { privateKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
 process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL = "test@example.invalid";
@@ -330,4 +330,28 @@ test("chấp nhận Origin hợp lệ qua x-forwarded-host và chuẩn hóa www"
   const res2 = response();
   await bookingHandler(req2, res2);
   assert.equal(res2.statusCode, 200);
+});
+
+test("chuẩn hóa mã lượt gửi booking và screening ngắn gọn và đúng tiền tố", () => {
+  const bookingId = generateRequestId("booking");
+  const screeningId = generateRequestId("screening");
+
+  assert.match(bookingId, /^booking-\d{8}-[0-9a-f]{6}$/);
+  assert.match(screeningId, /^screening-\d{8}-[0-9a-f]{6}$/);
+
+  // Phân loại đúng tiền tố cho từng form
+  assert.equal(isRequestId(bookingId, "booking"), true);
+  assert.equal(isRequestId(bookingId, "screening"), false);
+  assert.equal(isRequestId(screeningId, "screening"), true);
+  assert.equal(isRequestId(screeningId, "booking"), false);
+
+  // Tương thích ngược với UUID v4 cũ
+  const legacyUuid = randomUUID();
+  assert.equal(isRequestId(legacyUuid, "booking"), true);
+  assert.equal(isRequestId(legacyUuid, "screening"), true);
+
+  // Từ chối chuỗi sai định dạng
+  assert.equal(isRequestId("invalid-id", "booking"), false);
+  assert.equal(isRequestId("booking-123", "booking"), false);
+  assert.equal(isRequestId(null, "booking"), false);
 });

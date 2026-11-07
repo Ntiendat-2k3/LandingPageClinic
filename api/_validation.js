@@ -15,8 +15,39 @@ export const SCREENING_VALUES = {
   concern: ["Tăng độ cận nhanh", "Đánh giá nguy cơ", "Kiểm soát cận thị", "Vấn đề khác"],
 };
 
-export function isRequestId(value) {
-  return typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+/** Kiểm tra mã lượt gửi: hỗ trợ tiền tố chuẩn hóa theo từng form (booking-, screening-) kèm ngày và mã ngẫu nhiên, hoặc UUID v4 cũ. */
+export function isRequestId(value, prefix) {
+  if (typeof value !== "string") return false;
+  if (prefix) {
+    if (new RegExp(`^${prefix}-\\d{6,8}-[0-9a-z]{6,12}$`, "i").test(value)) return true;
+  } else if (/^(booking|screening)-\\d{6,8}-[0-9a-z]{6,12}$/i.test(value)) {
+    return true;
+  }
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
+/** Tạo mã lượt gửi chuẩn hóa gồm tiền tố, ngày (theo giờ Việt Nam) và 6 ký tự ngẫu nhiên ngắn gọn. */
+export function generateRequestId(prefix) {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Bangkok",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(new Date()).map(({ type, value }) => [type, value])
+  );
+  const dateStr = `${parts.year}${parts.month}${parts.day}`;
+  let rand = "";
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    rand = crypto.randomUUID().replace(/-/g, "").slice(0, 6);
+  } else if (typeof crypto !== "undefined" && typeof crypto.getRandomValues === "function") {
+    rand = Array.from(crypto.getRandomValues(new Uint8Array(3)))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  } else {
+    rand = Math.random().toString(16).slice(2, 8).padEnd(6, "0");
+  }
+  return `${prefix}-${dateStr}-${rand}`;
 }
 
 export function normalizePhone(value) {
@@ -33,7 +64,7 @@ export function normalizeName(value) {
 }
 
 export function validateBooking(body) {
-  if (!body || !isRequestId(body.requestId) || typeof body.name !== "string" || typeof body.message !== "string") return null;
+  if (!body || !isRequestId(body.requestId, "booking") || typeof body.name !== "string" || typeof body.message !== "string") return null;
   const name = normalizeName(body.name);
   const phone = normalizePhone(body.phone);
   if (!name || !phone || body.message.length > 500) return null;
@@ -52,7 +83,7 @@ export function validateBooking(body) {
 }
 
 export function validateScreening(body) {
-  if (!body || !isRequestId(body.requestId) || body.consent !== true || typeof body.answers !== "object" || body.answers === null) return null;
+  if (!body || !isRequestId(body.requestId, "screening") || body.consent !== true || typeof body.answers !== "object" || body.answers === null) return null;
   const answers = {};
   for (const [field, allowed] of Object.entries(SCREENING_VALUES)) {
     const answer = body.answers[field];
@@ -63,7 +94,7 @@ export function validateScreening(body) {
 }
 
 export function validateScreeningContact(body) {
-  if (!body || !isRequestId(body.requestId) || body.consent !== true) return null;
+  if (!body || !isRequestId(body.requestId, "screening") || body.consent !== true) return null;
   const name = normalizeName(body.name);
   const phone = normalizePhone(body.phone);
   return name && phone ? { requestId: body.requestId, name, phone } : null;

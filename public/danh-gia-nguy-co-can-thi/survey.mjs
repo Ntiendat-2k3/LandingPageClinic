@@ -6,6 +6,22 @@ const submitError = document.getElementById("submitError");
 const submitButton = document.getElementById("showResult");
 let requestId = null;
 
+function generateScreeningId() {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Bangkok",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(new Date()).map(({ type, value }) => [type, value])
+  );
+  const dateStr = `${parts.year}${parts.month}${parts.day}`;
+  const rand = (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function")
+    ? crypto.randomUUID().replace(/-/g, "").slice(0, 6)
+    : Math.random().toString(16).slice(2, 8).padEnd(6, "0");
+  return `screening-${dateStr}-${rand}`;
+}
+
 form.addEventListener("change", () => {
   requestId = null;
   questionError.classList.add("hidden");
@@ -31,7 +47,7 @@ form.addEventListener("submit", async (event) => {
     document.getElementById("consent").focus();
     return;
   }
-  requestId ??= crypto.randomUUID();
+  requestId ??= generateScreeningId();
   submitButton.disabled = true;
   submitButton.textContent = "Đang lưu câu trả lời...";
   submitError.classList.add("hidden");
