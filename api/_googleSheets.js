@@ -59,7 +59,7 @@ async function getAccessToken() {
 
 async function sheetsRequest(spreadsheetId, range, options = {}) {
   const token = await getAccessToken();
-  const writeQuery = options.update ? "?valueInputOption=RAW" : options.append ? ":append?valueInputOption=RAW&insertDataOption=INSERT_ROWS" : "";
+  const writeQuery = options.update ? "?valueInputOption=RAW" : options.append ? ":append?valueInputOption=RAW&insertDataOption=OVERWRITE" : "";
   const url = `${SHEETS_URL}/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(range)}${writeQuery}`;
   const response = await fetch(url, {
     method: options.update ? "PUT" : options.append ? "POST" : "GET",

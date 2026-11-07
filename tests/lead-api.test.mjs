@@ -309,3 +309,25 @@ test("không chấp nhận Origin khác và dữ liệu quá lớn", async () =>
   await bookingHandler(large, largeRes);
   assert.equal(largeRes.statusCode, 413);
 });
+
+test("chấp nhận Origin hợp lệ qua x-forwarded-host và chuẩn hóa www", async () => {
+  globalThis.fetch = async (_url, options) => {
+    if (options.method === "GET") return { ok: true, json: async () => ({ values: [new Array(8).fill("col")] }) };
+    return { ok: true, json: async () => ({}) };
+  };
+
+  const req1 = request(booking());
+  req1.headers.origin = "https://www.canthidrtrantuan.vn";
+  req1.headers["x-forwarded-host"] = "canthidrtrantuan.vn";
+  delete req1.headers.host;
+  const res1 = response();
+  await bookingHandler(req1, res1);
+  assert.equal(res1.statusCode, 200);
+
+  const req2 = request(booking());
+  req2.headers.origin = "https://canthidrtrantuan.vn";
+  req2.headers.host = "canthidrtrantuan.vn:443";
+  const res2 = response();
+  await bookingHandler(req2, res2);
+  assert.equal(res2.statusCode, 200);
+});

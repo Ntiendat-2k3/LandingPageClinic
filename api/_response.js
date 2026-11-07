@@ -6,11 +6,13 @@ export function parseRequest(req, res) {
     return null;
   }
   const origin = req.headers.origin;
-  const host = req.headers.host;
+  const host = req.headers["x-forwarded-host"] || req.headers.host;
   let originHost;
   try { originHost = origin ? new URL(origin).host : host; }
   catch { originHost = null; }
-  if (originHost !== host) {
+
+  const normalizeHost = (h) => (typeof h === "string" ? h.toLowerCase().replace(/^www\./, "").replace(/:\d+$/, "") : "");
+  if (!originHost || !host || normalizeHost(originHost) !== normalizeHost(host)) {
     res.status(403).json({ error: "ORIGIN_NOT_ALLOWED" });
     return null;
   }
