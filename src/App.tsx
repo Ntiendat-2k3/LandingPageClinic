@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import BookingSection from "./components/sections/BookingSection";
@@ -37,9 +38,36 @@ function HomePage() {
   );
 }
 
+/** Tự động gửi sự kiện page_view tới Google Tag (gtag) mỗi khi chuyển trang nội bộ trong React. */
+function PageViewTracker() {
+  const location = useLocation();
+  const isFirstMount = useRef(true);
+
+  useEffect(() => {
+    // Bỏ qua lượt đầu tiên vì mã gtag trong <head> của HTML đã tự động kích hoạt khi tải trang
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+
+    const windowWithGtag = window as unknown as { gtag?: (...args: unknown[]) => void };
+    if (typeof windowWithGtag.gtag === "function") {
+      const pagePath = location.pathname + location.search;
+      windowWithGtag.gtag("event", "page_view", {
+        page_path: pagePath,
+        page_location: window.location.href,
+        page_title: document.title,
+      });
+    }
+  }, [location]);
+
+  return null;
+}
+
 function App() {
   return (
     <div className="min-h-screen bg-background">
+      <PageViewTracker />
       <a
         href="#main-content"
         className="sr-only fixed left-4 top-4 z-50 rounded-lg bg-background px-4 py-2 text-foreground shadow-lg focus:not-sr-only"
