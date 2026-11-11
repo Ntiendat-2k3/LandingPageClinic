@@ -38,7 +38,7 @@ function HomePage() {
   );
 }
 
-/** Tự động gửi sự kiện page_view tới Google Tag (gtag) mỗi khi chuyển trang nội bộ trong React. */
+/** Tự động gửi sự kiện page_view tới Google Tag (gtag) và Meta Pixel (fbq) mỗi khi chuyển trang nội bộ trong React. */
 function PageViewTracker() {
   const location = useLocation();
   const isFirstMount = useRef(true);
@@ -58,6 +58,12 @@ function PageViewTracker() {
         page_location: window.location.href,
         page_title: document.title,
       });
+    }
+
+    // Meta Pixel chỉ tự gửi PageView một lần khi tải HTML, nên phải gửi lại khi chuyển route SPA.
+    const windowWithFbq = window as unknown as { fbq?: (...args: unknown[]) => void };
+    if (typeof windowWithFbq.fbq === "function") {
+      windowWithFbq.fbq("track", "PageView");
     }
   }, [location]);
 
